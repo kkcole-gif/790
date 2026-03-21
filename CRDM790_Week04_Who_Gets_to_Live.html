@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 4 · Who Gets to Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+    :root {
+      --night:   #090808;
+      --deep:    #0F0C0C;
+      --ink:     #141010;
+      --accent:  #B5352A;
+      --accent2: #D45A4A;
+      --parch:   #F0E8E2;
+      --bg-card: rgba(240,232,226,0.04);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'EB Garamond', Georgia, serif;
+      --font-mono:    'Inconsolata', monospace;
+    }
+    #slide-1 { background: linear-gradient(165deg, #090808 60%, #200A08 100%); }
+    #slide-2,#slide-3,#slide-4,#slide-5,#slide-6,#slide-7,#slide-8 { background: var(--deep); }
+    #slide-3,#slide-5 { background: var(--ink); }
+    .triad-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin:1rem 0; }
+    .triad-card { background:var(--bg-card); border:1px solid rgba(240,232,226,0.07); border-top:3px solid var(--accent); border-radius:4px; padding:1rem 1.2rem; }
+    .triad-card .tc-term { font-family:var(--font-display); font-size:1.05rem; font-weight:700; color:var(--accent); margin-bottom:0.4rem; }
+    .triad-card p { font-family:var(--font-body); font-size:0.9rem; color:rgba(240,232,226,0.72); line-height:1.5; }
+    .workshop-flow { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; flex:1; }
+    .wf-col { display:flex; flex-direction:column; gap:1rem; }
+    .example-prompt { background:rgba(181,53,42,0.1); border:1px solid rgba(181,53,42,0.3); border-left:4px solid var(--accent); border-radius:4px; padding:1rem 1.3rem; }
+    .example-prompt .ep-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.4rem; }
+    .example-prompt p { font-family:var(--font-display); font-size:1.05rem; font-style:italic; color:var(--parch); line-height:1.5; }
+  
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width:100%; height:100%; overflow:hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position:fixed; inset:0; z-index:0; pointer-events:none; }
+  #deck { position:relative; z-index:1; width:100vw; height:100vh; }
+  .slide { position:absolute; inset:0; display:flex; flex-direction:column; opacity:0; pointer-events:none; transition:opacity 0.5s ease; }
+  .slide.active { opacity:1; pointer-events:all; }
+  #nav { position:fixed; bottom:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0.6rem 2rem; background:rgba(0,0,0,0.7); border-top:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(10px); }
+  #slide-dots { display:flex; gap:0.45rem; align-items:center; }
+  .dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.18); cursor:pointer; transition:all 0.3s; }
+  .dot.active { background:var(--accent); transform:scale(1.5); }
+  .dot.visited { background:rgba(255,255,255,0.4); }
+  #nav-label { font-family:var(--font-mono); font-size:0.67rem; color:rgba(255,255,255,0.3); letter-spacing:0.12em; margin-left:1rem; }
+  .nav-btn { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.1em; color:var(--parch); background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); padding:0.35rem 1rem; cursor:pointer; transition:all 0.2s; border-radius:2px; }
+  .nav-btn:hover { background:rgba(255,255,255,0.16); }
+  .nav-btn:disabled { opacity:0.3; cursor:default; }
+  #slide-counter { font-family:var(--font-mono); font-size:0.67rem; color:rgba(255,255,255,0.3); }
+  #progress-bar { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--accent),var(--accent2,var(--accent))); transition:width 0.4s ease; z-index:50; }
+  .slide-header { padding:1.1rem 4.5rem 0.9rem; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.07); flex-shrink:0; }
+  .course-tag { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.16em; color:rgba(255,255,255,0.25); text-transform:uppercase; }
+  .week-tag { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.16em; color:var(--accent); opacity:0.8; text-transform:uppercase; }
+  .slide-inner { flex:1; padding:2.8rem 4.5rem 4.8rem; display:flex; flex-direction:column; overflow:hidden; }
+  .slide-eyebrow { font-family:var(--font-mono); font-size:0.69rem; letter-spacing:0.2em; color:var(--accent); text-transform:uppercase; margin-bottom:1rem; display:flex; align-items:center; gap:0.7rem; }
+  .slide-eyebrow::before { content:''; display:block; width:1.8rem; height:1px; background:var(--accent); opacity:0.6; }
+  .slide-h1 { font-family:var(--font-display); font-size:clamp(2.4rem,4.5vw,3.6rem); font-weight:700; line-height:1.1; color:var(--parch); margin-bottom:0.4rem; }
+  .slide-h1 em { font-style:italic; color:var(--accent); }
+  .slide-h2 { font-family:var(--font-display); font-size:clamp(1.5rem,2.4vw,2rem); font-weight:600; color:var(--parch); margin-bottom:1rem; line-height:1.2; }
+  .gold-rule { width:3.5rem; height:2px; background:linear-gradient(90deg,var(--accent),transparent); margin-bottom:1.6rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation:fadeUp 0.5s ease forwards; }
+  .slide.active .slide-header { animation:fadeUp 0.5s ease 0.04s forwards; opacity:0; animation-fill-mode:forwards; }
+  .help-overlay { display:none; position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; }
+  .help-overlay.visible { display:flex; }
+  .help-box { background:var(--bg-card,#1a1836); border:1px solid rgba(255,255,255,0.15); border-radius:6px; padding:2rem 2.5rem; max-width:440px; width:90%; }
+  .help-box h3 { font-family:var(--font-display); font-size:1.35rem; margin-bottom:1.2rem; color:var(--parch); }
+  .shortcut-row { display:flex; justify-content:space-between; align-items:center; padding:0.45rem 0; border-bottom:1px solid rgba(255,255,255,0.06); font-family:var(--font-body); font-size:0.93rem; color:rgba(255,255,255,0.65); }
+  .key { font-family:var(--font-mono); font-size:0.72rem; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.2); padding:0.18rem 0.5rem; border-radius:3px; color:var(--parch); }
+  .help-close { margin-top:1.1rem; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.12em; color:var(--accent); cursor:pointer; text-align:right; text-transform:uppercase; }
+  /* shared component styles */
+  .reading-box { background:var(--bg-card); border:1px solid rgba(255,255,255,0.09); border-left:3px solid var(--accent); border-radius:4px; padding:1.3rem 1.6rem; }
+  .reading-box .rb-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.18em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem; }
+  .reading-box p, .reading-box li { font-family:var(--font-body); font-size:1rem; color:rgba(255,255,255,0.8); line-height:1.6; }
+  .reading-box ul { list-style:none; }
+  .reading-box ul li::before { content:'·'; color:var(--accent); margin-right:0.5rem; }
+  .q-grid { display:flex; flex-direction:column; gap:0.85rem; flex:1; }
+  .q-card { display:flex; gap:1.3rem; align-items:flex-start; background:var(--bg-card); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:1.1rem 1.5rem; opacity:0; transform:translateY(10px); transition:opacity 0.4s, transform 0.4s, background 0.2s; cursor:pointer; user-select:none; }
+  .q-card:not(.revealed) { border-style:dashed; border-color:rgba(255,255,255,0.12); }
+  .q-card:not(.revealed):hover { border-color:var(--accent); background:rgba(255,255,255,0.03); }
+  .q-card.revealed { opacity:1; transform:translateY(0); cursor:default; }
+  .q-card.revealed:hover { background:rgba(255,255,255,0.06); }
+  .q-num { font-family:var(--font-display); font-size:2rem; font-weight:700; color:var(--accent); opacity:0.3; line-height:1; flex-shrink:0; width:2.3rem; margin-top:-0.1rem; }
+  .q-card.revealed .q-num { opacity:1; }
+  .q-body { font-family:var(--font-body); font-size:1.05rem; line-height:1.55; color:var(--parch); }
+  .q-sub { display:block; font-style:italic; color:rgba(255,255,255,0.45); font-size:0.92rem; margin-top:0.25rem; }
+  .reveal-btn { display:flex; align-items:center; gap:0.6rem; margin:1.2rem auto 0; font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.16em; color:var(--accent); background:rgba(255,255,255,0.05); border:1px solid var(--accent); opacity:0.7; padding:0.55rem 1.4rem; cursor:pointer; border-radius:2px; transition:all 0.2s; text-transform:uppercase; }
+  .reveal-btn:hover { background:rgba(255,255,255,0.1); opacity:1; }
+  .reveal-hint { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.13em; color:rgba(255,255,255,0.25); text-align:center; margin-top:0.5rem; }
+  .steps-list { display:flex; flex-direction:column; gap:0.7rem; flex:1; }
+  .step-row { display:flex; gap:1.3rem; align-items:flex-start; background:var(--bg-card); border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:0.85rem 1.2rem; transition:all 0.3s; cursor:pointer; }
+  .step-row.current { background:rgba(255,255,255,0.07); border-color:var(--accent); }
+  .step-row.done { opacity:0.42; }
+  .step-row.done .step-num { background:var(--accent); border-color:var(--accent); color:#000; }
+  .step-num { width:1.9rem; height:1.9rem; border-radius:50%; border:1.5px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.72rem; color:rgba(255,255,255,0.5); flex-shrink:0; transition:all 0.3s; margin-top:0.1rem; }
+  .step-row.current .step-num { background:var(--accent); border-color:var(--accent); color:#000; }
+  .step-title { font-family:var(--font-body); font-size:1rem; font-weight:500; color:var(--parch); line-height:1.3; margin-bottom:0.15rem; }
+  .step-detail { font-family:var(--font-body); font-size:0.88rem; font-style:italic; color:rgba(255,255,255,0.48); line-height:1.4; }
+  .step-note { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; color:var(--accent); margin-top:0.25rem; opacity:0.8; }
+  .timer-display { text-align:center; margin:1rem 0; }
+  .timer-big { font-family:var(--font-mono); font-size:clamp(5rem,12vw,8rem); color:var(--accent); letter-spacing:0.06em; line-height:1; transition:color 0.3s; }
+  .timer-big.urgent { color:#E86B4B; }
+  .timer-label { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.2em; color:rgba(255,255,255,0.3); text-transform:uppercase; margin-top:0.3rem; }
+  .timer-controls { display:flex; gap:0.8rem; justify-content:center; margin-top:0.8rem; }
+  .timer-btn { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.13em; text-transform:uppercase; padding:0.5rem 1.3rem; cursor:pointer; border-radius:2px; transition:all 0.2s; border:none; }
+  .timer-btn.primary { background:var(--accent); color:#000; }
+  .timer-btn.primary:hover { opacity:0.85; }
+  .timer-btn.secondary { background:rgba(255,255,255,0.08); color:var(--parch); border:1px solid rgba(255,255,255,0.2); }
+  .udl-row { display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:0.8rem; }
+  .udl-chip { display:flex; align-items:center; gap:0.4rem; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:3px; padding:0.38rem 0.75rem; font-family:var(--font-body); font-size:0.86rem; color:rgba(255,255,255,0.65); }
+  .milestone-card { background:rgba(181,52,42,0.14); border:1px solid rgba(220,80,60,0.35); border-left:4px solid #DC503C; border-radius:4px; padding:1.4rem 1.8rem; }
+  .m-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.18em; color:#E8845A; text-transform:uppercase; margin-bottom:0.4rem; }
+  .m-title { font-family:var(--font-display); font-size:1.6rem; font-weight:700; color:var(--parch); margin-bottom:0.3rem; }
+  .m-meta { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.1em; color:rgba(255,255,255,0.4); margin-bottom:0.8rem; }
+  .m-body { font-family:var(--font-body); font-size:1rem; color:rgba(255,255,255,0.78); line-height:1.6; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; flex:1; }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.2rem; }
+  .info-card { background:var(--bg-card); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:1.1rem 1.3rem; }
+  .info-card .ic-label { font-family:var(--font-mono); font-size:0.61rem; letter-spacing:0.17em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem; }
+  .info-card p, .info-card li { font-family:var(--font-body); font-size:0.97rem; color:rgba(255,255,255,0.75); line-height:1.55; }
+  .info-card ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .info-card ul li { display:flex; gap:0.6rem; }
+  .info-card ul li::before { content:'→'; color:var(--accent); flex-shrink:0; opacity:0.6; }
+  .info-card .ic-head { font-family:var(--font-display); font-size:1rem; font-weight:600; color:var(--parch); margin-bottom:0.4rem; }
+  .next-card { background:rgba(107,82,184,0.13); border:1px solid rgba(107,82,184,0.3); border-radius:4px; padding:1.1rem 1.3rem; }
+  .next-card .nc-label { font-family:var(--font-mono); font-size:0.61rem; letter-spacing:0.17em; color:#A08EE8; text-transform:uppercase; margin-bottom:0.4rem; }
+  .next-card .nc-title { font-family:var(--font-display); font-size:1.15rem; color:var(--parch); margin-bottom:0.35rem; }
+  .next-card p { font-family:var(--font-body); font-size:0.93rem; font-style:italic; color:rgba(255,255,255,0.5); line-height:1.5; }
+  .tag { display:inline-block; font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.14em; padding:0.13rem 0.45rem; border-radius:2px; margin-left:0.45rem; vertical-align:middle; text-transform:uppercase; }
+  .tag-activity { background:rgba(201,168,76,0.18); color:#C9A84C; }
+  .tag-discussion { background:rgba(107,82,184,0.22); color:#A08EE8; }
+  .tag-writing { background:rgba(74,124,111,0.22); color:#8BC4B5; }
+  .tag-break { background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.35); }
+  .tag-milestone { background:rgba(220,80,60,0.2); color:#E8845A; }
+  .timeline-wrap { display:flex; flex-direction:column; gap:0; flex:1; overflow:hidden; }
+  .tl-item { display:grid; grid-template-columns:6.5rem 1.8rem 1fr; gap:0 1rem; align-items:start; padding:0.75rem 0.5rem; border-radius:4px; transition:background 0.2s; }
+  .tl-item:hover { background:rgba(255,255,255,0.03); }
+  .tl-time { font-family:var(--font-mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.06em; padding-top:0.12rem; text-align:right; }
+  .tl-line { display:flex; flex-direction:column; align-items:center; }
+  .tl-dot { width:9px; height:9px; border-radius:50%; border:1.5px solid var(--accent); background:transparent; flex-shrink:0; margin-top:0.18rem; }
+  .tl-conn { width:1px; flex:1; background:rgba(255,255,255,0.12); min-height:1.2rem; }
+  .tl-item:last-child .tl-conn { display:none; }
+  .tl-label { font-family:var(--font-body); font-size:1rem; color:var(--parch); font-weight:500; line-height:1.3; margin-bottom:0.15rem; }
+  .tl-desc { font-family:var(--font-body); font-size:0.86rem; font-style:italic; color:rgba(255,255,255,0.45); line-height:1.4; }
+
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+<div id="help-overlay" class="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><kbd class="key">→</kbd> <kbd class="key">Space</kbd></span></div>
+    <div class="shortcut-row"><span>Previous slide</span><span><kbd class="key">←</kbd></span></div>
+    <div class="shortcut-row"><span>Reveal next question</span><span><kbd class="key">Enter</kbd></span></div>
+    <div class="shortcut-row"><span>Start / pause timer</span><span><kbd class="key">T</kbd></span></div>
+    <div class="shortcut-row"><span>Reset timer</span><span><kbd class="key">R</kbd></span></div>
+    <div class="shortcut-row"><span>First / last slide</span><span><kbd class="key">Home</kbd> / <kbd class="key">End</kbd></span></div>
+    <div class="shortcut-row"><span>Help</span><span><kbd class="key">?</kbd></span></div>
+    <div class="shortcut-row"><span>Close</span><span><kbd class="key">Esc</kbd></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+<div id="deck">
+
+  <!-- SLIDE 1: TITLE -->
+  <div class="slide active" id="slide-1">
+    <div class="slide-inner" style="justify-content:center;padding:4rem 5rem;">
+      <div style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;opacity:0.8;margin-bottom:0.5rem;">Movement I · Week 4</div>
+      <div style="font-family:var(--font-body);font-size:0.93rem;font-style:italic;color:rgba(240,232,226,0.35);margin-bottom:3.5rem;">Who Are We and What Do We Think?</div>
+      <div style="font-family:var(--font-display);font-size:clamp(3.5rem,7.5vw,6.5rem);font-weight:700;line-height:0.95;color:var(--parch);margin-bottom:0.6rem;"><em style="color:var(--accent2);font-style:italic;">Who Gets</em><br>to Live</div>
+      <div style="font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.2em;color:rgba(240,232,226,0.2);margin-bottom:3.5rem;">WEEK 4 · CRDM 790</div>
+      <div style="max-width:40rem;border-left:3px solid rgba(181,53,42,0.4);padding-left:1.4rem;">
+        <p style="font-family:var(--font-display);font-size:1.05rem;font-style:italic;color:rgba(240,232,226,0.55);line-height:1.65;">"Sovereignty is the capacity to define who matters and who does not, who is disposable and who is not."</p>
+        <cite style="display:block;margin-top:0.5rem;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;color:rgba(240,232,226,0.25);font-style:normal;">— Achille Mbembe, Necropolitics</cite>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: SESSION MAP -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 4</span><span class="week-tag">Session Map</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Today's 3.5 Hours</div>
+      <div class="slide-h2">Sovereignty, Death-Worlds, and the Bodies We Study</div>
+      <div class="gold-rule"></div>
+      <div class="timeline-wrap">
+        <div class="tl-item"><div class="tl-time">0:00–0:20</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Foucault → Mbembe: where does biopolitics stop short? <span class="tag tag-discussion">Framing</span></div><div class="tl-desc">Open by establishing what Foucault says about biopower. Then: where does Mbembe say Foucault stops? (pp. 66–68). The extension to death — not just life — is the conceptual move.</div></div></div>
+        <div class="tl-item"><div class="tl-time">0:20–1:10</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Core concepts + Palestine analysis <span class="tag tag-discussion">Discussion</span></div><div class="tl-desc">Sovereignty, state of exception, death-world, necropower. The Palestine occupation section (pp. 75–85) gets extended attention — this is the most concrete section and the most politically charged. Do not avoid it.</div></div></div>
+        <div class="tl-item"><div class="tl-time">1:10–1:45</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Students share examples from pre-class prompt <span class="tag tag-discussion">Sharing</span></div><div class="tl-desc">These anchor the abstract argument in something concrete. Be prepared for examples that are graphic or personally resonant — hold the room.</div></div></div>
+        <div class="tl-item"><div class="tl-time">1:45–2:00</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Break <span class="tag tag-break">Rest</span></div></div></div>
+        <div class="tl-item"><div class="tl-time">2:00–3:00</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Concept Translation Workshop — pairs <span class="tag tag-activity">Activity</span></div><div class="tl-desc">Map the making live / letting die / making die triad onto partners' examples. Test where the concept holds and where it strains.</div></div></div>
+        <div class="tl-item"><div class="tl-time">3:00–3:30</div><div class="tl-line"><div class="tl-dot"></div></div><div><div class="tl-label">Synthesis + Preview Week 5</div><div class="tl-desc">How does necropolitics sit alongside Giroux and Benjamin? What critical vocabulary are we building? Transition: next week Brown asks what the university does to make this possible.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: READING GUIDE -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 4</span><span class="week-tag">Reading Guide</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">This Week's Text</div>
+      <div class="slide-h1">Mbembe, <em>Necropolitics</em></div>
+      <div class="gold-rule"></div>
+
+      <div class="two-col" style="gap:1.2rem;margin-bottom:1rem;">
+        <div>
+          <div class="reading-box" style="margin-bottom:1rem;">
+            <div class="rb-label">Assigned (Perusall) · Duke UP 2019, trans. Corcoran</div>
+            <ul>
+              <li>Introduction — pp. 1–14 (~14 pp.)</li>
+              <li>Chapter 3 'Necropolitics' — pp. 66–92 (~27 pp.) — <em>this is the conceptual core</em></li>
+            </ul>
+          </div>
+          <div class="reading-box" style="margin-bottom:1rem;">
+            <div class="rb-label">Discussion Anchor Pages</div>
+            <ul>
+              <li>Mbembe on sovereignty and exception — pp. 66–68</li>
+              <li>Colonial occupation of Palestine — pp. 75–85 — most concrete; most charged</li>
+            </ul>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Suggested (Not Required)</div>
+            <ul>
+              <li>Frantz Fanon, <em>The Wretched of the Earth</em> — Introduction + Preface</li>
+              <li>Christina Sharpe, <em>In the Wake</em></li>
+            </ul>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="reading-box">
+            <div class="rb-label">Pre-Class Writing Prompt (Perusall)</div>
+            <p>Identify one concept from Mbembe directly applicable to your research area. Write a 3–4 sentence annotation explaining how — not just "this relates to power" but what specific mechanism, operating in what you study.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Bring to Class</div>
+            <p>One example — from media, policy, your archive, or your community — that you think illustrates necropolitical logic. Be ready to put it on the table.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="triad-grid">
+        <div class="triad-card"><div class="tc-term">Making Live</div><p>Foucault's biopower — the investment of power in producing life, health, population. Who is supported, cared for, made to flourish.</p></div>
+        <div class="triad-card"><div class="tc-term">Letting Die</div><p>The withdrawal of support — exposure to death through neglect, abandonment, deprivation. Not active killing, but structural indifference.</p></div>
+        <div class="triad-card"><div class="tc-term">Making Die</div><p>Mbembe's extension — the direct, sovereign exercise of the right to kill. Who is targeted, eliminated, made to inhabit a death-world.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: GUIDING QUESTIONS -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 4</span><span class="week-tag">Discussion Questions</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Seminar · 0:20–1:45</div>
+      <div class="slide-h1">Questions Worth<br><em>Sitting With</em></div>
+      <div class="gold-rule"></div>
+      <div class="q-grid">
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">1</div><div class="q-body">Mbembe builds on Foucault's biopolitics — not just who is 'made to live' but who is 'let die,' or actively made to die. How does that distinction change how you think about power in your research area?<span class="q-sub">'Necropolitics' is not a metaphor for Mbembe. It describes actual bodies. Where do you see this logic operating in what you study?</span></div></div>
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">2</div><div class="q-body">What does it mean for humanistic scholarship to 'take seriously the bodies it touches'? What would change in your own project if you foregrounded that?<span class="q-sub">Not just as a theoretical gesture — but in how you frame your problem, who you cite, what sources you use.</span></div></div>
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">3</div><div class="q-body">Mbembe writes from a specific historical and geographic context. How does that situatedness shape his argument — and what work does that do for you as a reader arriving from a different position?<span class="q-sub">How do you use a framework built from one context in a different one — without erasing either?</span></div></div>
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">4</div><div class="q-body">How does Mbembe's framework sit alongside or complicate the frameworks from Weeks 2 and 3?<span class="q-sub">Giroux shows what education does. Benjamin shows what history does. What does Mbembe add that neither of them can say? Where do they conflict?</span></div></div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextQuestion()">✦ &nbsp;Reveal Question 1</button>
+      <div class="reveal-hint" id="reveal-hint">Click any card or this button · or press Enter</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: CONCEPT TRANSLATION WORKSHOP -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 4</span><span class="week-tag">Hands-On Activity</span></div>
+    <div class="slide-inner">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.2rem;">
+        <div>
+          <div class="slide-eyebrow">Activity · 2:00–3:00</div>
+          <div class="slide-h2">Concept Translation Workshop</div>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:0.67rem;letter-spacing:0.18em;color:var(--accent);background:rgba(181,53,42,0.12);border:1px solid rgba(181,53,42,0.3);padding:0.35rem 0.8rem;border-radius:2px;">60 minutes total</div>
+      </div>
+      <div class="steps-list">
+        <div class="step-row current" onclick="advanceStep(0)">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Share examples — 20 min (2 min each, no interruption)</div>
+            <div class="step-detail">Each person shares the example they brought from the pre-class prompt. No questions during the sharing — just listen. What is the phenomenon? What is the argument being made about it?</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(1)">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Pairs analysis — 10 min → use next slide for timer</div>
+            <div class="step-detail">In pairs: Take Mbembe's making live / letting die / making die triad and map it onto your partner's example. Which part of the triad does it fit — and does it fit cleanly, or does it strain?</div>
+            <div class="step-note">Push each other: Is this actually necropolitical, or is a different framework more useful? Precision matters — Mbembe is making a material claim about sovereignty, not a metaphor.</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(2)">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Full group debrief — 20 min → use Slide 7</div>
+            <div class="step-detail">Where did the concept hold? Where did it strain? What does that tell us about the limits and the power of critical theory? What does a concept have to give up to travel to a new context?</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(3)">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Individual writing seed — 5 min</div>
+            <div class="step-detail">Write one sentence: <em>"Reading Mbembe has shifted / not shifted how I frame my research problem because ___."</em></div>
+            <div class="step-note">Keep this for your Scholarly Identity Statement (due Week 5).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: TIMER -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 4</span><span class="week-tag">Activity · Step 2</span></div>
+    <div class="slide-inner" style="justify-content:space-between;">
+      <div>
+        <div class="slide-eyebrow">Concept Translation Workshop · Pairs Analysis</div>
+        <div class="slide-h2">Map the triad onto your partner's example</div>
+      </div>
+      <div class="timer-display">
+        <div class="timer-big" id="timer-display">10:00</div>
+        <div class="timer-label" id="timer-status">Ready to start</div>
+        <div class="timer-controls">
+          <button class="timer-btn primary" id="timer-start-btn" onclick="toggleTimer()">Start Timer</button>
+          <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+      <div class="triad-grid">
+        <div class="triad-card"><div class="tc-term">Making Live</div><p>Who does your partner's example invest in? Who is made to flourish — and what does that investment require?</p></div>
+        <div class="triad-card"><div class="tc-term">Letting Die</div><p>Who is abandoned, exposed, structurally neglected? Not killed — but left in conditions that produce death or precarity.</p></div>
+        <div class="triad-card"><div class="tc-term">Making Die</div><p>Where does the sovereign exercise of killing appear? Who is targeted, and through what mechanism?</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: DEBRIEF -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 4</span><span class="week-tag">Full Group Debrief</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Full Group · 3:00–3:30</div>
+      <div class="slide-h2">Where Did the Concept Hold? Where Did It Strain?</div>
+      <div class="gold-rule"></div>
+      <div class="workshop-flow">
+        <div class="wf-col">
+          <div class="info-card" style="flex:1;">
+            <div class="ic-label">The debrief questions</div>
+            <ul>
+              <li>Where did the triad apply cleanly to your partner's example?</li>
+              <li>Where did it strain — where did a different framework feel more precise?</li>
+              <li>What does that tell us about the difference between a concept's power and its limits?</li>
+              <li>What would have to be true of your example for Mbembe to fully describe it?</li>
+            </ul>
+          </div>
+          <div class="info-card" style="flex:1;">
+            <div class="ic-label">Facilitation note</div>
+            <p>Watch for well-meaning appropriation — students applying 'necropolitics' to everything until it loses specificity. Help them stay precise. Mbembe is making a material claim about sovereignty, not a metaphor for "bad things happening."</p>
+          </div>
+        </div>
+        <div class="wf-col">
+          <div class="example-prompt">
+            <div class="ep-label">Individual Writing Seed</div>
+            <p>"Reading Mbembe has shifted / not shifted how I frame my research problem because ___."</p>
+          </div>
+          <div class="info-card" style="flex:1;">
+            <div class="ic-label">Connecting the vocabulary so far</div>
+            <ul>
+              <li><strong>Giroux:</strong> Education domesticates or liberates — what you're trained to think</li>
+              <li><strong>Benjamin:</strong> History is not past — what you're working in the wreckage of</li>
+              <li><strong>Mbembe:</strong> Sovereignty determines who lives — what your research field touches</li>
+              <li><strong>Next week (Brown):</strong> The university is the institution where this all happens</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: LOOKING AHEAD -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 4</span><span class="week-tag">Looking Ahead</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Leave</div>
+      <div class="slide-h2">Week 5 — and Milestone 1</div>
+      <div class="gold-rule"></div>
+      <div class="two-col">
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="info-card">
+            <div class="ic-label">Reading for Week 5 (Perusall)</div>
+            <ul>
+              <li>Wendy Brown, <em>Undoing the Demos</em> (Zone Books 2015)</li>
+              <li>Introduction — pp. 7–21</li>
+              <li>Chapter 1 'Undoing Democracy' — pp. 23–62</li>
+              <li>Chapter 6 'Educating Human Capital' — pp. 175–222 — <em>most directly relevant to your situation</em></li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <div class="ic-label">Perusall annotation prompt</div>
+            <p>Find one moment in Brown where you feel <em>implicated</em> — where her argument lands on you, not just on an abstraction. Write an honest annotation. "I feel implicated because ___."</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="milestone-card">
+            <div class="m-label">Milestone 1 DUE — Week 5 — Before Class</div>
+            <div class="m-title">Scholarly Identity Statement</div>
+            <div class="m-meta">~500 words · 20% of final grade · Moodle, email, or hard copy</div>
+            <div class="m-body">You now have four writing seeds: constellation card (W1), assumption to interrogate (W2), wreckage you're working in (W3), and how Mbembe has shifted your framing (W4). The Scholarly Identity Statement draws on all of these. Write from conviction, not for a committee.</div>
+          </div>
+          <div class="info-card">
+            <div class="ic-label">Submission options</div>
+            <ul>
+              <li>Moodle upload (PDF, Word, or plain text)</li>
+              <li>Email to kkcole2@ncsu.edu</li>
+              <li>Hard copy before class</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div id="nav">
+  <div style="display:flex;align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 4 · MBEMBE</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex;gap:0.7rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+<script>
+
+(function(){
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+  function init(){
+    stars=[];
+    for(let i=0;i<90;i++){
+      stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,
+        r:Math.random()*1.1+0.2,a:Math.random()*0.55+0.08,
+        speed:Math.random()*0.0003+0.0001,phase:Math.random()*Math.PI*2});
+    }
+    stars.lines=[];
+    for(let i=0;i<5;i++){
+      const a=Math.floor(Math.random()*stars.length),b=Math.floor(Math.random()*stars.length);
+      if(Math.hypot(stars[a].x-stars[b].x,stars[a].y-stars[b].y)<120) stars.lines.push([a,b]);
+    }
+  }
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    frame++;
+    ctx.strokeStyle='rgba(180,50,40,0.06)';
+    ctx.lineWidth=0.5;
+    stars.lines&&stars.lines.forEach(([a,b])=>{
+      ctx.beginPath();ctx.moveTo(stars[a].x,stars[a].y);ctx.lineTo(stars[b].x,stars[b].y);ctx.stroke();
+    });
+    stars.forEach(s=>{
+      const pulse=Math.sin(frame*s.speed+s.phase);
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(245,237,216,${s.a*(0.7+0.3*pulse)})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{resize();init();});
+  resize();init();draw();
+})();
+
+const TOTAL = 8;
+let current = 1;
+let visited = new Set([1]);
+let questionsRevealed = 0;
+let currentStep = 0;
+let timerSeconds = 600;
+let timerRunning = false;
+let timerInterval = null;
+const slideNames = ["Title","Session Map","Mbembe — Reading Guide","Guiding Questions","Concept Translation Workshop","Workshop Timer","Full Group Debrief","Looking Ahead"];
+
+function goTo(n) {
+  if (n < 1 || n > TOTAL) return;
+  document.getElementById('slide-' + current).classList.remove('active');
+  current = n;
+  visited.add(n);
+  document.getElementById('slide-' + n).classList.add('active');
+  if (n === 4 && questionsRevealed === 0) setTimeout(() => revealNextQuestion(), 400);
+  updateNav();
+}
+function nextSlide() { goTo(current + 1); }
+function prevSlide() { goTo(current - 1); }
+function updateNav() {
+  document.getElementById('prev-btn').disabled = current === 1;
+  document.getElementById('next-btn').disabled = current === TOTAL;
+  document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
+  document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
+  const dc = document.getElementById('slide-dots');
+  dc.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === current ? ' active' : (visited.has(i) ? ' visited' : ''));
+    d.onclick = () => goTo(i);
+    d.title = slideNames[i - 1] || '';
+    dc.appendChild(d);
+  }
+}
+function revealNextQuestion() {
+  const cards = document.querySelectorAll('.q-card');
+  if (questionsRevealed < cards.length) { cards[questionsRevealed].classList.add('revealed'); questionsRevealed++; }
+  const btn = document.getElementById('reveal-btn');
+  if (!btn) return;
+  if (questionsRevealed >= cards.length) {
+    btn.textContent = '✓  All Questions Revealed';
+    btn.style.opacity = '0.3'; btn.style.cursor = 'default'; btn.onclick = null;
+    const hint = document.getElementById('reveal-hint');
+    if (hint) hint.style.opacity = '0';
+  } else {
+    btn.textContent = '✦  Reveal Question ' + (questionsRevealed + 1);
+  }
+}
+function advanceStep(i) {
+  document.querySelectorAll('.step-row').forEach((r, idx) => {
+    r.classList.remove('current', 'done');
+    if (idx < i) r.classList.add('done');
+    else if (idx === i) r.classList.add('current');
+  });
+}
+function toggleTimer() {
+  timerRunning ? pauseTimer() : startTimer();
+}
+function startTimer() {
+  timerRunning = true;
+  const sb = document.getElementById('timer-start-btn');
+  const sl = document.getElementById('timer-status');
+  if (sb) sb.textContent = 'Pause';
+  if (sl) sl.textContent = 'Concept Translation Workshop in pairs';
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval); timerRunning = false;
+      const d = document.getElementById('timer-display');
+      if (d) { d.textContent = 'Done!'; d.classList.remove('urgent'); }
+      if (sb) sb.textContent = 'Start Timer';
+      if (sl) sl.textContent = 'Return to full group debrief';
+      try {
+        const ac = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ac.createOscillator(); const g = ac.createGain();
+        osc.connect(g); g.connect(ac.destination);
+        osc.frequency.value = 660; g.gain.setValueAtTime(0.3, ac.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 1.5);
+        osc.start(); osc.stop(ac.currentTime + 1.5);
+      } catch(e){}
+    }
+  }, 1000);
+}
+function pauseTimer() {
+  timerRunning = false; clearInterval(timerInterval);
+  const sb = document.getElementById('timer-start-btn');
+  const sl = document.getElementById('timer-status');
+  if (sb) sb.textContent = 'Resume';
+  if (sl) sl.textContent = 'Paused';
+}
+function resetTimer() {
+  pauseTimer(); timerSeconds = 600; timerRunning = false;
+  const sb = document.getElementById('timer-start-btn');
+  if (sb) sb.textContent = 'Start Timer';
+  const sl = document.getElementById('timer-status');
+  if (sl) sl.textContent = 'Ready to start';
+  updateTimerDisplay();
+}
+function updateTimerDisplay() {
+  const el = document.getElementById('timer-display');
+  if (!el) return;
+  const m = Math.floor(timerSeconds / 60), s = timerSeconds % 60;
+  el.textContent = m + ':' + String(s).padStart(2,'0');
+  timerSeconds <= 60 ? el.classList.add('urgent') : el.classList.remove('urgent');
+}
+function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
+function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
+document.addEventListener('keydown', e => {
+  if (document.getElementById('help-overlay').classList.contains('visible')) { if(e.key==='Escape') closeHelp(); return; }
+  switch(e.key) {
+    case 'ArrowRight': case ' ': e.preventDefault(); nextSlide(); break;
+    case 'ArrowLeft': e.preventDefault(); prevSlide(); break;
+    case 'Enter': if(current===4){e.preventDefault();revealNextQuestion();} break;
+    case 't': case 'T': if(current===6) toggleTimer(); break;
+    case 'r': case 'R': if(current===6) resetTimer(); break;
+    case 'Home': goTo(1); break;
+    case 'End': goTo(TOTAL); break;
+    case '?': toggleHelp(); break;
+    case 'Escape': closeHelp(); break;
+  }
+});
+updateNav();
+
+
+</script>
+</body>
+</html>

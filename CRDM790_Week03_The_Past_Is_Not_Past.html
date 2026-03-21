@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 3 · The Past Is Not Past</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+    :root {
+      --night:   #0F0C07;
+      --deep:    #17120A;
+      --ink:     #1C1610;
+      --accent:  #C9943A;
+      --accent2: #E8B84B;
+      --parch:   #F5EDD8;
+      --bg-card: rgba(245,237,216,0.04);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'EB Garamond', Georgia, serif;
+      --font-mono:    'Inconsolata', monospace;
+    }
+    #slide-1 { background: linear-gradient(160deg, #0F0C07 55%, #2A1D08 100%); }
+    #slide-2 { background: var(--deep); }
+    #slide-3 { background: var(--ink); }
+    #slide-4 { background: var(--deep); }
+    #slide-5 { background: var(--night); }
+    #slide-6 { background: var(--ink); }
+    #slide-7 { background: var(--deep); }
+    #slide-8 { background: var(--night); }
+    .thesis-pull { font-family:var(--font-display); font-size:1.15rem; font-style:italic; color:var(--parch); line-height:1.65; background:rgba(201,148,58,0.08); border-left:3px solid var(--accent); padding:1rem 1.4rem; border-radius:0 4px 4px 0; margin:0.5rem 0; }
+    .thesis-pull cite { display:block; margin-top:0.5rem; font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:rgba(245,237,216,0.35); font-style:normal; }
+    .aura-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.9rem; margin-top:0.5rem; }
+    .aura-card { background:var(--bg-card); border:1px solid rgba(245,237,216,0.08); border-radius:4px; padding:0.9rem 1.1rem; }
+    .aura-card .ac-term { font-family:var(--font-display); font-size:1.05rem; font-weight:600; color:var(--accent); margin-bottom:0.3rem; }
+    .aura-card p { font-family:var(--font-body); font-size:0.9rem; color:rgba(245,237,216,0.7); line-height:1.5; }
+    .object-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; margin-top:0.5rem; }
+    .object-card { background:var(--bg-card); border:1px solid rgba(245,237,216,0.08); border-radius:4px; padding:1rem 1.2rem; }
+    .object-card .oc-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.4rem; }
+    .object-card p { font-family:var(--font-body); font-size:0.93rem; color:rgba(245,237,216,0.72); line-height:1.5; }
+  
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width:100%; height:100%; overflow:hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position:fixed; inset:0; z-index:0; pointer-events:none; }
+  #deck { position:relative; z-index:1; width:100vw; height:100vh; }
+  .slide { position:absolute; inset:0; display:flex; flex-direction:column; opacity:0; pointer-events:none; transition:opacity 0.5s ease; }
+  .slide.active { opacity:1; pointer-events:all; }
+  #nav { position:fixed; bottom:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0.6rem 2rem; background:rgba(0,0,0,0.7); border-top:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(10px); }
+  #slide-dots { display:flex; gap:0.45rem; align-items:center; }
+  .dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.18); cursor:pointer; transition:all 0.3s; }
+  .dot.active { background:var(--accent); transform:scale(1.5); }
+  .dot.visited { background:rgba(255,255,255,0.4); }
+  #nav-label { font-family:var(--font-mono); font-size:0.67rem; color:rgba(255,255,255,0.3); letter-spacing:0.12em; margin-left:1rem; }
+  .nav-btn { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.1em; color:var(--parch); background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); padding:0.35rem 1rem; cursor:pointer; transition:all 0.2s; border-radius:2px; }
+  .nav-btn:hover { background:rgba(255,255,255,0.16); }
+  .nav-btn:disabled { opacity:0.3; cursor:default; }
+  #slide-counter { font-family:var(--font-mono); font-size:0.67rem; color:rgba(255,255,255,0.3); }
+  #progress-bar { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--accent),var(--accent2,var(--accent))); transition:width 0.4s ease; z-index:50; }
+  .slide-header { padding:1.1rem 4.5rem 0.9rem; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.07); flex-shrink:0; }
+  .course-tag { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.16em; color:rgba(255,255,255,0.25); text-transform:uppercase; }
+  .week-tag { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.16em; color:var(--accent); opacity:0.8; text-transform:uppercase; }
+  .slide-inner { flex:1; padding:2.8rem 4.5rem 4.8rem; display:flex; flex-direction:column; overflow:hidden; }
+  .slide-eyebrow { font-family:var(--font-mono); font-size:0.69rem; letter-spacing:0.2em; color:var(--accent); text-transform:uppercase; margin-bottom:1rem; display:flex; align-items:center; gap:0.7rem; }
+  .slide-eyebrow::before { content:''; display:block; width:1.8rem; height:1px; background:var(--accent); opacity:0.6; }
+  .slide-h1 { font-family:var(--font-display); font-size:clamp(2.4rem,4.5vw,3.6rem); font-weight:700; line-height:1.1; color:var(--parch); margin-bottom:0.4rem; }
+  .slide-h1 em { font-style:italic; color:var(--accent); }
+  .slide-h2 { font-family:var(--font-display); font-size:clamp(1.5rem,2.4vw,2rem); font-weight:600; color:var(--parch); margin-bottom:1rem; line-height:1.2; }
+  .gold-rule { width:3.5rem; height:2px; background:linear-gradient(90deg,var(--accent),transparent); margin-bottom:1.6rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation:fadeUp 0.5s ease forwards; }
+  .slide.active .slide-header { animation:fadeUp 0.5s ease 0.04s forwards; opacity:0; animation-fill-mode:forwards; }
+  .help-overlay { display:none; position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; }
+  .help-overlay.visible { display:flex; }
+  .help-box { background:var(--bg-card,#1a1836); border:1px solid rgba(255,255,255,0.15); border-radius:6px; padding:2rem 2.5rem; max-width:440px; width:90%; }
+  .help-box h3 { font-family:var(--font-display); font-size:1.35rem; margin-bottom:1.2rem; color:var(--parch); }
+  .shortcut-row { display:flex; justify-content:space-between; align-items:center; padding:0.45rem 0; border-bottom:1px solid rgba(255,255,255,0.06); font-family:var(--font-body); font-size:0.93rem; color:rgba(255,255,255,0.65); }
+  .key { font-family:var(--font-mono); font-size:0.72rem; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.2); padding:0.18rem 0.5rem; border-radius:3px; color:var(--parch); }
+  .help-close { margin-top:1.1rem; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.12em; color:var(--accent); cursor:pointer; text-align:right; text-transform:uppercase; }
+  /* shared component styles */
+  .reading-box { background:var(--bg-card); border:1px solid rgba(255,255,255,0.09); border-left:3px solid var(--accent); border-radius:4px; padding:1.3rem 1.6rem; }
+  .reading-box .rb-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.18em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem; }
+  .reading-box p, .reading-box li { font-family:var(--font-body); font-size:1rem; color:rgba(255,255,255,0.8); line-height:1.6; }
+  .reading-box ul { list-style:none; }
+  .reading-box ul li::before { content:'·'; color:var(--accent); margin-right:0.5rem; }
+  .q-grid { display:flex; flex-direction:column; gap:0.85rem; flex:1; }
+  .q-card { display:flex; gap:1.3rem; align-items:flex-start; background:var(--bg-card); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:1.1rem 1.5rem; opacity:0; transform:translateY(10px); transition:opacity 0.4s, transform 0.4s, background 0.2s; cursor:pointer; user-select:none; }
+  .q-card:not(.revealed) { border-style:dashed; border-color:rgba(255,255,255,0.12); }
+  .q-card:not(.revealed):hover { border-color:var(--accent); background:rgba(255,255,255,0.03); }
+  .q-card.revealed { opacity:1; transform:translateY(0); cursor:default; }
+  .q-card.revealed:hover { background:rgba(255,255,255,0.06); }
+  .q-num { font-family:var(--font-display); font-size:2rem; font-weight:700; color:var(--accent); opacity:0.3; line-height:1; flex-shrink:0; width:2.3rem; margin-top:-0.1rem; }
+  .q-card.revealed .q-num { opacity:1; }
+  .q-body { font-family:var(--font-body); font-size:1.05rem; line-height:1.55; color:var(--parch); }
+  .q-sub { display:block; font-style:italic; color:rgba(255,255,255,0.45); font-size:0.92rem; margin-top:0.25rem; }
+  .reveal-btn { display:flex; align-items:center; gap:0.6rem; margin:1.2rem auto 0; font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.16em; color:var(--accent); background:rgba(255,255,255,0.05); border:1px solid var(--accent); opacity:0.7; padding:0.55rem 1.4rem; cursor:pointer; border-radius:2px; transition:all 0.2s; text-transform:uppercase; }
+  .reveal-btn:hover { background:rgba(255,255,255,0.1); opacity:1; }
+  .reveal-hint { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.13em; color:rgba(255,255,255,0.25); text-align:center; margin-top:0.5rem; }
+  .steps-list { display:flex; flex-direction:column; gap:0.7rem; flex:1; }
+  .step-row { display:flex; gap:1.3rem; align-items:flex-start; background:var(--bg-card); border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:0.85rem 1.2rem; transition:all 0.3s; cursor:pointer; }
+  .step-row.current { background:rgba(255,255,255,0.07); border-color:var(--accent); }
+  .step-row.done { opacity:0.42; }
+  .step-row.done .step-num { background:var(--accent); border-color:var(--accent); color:#000; }
+  .step-num { width:1.9rem; height:1.9rem; border-radius:50%; border:1.5px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.72rem; color:rgba(255,255,255,0.5); flex-shrink:0; transition:all 0.3s; margin-top:0.1rem; }
+  .step-row.current .step-num { background:var(--accent); border-color:var(--accent); color:#000; }
+  .step-title { font-family:var(--font-body); font-size:1rem; font-weight:500; color:var(--parch); line-height:1.3; margin-bottom:0.15rem; }
+  .step-detail { font-family:var(--font-body); font-size:0.88rem; font-style:italic; color:rgba(255,255,255,0.48); line-height:1.4; }
+  .step-note { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; color:var(--accent); margin-top:0.25rem; opacity:0.8; }
+  .timer-display { text-align:center; margin:1rem 0; }
+  .timer-big { font-family:var(--font-mono); font-size:clamp(5rem,12vw,8rem); color:var(--accent); letter-spacing:0.06em; line-height:1; transition:color 0.3s; }
+  .timer-big.urgent { color:#E86B4B; }
+  .timer-label { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.2em; color:rgba(255,255,255,0.3); text-transform:uppercase; margin-top:0.3rem; }
+  .timer-controls { display:flex; gap:0.8rem; justify-content:center; margin-top:0.8rem; }
+  .timer-btn { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.13em; text-transform:uppercase; padding:0.5rem 1.3rem; cursor:pointer; border-radius:2px; transition:all 0.2s; border:none; }
+  .timer-btn.primary { background:var(--accent); color:#000; }
+  .timer-btn.primary:hover { opacity:0.85; }
+  .timer-btn.secondary { background:rgba(255,255,255,0.08); color:var(--parch); border:1px solid rgba(255,255,255,0.2); }
+  .udl-row { display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:0.8rem; }
+  .udl-chip { display:flex; align-items:center; gap:0.4rem; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:3px; padding:0.38rem 0.75rem; font-family:var(--font-body); font-size:0.86rem; color:rgba(255,255,255,0.65); }
+  .milestone-card { background:rgba(181,52,42,0.14); border:1px solid rgba(220,80,60,0.35); border-left:4px solid #DC503C; border-radius:4px; padding:1.4rem 1.8rem; }
+  .m-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.18em; color:#E8845A; text-transform:uppercase; margin-bottom:0.4rem; }
+  .m-title { font-family:var(--font-display); font-size:1.6rem; font-weight:700; color:var(--parch); margin-bottom:0.3rem; }
+  .m-meta { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.1em; color:rgba(255,255,255,0.4); margin-bottom:0.8rem; }
+  .m-body { font-family:var(--font-body); font-size:1rem; color:rgba(255,255,255,0.78); line-height:1.6; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; flex:1; }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.2rem; }
+  .info-card { background:var(--bg-card); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:1.1rem 1.3rem; }
+  .info-card .ic-label { font-family:var(--font-mono); font-size:0.61rem; letter-spacing:0.17em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem; }
+  .info-card p, .info-card li { font-family:var(--font-body); font-size:0.97rem; color:rgba(255,255,255,0.75); line-height:1.55; }
+  .info-card ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .info-card ul li { display:flex; gap:0.6rem; }
+  .info-card ul li::before { content:'→'; color:var(--accent); flex-shrink:0; opacity:0.6; }
+  .info-card .ic-head { font-family:var(--font-display); font-size:1rem; font-weight:600; color:var(--parch); margin-bottom:0.4rem; }
+  .next-card { background:rgba(107,82,184,0.13); border:1px solid rgba(107,82,184,0.3); border-radius:4px; padding:1.1rem 1.3rem; }
+  .next-card .nc-label { font-family:var(--font-mono); font-size:0.61rem; letter-spacing:0.17em; color:#A08EE8; text-transform:uppercase; margin-bottom:0.4rem; }
+  .next-card .nc-title { font-family:var(--font-display); font-size:1.15rem; color:var(--parch); margin-bottom:0.35rem; }
+  .next-card p { font-family:var(--font-body); font-size:0.93rem; font-style:italic; color:rgba(255,255,255,0.5); line-height:1.5; }
+  .tag { display:inline-block; font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.14em; padding:0.13rem 0.45rem; border-radius:2px; margin-left:0.45rem; vertical-align:middle; text-transform:uppercase; }
+  .tag-activity { background:rgba(201,168,76,0.18); color:#C9A84C; }
+  .tag-discussion { background:rgba(107,82,184,0.22); color:#A08EE8; }
+  .tag-writing { background:rgba(74,124,111,0.22); color:#8BC4B5; }
+  .tag-break { background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.35); }
+  .tag-milestone { background:rgba(220,80,60,0.2); color:#E8845A; }
+  .timeline-wrap { display:flex; flex-direction:column; gap:0; flex:1; overflow:hidden; }
+  .tl-item { display:grid; grid-template-columns:6.5rem 1.8rem 1fr; gap:0 1rem; align-items:start; padding:0.75rem 0.5rem; border-radius:4px; transition:background 0.2s; }
+  .tl-item:hover { background:rgba(255,255,255,0.03); }
+  .tl-time { font-family:var(--font-mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.06em; padding-top:0.12rem; text-align:right; }
+  .tl-line { display:flex; flex-direction:column; align-items:center; }
+  .tl-dot { width:9px; height:9px; border-radius:50%; border:1.5px solid var(--accent); background:transparent; flex-shrink:0; margin-top:0.18rem; }
+  .tl-conn { width:1px; flex:1; background:rgba(255,255,255,0.12); min-height:1.2rem; }
+  .tl-item:last-child .tl-conn { display:none; }
+  .tl-label { font-family:var(--font-body); font-size:1rem; color:var(--parch); font-weight:500; line-height:1.3; margin-bottom:0.15rem; }
+  .tl-desc { font-family:var(--font-body); font-size:0.86rem; font-style:italic; color:rgba(255,255,255,0.45); line-height:1.4; }
+
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+<div id="help-overlay" class="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><kbd class="key">→</kbd> <kbd class="key">Space</kbd></span></div>
+    <div class="shortcut-row"><span>Previous slide</span><span><kbd class="key">←</kbd></span></div>
+    <div class="shortcut-row"><span>Reveal next question</span><span><kbd class="key">Enter</kbd></span></div>
+    <div class="shortcut-row"><span>Start / pause timer</span><span><kbd class="key">T</kbd></span></div>
+    <div class="shortcut-row"><span>Reset timer</span><span><kbd class="key">R</kbd></span></div>
+    <div class="shortcut-row"><span>First / last slide</span><span><kbd class="key">Home</kbd> / <kbd class="key">End</kbd></span></div>
+    <div class="shortcut-row"><span>Help</span><span><kbd class="key">?</kbd></span></div>
+    <div class="shortcut-row"><span>Close</span><span><kbd class="key">Esc</kbd></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+<div id="deck">
+
+  <!-- SLIDE 1: TITLE -->
+  <div class="slide active" id="slide-1">
+    <div class="slide-inner" style="justify-content:center;padding:4rem 5rem;">
+      <div style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:0.5rem;">Movement I · Week 3</div>
+      <div style="font-family:var(--font-body);font-size:0.95rem;font-style:italic;color:rgba(245,237,216,0.38);margin-bottom:3rem;">Who Are We and What Do We Think?</div>
+      <div style="font-family:var(--font-display);font-size:clamp(3.5rem,7vw,6rem);font-weight:700;line-height:1.0;color:var(--parch);margin-bottom:0.5rem;">The Past<br>Is Not <em style="color:var(--accent2);">Past</em></div>
+      <div style="font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.2em;color:rgba(245,237,216,0.22);margin-bottom:3rem;">WEEK 3 · CRDM 790</div>
+      <div class="thesis-pull" style="max-width:38rem;">"The past carries with it a secret index by which it is referred to its resurrection."<cite>— Walter Benjamin, Theses on the Philosophy of History, Thesis II</cite></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: SESSION MAP -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 3</span><span class="week-tag">Session Map</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Today's 3.5 Hours</div>
+      <div class="slide-h2">History, Aura, and the Objects We Carry</div>
+      <div class="gold-rule"></div>
+      <div class="timeline-wrap">
+        <div class="tl-item"><div class="tl-time">0:00–0:30</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Open with Thesis IX <span class="tag tag-discussion">Slow Read</span></div><div class="tl-desc">Read the Klee / angel passage aloud (p. 257–258). Sit with it. Do not explain — ask students to say what they see. The silence before interpretation is pedagogically important.</div></div></div>
+        <div class="tl-item"><div class="tl-time">0:30–1:15</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">'The Storyteller' + 'Work of Art' <span class="tag tag-discussion">Discussion</span></div><div class="tl-desc">What has digital reproduction done to aura? How does this land specifically for CRDM research? Let students bring their fields into contact with Benjamin's claims.</div></div></div>
+        <div class="tl-item"><div class="tl-time">1:15–1:45</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">'Theses' — Collaborative Close Reading <span class="tag tag-discussion">Discussion</span></div><div class="tl-desc">Work through several theses together. Students find these cryptic — make the confusion productive. Difficulty is not failure.</div></div></div>
+        <div class="tl-item"><div class="tl-time">1:45–2:00</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Break + Setup for Gallery <span class="tag tag-break">Rest</span></div><div class="tl-desc">Students place their objects on tables during this time.</div></div></div>
+        <div class="tl-item"><div class="tl-time">2:00–3:00</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Wreckage &amp; Promise Gallery <span class="tag tag-activity">Activity</span></div><div class="tl-desc">Silent gallery walk → small groups → full group synthesis → individual writing seed.</div></div></div>
+        <div class="tl-item"><div class="tl-time">3:00–3:30</div><div class="tl-line"><div class="tl-dot"></div></div><div><div class="tl-label">Synthesis + Week 4 Preview</div><div class="tl-desc">What does this cohort's collection of objects reveal about where their research is pointing? Transition: next week we ask who is allowed to live at all.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: READING GUIDE -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 3</span><span class="week-tag">Reading Guide</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">This Week's Text</div>
+      <div class="slide-h1">Benjamin, <em>Illuminations</em></div>
+      <div class="gold-rule"></div>
+
+      <div class="two-col" style="gap:1.2rem;margin-bottom:1rem;">
+        <div>
+          <div class="reading-box" style="margin-bottom:1rem;">
+            <div class="rb-label">Assigned (Perusall) · Schocken Books 2007 reprint</div>
+            <ul>
+              <li>'The Storyteller: Reflections on the Works of Nikolai Leskov' — pp. 83–109 (~27 pp.)</li>
+              <li>'The Work of Art in the Age of Mechanical Reproduction' — pp. 217–251 (~35 pp.)</li>
+              <li>'Theses on the Philosophy of History' — pp. 253–264 (~12 pp.) — <em>dense despite being short</em></li>
+            </ul>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Suggested (Not Required)</div>
+            <ul>
+              <li>Hannah Arendt, Introduction to <em>Illuminations</em> — pp. 1–55 — essential context</li>
+              <li>Susan Buck-Morss, <em>The Dialectics of Seeing</em> — most thorough account of Benjamin's method</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="reading-box" style="margin-bottom:1rem;">
+            <div class="rb-label">Discussion Anchor — Open with This</div>
+            <p><strong>Thesis IX, pp. 257–258</strong> — the Klee / angel of history passage. Read aloud. Do not explain first. Ask: "What do you see?"</p>
+            <p style="margin-top:0.5rem;">Also: Opening pages on aura, pp. 220–223. Both repay slow reading aloud.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Pre-Class Writing Prompt</div>
+            <p style="margin-bottom:0.5rem;">Annotate on Perusall: Mark one moment in the 'Theses' that you find cryptic. Write a <em>genuine question</em> — not rhetorical.</p>
+            <p>And bring one object — a photo, text, image, or sound clip representing something in your research area that feels unresolved or haunted.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="aura-grid">
+        <div class="aura-card"><div class="ac-term">Aura</div><p>The unique presence of a work in the place it is located — its embeddedness in tradition, its "here and now." Mechanical reproduction destroys this.</p></div>
+        <div class="aura-card"><div class="ac-term">Angel of History</div><p>Turned toward the past, seeing catastrophe upon catastrophe — blown backward into the future by the storm we call progress. (Thesis IX)</p></div>
+        <div class="aura-card"><div class="ac-term">Dialectical Image</div><p>The moment when past and present flash together in a constellation of recognition — historical knowledge as shock, not continuity.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: GUIDING QUESTIONS -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 3</span><span class="week-tag">Discussion Questions</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Seminar · 0:30–1:45</div>
+      <div class="slide-h1">Questions Worth<br><em>Sitting With</em></div>
+      <div class="gold-rule"></div>
+      <div class="q-grid">
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">1</div><div class="q-body">Benjamin writes that history 'flashes up' in moments of danger — the past is not settled but alive and urgent. What does this claim do to your research questions?<span class="q-sub">What past is not past in your area of study? What keeps returning, unfinished?</span></div></div>
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">2</div><div class="q-body">What does Benjamin mean by the 'angel of history'? What is the storm that drives it? How does that image land for you today?<span class="q-sub">Not metaphorically — materially. What is the wreckage piling up in your research area right now?</span></div></div>
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">3</div><div class="q-body">'The Work of Art' argues that mechanical reproduction destroys 'aura.' What has digital reproduction done to the texts and images you study?<span class="q-sub">Is digital reproduction more or less like mechanical reproduction? Does the concept of aura even hold here — or does it need to be revised?</span></div></div>
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">4</div><div class="q-body">Who is 'the storyteller' in Benjamin's sense? Is that a figure you recognize in your own field — or one that has been lost?<span class="q-sub">What happens to knowledge and experience when storytelling is replaced by information?</span></div></div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextQuestion()">✦ &nbsp;Reveal Question 1</button>
+      <div class="reveal-hint" id="reveal-hint">Click any card or this button · or press Enter</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: ACTIVITY STEPS -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 3</span><span class="week-tag">Hands-On Activity</span></div>
+    <div class="slide-inner">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.2rem;">
+        <div>
+          <div class="slide-eyebrow">Activity · 2:00–3:00</div>
+          <div class="slide-h2">Wreckage &amp; Promise Gallery</div>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:0.67rem;letter-spacing:0.18em;color:var(--accent);background:rgba(201,148,58,0.12);border:1px solid rgba(201,148,58,0.3);padding:0.35rem 0.8rem;border-radius:2px;">60 minutes total</div>
+      </div>
+      <div class="steps-list">
+        <div class="step-row current" onclick="advanceStep(0)">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Place your objects on the table &nbsp;<span style="font-size:0.8rem;color:rgba(245,237,216,0.35);">During break / 1:45–2:00</span></div>
+            <div class="step-detail">Physical object, photo, printed text, or a description card if the object is digital or auditory. Each person places theirs somewhere on the shared table.</div>
+            <div class="step-note">Accessibility: if any object is inaccessible in its physical form, a photo or description card is fully acceptable.</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(1)">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Silent gallery walk — 5 minutes &nbsp;<span style="font-size:0.8rem;color:rgba(245,237,216,0.35);">→ use next slide for timer</span></div>
+            <div class="step-detail">Everyone moves through the objects in silence. Look at each one. Don't ask questions yet. Notice what draws you, what unsettles you, what you recognize.</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(2)">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Small group discussion — 20 minutes</div>
+            <div class="step-detail">In groups of 3–4: What wreckage does your object hold? What promise? How does Benjamin's Thesis IX — the angel facing the wreckage of the past — apply to what you brought?</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(3)">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Full group — 20 minutes</div>
+            <div class="step-detail">What patterns emerge across the cohort's objects? What does the collection reveal about where this group's research is pointing? What piece of history is this room working in?</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(4)">
+          <div class="step-num">5</div>
+          <div>
+            <div class="step-title">Individual writing seed — 5 minutes</div>
+            <div class="step-detail">Write one sentence beginning: <em>"The piece of history I am working in the wreckage of is ___."</em></div>
+            <div class="step-note">Keep this. It feeds your Scholarly Identity Statement (due Week 5). Instructor collects the sentence — students may post to Moodle instead if preferred.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: GALLERY TIMER -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 3</span><span class="week-tag">Gallery Walk</span></div>
+    <div class="slide-inner" style="justify-content:space-between;">
+      <div>
+        <div class="slide-eyebrow">Activity · Step 2 of 5</div>
+        <div class="slide-h2">Silent Gallery Walk — Look, Don't Talk</div>
+      </div>
+      <div class="timer-display">
+        <div class="timer-big" id="timer-display">5:00</div>
+        <div class="timer-label" id="timer-status">Ready to start</div>
+        <div class="timer-controls">
+          <button class="timer-btn primary" id="timer-start-btn" onclick="toggleTimer()">Start Timer</button>
+          <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+      <div class="object-grid">
+        <div class="object-card">
+          <div class="oc-label">What to look for</div>
+          <p>Move through every object. Read the descriptions. Notice what pulls your attention — not what you understand, but what you feel drawn to or unsettled by.</p>
+        </div>
+        <div class="object-card">
+          <div class="oc-label">Hold these questions</div>
+          <p>What wreckage does this object hold? What promise? Where is the "storm we call progress" in what you're looking at?</p>
+        </div>
+        <div class="object-card">
+          <div class="oc-label">After the timer</div>
+          <p>Return to your seat. You'll have a moment before the small group conversation begins. What stays with you?</p>
+        </div>
+        <div class="object-card">
+          <div class="oc-label">Accessibility note</div>
+          <p>If moving through the gallery is difficult, a photograph of the full table will be available on a device. No one should have to ask — it's there by default.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: SYNTHESIS -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 3</span><span class="week-tag">Synthesis</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Full Group · 3:00–3:30</div>
+      <div class="slide-h2">What Does This Cohort's Collection Reveal?</div>
+      <div class="gold-rule"></div>
+      <div class="two-col" style="gap:1.3rem;">
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="info-card" style="flex:1;">
+            <div class="ic-label">The synthesis question</div>
+            <p style="font-family:var(--font-display);font-size:1.2rem;font-style:italic;color:var(--parch);line-height:1.5;">"What does this cohort's collection of objects reveal about where our research is pointing — about the piece of history we are collectively working in the wreckage of?"</p>
+          </div>
+          <div class="info-card" style="flex:1;">
+            <div class="ic-label">Facilitation note</div>
+            <p>Ask one or two students to read their "wreckage" sentences aloud at the end of the gallery discussion. The room often goes very quiet. That quiet is doing pedagogical work — don't fill it too fast.</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="thesis-pull" style="margin:0;">
+            "There is no document of civilization which is not at the same time a document of barbarism."
+            <cite>— Benjamin, 'Theses on the Philosophy of History,' Thesis VII</cite>
+          </div>
+          <div class="info-card" style="flex:1;">
+            <div class="ic-label">Loop ahead to Week 4</div>
+            <p>The objects students brought — and the histories embedded in them — are preparation for Mbembe next week. Who gets to live, and who doesn't, is not separate from the materials, texts, and images that sit in their research fields. Name this transition explicitly.</p>
+          </div>
+          <div class="info-card">
+            <div class="ic-label">Writing seed to collect</div>
+            <p>"The piece of history I am working in the wreckage of is ___." — Pairs with the Week 1 constellation card. By Week 5, students should have three such seeds for the Scholarly Identity Statement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: LOOKING AHEAD -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 3</span><span class="week-tag">Looking Ahead</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Leave</div>
+      <div class="slide-h2">Week 4 Preparation</div>
+      <div class="gold-rule"></div>
+      <div class="two-col">
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="info-card">
+            <div class="ic-label">Reading for Week 4 (Perusall)</div>
+            <ul>
+              <li>Achille Mbembe, <em>Necropolitics</em> (Duke UP 2019, trans. Corcoran)</li>
+              <li>Introduction — pp. 1–14</li>
+              <li>Chapter 3 'Necropolitics' — pp. 66–92 — <em>this is the conceptual core</em></li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <div class="ic-label">Perusall annotation prompt</div>
+            <p>Identify one concept from Mbembe that you think could be directly applied to your research area. Write a 3–4 sentence annotation explaining how. Be specific — not "this relates to power" but what kind of power, operating through what mechanism, in what you study.</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="info-card" style="background:rgba(255,200,100,0.07);border-color:rgba(255,200,100,0.2);">
+            <div class="ic-label" style="color:#C9A84C;">Bring to Class — Week 4</div>
+            <p style="font-weight:500;color:var(--parch);margin-bottom:0.4rem;">One concrete example.</p>
+            <p>From media, policy, your archive, or your community — something that you think illustrates necropolitical logic. Be ready to put it on the table. The room may hold examples that are graphic or personally resonant; be prepared for that.</p>
+          </div>
+          <div class="milestone-card">
+            <div class="m-label">Milestone 1 — Still Coming · Week 5 · 20%</div>
+            <div class="m-title" style="font-size:1.2rem;">Scholarly Identity Statement</div>
+            <div class="m-body">By now you have: a constellation card (Week 1), an assumption to interrogate (Week 2), and a piece of history you're working in the wreckage of (Week 3). These are the raw materials. Start writing from them.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div id="nav">
+  <div style="display:flex;align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 3 · BENJAMIN</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex;gap:0.7rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+<script>
+
+(function(){
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+  function init(){
+    stars=[];
+    for(let i=0;i<120;i++){
+      stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,
+        r:Math.random()*1.1+0.2,a:Math.random()*0.55+0.08,
+        speed:Math.random()*0.0003+0.0001,phase:Math.random()*Math.PI*2});
+    }
+    stars.lines=[];
+    for(let i=0;i<15;i++){
+      const a=Math.floor(Math.random()*stars.length),b=Math.floor(Math.random()*stars.length);
+      if(Math.hypot(stars[a].x-stars[b].x,stars[a].y-stars[b].y)<200) stars.lines.push([a,b]);
+    }
+  }
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    frame++;
+    ctx.strokeStyle='rgba(180,130,50,0.08)';
+    ctx.lineWidth=0.5;
+    stars.lines&&stars.lines.forEach(([a,b])=>{
+      ctx.beginPath();ctx.moveTo(stars[a].x,stars[a].y);ctx.lineTo(stars[b].x,stars[b].y);ctx.stroke();
+    });
+    stars.forEach(s=>{
+      const pulse=Math.sin(frame*s.speed+s.phase);
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(245,237,216,${s.a*(0.7+0.3*pulse)})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{resize();init();});
+  resize();init();draw();
+})();
+
+const TOTAL = 8;
+let current = 1;
+let visited = new Set([1]);
+let questionsRevealed = 0;
+let currentStep = 0;
+let timerSeconds = 300;
+let timerRunning = false;
+let timerInterval = null;
+const slideNames = ["Title","Session Map","Benjamin — Reading Guide","Guiding Questions","Wreckage & Promise Gallery","Gallery Walk Timer","Discussion","Looking Ahead"];
+
+function goTo(n) {
+  if (n < 1 || n > TOTAL) return;
+  document.getElementById('slide-' + current).classList.remove('active');
+  current = n;
+  visited.add(n);
+  document.getElementById('slide-' + n).classList.add('active');
+  if (n === 4 && questionsRevealed === 0) setTimeout(() => revealNextQuestion(), 400);
+  updateNav();
+}
+function nextSlide() { goTo(current + 1); }
+function prevSlide() { goTo(current - 1); }
+function updateNav() {
+  document.getElementById('prev-btn').disabled = current === 1;
+  document.getElementById('next-btn').disabled = current === TOTAL;
+  document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
+  document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
+  const dc = document.getElementById('slide-dots');
+  dc.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === current ? ' active' : (visited.has(i) ? ' visited' : ''));
+    d.onclick = () => goTo(i);
+    d.title = slideNames[i - 1] || '';
+    dc.appendChild(d);
+  }
+}
+function revealNextQuestion() {
+  const cards = document.querySelectorAll('.q-card');
+  if (questionsRevealed < cards.length) { cards[questionsRevealed].classList.add('revealed'); questionsRevealed++; }
+  const btn = document.getElementById('reveal-btn');
+  if (!btn) return;
+  if (questionsRevealed >= cards.length) {
+    btn.textContent = '✓  All Questions Revealed';
+    btn.style.opacity = '0.3'; btn.style.cursor = 'default'; btn.onclick = null;
+    const hint = document.getElementById('reveal-hint');
+    if (hint) hint.style.opacity = '0';
+  } else {
+    btn.textContent = '✦  Reveal Question ' + (questionsRevealed + 1);
+  }
+}
+function advanceStep(i) {
+  document.querySelectorAll('.step-row').forEach((r, idx) => {
+    r.classList.remove('current', 'done');
+    if (idx < i) r.classList.add('done');
+    else if (idx === i) r.classList.add('current');
+  });
+}
+function toggleTimer() {
+  timerRunning ? pauseTimer() : startTimer();
+}
+function startTimer() {
+  timerRunning = true;
+  const sb = document.getElementById('timer-start-btn');
+  const sl = document.getElementById('timer-status');
+  if (sb) sb.textContent = 'Pause';
+  if (sl) sl.textContent = 'Wreckage & Promise Gallery in progress — look, don't talk';
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval); timerRunning = false;
+      const d = document.getElementById('timer-display');
+      if (d) { d.textContent = 'Done!'; d.classList.remove('urgent'); }
+      if (sb) sb.textContent = 'Start Timer';
+      if (sl) sl.textContent = 'Return to your seats';
+      try {
+        const ac = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ac.createOscillator(); const g = ac.createGain();
+        osc.connect(g); g.connect(ac.destination);
+        osc.frequency.value = 660; g.gain.setValueAtTime(0.3, ac.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 1.5);
+        osc.start(); osc.stop(ac.currentTime + 1.5);
+      } catch(e){}
+    }
+  }, 1000);
+}
+function pauseTimer() {
+  timerRunning = false; clearInterval(timerInterval);
+  const sb = document.getElementById('timer-start-btn');
+  const sl = document.getElementById('timer-status');
+  if (sb) sb.textContent = 'Resume';
+  if (sl) sl.textContent = 'Paused';
+}
+function resetTimer() {
+  pauseTimer(); timerSeconds = 300; timerRunning = false;
+  const sb = document.getElementById('timer-start-btn');
+  if (sb) sb.textContent = 'Start Timer';
+  const sl = document.getElementById('timer-status');
+  if (sl) sl.textContent = 'Ready to start';
+  updateTimerDisplay();
+}
+function updateTimerDisplay() {
+  const el = document.getElementById('timer-display');
+  if (!el) return;
+  const m = Math.floor(timerSeconds / 60), s = timerSeconds % 60;
+  el.textContent = m + ':' + String(s).padStart(2,'0');
+  timerSeconds <= 60 ? el.classList.add('urgent') : el.classList.remove('urgent');
+}
+function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
+function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
+document.addEventListener('keydown', e => {
+  if (document.getElementById('help-overlay').classList.contains('visible')) { if(e.key==='Escape') closeHelp(); return; }
+  switch(e.key) {
+    case 'ArrowRight': case ' ': e.preventDefault(); nextSlide(); break;
+    case 'ArrowLeft': e.preventDefault(); prevSlide(); break;
+    case 'Enter': if(current===4){e.preventDefault();revealNextQuestion();} break;
+    case 't': case 'T': if(current===6) toggleTimer(); break;
+    case 'r': case 'R': if(current===6) resetTimer(); break;
+    case 'Home': goTo(1); break;
+    case 'End': goTo(TOTAL); break;
+    case '?': toggleHelp(); break;
+    case 'Escape': closeHelp(); break;
+  }
+});
+updateNav();
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 1 · Arrivals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --night:   #0D0B1A;
+    --deep:    #13102B;
+    --ink:     #1C1836;
+    --purple:  #4A3580;
+    --violet:  #6B52B8;
+    --gold:    #C9A84C;
+    --amber:   #E8B84B;
+    --parch:   #F5EDD8;
+    --cream:   #FAF6EE;
+    --rust:    #B5522A;
+    --sage:    #4A7C6F;
+    --mist:    rgba(245,237,216,0.08);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'EB Garamond', Georgia, serif;
+    --font-mono:    'Inconsolata', monospace;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--night);
+    overflow: hidden;
+    font-family: var(--font-body);
+    color: var(--parch);
+  }
+
+  /* ── STAR CANVAS ── */
+  #starfield {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── SLIDE WRAPPER ── */
+  #deck {
+    position: relative; z-index: 1;
+    width: 100vw; height: 100vh;
+    display: flex; flex-direction: column;
+  }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.55s ease;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ── PERSISTENT NAV BAR ── */
+  #nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 2rem;
+    background: rgba(13,11,26,0.92);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    backdrop-filter: blur(8px);
+  }
+  #nav-left { display: flex; gap: 0.5rem; align-items: center; }
+  #slide-dots { display: flex; gap: 0.45rem; align-items: center; }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(201,168,76,0.25);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .dot.active { background: var(--gold); transform: scale(1.5); }
+  .dot.visited { background: rgba(201,168,76,0.55); }
+  #nav-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: rgba(245,237,216,0.4);
+    letter-spacing: 0.12em;
+    margin-left: 1rem;
+  }
+  #nav-right { display: flex; gap: 0.8rem; }
+  .nav-btn {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--parch);
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.35rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+  .nav-btn:hover { background: rgba(201,168,76,0.25); border-color: var(--gold); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  #slide-counter {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: rgba(245,237,216,0.35);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── SHARED SLIDE LAYOUT ── */
+  .slide-inner {
+    flex: 1;
+    padding: 3.5rem 5rem 5rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .slide-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .slide-eyebrow::before {
+    content: '';
+    display: block;
+    width: 2rem; height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+  .slide-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--parch);
+    margin-bottom: 0.5rem;
+  }
+  .slide-h1 em { font-style: italic; color: var(--amber); }
+  .slide-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: rgba(245,237,216,0.6);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+  }
+  .slide-h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 600;
+    color: var(--parch);
+    margin-bottom: 1.2rem;
+    line-height: 1.2;
+  }
+  .body-text {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(245,237,216,0.85);
+  }
+
+  /* ── GOLD RULE ── */
+  .gold-rule {
+    width: 4rem; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin-bottom: 2rem;
+  }
+
+  /* ── TOP HEADER BAR ── */
+  .slide-header {
+    padding: 1.2rem 5rem 1rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+  .course-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: rgba(245,237,216,0.3);
+    text-transform: uppercase;
+  }
+  .week-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* ──────────────────────────────────────────────── */
+  /* SLIDE 1: TITLE */
+  /* ──────────────────────────────────────────────── */
+  #slide-1 { background: var(--night); }
+  #slide-1 .slide-inner {
+    justify-content: center;
+    padding: 4rem 6rem;
+  }
+  .title-movement-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    opacity: 0.8;
+  }
+  .title-movement-sub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(245,237,216,0.45);
+    margin-bottom: 3.5rem;
+    letter-spacing: 0.02em;
+  }
+  .title-main {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 9vw, 8rem);
+    font-weight: 700;
+    line-height: 0.95;
+    color: var(--parch);
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+  .title-main span {
+    color: var(--amber);
+    font-style: italic;
+  }
+  .title-week {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,237,216,0.3);
+    margin-bottom: 3.5rem;
+  }
+  .title-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    border-left: 2px solid rgba(201,168,76,0.3);
+    padding-left: 1.2rem;
+  }
+  .title-meta-line {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: rgba(245,237,216,0.5);
+    font-style: italic;
+  }
+  .title-meta-line strong {
+    font-style: normal;
+    color: rgba(245,237,216,0.75);
+    font-weight: 500;
+  }
+  .udl-badge {
+    position: absolute;
+    top: 1.5rem; right: 5rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: rgba(201,168,76,0.5);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 0.3rem 0.7rem;
+    border-radius: 2px;
+  }
+
+  /* ──────────────────────────────────────────────── */
+  /* SLIDE 2: SESSION MAP */
+  /* ──────────────────────────────────────────────── */
+  #slide-2 { background: var(--deep); }
+
+  .timeline-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex: 1;
+    overflow: hidden;
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 7rem 2rem 1fr;
+    gap: 0 1.2rem;
+    align-items: start;
+    padding: 1rem 0;
+    position: relative;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .timeline-item:hover { background: rgba(201,168,76,0.04); }
+  .timeline-time {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    padding-top: 0.15rem;
+    text-align: right;
+  }
+  .timeline-line-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .timeline-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--night);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+  .timeline-connector {
+    width: 1px;
+    flex: 1;
+    background: rgba(201,168,76,0.25);
+    min-height: 1.5rem;
+  }
+  .timeline-item:last-child .timeline-connector { display: none; }
+  .timeline-label {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--parch);
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-desc {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-style: italic;
+    color: rgba(245,237,216,0.5);
+    line-height: 1.4;
+  }
+  .timeline-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    text-transform: uppercase;
+  }
+  .tag-activity { background: rgba(201,168,76,0.18); color: var(--gold); }
+  .tag-discussion { background: rgba(107,82,184,0.25); color: #A08EE8; }
+  .tag-writing { background: rgba(74,124,111,0.25); color: #8BC4B5; }
+  .tag-break { background: rgba(255,255,255,0.07); color: rgba(245,237,216,0.4); }
+
+  /* ──────────────────────────────────────────────── */
+  /* SLIDE 3: PRE-CLASS WRITING PROMPT */
+  /* ──────────────────────────────────────────────── */
+  #slide-3 { background: var(--ink); }
+
+  .prompt-card {
+    background: rgba(245,237,216,0.05);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.8rem;
+  }
+  .prompt-card .big-q {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-style: italic;
+    color: var(--parch);
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
+  .prompt-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .udl-options {
+    display: flex; gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .udl-chip {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: rgba(245,237,216,0.06);
+    border: 1px solid rgba(245,237,216,0.15);
+    border-radius: 3px;
+    padding: 0.45rem 0.8rem;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: rgba(245,237,216,0.7);
+  }
+  .udl-chip .chip-icon { font-size: 0.9rem; }
+  .scaffolding-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-top: 0.3rem;
+  }
+  .scaffolding-list li {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: rgba(245,237,216,0.75);
+    line-height: 1.5;
+  }
+  .scaffolding-list li::before {
+    content: '—';
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+    opacity: 0.7;
+  }
+
+  /* ──────────────────────────────────────────────── */
+  /* SLIDE 4: GUIDING QUESTIONS */
+  /* ──────────────────────────────────────────────── */
+  #slide-4 { background: var(--deep); }
+
+  .questions-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+  }
+  .question-card {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    background: rgba(245,237,216,0.04);
+    border: 1px solid rgba(245,237,216,0.08);
+    border-radius: 4px;
+    padding: 1.2rem 1.6rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s, border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+  }
+  .question-card:not(.revealed) {
+    border-style: dashed;
+    border-color: rgba(201,168,76,0.2);
+  }
+  .question-card:not(.revealed):hover {
+    border-color: rgba(201,168,76,0.45);
+    background: rgba(201,168,76,0.04);
+  }
+  .question-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    cursor: default;
+  }
+  .question-card.revealed:hover {
+    background: rgba(245,237,216,0.07);
+  }
+  .q-number {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: rgba(201,168,76,0.25);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2.5rem;
+    margin-top: -0.2rem;
+  }
+  .q-text {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--parch);
+  }
+  .q-subtext {
+    font-style: italic;
+    color: rgba(245,237,216,0.5);
+    font-size: 0.95rem;
+    margin-top: 0.3rem;
+    display: block;
+  }
+  #reveal-hint {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: rgba(201,168,76,0.45);
+    text-align: center;
+    margin-top: 1rem;
+    transition: opacity 0.3s;
+  }
+  .click-to-reveal-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 1.5rem auto 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.35);
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .click-to-reveal-btn:hover {
+    background: rgba(201,168,76,0.2);
+    border-color: var(--gold);
+  }
+
+  /* ──────────────────────────────────────────────── */
+  /* SLIDE 5: CONSTELLATION MAPPING ACTIVITY */
+  /* ──────────────────────────────────────────────── */
+  #slide-5 { background: var(--night); }
+
+  .activity-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .activity-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    background: rgba(232,184,75,0.12);
+    border: 1px solid rgba(232,184,75,0.3);
+    padding: 0.35rem 0.8rem;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+  }
+  .step-row {
+    display: flex;
+    gap: 1.4rem;
+    align-items: flex-start;
+    background: rgba(245,237,216,0.04);
+    border: 1px solid rgba(245,237,216,0.07);
+    border-radius: 4px;
+    padding: 0.9rem 1.3rem;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .step-row.current {
+    background: rgba(201,168,76,0.1);
+    border-color: rgba(201,168,76,0.4);
+  }
+  .step-row.done {
+    opacity: 0.5;
+  }
+  .step-row.done .step-num { background: var(--sage); border-color: var(--sage); color: var(--night); }
+  .step-num {
+    width: 2rem; height: 2rem;
+    border-radius: 50%;
+    border: 1.5px solid rgba(201,168,76,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .step-row.current .step-num {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--night);
+  }
+  .step-content { flex: 1; }
+  .step-title {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--parch);
+    line-height: 1.3;
+    margin-bottom: 0.2rem;
+  }
+  .step-detail {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-style: italic;
+    color: rgba(245,237,216,0.5);
+    line-height: 1.4;
+  }
+  .step-note {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--amber);
+    margin-top: 0.3rem;
+  }
+
+  /* ──────────────────────────────────────────────── */
+  /* SLIDE 6: GALLERY WALK (timer featured) */
+  /* ──────────────────────────────────────────────── */
+  #slide-6 { background: var(--ink); }
+
+  .timer-display {
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .timer-big {
+    font-family: var(--font-mono);
+    font-size: clamp(5rem, 12vw, 9rem);
+    font-weight: 500;
+    color: var(--amber);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    transition: color 0.3s;
+  }
+  .timer-big.urgent { color: #E86B4B; }
+  .timer-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,237,216,0.35);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+  .timer-controls {
+    display: flex; gap: 0.8rem; justify-content: center;
+    margin-top: 1rem;
+  }
+  .timer-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.4rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    border: none;
+  }
+  .timer-btn.primary {
+    background: var(--gold);
+    color: var(--night);
+  }
+  .timer-btn.primary:hover { background: var(--amber); }
+  .timer-btn.secondary {
+    background: rgba(245,237,216,0.08);
+    color: var(--parch);
+    border: 1px solid rgba(245,237,216,0.2);
+  }
+  .timer-btn.secondary:hover { background: rgba(245,237,216,0.14); }
+  .gallery-instructions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .gallery-card {
+    background: rgba(245,237,216,0.04);
+    border: 1px solid rgba(245,237,216,0.08);
+    border-radius: 4px;
+    padding: 1.1rem 1.4rem;
+  }
+  .gallery-card-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+  .gallery-card p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: rgba(245,237,216,0.75);
+    line-height: 1.55;
+  }
+
+  /* ──────────────────────────────────────────────── */
+  /* SLIDE 7: DISCUSSION */
+  /* ──────────────────────────────────────────────── */
+  #slide-7 { background: var(--deep); }
+
+  .discussion-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.8rem;
+    flex: 1;
+  }
+  .disc-col { display: flex; flex-direction: column; gap: 1rem; }
+  .disc-card {
+    background: rgba(245,237,216,0.04);
+    border: 1px solid rgba(245,237,216,0.09);
+    border-radius: 4px;
+    padding: 1.2rem 1.5rem;
+    flex: 1;
+  }
+  .disc-card-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .disc-card p {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--parch);
+    line-height: 1.55;
+  }
+  .disc-prompt-box {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 4px;
+    padding: 1.2rem 1.5rem;
+    grid-column: 1 / -1;
+  }
+  .disc-prompt-box .label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--amber);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+  .disc-prompt-box p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: rgba(245,237,216,0.85);
+    line-height: 1.5;
+  }
+
+  /* ──────────────────────────────────────────────── */
+  /* SLIDE 8: CLOSING */
+  /* ──────────────────────────────────────────────── */
+  #slide-8 { background: var(--night); }
+
+  .closing-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+    flex: 1;
+  }
+  .closing-col { display: flex; flex-direction: column; gap: 1rem; }
+  .closing-card {
+    background: rgba(245,237,216,0.04);
+    border: 1px solid rgba(245,237,216,0.08);
+    border-radius: 4px;
+    padding: 1.3rem 1.5rem;
+  }
+  .closing-card-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 0.7rem;
+    text-transform: uppercase;
+  }
+  .closing-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .closing-card ul li {
+    display: flex;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: rgba(245,237,216,0.8);
+    line-height: 1.45;
+  }
+  .closing-card ul li::before {
+    content: '→';
+    color: var(--gold);
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+  .next-week-preview {
+    background: rgba(107,82,184,0.15);
+    border: 1px solid rgba(107,82,184,0.35);
+    border-radius: 4px;
+    padding: 1.3rem 1.5rem;
+  }
+  .next-week-preview .label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: #A08EE8;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+  }
+  .next-week-preview .title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--parch);
+    margin-bottom: 0.5rem;
+  }
+  .next-week-preview p {
+    font-family: var(--font-body);
+    font-size: 0.93rem;
+    font-style: italic;
+    color: rgba(245,237,216,0.55);
+    line-height: 1.5;
+  }
+  .milestone-upcoming {
+    background: rgba(181,82,42,0.12);
+    border: 1px solid rgba(181,82,42,0.3);
+    border-radius: 4px;
+    padding: 1rem 1.3rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .milestone-upcoming .m-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .milestone-upcoming .m-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: #E8845A;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+  }
+  .milestone-upcoming p {
+    font-family: var(--font-body);
+    font-size: 0.93rem;
+    color: rgba(245,237,216,0.75);
+    line-height: 1.45;
+  }
+  .closing-quote {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(245,237,216,0.35);
+    text-align: center;
+    margin-top: 0.5rem;
+    padding: 0 2rem;
+    line-height: 1.6;
+  }
+
+  /* ── HELP OVERLAY ── */
+  #help-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(13,11,26,0.92);
+    align-items: center; justify-content: center;
+  }
+  #help-overlay.visible { display: flex; }
+  .help-box {
+    background: var(--ink);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 6px;
+    padding: 2rem 2.5rem;
+    max-width: 460px;
+    width: 90%;
+  }
+  .help-box h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    color: var(--parch);
+  }
+  .shortcut-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(245,237,216,0.06);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: rgba(245,237,216,0.7);
+  }
+  .key {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    background: rgba(245,237,216,0.08);
+    border: 1px solid rgba(245,237,216,0.2);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    color: var(--parch);
+  }
+  .help-close {
+    margin-top: 1.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    cursor: pointer;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--amber));
+    transition: width 0.45s ease;
+    z-index: 50;
+  }
+
+  /* ── SLIDE ENTER ANIMATION ── */
+  @keyframes slideEnter {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .slide.active .slide-inner { animation: slideEnter 0.5s ease forwards; }
+  .slide.active .slide-header { animation: slideEnter 0.5s ease 0.05s forwards; opacity: 0; animation-fill-mode: forwards; }
+
+  /* UDL accessibility: large enough for projected display */
+  @media (max-height: 650px) {
+    .slide-inner { padding: 1.5rem 3rem 4rem; }
+    .slide-h1 { font-size: 2rem; }
+    .title-main { font-size: 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+
+<!-- HELP OVERLAY -->
+<div id="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><kbd class="key">→</kbd> <kbd class="key">Space</kbd></span></div>
+    <div class="shortcut-row"><span>Previous slide</span><span><kbd class="key">←</kbd></span></div>
+    <div class="shortcut-row"><span>Reveal next question</span><span><kbd class="key">Enter</kbd> (on Q slide)</span></div>
+    <div class="shortcut-row"><span>Start / pause timer</span><span><kbd class="key">T</kbd> (on timer slide)</span></div>
+    <div class="shortcut-row"><span>Reset timer</span><span><kbd class="key">R</kbd> (on timer slide)</span></div>
+    <div class="shortcut-row"><span>First / last slide</span><span><kbd class="key">Home</kbd> / <kbd class="key">End</kbd></span></div>
+    <div class="shortcut-row"><span>This help screen</span><span><kbd class="key">?</kbd></span></div>
+    <div class="shortcut-row"><span>Close this screen</span><span><kbd class="key">Esc</kbd></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+
+<div id="deck">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SLIDE 1: TITLE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="slide active" id="slide-1">
+    <div class="udl-badge">UDL · CRDM 790 · Spring 2027</div>
+    <div class="slide-inner">
+      <div class="title-movement-label">Movement I · Weeks 1–5</div>
+      <div class="title-movement-sub">Who Are We and What Do We Think?</div>
+
+      <div class="title-main">
+        <span>Arrivals</span>
+      </div>
+      <div class="title-week">WEEK 1 &nbsp;·&nbsp; CRDM 790</div>
+
+      <div class="title-meta">
+        <div class="title-meta-line"><strong>Instructor:</strong> Kirsti K. Cole &nbsp;·&nbsp; kkcole2@ncsu.edu</div>
+        <div class="title-meta-line"><strong>Format:</strong> 3.5 hour face-to-face seminar</div>
+        <div class="title-meta-line"><strong>Today:</strong> No required reading &mdash; come ready to talk</div>
+      </div>
+
+      <div style="margin-top: 3rem; font-family: var(--font-body); font-size: 1rem; font-style: italic; color: rgba(245,237,216,0.35); max-width: 38rem; line-height: 1.7;">
+        "We begin not with a syllabus but with a question: what kind of scholar are you becoming?"
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SLIDE 2: SESSION MAP -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
+      <span class="week-tag">Session Map</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Today's Journey</div>
+      <div class="slide-h1">3.5 Hours, Together</div>
+      <div class="gold-rule"></div>
+
+      <div class="timeline-wrapper">
+        <div class="timeline-item">
+          <div class="timeline-time">0:00–0:20</div>
+          <div class="timeline-line-col"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+          <div>
+            <div class="timeline-label">Logistics &amp; Course Overview <span class="timeline-tag tag-discussion">Brief</span></div>
+            <div class="timeline-desc">Moodle, Perusall, milestone schedule &mdash; keep this short. The room is anxious.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">0:20–0:50</div>
+          <div class="timeline-line-col"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+          <div>
+            <div class="timeline-label">Intellectual Autobiography Sharing <span class="timeline-tag tag-writing">Writing</span></div>
+            <div class="timeline-desc">Students share their 200–300 word pieces. Instructor reads theirs first &mdash; model vulnerability.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">0:50–1:30</div>
+          <div class="timeline-line-col"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+          <div>
+            <div class="timeline-label">Constellation Mapping <span class="timeline-tag tag-activity">Activity</span></div>
+            <div class="timeline-desc">Index cards → wall gallery → silent walk → group pattern discussion.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">1:30–1:45</div>
+          <div class="timeline-line-col"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+          <div>
+            <div class="timeline-label">Break <span class="timeline-tag tag-break">Rest</span></div>
+            <div class="timeline-desc">Step away. Grab water. Return ready.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">1:45–2:30</div>
+          <div class="timeline-line-col"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+          <div>
+            <div class="timeline-label">Open Seminar: Three Questions <span class="timeline-tag tag-discussion">Discussion</span></div>
+            <div class="timeline-desc">What brought you? What keeps you up? What do you hope this year makes possible?</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">2:30–3:00</div>
+          <div class="timeline-line-col"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+          <div>
+            <div class="timeline-label">Semester Arc Preview <span class="timeline-tag tag-discussion">Orientation</span></div>
+            <div class="timeline-desc">Three movements, four milestones, and why the structure is built this way. We return to your constellation cards at Week 15.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">3:00–3:30</div>
+          <div class="timeline-line-col"><div class="timeline-dot"></div></div>
+          <div>
+            <div class="timeline-label">Informal Time &amp; Individual Check-ins</div>
+            <div class="timeline-desc">Set the tone for office-hours culture. Good moment for quiet conversations.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SLIDE 3: PRE-CLASS WRITING PROMPT -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
+      <span class="week-tag">Pre-Class Writing Prompt</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">What You Brought Today</div>
+      <div class="slide-h1">Intellectual<br><em>Autobiography</em></div>
+      <div class="gold-rule"></div>
+
+      <div class="prompt-card">
+        <div class="prompt-meta">The Prompt &nbsp;·&nbsp; 200–300 words &nbsp;·&nbsp; Informal, not graded</div>
+        <div class="big-q">"Where did you start, what changed you, and where are you now? &mdash; as a thinker, a reader, a person who ended up here."</div>
+        <div style="font-family: var(--font-body); font-size: 0.95rem; color: rgba(245,237,216,0.55); font-style: italic;">
+          This is for you and for the room. You will be invited to share, but never read aloud without your consent.
+        </div>
+      </div>
+
+      <div style="margin-bottom: 0.75rem;">
+        <div style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.18em; color: rgba(245,237,216,0.4); text-transform: uppercase; margin-bottom: 0.6rem;">If you're not sure where to start, try these entry points:</div>
+        <ul class="scaffolding-list">
+          <li>The book, class, or idea that first made you feel like a thinker — not just a student</li>
+          <li>The question you keep returning to that your field doesn't quite have language for</li>
+          <li>The moment you realized you were actually interested in this, not just good at it</li>
+          <li>What you thought graduate school would be, and what you're starting to suspect it actually is</li>
+        </ul>
+      </div>
+
+      <div style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; color: rgba(201,168,76,0.5); text-transform: uppercase; margin-bottom: 0.5rem;">Multiple ways to share today:</div>
+      <div class="udl-options">
+        <div class="udl-chip"><span class="chip-icon">🎙️</span> Read aloud to the group</div>
+        <div class="udl-chip"><span class="chip-icon">💬</span> Summarize in your own words</div>
+        <div class="udl-chip"><span class="chip-icon">🤝</span> Share one-on-one first</div>
+        <div class="udl-chip"><span class="chip-icon">✍️</span> Post to Moodle this week</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SLIDE 4: GUIDING QUESTIONS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
+      <span class="week-tag">Discussion Questions</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Open Seminar · 1:45–2:30</div>
+      <div class="slide-h1">Questions Worth<br><em>Sitting With</em></div>
+      <div class="gold-rule"></div>
+
+      <div class="questions-grid" id="questions-grid">
+        <div class="question-card" data-q="0" onclick="revealNextQuestion()">
+          <div class="q-number">1</div>
+          <div class="q-text">
+            What brought you to this program — and what do you hope it makes possible?
+            <span class="q-subtext">Not the CV answer. The real one.</span>
+          </div>
+        </div>
+        <div class="question-card" data-q="1" onclick="revealNextQuestion()">
+          <div class="q-number">2</div>
+          <div class="q-text">
+            What question keeps you up at night — the one you can't stop returning to?
+            <span class="q-subtext">The question your field doesn't quite solve, but you keep orbiting.</span>
+          </div>
+        </div>
+        <div class="question-card" data-q="2" onclick="revealNextQuestion()">
+          <div class="q-number">3</div>
+          <div class="q-text">
+            How would you describe your intellectual lineage? Who taught you how to think?
+            <span class="q-subtext">Teachers, writers, thinkers — inside and outside the academy.</span>
+          </div>
+        </div>
+        <div class="question-card" data-q="3" onclick="revealNextQuestion()">
+          <div class="q-number">4</div>
+          <div class="q-text">
+            What does "becoming a scholar" mean to you right now, at this exact moment?
+            <span class="q-subtext">Before the semester shapes your answer — what does it mean today?</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="click-to-reveal-btn" id="reveal-btn" onclick="revealNextQuestion()">
+        ✦ &nbsp; Reveal Next Question
+      </button>
+      <div id="reveal-hint">Click any card or this button to reveal one at a time &nbsp;·&nbsp; or press Enter</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SLIDE 5: CONSTELLATION MAPPING ACTIVITY -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
+      <span class="week-tag">Hands-On Activity</span>
+    </div>
+    <div class="slide-inner">
+      <div class="activity-top">
+        <div>
+          <div class="slide-eyebrow">Activity · 0:50–1:30</div>
+          <div class="slide-h2">Constellation Mapping</div>
+        </div>
+        <div class="activity-badge">40 minutes total</div>
+      </div>
+
+      <div class="steps-list" id="steps-list">
+        <div class="step-row current" onclick="advanceStep(0)">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Make your card &nbsp;<span style="font-size:0.8rem; color: rgba(245,237,216,0.4);">(10 min)</span></div>
+            <div class="step-detail">Write your name in the center of a large index card. Around it, add 3–5 words: a discipline, a method, a thinker, a question, and <em>one surprise</em> — something that doesn't fit your official bio.</div>
+            <div class="step-note">Supplies at the front. Use whatever feels right — words, small drawings, fragments.</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(1)">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Post to the wall</div>
+            <div class="step-detail">When you're done, go put your card on the wall. Find a spot that feels right — no particular arrangement yet.</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(2)">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Silent gallery walk &nbsp;<span style="font-size:0.8rem; color: rgba(245,237,216,0.4);">(5 min — timed on next slide)</span></div>
+            <div class="step-detail">Everyone walks the full gallery in silence. No talking, no pointing. Just read. Notice what surprises you.</div>
+            <div class="step-note">→ Move to next slide to start the timer</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(3)">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Group discussion &nbsp;<span style="font-size:0.8rem; color: rgba(245,237,216,0.4);">(20 min)</span></div>
+            <div class="step-detail">Return to your seats. As a full group: What patterns do you see? What surprised you? Where are the gaps? What's on every card — and what's missing entirely?</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(4)">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">Keep your card &nbsp;<span style="font-size:0.8rem; color: rgba(201,168,76,0.6);">Important</span></div>
+            <div class="step-detail">The instructor collects the cards at the end of today. They will be returned to you at Week 15. This loop — who you were on Day 1 vs. who you've become — is one of the strongest moments of the semester.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SLIDE 6: GALLERY WALK TIMER -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
+      <span class="week-tag">Gallery Walk</span>
+    </div>
+    <div class="slide-inner" style="justify-content: space-between;">
+      <div>
+        <div class="slide-eyebrow">Activity · Step 3 of 5</div>
+        <div class="slide-h2">Silent Gallery Walk</div>
+      </div>
+
+      <div class="timer-display">
+        <div class="timer-big" id="timer-display">5:00</div>
+        <div class="timer-label" id="timer-status">Ready to start</div>
+        <div class="timer-controls">
+          <button class="timer-btn primary" id="timer-start-btn" onclick="toggleTimer()">Start Timer</button>
+          <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+
+      <div class="gallery-instructions">
+        <div class="gallery-card">
+          <div class="gallery-card-title">During the walk</div>
+          <p>Move through the gallery in silence. Read every card. Don't talk, don't point, don't whisper. Just look and notice. What pulls your attention?</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-card-title">After the timer</div>
+          <p>Return to your seat. Take a moment before the discussion begins. What stayed with you? What surprised you? What do you want to ask?</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-card-title">Accessibility note</div>
+          <p>If moving through the gallery is difficult, cards can be brought to you, or a photo of the full gallery can be viewed on a device.</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-card-title">What to notice</div>
+          <p>Patterns — repeated disciplines, methods, thinkers. Surprises — the unexpected words, the things that don't fit. Absences — what isn't on any card.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SLIDE 7: DISCUSSION SYNTHESIS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
+      <span class="week-tag">Full Group Discussion</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Discussion · Step 4 of 5 · ~20 minutes</div>
+      <div class="slide-h2">What Does This Constellation Reveal?</div>
+      <div class="gold-rule"></div>
+
+      <div class="discussion-layout">
+        <div class="disc-col">
+          <div class="disc-card">
+            <div class="disc-card-label">Patterns</div>
+            <p>What do you see appearing on multiple cards? What disciplines, methods, or thinkers are everywhere? What does that tell us about who we are as a cohort?</p>
+          </div>
+          <div class="disc-card">
+            <div class="disc-card-label">Surprises</div>
+            <p>What words or ideas appeared that you didn't expect? The "surprise" category often reveals something truer than the official bio. What surprised you — or surprised others?</p>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="disc-card">
+            <div class="disc-card-label">Absences</div>
+            <p>What's <em>not</em> on any card? What fields, traditions, methods, or perspectives are missing from this room? What does that gap mean — and what would it mean to address it?</p>
+          </div>
+          <div class="disc-card">
+            <div class="disc-card-label">Questions for the room</div>
+            <p>Is there a card you want to ask about? A word you don't recognize? An idea you want to follow? This is the beginning of intellectual community — curiosity is welcome.</p>
+          </div>
+        </div>
+
+        <div class="disc-prompt-box">
+          <div class="label">Individual Writing Prompt (5 min, end of discussion)</div>
+          <p>Write one sentence beginning: <em>"The thing on my card I most want to explore this semester is ___"</em> — Keep this. It may seed your Scholarly Identity Statement (due Week 5).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SLIDE 8: CLOSING & LOOKING AHEAD -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
+      <span class="week-tag">Closing &amp; Looking Ahead</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Leave</div>
+      <div class="slide-h2">What to Carry Forward</div>
+      <div class="gold-rule"></div>
+
+      <div class="closing-grid">
+        <div class="closing-col">
+          <div class="closing-card">
+            <div class="closing-card-title">Before next week, make sure you have</div>
+            <ul>
+              <li>Access to Moodle and Perusall (link on syllabus)</li>
+              <li>Access to the shared Google Drive folder (link on Moodle)</li>
+              <li>The syllabus — read through the whole thing before Week 2</li>
+              <li>Kirsti's contact info: kkcole2@ncsu.edu</li>
+            </ul>
+          </div>
+
+          <div class="closing-card">
+            <div class="closing-card-title">For Week 2 — bring to class</div>
+            <ul>
+              <li>Perusall annotations on Giroux (see prompt on next slide)</li>
+              <li>One passage you agree with + one you push back on</li>
+              <li>One concrete example from your own educational experience that confirms or complicates Giroux's argument</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="closing-col">
+          <div class="next-week-preview">
+            <div class="label">Next Week · Week 2</div>
+            <div class="title">Critical Pedagogy and the Scholar-Critic</div>
+            <p>Henry Giroux, <em>On Critical Pedagogy</em> (selected chapters on Perusall). What does it mean to be a critic inside an institution? Can you critique the hand that grades you?</p>
+          </div>
+
+          <div class="milestone-upcoming">
+            <div class="m-icon">◆</div>
+            <div>
+              <div class="m-label">Milestone 1 Due &nbsp;·&nbsp; Week 5 &nbsp;·&nbsp; 20% of grade</div>
+              <p>Scholarly Identity Statement (~500 words). Who are you as a scholar? What animates your research, and why does it matter? Not a CV summary — a statement of intellectual purpose. Start thinking now.</p>
+            </div>
+          </div>
+
+          <div class="closing-quote">
+            "We will come back to your constellation cards in Week 15."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAVIGATION BAR -->
+<div id="nav">
+  <div id="nav-left">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 1 · ARRIVALS</span>
+  </div>
+  <div style="display:flex; align-items:center; gap: 1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div id="nav-right">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── STAR FIELD ──────────────────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < 180; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.2 + 0.2,
+        a: Math.random() * 0.6 + 0.1,
+        speed: Math.random() * 0.0003 + 0.0001,
+        phase: Math.random() * Math.PI * 2,
+      });
+    }
+    // constellation lines (Week 1 theme)
+    stars.lines = [];
+    for (let i = 0; i < 12; i++) {
+      const a = Math.floor(Math.random() * stars.length);
+      const b = Math.floor(Math.random() * stars.length);
+      if (Math.hypot(stars[a].x - stars[b].x, stars[a].y - stars[b].y) < 180) {
+        stars.lines.push([a, b]);
+      }
+    }
+  }
+
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    frame++;
+    // constellation lines
+    ctx.strokeStyle = 'rgba(201,168,76,0.07)';
+    ctx.lineWidth = 0.5;
+    stars.lines && stars.lines.forEach(([a,b]) => {
+      ctx.beginPath();
+      ctx.moveTo(stars[a].x, stars[a].y);
+      ctx.lineTo(stars[b].x, stars[b].y);
+      ctx.stroke();
+    });
+    // stars
+    stars.forEach(s => {
+      const pulse = Math.sin(frame * s.speed + s.phase);
+      const alpha = s.a * (0.7 + 0.3 * pulse);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(245,237,216,${alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  resize(); initStars(); draw();
+})();
+
+// ── SLIDE NAVIGATION ────────────────────────────────────────────────────────
+const TOTAL = 8;
+let current = 1;
+let visited = new Set([1]);
+
+function goTo(n) {
+  if (n < 1 || n > TOTAL) return;
+  document.getElementById('slide-' + current).classList.remove('active');
+  current = n;
+  visited.add(n);
+  document.getElementById('slide-' + n).classList.add('active');
+  // auto-reveal first question when landing on slide 4
+  if (n === 4 && questionsRevealed === 0) {
+    setTimeout(() => revealNextQuestion(), 400);
+  }
+  updateNav();
+}
+
+function nextSlide() { goTo(current + 1); }
+function prevSlide() { goTo(current - 1); }
+
+function updateNav() {
+  document.getElementById('prev-btn').disabled = current === 1;
+  document.getElementById('next-btn').disabled = current === TOTAL;
+  document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
+  document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
+
+  // dots
+  const dotCont = document.getElementById('slide-dots');
+  dotCont.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === current ? ' active' : (visited.has(i) ? ' visited' : ''));
+    d.onclick = () => goTo(i);
+    d.title = slideNames[i - 1];
+    dotCont.appendChild(d);
+  }
+}
+
+const slideNames = [
+  'Title', 'Session Map', 'Pre-Class Prompt', 'Guiding Questions',
+  'Constellation Mapping', 'Gallery Walk Timer', 'Discussion', 'Looking Ahead'
+];
+
+// ── QUESTION REVEAL (Slide 4) ────────────────────────────────────────────────
+let questionsRevealed = 0;
+function revealNextQuestion() {
+  const cards = document.querySelectorAll('.question-card');
+  if (questionsRevealed < cards.length) {
+    cards[questionsRevealed].classList.add('revealed');
+    questionsRevealed++;
+  }
+  const btn = document.getElementById('reveal-btn');
+  const hint = document.getElementById('reveal-hint');
+  if (questionsRevealed >= cards.length) {
+    btn.textContent = '✓  All Questions Revealed';
+    btn.style.opacity = '0.35';
+    btn.style.cursor = 'default';
+    btn.onclick = null;
+    if (hint) hint.style.opacity = '0';
+  } else {
+    btn.textContent = '✦  Reveal Question ' + (questionsRevealed + 1);
+  }
+}
+
+// ── STEP TRACKER (Slide 5) ────────────────────────────────────────────────────
+let currentStep = 0;
+function advanceStep(i) {
+  const rows = document.querySelectorAll('.step-row');
+  rows.forEach((r, idx) => {
+    r.classList.remove('current', 'done');
+    if (idx < i) r.classList.add('done');
+    else if (idx === i) r.classList.add('current');
+  });
+  currentStep = i;
+}
+
+// ── TIMER (Slide 6) ────────────────────────────────────────────────────────────
+let timerSeconds = 300; // 5 minutes
+let timerRunning = false;
+let timerInterval = null;
+
+function toggleTimer() {
+  if (timerRunning) {
+    pauseTimer();
+  } else {
+    startTimer();
+  }
+}
+
+function startTimer() {
+  timerRunning = true;
+  document.getElementById('timer-start-btn').textContent = 'Pause';
+  document.getElementById('timer-status').textContent = 'Walk the gallery in silence';
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      document.getElementById('timer-display').textContent = "Done!";
+      document.getElementById('timer-status').textContent = 'Return to your seats';
+      document.getElementById('timer-start-btn').textContent = 'Start Timer';
+      // ring the bell
+      try {
+        const ctx2 = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx2.createOscillator();
+        const gain = ctx2.createGain();
+        osc.connect(gain); gain.connect(ctx2.destination);
+        osc.frequency.value = 660;
+        gain.gain.setValueAtTime(0.3, ctx2.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx2.currentTime + 1.5);
+        osc.start(); osc.stop(ctx2.currentTime + 1.5);
+      } catch(e) {}
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  timerRunning = false;
+  clearInterval(timerInterval);
+  document.getElementById('timer-start-btn').textContent = 'Resume';
+  document.getElementById('timer-status').textContent = 'Paused';
+}
+
+function resetTimer() {
+  pauseTimer();
+  timerSeconds = 300;
+  timerRunning = false;
+  document.getElementById('timer-start-btn').textContent = 'Start Timer';
+  document.getElementById('timer-status').textContent = 'Ready to start';
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  const el = document.getElementById('timer-display');
+  el.textContent = m + ':' + String(s).padStart(2, '0');
+  if (timerSeconds <= 60) {
+    el.classList.add('urgent');
+  } else {
+    el.classList.remove('urgent');
+  }
+}
+
+// ── KEYBOARD SHORTCUTS ───────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (document.getElementById('help-overlay').classList.contains('visible')) {
+    if (e.key === 'Escape') closeHelp();
+    return;
+  }
+  switch(e.key) {
+    case 'ArrowRight': case ' ': e.preventDefault(); nextSlide(); break;
+    case 'ArrowLeft': e.preventDefault(); prevSlide(); break;
+    case 'Enter':
+      if (current === 4) { e.preventDefault(); revealNextQuestion(); }
+      break;
+    case 't': case 'T':
+      if (current === 6) toggleTimer();
+      break;
+    case 'r': case 'R':
+      if (current === 6) resetTimer();
+      break;
+    case 'Home': goTo(1); break;
+    case 'End': goTo(TOTAL); break;
+    case '?': toggleHelp(); break;
+    case 'Escape': closeHelp(); break;
+  }
+});
+
+function toggleHelp() {
+  document.getElementById('help-overlay').classList.toggle('visible');
+}
+function closeHelp() {
+  document.getElementById('help-overlay').classList.remove('visible');
+}
+
+// init
+updateNav();
+</script>
+</body>
+</html>

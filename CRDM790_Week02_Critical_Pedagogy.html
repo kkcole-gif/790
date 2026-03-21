@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 2 · Critical Pedagogy and the Scholar-Critic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+    :root {
+      --night:   #0C0E1A;
+      --deep:    #10132B;
+      --ink:     #141730;
+      --accent:  #7B6FD8;
+      --accent2: #A08EE8;
+      --parch:   #EEE8FF;
+      --bg-card: rgba(255,255,255,0.04);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'EB Garamond', Georgia, serif;
+      --font-mono:    'Inconsolata', monospace;
+    }
+    #slide-1 { background: linear-gradient(155deg, #0C0E1A 60%, #1a1060 100%); }
+    #slide-2 { background: var(--deep); }
+    #slide-3 { background: var(--ink); }
+    #slide-4 { background: var(--deep); }
+    #slide-5 { background: var(--night); }
+    #slide-6 { background: var(--ink); }
+    #slide-7 { background: var(--deep); }
+    #slide-8 { background: var(--night); }
+    .title-band { border-left: 4px solid var(--accent); padding-left: 1.5rem; margin-bottom: 3rem; }
+    .title-mvmt { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.25em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem; }
+    .title-mvmt-sub { font-family:var(--font-body); font-size:0.95rem; font-style:italic; color:rgba(238,232,255,0.4); margin-bottom:0; }
+    .title-big { font-family:var(--font-display); font-size:clamp(3rem,6vw,5.5rem); font-weight:700; line-height:1.0; color:var(--parch); margin:2.5rem 0 0.5rem; }
+    .title-big em { color:var(--accent2); font-style:italic; }
+    .title-week { font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.2em; color:rgba(238,232,255,0.25); margin-bottom:2.5rem; }
+    .note-banner { background:rgba(255,200,100,0.09); border:1px solid rgba(255,200,100,0.25); border-radius:3px; padding:0.7rem 1.2rem; display:flex; gap:0.8rem; align-items:flex-start; margin-bottom:1.2rem; }
+    .note-banner .nb-icon { font-size:1rem; flex-shrink:0; }
+    .note-banner p { font-family:var(--font-body); font-size:0.93rem; color:rgba(255,220,140,0.85); font-style:italic; line-height:1.5; }
+    .perusall-tip { background:rgba(107,82,184,0.12); border:1px solid rgba(107,82,184,0.3); border-radius:3px; padding:0.75rem 1rem; margin-top:0.75rem; font-family:var(--font-body); font-size:0.92rem; color:rgba(238,232,255,0.65); font-style:italic; line-height:1.5; }
+    .autopsy-pairs { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:0.5rem; }
+    .pair-card { background:var(--bg-card); border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:1rem 1.2rem; }
+    .pair-card .pc-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.4rem; }
+    .pair-card p { font-family:var(--font-body); font-size:0.96rem; color:rgba(238,232,255,0.75); line-height:1.5; }
+    .synthesis-grid { display:grid; grid-template-columns:1.1fr 0.9fr; gap:1.3rem; flex:1; }
+    .syn-col { display:flex; flex-direction:column; gap:1rem; }
+    .writing-seed { background:rgba(107,82,184,0.12); border:1px solid rgba(107,82,184,0.3); border-left:4px solid var(--accent); border-radius:4px; padding:1.1rem 1.4rem; }
+    .writing-seed .ws-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.4rem; }
+    .writing-seed p { font-family:var(--font-display); font-size:1.1rem; font-style:italic; color:var(--parch); line-height:1.5; }
+  
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width:100%; height:100%; overflow:hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position:fixed; inset:0; z-index:0; pointer-events:none; }
+  #deck { position:relative; z-index:1; width:100vw; height:100vh; }
+  .slide { position:absolute; inset:0; display:flex; flex-direction:column; opacity:0; pointer-events:none; transition:opacity 0.5s ease; }
+  .slide.active { opacity:1; pointer-events:all; }
+  #nav { position:fixed; bottom:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0.6rem 2rem; background:rgba(0,0,0,0.7); border-top:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(10px); }
+  #slide-dots { display:flex; gap:0.45rem; align-items:center; }
+  .dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.18); cursor:pointer; transition:all 0.3s; }
+  .dot.active { background:var(--accent); transform:scale(1.5); }
+  .dot.visited { background:rgba(255,255,255,0.4); }
+  #nav-label { font-family:var(--font-mono); font-size:0.67rem; color:rgba(255,255,255,0.3); letter-spacing:0.12em; margin-left:1rem; }
+  .nav-btn { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.1em; color:var(--parch); background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); padding:0.35rem 1rem; cursor:pointer; transition:all 0.2s; border-radius:2px; }
+  .nav-btn:hover { background:rgba(255,255,255,0.16); }
+  .nav-btn:disabled { opacity:0.3; cursor:default; }
+  #slide-counter { font-family:var(--font-mono); font-size:0.67rem; color:rgba(255,255,255,0.3); }
+  #progress-bar { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--accent),var(--accent2,var(--accent))); transition:width 0.4s ease; z-index:50; }
+  .slide-header { padding:1.1rem 4.5rem 0.9rem; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.07); flex-shrink:0; }
+  .course-tag { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.16em; color:rgba(255,255,255,0.25); text-transform:uppercase; }
+  .week-tag { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.16em; color:var(--accent); opacity:0.8; text-transform:uppercase; }
+  .slide-inner { flex:1; padding:2.8rem 4.5rem 4.8rem; display:flex; flex-direction:column; overflow:hidden; }
+  .slide-eyebrow { font-family:var(--font-mono); font-size:0.69rem; letter-spacing:0.2em; color:var(--accent); text-transform:uppercase; margin-bottom:1rem; display:flex; align-items:center; gap:0.7rem; }
+  .slide-eyebrow::before { content:''; display:block; width:1.8rem; height:1px; background:var(--accent); opacity:0.6; }
+  .slide-h1 { font-family:var(--font-display); font-size:clamp(2.4rem,4.5vw,3.6rem); font-weight:700; line-height:1.1; color:var(--parch); margin-bottom:0.4rem; }
+  .slide-h1 em { font-style:italic; color:var(--accent); }
+  .slide-h2 { font-family:var(--font-display); font-size:clamp(1.5rem,2.4vw,2rem); font-weight:600; color:var(--parch); margin-bottom:1rem; line-height:1.2; }
+  .gold-rule { width:3.5rem; height:2px; background:linear-gradient(90deg,var(--accent),transparent); margin-bottom:1.6rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation:fadeUp 0.5s ease forwards; }
+  .slide.active .slide-header { animation:fadeUp 0.5s ease 0.04s forwards; opacity:0; animation-fill-mode:forwards; }
+  .help-overlay { display:none; position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; }
+  .help-overlay.visible { display:flex; }
+  .help-box { background:var(--bg-card,#1a1836); border:1px solid rgba(255,255,255,0.15); border-radius:6px; padding:2rem 2.5rem; max-width:440px; width:90%; }
+  .help-box h3 { font-family:var(--font-display); font-size:1.35rem; margin-bottom:1.2rem; color:var(--parch); }
+  .shortcut-row { display:flex; justify-content:space-between; align-items:center; padding:0.45rem 0; border-bottom:1px solid rgba(255,255,255,0.06); font-family:var(--font-body); font-size:0.93rem; color:rgba(255,255,255,0.65); }
+  .key { font-family:var(--font-mono); font-size:0.72rem; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.2); padding:0.18rem 0.5rem; border-radius:3px; color:var(--parch); }
+  .help-close { margin-top:1.1rem; font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.12em; color:var(--accent); cursor:pointer; text-align:right; text-transform:uppercase; }
+  /* shared component styles */
+  .reading-box { background:var(--bg-card); border:1px solid rgba(255,255,255,0.09); border-left:3px solid var(--accent); border-radius:4px; padding:1.3rem 1.6rem; }
+  .reading-box .rb-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.18em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem; }
+  .reading-box p, .reading-box li { font-family:var(--font-body); font-size:1rem; color:rgba(255,255,255,0.8); line-height:1.6; }
+  .reading-box ul { list-style:none; }
+  .reading-box ul li::before { content:'·'; color:var(--accent); margin-right:0.5rem; }
+  .q-grid { display:flex; flex-direction:column; gap:0.85rem; flex:1; }
+  .q-card { display:flex; gap:1.3rem; align-items:flex-start; background:var(--bg-card); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:1.1rem 1.5rem; opacity:0; transform:translateY(10px); transition:opacity 0.4s, transform 0.4s, background 0.2s; cursor:pointer; user-select:none; }
+  .q-card:not(.revealed) { border-style:dashed; border-color:rgba(255,255,255,0.12); }
+  .q-card:not(.revealed):hover { border-color:var(--accent); background:rgba(255,255,255,0.03); }
+  .q-card.revealed { opacity:1; transform:translateY(0); cursor:default; }
+  .q-card.revealed:hover { background:rgba(255,255,255,0.06); }
+  .q-num { font-family:var(--font-display); font-size:2rem; font-weight:700; color:var(--accent); opacity:0.3; line-height:1; flex-shrink:0; width:2.3rem; margin-top:-0.1rem; }
+  .q-card.revealed .q-num { opacity:1; }
+  .q-body { font-family:var(--font-body); font-size:1.05rem; line-height:1.55; color:var(--parch); }
+  .q-sub { display:block; font-style:italic; color:rgba(255,255,255,0.45); font-size:0.92rem; margin-top:0.25rem; }
+  .reveal-btn { display:flex; align-items:center; gap:0.6rem; margin:1.2rem auto 0; font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.16em; color:var(--accent); background:rgba(255,255,255,0.05); border:1px solid var(--accent); opacity:0.7; padding:0.55rem 1.4rem; cursor:pointer; border-radius:2px; transition:all 0.2s; text-transform:uppercase; }
+  .reveal-btn:hover { background:rgba(255,255,255,0.1); opacity:1; }
+  .reveal-hint { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.13em; color:rgba(255,255,255,0.25); text-align:center; margin-top:0.5rem; }
+  .steps-list { display:flex; flex-direction:column; gap:0.7rem; flex:1; }
+  .step-row { display:flex; gap:1.3rem; align-items:flex-start; background:var(--bg-card); border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:0.85rem 1.2rem; transition:all 0.3s; cursor:pointer; }
+  .step-row.current { background:rgba(255,255,255,0.07); border-color:var(--accent); }
+  .step-row.done { opacity:0.42; }
+  .step-row.done .step-num { background:var(--accent); border-color:var(--accent); color:#000; }
+  .step-num { width:1.9rem; height:1.9rem; border-radius:50%; border:1.5px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.72rem; color:rgba(255,255,255,0.5); flex-shrink:0; transition:all 0.3s; margin-top:0.1rem; }
+  .step-row.current .step-num { background:var(--accent); border-color:var(--accent); color:#000; }
+  .step-title { font-family:var(--font-body); font-size:1rem; font-weight:500; color:var(--parch); line-height:1.3; margin-bottom:0.15rem; }
+  .step-detail { font-family:var(--font-body); font-size:0.88rem; font-style:italic; color:rgba(255,255,255,0.48); line-height:1.4; }
+  .step-note { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; color:var(--accent); margin-top:0.25rem; opacity:0.8; }
+  .timer-display { text-align:center; margin:1rem 0; }
+  .timer-big { font-family:var(--font-mono); font-size:clamp(5rem,12vw,8rem); color:var(--accent); letter-spacing:0.06em; line-height:1; transition:color 0.3s; }
+  .timer-big.urgent { color:#E86B4B; }
+  .timer-label { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.2em; color:rgba(255,255,255,0.3); text-transform:uppercase; margin-top:0.3rem; }
+  .timer-controls { display:flex; gap:0.8rem; justify-content:center; margin-top:0.8rem; }
+  .timer-btn { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.13em; text-transform:uppercase; padding:0.5rem 1.3rem; cursor:pointer; border-radius:2px; transition:all 0.2s; border:none; }
+  .timer-btn.primary { background:var(--accent); color:#000; }
+  .timer-btn.primary:hover { opacity:0.85; }
+  .timer-btn.secondary { background:rgba(255,255,255,0.08); color:var(--parch); border:1px solid rgba(255,255,255,0.2); }
+  .udl-row { display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:0.8rem; }
+  .udl-chip { display:flex; align-items:center; gap:0.4rem; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:3px; padding:0.38rem 0.75rem; font-family:var(--font-body); font-size:0.86rem; color:rgba(255,255,255,0.65); }
+  .milestone-card { background:rgba(181,52,42,0.14); border:1px solid rgba(220,80,60,0.35); border-left:4px solid #DC503C; border-radius:4px; padding:1.4rem 1.8rem; }
+  .m-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.18em; color:#E8845A; text-transform:uppercase; margin-bottom:0.4rem; }
+  .m-title { font-family:var(--font-display); font-size:1.6rem; font-weight:700; color:var(--parch); margin-bottom:0.3rem; }
+  .m-meta { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.1em; color:rgba(255,255,255,0.4); margin-bottom:0.8rem; }
+  .m-body { font-family:var(--font-body); font-size:1rem; color:rgba(255,255,255,0.78); line-height:1.6; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; flex:1; }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.2rem; }
+  .info-card { background:var(--bg-card); border:1px solid rgba(255,255,255,0.08); border-radius:4px; padding:1.1rem 1.3rem; }
+  .info-card .ic-label { font-family:var(--font-mono); font-size:0.61rem; letter-spacing:0.17em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem; }
+  .info-card p, .info-card li { font-family:var(--font-body); font-size:0.97rem; color:rgba(255,255,255,0.75); line-height:1.55; }
+  .info-card ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .info-card ul li { display:flex; gap:0.6rem; }
+  .info-card ul li::before { content:'→'; color:var(--accent); flex-shrink:0; opacity:0.6; }
+  .info-card .ic-head { font-family:var(--font-display); font-size:1rem; font-weight:600; color:var(--parch); margin-bottom:0.4rem; }
+  .next-card { background:rgba(107,82,184,0.13); border:1px solid rgba(107,82,184,0.3); border-radius:4px; padding:1.1rem 1.3rem; }
+  .next-card .nc-label { font-family:var(--font-mono); font-size:0.61rem; letter-spacing:0.17em; color:#A08EE8; text-transform:uppercase; margin-bottom:0.4rem; }
+  .next-card .nc-title { font-family:var(--font-display); font-size:1.15rem; color:var(--parch); margin-bottom:0.35rem; }
+  .next-card p { font-family:var(--font-body); font-size:0.93rem; font-style:italic; color:rgba(255,255,255,0.5); line-height:1.5; }
+  .tag { display:inline-block; font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.14em; padding:0.13rem 0.45rem; border-radius:2px; margin-left:0.45rem; vertical-align:middle; text-transform:uppercase; }
+  .tag-activity { background:rgba(201,168,76,0.18); color:#C9A84C; }
+  .tag-discussion { background:rgba(107,82,184,0.22); color:#A08EE8; }
+  .tag-writing { background:rgba(74,124,111,0.22); color:#8BC4B5; }
+  .tag-break { background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.35); }
+  .tag-milestone { background:rgba(220,80,60,0.2); color:#E8845A; }
+  .timeline-wrap { display:flex; flex-direction:column; gap:0; flex:1; overflow:hidden; }
+  .tl-item { display:grid; grid-template-columns:6.5rem 1.8rem 1fr; gap:0 1rem; align-items:start; padding:0.75rem 0.5rem; border-radius:4px; transition:background 0.2s; }
+  .tl-item:hover { background:rgba(255,255,255,0.03); }
+  .tl-time { font-family:var(--font-mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.06em; padding-top:0.12rem; text-align:right; }
+  .tl-line { display:flex; flex-direction:column; align-items:center; }
+  .tl-dot { width:9px; height:9px; border-radius:50%; border:1.5px solid var(--accent); background:transparent; flex-shrink:0; margin-top:0.18rem; }
+  .tl-conn { width:1px; flex:1; background:rgba(255,255,255,0.12); min-height:1.2rem; }
+  .tl-item:last-child .tl-conn { display:none; }
+  .tl-label { font-family:var(--font-body); font-size:1rem; color:var(--parch); font-weight:500; line-height:1.3; margin-bottom:0.15rem; }
+  .tl-desc { font-family:var(--font-body); font-size:0.86rem; font-style:italic; color:rgba(255,255,255,0.45); line-height:1.4; }
+
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+<div id="help-overlay" class="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><kbd class="key">→</kbd> <kbd class="key">Space</kbd></span></div>
+    <div class="shortcut-row"><span>Previous slide</span><span><kbd class="key">←</kbd></span></div>
+    <div class="shortcut-row"><span>Reveal next question</span><span><kbd class="key">Enter</kbd></span></div>
+    <div class="shortcut-row"><span>Start / pause timer</span><span><kbd class="key">T</kbd></span></div>
+    <div class="shortcut-row"><span>Reset timer</span><span><kbd class="key">R</kbd></span></div>
+    <div class="shortcut-row"><span>First / last slide</span><span><kbd class="key">Home</kbd> / <kbd class="key">End</kbd></span></div>
+    <div class="shortcut-row"><span>Help</span><span><kbd class="key">?</kbd></span></div>
+    <div class="shortcut-row"><span>Close</span><span><kbd class="key">Esc</kbd></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+<div id="deck">
+
+  <!-- SLIDE 1: TITLE -->
+  <div class="slide active" id="slide-1">
+    <div class="slide-inner" style="justify-content:center; padding:4rem 5rem;">
+      <div class="title-band">
+        <div class="title-mvmt">Movement I · Weeks 1–5</div>
+        <div class="title-mvmt-sub">Who Are We and What Do We Think?</div>
+      </div>
+      <div class="title-big">Critical Pedagogy<br>and the <em>Scholar-Critic</em></div>
+      <div class="title-week">WEEK 2 · CRDM 790</div>
+      <div style="display:flex;flex-direction:column;gap:0.4rem;border-left:2px solid rgba(123,111,216,0.3);padding-left:1.2rem;max-width:36rem;">
+        <div style="font-family:var(--font-body);font-size:0.95rem;color:rgba(238,232,255,0.5);font-style:italic;"><strong style="font-style:normal;color:rgba(238,232,255,0.7);">Reading:</strong> Giroux, <em>On Critical Pedagogy</em> (Perusall — Ch. 1 &amp; 2)</div>
+        <div style="font-family:var(--font-body);font-size:0.95rem;color:rgba(238,232,255,0.5);font-style:italic;"><strong style="font-style:normal;color:rgba(238,232,255,0.7);">Activity:</strong> Institutional Autopsy</div>
+        <div style="font-family:var(--font-body);font-size:0.95rem;color:rgba(238,232,255,0.5);font-style:italic;"><strong style="font-style:normal;color:rgba(238,232,255,0.7);">Note:</strong> If course meets Monday → MLK Jr. Day (Jan 18) → see asynchronous version on Moodle</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: SESSION MAP -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 2</span><span class="week-tag">Session Map</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Today's 3.5 Hours</div>
+      <div class="slide-h2">What We're Doing and When</div>
+      <div class="gold-rule"></div>
+      <div class="timeline-wrap">
+        <div class="tl-item"><div class="tl-time">0:00–0:20</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Perusall Check-In <span class="tag tag-discussion">Discussion</span></div><div class="tl-desc">Open with the most-annotated passage from Perusall. Project it. Use it to enter the conversation — don't summarize, let it provoke.</div></div></div>
+        <div class="tl-item"><div class="tl-time">0:20–1:30</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Giroux Seminar Discussion <span class="tag tag-discussion">Discussion</span></div><div class="tl-desc">Anchor: What does it mean to be a critic inside an institution? Can you critique the hand that grades you? Focus on Ch. 1, pp. 25–32.</div></div></div>
+        <div class="tl-item"><div class="tl-time">1:30–1:45</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Break <span class="tag tag-break">Rest</span></div><div class="tl-desc">Step away. Return ready.</div></div></div>
+        <div class="tl-item"><div class="tl-time">1:45–2:45</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Institutional Autopsy <span class="tag tag-activity">Activity</span></div><div class="tl-desc">In pairs → board list → group analysis. What unexamined assumptions are we operating under? Which are hegemonic? Which are worth breaking?</div></div></div>
+        <div class="tl-item"><div class="tl-time">2:45–3:15</div><div class="tl-line"><div class="tl-dot"></div><div class="tl-conn"></div></div><div><div class="tl-label">Synthesis Discussion <span class="tag tag-discussion">Discussion</span></div><div class="tl-desc">Which assumptions from today connect to the research questions students raised in Week 1? What have we named that we can no longer un-see?</div></div></div>
+        <div class="tl-item"><div class="tl-time">3:15–3:30</div><div class="tl-line"><div class="tl-dot"></div></div><div><div class="tl-label">Preview Week 3</div><div class="tl-desc">Introduce Benjamin. Ask students to bring a physical object next week — something from their research area that feels unresolved or haunted.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: READING GUIDE -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 2</span><span class="week-tag">Reading Guide</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">This Week's Text</div>
+      <div class="slide-h1">Giroux, <em>On Critical Pedagogy</em></div>
+      <div class="gold-rule"></div>
+
+      <div class="note-banner" style="margin-bottom:1.2rem;">
+        <div class="nb-icon">⚠️</div>
+        <p>If course meets Monday: this week falls on MLK Jr. Day (Jan 18). The asynchronous version is on Moodle — a 250-word reflection + one Perusall annotation. Prompt: "Name one assumption in your field you have inherited without questioning."</p>
+      </div>
+
+      <div class="two-col" style="gap:1.2rem;">
+        <div>
+          <div class="reading-box" style="margin-bottom:1rem;">
+            <div class="rb-label">Assigned (Perusall)</div>
+            <ul>
+              <li><strong>Ch. 1</strong> 'Critical Pedagogy and the Postmodern/Modern Divide' — pp. 17–63 (~46 pp.) — <em>core text</em></li>
+              <li><strong>Ch. 2</strong> 'Cultural Studies, Critical Pedagogy, and the Politics of Higher Education' — pp. 65–113 (~48 pp.) — optional for shorter load; core argument is in Ch. 1</li>
+            </ul>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Discussion Anchor Pages</div>
+            <p>Giroux on education as 'the practice of freedom' vs. training for labor markets — <strong>Ch. 1, approx. pp. 25–32</strong>. Return to this if discussion flags.</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="reading-box">
+            <div class="rb-label">Pre-Class Writing Prompt (Perusall)</div>
+            <p style="margin-bottom:0.6rem;">Annotate directly in Perusall:</p>
+            <ul>
+              <li>One passage you <strong>agree with</strong> — 2–3 sentences of genuine response, not summary</li>
+              <li>One passage you <strong>push back on</strong> — same</li>
+            </ul>
+            <div class="perusall-tip">Also bring: One concrete example from your own educational experience that either confirms or complicates Giroux's argument.</div>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">If This Week Opened Something Up</div>
+            <ul>
+              <li>bell hooks, <em>Teaching to Transgress</em></li>
+              <li>Stuart Hall, 'Cultural Studies and Its Theoretical Legacies'</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: GUIDING QUESTIONS -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 2</span><span class="week-tag">Discussion Questions</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Seminar · 0:20–1:30</div>
+      <div class="slide-h1">Questions Worth<br><em>Sitting With</em></div>
+      <div class="gold-rule"></div>
+      <div class="q-grid">
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">1</div><div class="q-body">What does it mean to be a critic inside an institution? Can you critique the hand that grades you?<span class="q-sub">Where do you feel that bind most sharply — in your research, your teaching, or in this room right now?</span></div></div>
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">2</div><div class="q-body">Giroux argues education is never neutral — it either domesticates or liberates. Do you believe that? Where have you experienced it?<span class="q-sub">What's an example from your own education that confirms or complicates this claim?</span></div></div>
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">3</div><div class="q-body">What does it mean to be educated inside a university that increasingly understands you as 'human capital'?<span class="q-sub">Brown (Week 5) will press this further. What do you already sense about what that means for your own formation?</span></div></div>
+        <div class="q-card" onclick="revealNextQuestion()"><div class="q-num">4</div><div class="q-body">What does 'critical pedagogy' demand of you as both student and future teacher/scholar?<span class="q-sub">Not just what Giroux says it demands — what do YOU feel it demands, given what you study and who you want to become?</span></div></div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextQuestion()">✦ &nbsp;Reveal Question 1</button>
+      <div class="reveal-hint" id="reveal-hint">Click any card or this button · or press Enter</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: INSTITUTIONAL AUTOPSY ACTIVITY -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 2</span><span class="week-tag">Hands-On Activity</span></div>
+    <div class="slide-inner">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.2rem;">
+        <div>
+          <div class="slide-eyebrow">Activity · 1:45–2:45</div>
+          <div class="slide-h2">Institutional Autopsy</div>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:0.67rem;letter-spacing:0.18em;color:var(--accent);background:rgba(123,111,216,0.12);border:1px solid rgba(123,111,216,0.3);padding:0.35rem 0.8rem;border-radius:2px;">60 minutes total</div>
+      </div>
+
+      <div class="steps-list">
+        <div class="step-row current" onclick="advanceStep(0)">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Pair work — 5 minutes</div>
+            <div class="step-detail">Each person names one rule, norm, or unspoken expectation of academic life that they have simply accepted without questioning. It doesn't need to be dramatic — it just needs to be real.</div>
+            <div class="step-note">Examples that have come up before: "Always cite the canonical figures even if they're not the most useful." "Appear confident about your project even when you're not." "Never say you don't know something."</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(1)">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Share out — 10 minutes · Instructor lists on board, does not editorialize</div>
+            <div class="step-detail">Every assumption goes on the board exactly as stated. No evaluation yet. Fill it up.</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(2)">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Group analysis — 25 minutes → use next slide for timer</div>
+            <div class="step-detail">Which of these would Giroux call 'hegemonic'? Which are actually useful or protective? Which are worth breaking — and at what cost? Which assumptions might look different depending on who's in the room?</div>
+          </div>
+        </div>
+        <div class="step-row" onclick="advanceStep(3)">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Individual writing — 5 minutes</div>
+            <div class="step-detail">Write one sentence: <em>"The assumption I am most committed to interrogating this semester is ___."</em></div>
+            <div class="step-note">Keep this. It can seed your Scholarly Identity Statement (due Week 5).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="autopsy-pairs" style="margin-top:0.8rem;">
+        <div class="pair-card">
+          <div class="pc-label">Facilitation anchor</div>
+          <p>Students who bristle at this framing are often the ones Giroux is describing most accurately. Treat that bristling as data, not resistance.</p>
+        </div>
+        <div class="pair-card">
+          <div class="pc-label">Watch for</div>
+          <p>Students who say "I study algorithms, not education." Gently surface the assumption that their field is ideology-free.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: ANALYSIS TIMER -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 2</span><span class="week-tag">Activity · Step 3</span></div>
+    <div class="slide-inner" style="justify-content:space-between;">
+      <div>
+        <div class="slide-eyebrow">Institutional Autopsy · Group Analysis</div>
+        <div class="slide-h2">Which assumptions are hegemonic? Which are worth breaking?</div>
+      </div>
+      <div class="timer-display">
+        <div class="timer-big" id="timer-display">25:00</div>
+        <div class="timer-label" id="timer-status">Ready to start</div>
+        <div class="timer-controls">
+          <button class="timer-btn primary" id="timer-start-btn" onclick="toggleTimer()">Start Timer</button>
+          <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+      <div class="three-col" style="margin-top:0.5rem;">
+        <div class="info-card">
+          <div class="ic-label">Question 1</div>
+          <p>Which assumptions on the board would Giroux call <em>hegemonic</em> — so naturalized we've stopped seeing them as choices?</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Question 2</div>
+          <p>Which assumptions are actually <em>useful or protective</em>? Not everything is worth breaking. What does the field need to function?</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Question 3</div>
+          <p>Which assumptions might look <em>different depending on who's in the room</em>? Whose experience of academic "norms" is this list reflecting?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: SYNTHESIS -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 2</span><span class="week-tag">Synthesis Discussion</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Discussion · 2:45–3:15</div>
+      <div class="slide-h2">Connecting Giroux Back to Week 1</div>
+      <div class="gold-rule"></div>
+      <div class="synthesis-grid">
+        <div class="syn-col">
+          <div class="info-card" style="flex:1;">
+            <div class="ic-label">The question to hold</div>
+            <p style="font-family:var(--font-display);font-size:1.2rem;font-style:italic;color:var(--parch);line-height:1.5;">"Which assumptions we named today connect to the research questions you raised in Week 1?"</p>
+            <p style="margin-top:0.7rem;">The constellation cards from last week mapped where everyone is coming from. What does Giroux tell us about the institutional conditions that shaped those intellectual starting points?</p>
+          </div>
+          <div class="info-card" style="flex:1;">
+            <div class="ic-label">What to listen for</div>
+            <ul>
+              <li>Students making the connection between critique and their own research area</li>
+              <li>Students who are beginning to question the canon they've been assigned</li>
+              <li>Students who feel implicated — not just observers of the critique, but subjects of it</li>
+            </ul>
+          </div>
+        </div>
+        <div class="syn-col">
+          <div class="writing-seed">
+            <div class="ws-label">Individual Writing Seed (5 min)</div>
+            <p>"Write one sentence beginning: 'The assumption I am most committed to interrogating this semester is ___.' This is not a homework assignment. It's a record of where you are right now."</p>
+          </div>
+          <div class="info-card" style="flex:1;">
+            <div class="ic-label">Asynchronous version (if this is MLK Day week)</div>
+            <ul>
+              <li>Post a 250-word Moodle reflection</li>
+              <li>One Perusall annotation on the most challenging passage</li>
+              <li>Prompt: "Name one assumption in your field you have inherited without questioning."</li>
+              <li>Responses inform Week 3 discussion — read them before class</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: LOOKING AHEAD -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header"><span class="course-tag">CRDM 790 · Week 2</span><span class="week-tag">Looking Ahead</span></div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Leave</div>
+      <div class="slide-h2">Week 3 Preparation</div>
+      <div class="gold-rule"></div>
+      <div class="two-col">
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="info-card">
+            <div class="ic-label">Reading for Week 3 (Perusall)</div>
+            <ul>
+              <li>Benjamin, <em>Illuminations</em> — 'The Storyteller' (pp. 83–109)</li>
+              <li>Benjamin — 'The Work of Art in the Age of Mechanical Reproduction' (pp. 217–251)</li>
+              <li>Benjamin — 'Theses on the Philosophy of History' (pp. 253–264) — dense despite being short</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <div class="ic-label">Perusall annotation prompt</div>
+            <p>Mark one moment in the 'Theses on the Philosophy of History' that you find cryptic. Write a genuine question — not rhetorical. The difficulty is the point.</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="info-card" style="background:rgba(255,200,100,0.07);border-color:rgba(255,200,100,0.2);">
+            <div class="ic-label" style="color:#C9A84C;">Bring to Class — Week 3</div>
+            <p style="font-size:1.05rem;font-weight:500;color:var(--parch);margin-bottom:0.4rem;">One object.</p>
+            <p>A photo, text, image, or sound clip representing something in your research area that feels unresolved or haunted. You don't need to explain it fully — just bring it and be ready to say why it matters to you.</p>
+          </div>
+          <div class="milestone-card">
+            <div class="m-label">Milestone 1 — On the Horizon</div>
+            <div class="m-title" style="font-size:1.2rem;">Scholarly Identity Statement</div>
+            <div class="m-meta">Due before class · Week 5 · 20% of final grade</div>
+            <div class="m-body">~500 words. Who are you as a scholar? What animates your research, and why does it matter? Start thinking. The writing you're doing in the Autopsy and in Perusall is already feeding it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div id="nav">
+  <div style="display:flex;align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 2 · CRITICAL PEDAGOGY</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex;gap:0.7rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+<script>
+
+(function(){
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+  function init(){
+    stars=[];
+    for(let i=0;i<140;i++){
+      stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,
+        r:Math.random()*1.1+0.2,a:Math.random()*0.55+0.08,
+        speed:Math.random()*0.0003+0.0001,phase:Math.random()*Math.PI*2});
+    }
+    stars.lines=[];
+    for(let i=0;i<8;i++){
+      const a=Math.floor(Math.random()*stars.length),b=Math.floor(Math.random()*stars.length);
+      if(Math.hypot(stars[a].x-stars[b].x,stars[a].y-stars[b].y)<140) stars.lines.push([a,b]);
+    }
+  }
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    frame++;
+    ctx.strokeStyle='rgba(130,110,220,0.07)';
+    ctx.lineWidth=0.5;
+    stars.lines&&stars.lines.forEach(([a,b])=>{
+      ctx.beginPath();ctx.moveTo(stars[a].x,stars[a].y);ctx.lineTo(stars[b].x,stars[b].y);ctx.stroke();
+    });
+    stars.forEach(s=>{
+      const pulse=Math.sin(frame*s.speed+s.phase);
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(245,237,216,${s.a*(0.7+0.3*pulse)})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{resize();init();});
+  resize();init();draw();
+})();
+
+const TOTAL = 8;
+let current = 1;
+let visited = new Set([1]);
+let questionsRevealed = 0;
+let currentStep = 0;
+let timerSeconds = 1500;
+let timerRunning = false;
+let timerInterval = null;
+const slideNames = ["Title","Session Map","Giroux — Reading Guide","Guiding Questions","Institutional Autopsy","Autopsy Timer","Discussion Synthesis","Looking Ahead"];
+
+function goTo(n) {
+  if (n < 1 || n > TOTAL) return;
+  document.getElementById('slide-' + current).classList.remove('active');
+  current = n;
+  visited.add(n);
+  document.getElementById('slide-' + n).classList.add('active');
+  if (n === 4 && questionsRevealed === 0) setTimeout(() => revealNextQuestion(), 400);
+  updateNav();
+}
+function nextSlide() { goTo(current + 1); }
+function prevSlide() { goTo(current - 1); }
+function updateNav() {
+  document.getElementById('prev-btn').disabled = current === 1;
+  document.getElementById('next-btn').disabled = current === TOTAL;
+  document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
+  document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
+  const dc = document.getElementById('slide-dots');
+  dc.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === current ? ' active' : (visited.has(i) ? ' visited' : ''));
+    d.onclick = () => goTo(i);
+    d.title = slideNames[i - 1] || '';
+    dc.appendChild(d);
+  }
+}
+function revealNextQuestion() {
+  const cards = document.querySelectorAll('.q-card');
+  if (questionsRevealed < cards.length) { cards[questionsRevealed].classList.add('revealed'); questionsRevealed++; }
+  const btn = document.getElementById('reveal-btn');
+  if (!btn) return;
+  if (questionsRevealed >= cards.length) {
+    btn.textContent = '✓  All Questions Revealed';
+    btn.style.opacity = '0.3'; btn.style.cursor = 'default'; btn.onclick = null;
+    const hint = document.getElementById('reveal-hint');
+    if (hint) hint.style.opacity = '0';
+  } else {
+    btn.textContent = '✦  Reveal Question ' + (questionsRevealed + 1);
+  }
+}
+function advanceStep(i) {
+  document.querySelectorAll('.step-row').forEach((r, idx) => {
+    r.classList.remove('current', 'done');
+    if (idx < i) r.classList.add('done');
+    else if (idx === i) r.classList.add('current');
+  });
+}
+function toggleTimer() {
+  timerRunning ? pauseTimer() : startTimer();
+}
+function startTimer() {
+  timerRunning = true;
+  const sb = document.getElementById('timer-start-btn');
+  const sl = document.getElementById('timer-status');
+  if (sb) sb.textContent = 'Pause';
+  if (sl) sl.textContent = 'Institutional Autopsy in progress';
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval); timerRunning = false;
+      const d = document.getElementById('timer-display');
+      if (d) { d.textContent = 'Done!'; d.classList.remove('urgent'); }
+      if (sb) sb.textContent = 'Start Timer';
+      if (sl) sl.textContent = 'Share your assumptions with the room';
+      try {
+        const ac = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ac.createOscillator(); const g = ac.createGain();
+        osc.connect(g); g.connect(ac.destination);
+        osc.frequency.value = 660; g.gain.setValueAtTime(0.3, ac.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 1.5);
+        osc.start(); osc.stop(ac.currentTime + 1.5);
+      } catch(e){}
+    }
+  }, 1000);
+}
+function pauseTimer() {
+  timerRunning = false; clearInterval(timerInterval);
+  const sb = document.getElementById('timer-start-btn');
+  const sl = document.getElementById('timer-status');
+  if (sb) sb.textContent = 'Resume';
+  if (sl) sl.textContent = 'Paused';
+}
+function resetTimer() {
+  pauseTimer(); timerSeconds = 1500; timerRunning = false;
+  const sb = document.getElementById('timer-start-btn');
+  if (sb) sb.textContent = 'Start Timer';
+  const sl = document.getElementById('timer-status');
+  if (sl) sl.textContent = 'Ready to start';
+  updateTimerDisplay();
+}
+function updateTimerDisplay() {
+  const el = document.getElementById('timer-display');
+  if (!el) return;
+  const m = Math.floor(timerSeconds / 60), s = timerSeconds % 60;
+  el.textContent = m + ':' + String(s).padStart(2,'0');
+  timerSeconds <= 60 ? el.classList.add('urgent') : el.classList.remove('urgent');
+}
+function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
+function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
+document.addEventListener('keydown', e => {
+  if (document.getElementById('help-overlay').classList.contains('visible')) { if(e.key==='Escape') closeHelp(); return; }
+  switch(e.key) {
+    case 'ArrowRight': case ' ': e.preventDefault(); nextSlide(); break;
+    case 'ArrowLeft': e.preventDefault(); prevSlide(); break;
+    case 'Enter': if(current===4){e.preventDefault();revealNextQuestion();} break;
+    case 't': case 'T': if(current===6) toggleTimer(); break;
+    case 'r': case 'R': if(current===6) resetTimer(); break;
+    case 'Home': goTo(1); break;
+    case 'End': goTo(TOTAL); break;
+    case '?': toggleHelp(); break;
+    case 'Escape': closeHelp(); break;
+  }
+});
+updateNav();
+
+
+</script>
+</body>
+</html>
