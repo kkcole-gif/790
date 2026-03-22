@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 11 · One-Dimensional Thinking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night:   #06050F;
+    --deep:    #0C0B18;
+    --ink:     #121022;
+    --accent:  #6B7FD4;
+    --accent2: #9BAAE8;
+    --slate:   #7D91DC;
+    --parch:   #EEF0F8;
+    --muted:   rgba(238,240,248,0.54);
+    --bg-card: rgba(238,240,248,0.04);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'EB Garamond', Georgia, serif;
+    --font-mono:    'Inconsolata', monospace;
+  }
+  #slide-1 { background: radial-gradient(ellipse at 40% 50%, #120F2A 0%, #06050F 70%); }
+  #slide-2 { background: var(--deep); }
+  #slide-3 { background: var(--ink); }
+  #slide-4 { background: var(--deep); }
+  #slide-5 { background: #0A0916; }
+  #slide-6 { background: var(--ink); }
+  #slide-7 { background: var(--deep); }
+  #slide-8 { background: var(--night); }
+
+  /* ── AUDIT STEPPER ── */
+  .audit-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; flex: 1; }
+  .audit-col { display: flex; flex-direction: column; gap: 0.9rem; }
+  .audit-steps { background: var(--bg-card); border: 1px solid rgba(238,240,248,0.08); border-radius: 4px; overflow: hidden; flex: 1; }
+  .audit-step { padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(238,240,248,0.06); display: flex; gap: 0.9rem; align-items: flex-start; opacity: 0.38; transition: all 0.25s; cursor: pointer; }
+  .audit-step:last-child { border-bottom: none; }
+  .audit-step.active { opacity: 1; background: rgba(107,127,212,0.1); border-left: 3px solid var(--accent); }
+  .audit-step.done { opacity: 0.72; }
+  .as-num { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--accent); opacity: 0.4; line-height: 1; flex-shrink: 0; width: 1.8rem; }
+  .audit-step.active .as-num { opacity: 1; }
+  .as-body { flex: 1; }
+  .as-title { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .as-text { font-family: var(--font-body); font-size: 0.93rem; color: var(--muted); line-height: 1.5; }
+  .audit-step.active .as-text { color: rgba(238,240,248,0.85); }
+  .audit-nav { display: flex; gap: 0.8rem; margin-top: 0.9rem; align-items: center; justify-content: center; }
+  .audit-btn { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--parch); background: rgba(107,127,212,0.13); border: 1px solid var(--accent); padding: 0.45rem 1.2rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .audit-btn:hover { background: rgba(107,127,212,0.26); }
+  .audit-status { font-family: var(--font-mono); font-size: 0.65rem; color: rgba(238,240,248,0.3); letter-spacing: 0.1em; }
+
+  /* ── Q CARDS ── */
+  .q-grid { display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+  .q-card { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px dashed rgba(238,240,248,0.09); border-radius: 4px; padding: 1rem 1.4rem; opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s; cursor: pointer; user-select: none; }
+  .q-card:not(.revealed):hover { border-color: var(--accent); background: rgba(107,127,212,0.07); }
+  .q-card.revealed { opacity: 1; transform: translateY(0); cursor: default; border-style: solid; border-color: rgba(238,240,248,0.07); }
+  .q-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--accent); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 2.2rem; }
+  .q-card.revealed .q-num { opacity: 1; }
+  .q-body { font-family: var(--font-body); font-size: 1rem; line-height: 1.55; color: var(--parch); }
+  .q-sub { display: block; font-style: italic; color: rgba(238,240,248,0.42); font-size: 0.9rem; margin-top: 0.2rem; }
+  .reveal-btn { display: flex; align-items: center; gap: 0.6rem; margin: 0.8rem auto 0; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em; color: var(--accent); background: rgba(238,240,248,0.04); border: 1px solid var(--accent); opacity: 0.7; padding: 0.5rem 1.3rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .reveal-btn:hover { background: rgba(107,127,212,0.18); opacity: 1; }
+  .reveal-hint { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(238,240,248,0.2); text-align: center; margin-top: 0.4rem; }
+
+  /* ── READING BOX ── */
+  .reading-box { background: var(--bg-card); border: 1px solid rgba(238,240,248,0.08); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 0.9rem; }
+  .reading-box .rb-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.45rem; }
+  .reading-box p, .reading-box li { font-family: var(--font-body); font-size: 0.99rem; color: rgba(238,240,248,0.78); line-height: 1.6; }
+  .reading-box ul { list-style: none; }
+  .reading-box ul li::before { content: '·'; color: var(--accent); margin-right: 0.5rem; }
+
+  /* ── MAP GRID ── */
+  .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1; }
+  .map-card { background: var(--bg-card); border: 1px solid rgba(238,240,248,0.07); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .map-card .mc-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.17em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .map-card p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  .map-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .map-card ul li { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.5; }
+  .map-card ul li::before { content: '·'; color: var(--accent); margin-right: 0.4rem; }
+
+  /* ── DISC LAYOUT ── */
+  .disc-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; flex: 1; }
+  .disc-col { display: flex; flex-direction: column; gap: 1rem; }
+  .writing-seed { background: rgba(107,127,212,0.09); border: 1px solid rgba(107,127,212,0.27); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .writing-seed .ws-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .writing-seed p { font-family: var(--font-display); font-size: 1.05rem; font-style: italic; color: var(--parch); line-height: 1.5; }
+
+  /* ── FR CARDS ── */
+  .fr-grid { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+  .fr-card { display: flex; gap: 1rem; background: var(--bg-card); border: 1px solid rgba(238,240,248,0.07); border-radius: 4px; padding: 0.9rem 1.2rem; align-items: flex-start; }
+  .fr-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .fr-body { flex: 1; }
+  .fr-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--parch); font-style: italic; margin-bottom: 0.2rem; }
+  .fr-author { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .fr-note { font-family: var(--font-body); font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── AHEAD ── */
+  .ahead-grid { display: flex; flex-direction: column; gap: 0.9rem; flex: 1; }
+  .ahead-item { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px solid rgba(238,240,248,0.07); border-radius: 4px; padding: 1rem 1.3rem; }
+  .ahead-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .ahead-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .ahead-item p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── SHARED ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #deck { position: relative; z-index: 1; width: 100vw; height: 100vh; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+  .slide.active { opacity: 1; pointer-events: all; }
+  #nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 2rem; background: rgba(6,5,15,0.93); border-top: 1px solid rgba(107,127,212,0.18); backdrop-filter: blur(10px); }
+  #slide-dots { display: flex; gap: 0.45rem; align-items: center; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(107,127,212,0.2); cursor: pointer; transition: all 0.3s; }
+  .dot.active { background: var(--accent); transform: scale(1.5); }
+  .dot.visited { background: rgba(107,127,212,0.48); }
+  #nav-label { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(238,240,248,0.26); letter-spacing: 0.12em; margin-left: 1rem; }
+  .nav-btn { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--parch); background: rgba(107,127,212,0.1); border: 1px solid rgba(107,127,212,0.28); padding: 0.35rem 1rem; cursor: pointer; transition: all 0.2s; border-radius: 2px; }
+  .nav-btn:hover { background: rgba(107,127,212,0.22); border-color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  #slide-counter { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(238,240,248,0.26); }
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #2A2F6A, var(--accent), var(--accent2)); transition: width 0.4s ease; z-index: 50; }
+  .slide-header { padding: 1.1rem 4.5rem 0.9rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(238,240,248,0.06); flex-shrink: 0; }
+  .course-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: rgba(238,240,248,0.2); text-transform: uppercase; }
+  .week-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: var(--accent); opacity: 0.75; text-transform: uppercase; }
+  .slide-inner { flex: 1; padding: 2.6rem 4.5rem 4.8rem; display: flex; flex-direction: column; overflow: hidden; }
+  .slide-eyebrow { font-family: var(--font-mono); font-size: 0.69rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; }
+  .slide-eyebrow::before { content: ''; display: block; width: 1.8rem; height: 1px; background: var(--accent); opacity: 0.55; }
+  .slide-h1 { font-family: var(--font-display); font-size: clamp(2.3rem,4.2vw,3.4rem); font-weight: 700; line-height: 1.1; color: var(--parch); margin-bottom: 0.4rem; }
+  .slide-h1 em { font-style: italic; color: var(--accent2); }
+  .accent-rule { width: 3.5rem; height: 2px; background: linear-gradient(90deg,var(--accent),transparent); margin-bottom: 1.5rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation: fadeUp 0.48s ease forwards; }
+  .slide.active .slide-header { animation: fadeUp 0.48s ease 0.04s both; }
+  .help-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; }
+  .help-overlay.visible { display: flex; }
+  .help-box { background: #0C0B18; border: 1px solid rgba(238,240,248,0.12); border-radius: 6px; padding: 2rem 2.5rem; max-width: 440px; width: 90%; }
+  .help-box h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--parch); }
+  .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(238,240,248,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(238,240,248,0.6); }
+  .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(238,240,248,0.08); border: 1px solid rgba(238,240,248,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
+  .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+<div id="deck">
+
+  <!-- ══ SLIDE 1: TITLE ══ -->
+  <div class="slide active" id="slide-1">
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding: 0 6rem 5rem;">
+      <div style="font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.22em; color:rgba(107,127,212,0.55); margin-bottom:0.7rem; display:flex; align-items:center; gap:0.7rem;">
+        <span style="display:block; width:2rem; height:1px; background:rgba(107,127,212,0.4);"></span>
+        MOVEMENT III · WEEK 11
+      </div>
+      <h1 style="font-family:var(--font-display); font-size:clamp(2.8rem,5vw,4.4rem); font-weight:700; line-height:1.05; color:var(--parch); margin-bottom:0.3rem;">
+        One-Dimensional<br><em style="color:var(--accent2);">Thinking</em>
+      </h1>
+      <div style="width:5rem; height:2px; background:linear-gradient(90deg,var(--accent),transparent); margin: 1rem 0 1.8rem;"></div>
+      <div style="font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.2em; color:rgba(238,240,248,0.2); margin-bottom:2.5rem;">WEEK 11 &nbsp;·&nbsp; CRDM 790 &nbsp;·&nbsp; Spring 2027</div>
+      <div style="display:flex; flex-direction:column; gap:0.4rem; border-left:2px solid rgba(107,127,212,0.28); padding-left:1.2rem;">
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(238,240,248,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(238,240,248,0.68);">Reading:</strong> Herbert Marcuse, <em>One-Dimensional Man</em> — selected chapters (Perusall)</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(238,240,248,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(238,240,248,0.68);">Activity:</strong> One-Dimensional Draft Audit</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(238,240,248,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(238,240,248,0.68);">First week after Spring Break</strong> — welcome back</div>
+      </div>
+      <div style="position:absolute; top:1.5rem; right:5rem; font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; color:rgba(107,127,212,0.38); border:1px solid rgba(107,127,212,0.15); padding:0.28rem 0.65rem; border-radius:2px;">UDL COMPLIANT</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: SESSION MAP ══ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 11 · Movement III</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Session Map</div>
+      <h1 class="slide-h1">Today's <em>Arc</em></h1>
+      <div class="accent-rule"></div>
+      <div class="map-grid">
+        <div class="map-card">
+          <div class="mc-label">🌿 Back from Break</div>
+          <ul>
+            <li>20 minutes: What did you read for pleasure? (This is a real question.)</li>
+            <li>Signals that you take seriously what you were asked to do — and that rest matters</li>
+            <li>Transition: from rest into Marcuse's argument about why rest is not enough</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">📖 Primary Reading (Perusall)</div>
+          <ul>
+            <li>Herbert Marcuse, <em>One-Dimensional Man</em></li>
+            <li>Introduction to 1st Edition: pp. xi–xvii (~7 pp.)</li>
+            <li>Chapter 1, 'The New Forms of Control': pp. 1–18</li>
+            <li>Chapter 3, 'Repressive Desublimation': pp. 56–83</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">💬 Discussion</div>
+          <ul>
+            <li>Marcuse on false needs, one-dimensional thought, and absorption of dissent</li>
+            <li>Students read first prospectus paragraph aloud — group applies Marcuse's critique</li>
+            <li>Discussion anchor: true vs. false needs (pp. 4–8)</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✦ One-Dimensional Draft Audit</div>
+          <ul>
+            <li>Each person reads prospectus paragraph aloud (2 min)</li>
+            <li>Group offers one 'one-dimensional' observation — no fixes yet</li>
+            <li>5 minutes: write a revised first sentence that opens up rather than closes down</li>
+            <li>Volunteers share before and after</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: PRE-CLASS WRITING ══ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 11 · Pre-Class Writing</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">What You Brought to Class</div>
+      <h1 class="slide-h1">Two <em>Paragraphs</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">Paragraph One — First Prospectus Draft</div>
+            <p>The opening statement of your project. What is the problem? Why does it matter? Who is it for?</p>
+            <br>
+            <p>Write it as if you're writing the opening paragraph of your actual prospectus — present tense, declarative, claiming an argument. Don't hedge. Don't qualify into vagueness. Say what you think you're doing.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Paragraph Two — The Marcusean Critique</div>
+            <p>Apply Marcuse's analysis to your own first paragraph. Where does it reproduce the assumptions of your field without questioning them? Where does it fail to imagine alternatives? Where is it one-dimensional?</p>
+            <br>
+            <p>This is not self-flagellation — it is the intellectual move that makes the contribution claim possible. You cannot claim to offer something new until you can identify what you are departing from.</p>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">The Diagnostic Question</div>
+            <p>"Where in my first paragraph am I writing what the field expects me to write — rather than what I actually think?"</p>
+          </div>
+          <div style="background:rgba(107,127,212,0.07); border:1px solid rgba(107,127,212,0.2); border-radius:4px; padding:1rem 1.2rem; margin-top:0.5rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem;">Perusall Annotation</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">Find the passage in Marcuse where you feel the critique most directly. Where does his analysis name something you recognize in your own field's disciplinary language?</p>
+          </div>
+          <div style="background:var(--bg-card); border:1px solid rgba(238,240,248,0.08); border-radius:4px; padding:1rem 1.2rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">Return from Break Check-In</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">The first 20 minutes of class: What did you read for pleasure over break? What surprised you? This is not small talk — it is the intellectual warm-up for a session about imagination.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: GUIDING QUESTIONS ══ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 11 · Discussion</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Click to Reveal · or press Enter</div>
+      <h1 class="slide-h1">Guiding <em>Questions</em></h1>
+      <div class="accent-rule"></div>
+      <div class="q-grid">
+        <div class="q-card" id="q1" onclick="revealQ(1)">
+          <div class="q-num">1</div>
+          <div class="q-body">Marcuse argues that advanced industrial society absorbs and neutralizes dissent — that we have become incapable of imagining alternatives. Do you believe that? Where do you see it in your field?
+            <span class="q-sub">What does "one-dimensional thought" look like in the journals you read?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q2" onclick="revealQ(2)">
+          <div class="q-num">2</div>
+          <div class="q-body">What would it mean for your dissertation to be "one-dimensional"? What field assumptions would it reproduce without questioning?
+            <span class="q-sub">Marcuse: the one-dimensional thinker can identify the problem but cannot imagine outside the system that produced it.</span>
+          </div>
+        </div>
+        <div class="q-card" id="q3" onclick="revealQ(3)">
+          <div class="q-num">3</div>
+          <div class="q-body">Marcuse's critique is partly a critique of academic language itself — the way technical discourse forecloses political thought. Do you recognize that in your field's writing?
+            <span class="q-sub">What happens when you translate your research question into plain language? What do you lose — and what do you suddenly see?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q4" onclick="revealQ(4)">
+          <div class="q-num">4</div>
+          <div class="q-body">Kelley's <em>Freedom Dreams</em> offers the counter-move: imagination as scholarly and political practice. What would it mean for your dissertation to be a "freedom dream"?
+            <span class="q-sub">Not optimism — rigorous imagination. What future does your work have to believe in to be worth writing?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q5" onclick="revealQ(5)">
+          <div class="q-num">5</div>
+          <div class="q-body">Read your first prospectus paragraph with Marcuse's critique in mind. Where is it one-dimensional? Where does it open rather than close?
+            <span class="q-sub">This is the diagnostic question for the audit. No defensiveness — just the observation.</span>
+          </div>
+        </div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextQ()">Reveal Question</button>
+      <div class="reveal-hint" id="reveal-hint">Click a question to reveal · or press <span class="key">Enter</span></div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: ONE-DIMENSIONAL DRAFT AUDIT ══ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 11 · Activity</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Hands-On Activity · Press A to Advance</div>
+      <h1 class="slide-h1">One-Dimensional <em>Draft Audit</em></h1>
+      <div class="accent-rule"></div>
+      <div class="audit-layout">
+        <div class="audit-col">
+          <div class="audit-steps">
+            <div class="audit-step active" id="astep-1">
+              <div class="as-num">1</div>
+              <div class="as-body">
+                <div class="as-title">Read aloud</div>
+                <div class="as-text">Each person reads their first prospectus paragraph aloud — approximately 2 minutes each. No framing, no apology, no explanation. Just the paragraph as it is.</div>
+              </div>
+            </div>
+            <div class="audit-step" id="astep-2">
+              <div class="as-num">2</div>
+              <div class="as-body">
+                <div class="as-title">One observation</div>
+                <div class="as-text">After each reading, the group offers one 'one-dimensional' observation: a place where the project might be reproducing field assumptions rather than challenging them. Not a critique of the person — a critique of the argument.</div>
+              </div>
+            </div>
+            <div class="audit-step" id="astep-3">
+              <div class="as-num">3</div>
+              <div class="as-body">
+                <div class="as-title">No fixes yet</div>
+                <div class="as-text">The writer listens without defending. Take notes. The observation is data. The goal is not to solve the problem in the moment but to name it clearly enough that it can be worked on.</div>
+              </div>
+            </div>
+            <div class="audit-step" id="astep-4">
+              <div class="as-num">4</div>
+              <div class="as-body">
+                <div class="as-title">5 minutes — revised sentence</div>
+                <div class="as-text">Each person writes a revised first sentence — one sentence that opens up rather than closes down. It doesn't have to be good. It has to try to imagine outside the assumption.</div>
+              </div>
+            </div>
+            <div class="audit-step" id="astep-5">
+              <div class="as-num">5</div>
+              <div class="as-body">
+                <div class="as-title">Share before and after</div>
+                <div class="as-text">Volunteers share their original sentence and their revised sentence. What changed? What did Marcuse give you permission to do? What opened up when you stopped writing for the field?</div>
+              </div>
+            </div>
+          </div>
+          <div class="audit-nav">
+            <button class="audit-btn" onclick="prevAStep()">← Back</button>
+            <span class="audit-status" id="astep-status">Step 1 of 5</span>
+            <button class="audit-btn" onclick="nextAStep()">Next Step →</button>
+          </div>
+        </div>
+        <div class="audit-col">
+          <div class="writing-seed">
+            <div class="ws-label">The Key Norm</div>
+            <p>Set this explicitly before you start: the 'one-dimensional' observation is a gift when it lands. Model genuine engagement with the observation — not defensive deflection. Go first. Submit your own writing to the audit.</p>
+          </div>
+          <div style="background:rgba(107,127,212,0.07); border:1px solid rgba(107,127,212,0.2); border-radius:4px; padding:1.1rem 1.3rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem;">What this activity does</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">This activity is the one most likely to crack open a stuck prospectus. The 'one-dimensional' observation from a peer — when it lands — often does what months of individual advising couldn't. The Marcusean critique of your own work is the beginning of the prospectus's contribution claim.</p>
+          </div>
+          <div class="writing-seed" style="margin-top:0.1rem;">
+            <div class="ws-label">Synthesis Question</div>
+            <p>"What did Marcuse give you <em>permission</em> to do? What can you now say that you couldn't say before?"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: DISCUSSION ══ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 11 · Synthesis</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Closing the Loop</div>
+      <h1 class="slide-h1">Discussion &amp; <em>Synthesis</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">The move Marcuse makes possible</div>
+            <p>Marcuse does not offer an alternative — he names the condition that makes alternatives feel impossible. That diagnosis is the gift. You cannot imagine your way out of one-dimensional thought until you can see where you are inside it.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">The contribution claim, reframed</div>
+            <p>Your prospectus's contribution is not just 'I fill a gap in the literature.' The stronger claim is: 'The field has been unable to think about X because of Y assumption — and my project challenges that assumption by doing Z.' The audit surfaces the Y.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Looking toward Week 12</div>
+            <p>Ghosh picks up where Marcuse leaves off — not diagnosis but stakes. What can the imagination actually do? What does humanistic inquiry owe the world? Come with your revised first sentence. We will put it under pressure again.</p>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">Writing Seed</div>
+            <p>"My prospectus was one-dimensional in that it assumed ___. The assumption I'm now trying to challenge is ___. What that opens up is ___."</p>
+          </div>
+          <div style="background:var(--bg-card); border:1px solid rgba(238,240,248,0.08); border-radius:4px; padding:1rem 1.2rem; margin-top:0.5rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">Before You Leave</div>
+            <p style="font-family:var(--font-body); font-size:0.93rem; color:var(--muted); line-height:1.55;">Save your revised first sentence from the audit. It may become the opening of your prospectus. The before-and-after is evidence of what the course is doing — you may want it at Week 15.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: FURTHER READING ══ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 11 · Further Reading</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">If This Week Opened Something</div>
+      <h1 class="slide-h1">Further <em>Reading</em></h1>
+      <div class="accent-rule"></div>
+      <div class="fr-grid">
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Herbert Marcuse</div>
+            <div class="fr-title"><em>One-Dimensional Man</em> — Full Text</div>
+            <div class="fr-note">The assigned chapters give the argument — the rest of the book applies it across philosophy, culture, and political theory. Chapter 6 on technological rationality is particularly useful for scholars working on media and platforms.</div>
+          </div>
+        </div>
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Robin D.G. Kelley</div>
+            <div class="fr-title"><em>Freedom Dreams: The Black Radical Imagination</em></div>
+            <div class="fr-note">The counter-Marcuse. Kelley argues for imagination as a scholarly and political practice — not optimism, but the rigorous capacity to envision alternatives. Useful for scholars who want to move from critique to possibility.</div>
+          </div>
+        </div>
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Theodor Adorno &amp; Max Horkheimer</div>
+            <div class="fr-title"><em>Dialectic of Enlightenment</em></div>
+            <div class="fr-note">The Frankfurt School context for Marcuse — particularly the culture industry essay. If Marcuse's argument resonates, this gives the theoretical genealogy. Dense; the culture industry chapter is the most accessible entry point.</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-family:var(--font-body); font-size:0.88rem; color:rgba(238,240,248,0.28); font-style:italic; margin-top:0.8rem;">Primary reading on Perusall · Further reading available through NCSU Libraries</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: LOOKING AHEAD ══ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 11 → Week 12</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Leave</div>
+      <h1 class="slide-h1">Looking <em>Ahead</em></h1>
+      <div class="accent-rule"></div>
+      <div class="ahead-grid">
+        <div class="ahead-item">
+          <div class="ahead-icon">📖</div>
+          <div>
+            <div class="ahead-label">Week 12 · Amitav Ghosh, <em>The Great Derangement</em></div>
+            <p>On Perusall. Ghosh asks why literary and humanistic imagination has failed to reckon with climate change — and what that failure reveals about what scholarship can and cannot do. Come ready to be implicated.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">✏️</div>
+          <div>
+            <div class="ahead-label">Pre-Class Writing for Week 12</div>
+            <p>Write a 150-word version of your dissertation project for a smart non-specialist — someone curious and educated, but not in your field. What can you keep? What falls away? What is actually essential? Bring it. We will put it through the 'So What?' Gauntlet.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">📝</div>
+          <div>
+            <div class="ahead-label">Save Your Revised First Sentence</div>
+            <p>The sentence you wrote today — the one that opened up rather than closed down. Keep it. It is the beginning of your prospectus's contribution claim.</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:0.8rem; background:rgba(107,127,212,0.07); border:1px solid rgba(107,127,212,0.18); border-radius:4px; padding:0.8rem 1.1rem; text-align:center;">
+        <p style="font-family:var(--font-display); font-size:1.05rem; color:rgba(238,240,248,0.5); font-style:italic;">"What did Marcuse give you permission to do?"</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<div id="nav">
+  <div style="display:flex; align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 11 · ONE-DIMENSIONAL THINKING</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex; gap:0.6rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+
+<div class="help-overlay" id="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
+    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
+    <div class="shortcut-row"><span>Reveal question (slide 4)</span><span><span class="key">Enter</span></span></div>
+    <div class="shortcut-row"><span>Audit step (slide 5)</span><span><span class="key">A</span></span></div>
+    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
+    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+
+<script>
+// ── GEOMETRIC FRAGMENT PARTICLES ─────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let frags = []; let frame = 0;
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initFrags(); }
+  function initFrags() {
+    frags = [];
+    for (let i = 0; i < 42; i++) {
+      frags.push({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        vx: (Math.random()-0.5)*0.28, vy: (Math.random()-0.5)*0.18,
+        size: Math.random()*4+1.5, rot: Math.random()*Math.PI*2,
+        rotV: (Math.random()-0.5)*0.006,
+        a: Math.random()*0.18+0.04, phase: Math.random()*Math.PI*2,
+        sides: [3,4,4][Math.floor(Math.random()*3)]
+      });
+    }
+  }
+  function drawPoly(x, y, sides, size, rot, alpha) {
+    ctx.beginPath();
+    for (let i = 0; i < sides; i++) {
+      const a = rot + (i / sides) * Math.PI * 2;
+      const px = x + Math.cos(a) * size; const py = y + Math.sin(a) * size;
+      i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = `rgba(107,127,212,${alpha})`;
+    ctx.lineWidth = 0.7; ctx.stroke();
+  }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); frame++;
+    frags.forEach(f => {
+      f.x += f.vx; f.y += f.vy; f.rot += f.rotV;
+      if (f.x < -20 || f.x > canvas.width+20) f.vx *= -1;
+      if (f.y < -20 || f.y > canvas.height+20) f.vy *= -1;
+      const pulse = Math.sin(frame*0.005+f.phase);
+      drawPoly(f.x, f.y, f.sides, f.size, f.rot, f.a*(0.5+0.5*pulse));
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', resize); resize(); draw();
+})();
+
+// ── NAVIGATION ───────────────────────────────────────────────────────────────
+const TOTAL = 8; let current = 1; let visited = new Set([1]);
+const slideNames = ['Title','Session Map','Pre-Class Writing','Guiding Questions','Draft Audit','Synthesis','Further Reading','Looking Ahead'];
+function goTo(n) { if(n<1||n>TOTAL)return; document.getElementById('slide-'+current).classList.remove('active'); current=n; visited.add(n); document.getElementById('slide-'+n).classList.add('active'); updateNav(); }
+function nextSlide(){goTo(current+1);} function prevSlide(){goTo(current-1);}
+function updateNav() {
+  document.getElementById('prev-btn').disabled=current===1;
+  document.getElementById('next-btn').disabled=current===TOTAL;
+  document.getElementById('slide-counter').textContent=current+' / '+TOTAL;
+  document.getElementById('progress-bar').style.width=((current/TOTAL)*100)+'%';
+  const dc=document.getElementById('slide-dots'); dc.innerHTML='';
+  for(let i=1;i<=TOTAL;i++){const d=document.createElement('div');d.className='dot'+(i===current?' active':(visited.has(i)?' visited':'')); d.onclick=()=>goTo(i); d.title=slideNames[i-1]; dc.appendChild(d);}
+}
+
+// ── Q REVEAL ─────────────────────────────────────────────────────────────────
+let qRevealed=0;
+function revealQ(n){const c=document.getElementById('q'+n);if(!c.classList.contains('revealed')){c.classList.add('revealed');qRevealed=Math.max(qRevealed,n);if(qRevealed>=5){document.getElementById('reveal-btn').textContent='✓ All Questions Revealed';document.getElementById('reveal-btn').style.opacity='0.35';document.getElementById('reveal-hint').style.opacity='0';}}}
+function revealNextQ(){if(qRevealed<5)revealQ(qRevealed+1);}
+
+// ── AUDIT STEPPER ─────────────────────────────────────────────────────────────
+let astep=1;
+function updateAStep(){for(let i=1;i<=5;i++){const el=document.getElementById('astep-'+i);el.classList.remove('active','done');if(i<astep)el.classList.add('done');else if(i===astep)el.classList.add('active');}document.getElementById('astep-status').textContent='Step '+astep+' of 5';}
+function nextAStep(){if(astep<5){astep++;updateAStep();}} function prevAStep(){if(astep>1){astep--;updateAStep();}}
+
+// ── KEYBOARD ─────────────────────────────────────────────────────────────────
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('help-overlay').classList.contains('visible')){if(e.key==='Escape')closeHelp();return;}
+  switch(e.key){
+    case 'ArrowRight':case ' ':e.preventDefault();nextSlide();break;
+    case 'ArrowLeft':e.preventDefault();prevSlide();break;
+    case 'Enter':if(current===4){e.preventDefault();revealNextQ();}break;
+    case 'a':case 'A':if(current===5)nextAStep();break;
+    case 'Home':goTo(1);break; case 'End':goTo(TOTAL);break;
+    case '?':toggleHelp();break; case 'Escape':closeHelp();break;
+  }
+});
+function toggleHelp(){document.getElementById('help-overlay').classList.toggle('visible');}
+function closeHelp(){document.getElementById('help-overlay').classList.remove('visible');}
+updateNav();
+</script>
+</body>
+</html>

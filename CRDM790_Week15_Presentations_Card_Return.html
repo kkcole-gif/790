@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 15 · What We Made and What We're Seeing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night:   #0E0608;
+    --deep:    #160A0C;
+    --ink:     #1E0E10;
+    --accent:  #C47080;
+    --accent2: #E09EB0;
+    --rose:    #D48898;
+    --parch:   #FAF0F2;
+    --muted:   rgba(250,240,242,0.54);
+    --bg-card: rgba(250,240,242,0.04);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'EB Garamond', Georgia, serif;
+    --font-mono:    'Inconsolata', monospace;
+  }
+  #slide-1 { background: radial-gradient(ellipse at 40% 50%, #2A0E12 0%, #0E0608 70%); }
+  #slide-2 { background: var(--deep); }
+  #slide-3 { background: var(--ink); }
+  #slide-4 { background: var(--deep); }
+  #slide-5 { background: #180A0E; }
+  #slide-6 { background: var(--ink); }
+  #slide-7 { background: var(--deep); }
+  #slide-8 { background: var(--night); }
+
+  /* ── CARD RETURN ACTIVITY ── */
+  .card-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; flex: 1; }
+  .card-col { display: flex; flex-direction: column; gap: 0.9rem; }
+  .card-steps { background: var(--bg-card); border: 1px solid rgba(250,240,242,0.08); border-radius: 4px; overflow: hidden; flex: 1; }
+  .c-step { padding: 0.95rem 1.2rem; border-bottom: 1px solid rgba(250,240,242,0.06); display: flex; gap: 0.9rem; align-items: flex-start; opacity: 0.38; transition: all 0.25s; }
+  .c-step:last-child { border-bottom: none; }
+  .c-step.active { opacity: 1; background: rgba(196,112,128,0.1); border-left: 3px solid var(--accent); }
+  .c-step.done { opacity: 0.72; }
+  .cs-num { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--accent); opacity: 0.4; line-height: 1; flex-shrink: 0; width: 1.8rem; }
+  .c-step.active .cs-num { opacity: 1; }
+  .cs-body { flex: 1; }
+  .cs-title { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .cs-text { font-family: var(--font-body); font-size: 0.93rem; color: var(--muted); line-height: 1.5; }
+  .c-step.active .cs-text { color: rgba(250,240,242,0.85); }
+  .card-nav { display: flex; gap: 0.8rem; margin-top: 0.9rem; align-items: center; justify-content: center; }
+  .c-btn { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--parch); background: rgba(196,112,128,0.13); border: 1px solid var(--accent); padding: 0.45rem 1.2rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .c-btn:hover { background: rgba(196,112,128,0.26); }
+  .c-status { font-family: var(--font-mono); font-size: 0.65rem; color: rgba(250,240,242,0.3); letter-spacing: 0.1em; }
+
+  /* ── FULL SEMESTER RECAP ── */
+  .semester-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.7rem; flex: 1; }
+  .wk-card { background: var(--bg-card); border: 1px solid rgba(250,240,242,0.07); border-radius: 4px; padding: 0.85rem 1rem; display: flex; flex-direction: column; gap: 0.3rem; transition: border-color 0.2s; }
+  .wk-card:hover { border-color: rgba(196,112,128,0.3); }
+  .wk-num { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.1rem; }
+  .wk-title { font-family: var(--font-display); font-size: 0.82rem; font-weight: 600; color: var(--parch); line-height: 1.3; margin-bottom: 0.2rem; }
+  .wk-activity { font-family: var(--font-body); font-size: 0.8rem; color: var(--muted); line-height: 1.4; font-style: italic; }
+  .wk-badge { font-family: var(--font-mono); font-size: 0.48rem; letter-spacing: 0.12em; padding: 0.12rem 0.4rem; border-radius: 2px; margin-top: 0.3rem; display: inline-block; }
+  .badge-m { color: #C4A44A; background: rgba(196,164,74,0.1); border: 1px solid rgba(196,164,74,0.25); }
+  .movement-divider { grid-column: 1 / -1; font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em; color: rgba(250,240,242,0.2); text-transform: uppercase; padding: 0.3rem 0 0.1rem; border-top: 1px solid rgba(250,240,242,0.06); margin-top: 0.2rem; }
+
+  /* ── SHARED ── */
+  .q-grid { display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+  .q-card { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px dashed rgba(250,240,242,0.09); border-radius: 4px; padding: 1rem 1.4rem; opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s; cursor: pointer; user-select: none; }
+  .q-card:not(.revealed):hover { border-color: var(--accent); background: rgba(196,112,128,0.07); }
+  .q-card.revealed { opacity: 1; transform: translateY(0); cursor: default; border-style: solid; border-color: rgba(250,240,242,0.07); }
+  .q-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--accent); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 2.2rem; }
+  .q-card.revealed .q-num { opacity: 1; }
+  .q-body { font-family: var(--font-body); font-size: 1rem; line-height: 1.55; color: var(--parch); }
+  .q-sub { display: block; font-style: italic; color: rgba(250,240,242,0.42); font-size: 0.9rem; margin-top: 0.2rem; }
+  .reveal-btn { display: flex; align-items: center; gap: 0.6rem; margin: 0.8rem auto 0; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em; color: var(--accent); background: rgba(250,240,242,0.04); border: 1px solid var(--accent); opacity: 0.7; padding: 0.5rem 1.3rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .reveal-btn:hover { background: rgba(196,112,128,0.18); opacity: 1; }
+  .reveal-hint { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(250,240,242,0.2); text-align: center; margin-top: 0.4rem; }
+  .reading-box { background: var(--bg-card); border: 1px solid rgba(250,240,242,0.08); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 0.9rem; }
+  .reading-box .rb-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.45rem; }
+  .reading-box p, .reading-box li { font-family: var(--font-body); font-size: 0.99rem; color: rgba(250,240,242,0.78); line-height: 1.6; }
+  .reading-box ul { list-style: none; }
+  .reading-box ul li::before { content: '·'; color: var(--accent); margin-right: 0.5rem; }
+  .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1; }
+  .map-card { background: var(--bg-card); border: 1px solid rgba(250,240,242,0.07); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .map-card .mc-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.17em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .map-card p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  .map-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .map-card ul li { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.5; }
+  .map-card ul li::before { content: '·'; color: var(--accent); margin-right: 0.4rem; }
+  .disc-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; flex: 1; }
+  .disc-col { display: flex; flex-direction: column; gap: 1rem; }
+  .writing-seed { background: rgba(196,112,128,0.09); border: 1px solid rgba(196,112,128,0.27); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .writing-seed .ws-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .writing-seed p { font-family: var(--font-display); font-size: 1.05rem; font-style: italic; color: var(--parch); line-height: 1.5; }
+  .ahead-grid { display: flex; flex-direction: column; gap: 0.9rem; flex: 1; }
+  .ahead-item { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px solid rgba(250,240,242,0.07); border-radius: 4px; padding: 1rem 1.3rem; }
+  .ahead-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .ahead-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .ahead-item p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #deck { position: relative; z-index: 1; width: 100vw; height: 100vh; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+  .slide.active { opacity: 1; pointer-events: all; }
+  #nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 2rem; background: rgba(14,6,8,0.93); border-top: 1px solid rgba(196,112,128,0.18); backdrop-filter: blur(10px); }
+  #slide-dots { display: flex; gap: 0.45rem; align-items: center; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(196,112,128,0.2); cursor: pointer; transition: all 0.3s; }
+  .dot.active { background: var(--accent); transform: scale(1.5); }
+  .dot.visited { background: rgba(196,112,128,0.48); }
+  #nav-label { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(250,240,242,0.26); letter-spacing: 0.12em; margin-left: 1rem; }
+  .nav-btn { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--parch); background: rgba(196,112,128,0.1); border: 1px solid rgba(196,112,128,0.28); padding: 0.35rem 1rem; cursor: pointer; transition: all 0.2s; border-radius: 2px; }
+  .nav-btn:hover { background: rgba(196,112,128,0.22); border-color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  #slide-counter { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(250,240,242,0.26); }
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #5A1820, var(--accent), var(--accent2)); transition: width 0.4s ease; z-index: 50; }
+  .slide-header { padding: 1.1rem 4.5rem 0.9rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(250,240,242,0.06); flex-shrink: 0; }
+  .course-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: rgba(250,240,242,0.2); text-transform: uppercase; }
+  .week-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: var(--accent); opacity: 0.75; text-transform: uppercase; }
+  .slide-inner { flex: 1; padding: 2.6rem 4.5rem 4.8rem; display: flex; flex-direction: column; overflow: hidden; }
+  .slide-eyebrow { font-family: var(--font-mono); font-size: 0.69rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; }
+  .slide-eyebrow::before { content: ''; display: block; width: 1.8rem; height: 1px; background: var(--accent); opacity: 0.55; }
+  .slide-h1 { font-family: var(--font-display); font-size: clamp(2.3rem,4.2vw,3.4rem); font-weight: 700; line-height: 1.1; color: var(--parch); margin-bottom: 0.4rem; }
+  .slide-h1 em { font-style: italic; color: var(--accent2); }
+  .accent-rule { width: 3.5rem; height: 2px; background: linear-gradient(90deg,var(--accent),transparent); margin-bottom: 1.5rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation: fadeUp 0.48s ease forwards; }
+  .slide.active .slide-header { animation: fadeUp 0.48s ease 0.04s both; }
+  .help-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; }
+  .help-overlay.visible { display: flex; }
+  .help-box { background: #160A0C; border: 1px solid rgba(250,240,242,0.12); border-radius: 6px; padding: 2rem 2.5rem; max-width: 440px; width: 90%; }
+  .help-box h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--parch); }
+  .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(250,240,242,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(250,240,242,0.6); }
+  .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(250,240,242,0.08); border: 1px solid rgba(250,240,242,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
+  .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+<div id="deck">
+
+  <!-- ══ SLIDE 1: TITLE ══ -->
+  <div class="slide active" id="slide-1">
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding: 0 6rem 5rem;">
+      <div style="font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.22em; color:rgba(196,112,128,0.55); margin-bottom:0.7rem; display:flex; align-items:center; gap:0.7rem;">
+        <span style="display:block; width:2rem; height:1px; background:rgba(196,112,128,0.4);"></span>
+        MOVEMENT III · WEEK 15 · FINAL SESSION
+      </div>
+      <h1 style="font-family:var(--font-display); font-size:clamp(2.5rem,4.8vw,4.2rem); font-weight:700; line-height:1.05; color:var(--parch); margin-bottom:0.3rem;">
+        What We <em style="color:var(--accent2);">Made</em> and<br>What We're <em style="color:var(--accent2);">Seeing</em>
+      </h1>
+      <div style="width:5rem; height:2px; background:linear-gradient(90deg,var(--accent),transparent); margin: 1rem 0 1.8rem;"></div>
+      <div style="font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.2em; color:rgba(250,240,242,0.2); margin-bottom:2.5rem;">WEEK 15 &nbsp;·&nbsp; CRDM 790 &nbsp;·&nbsp; Spring 2027</div>
+      <div style="display:flex; flex-direction:column; gap:0.4rem; border-left:2px solid rgba(196,112,128,0.28); padding-left:1.2rem;">
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(250,240,242,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(250,240,242,0.68);">Format:</strong> Prospectus presentations (5–10 min each) · Week 1 Card Return · Cohort closing</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(250,240,242,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(250,240,242,0.68);">Final Prospectus:</strong> Due one week after this session (see syllabus)</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(250,240,242,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(250,240,242,0.68);">This is not a defense</strong> — it is a celebration with teeth</div>
+      </div>
+      <div style="position:absolute; top:1.5rem; right:5rem; font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; color:rgba(196,112,128,0.38); border:1px solid rgba(196,112,128,0.15); padding:0.28rem 0.65rem; border-radius:2px;">UDL COMPLIANT</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: SESSION MAP ══ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 15 · Final Session</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Session Map · 3.5 Hours</div>
+      <h1 class="slide-h1">Today's <em>Arc</em></h1>
+      <div class="accent-rule"></div>
+      <div class="map-grid">
+        <div class="map-card">
+          <div class="mc-label">🎤 Prospectus Presentations (0:00–2:00)</div>
+          <ul>
+            <li>5–10 min each — timed strictly</li>
+            <li>No slides required; notes encouraged</li>
+            <li>Talk to colleagues about work you care about — not a committee performance</li>
+            <li>Each presentation: what you're doing, why it matters, what you're still figuring out</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">⟳ Break (2:00–2:15)</div>
+          <p>Pause. Breathe. You just presented your dissertation project to your cohort. That is not nothing.</p>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">🌐 Cohort Synthesis (2:15–2:45)</div>
+          <ul>
+            <li>What patterns are emerging across all the projects?</li>
+            <li>Where do the dissertations speak to each other?</li>
+            <li>What does this cohort's collective intellectual project reveal about where CRDM is going?</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">📇 Week 1 Card Return + Closing (2:45–3:30)</div>
+          <ul>
+            <li>Cards returned — 5 minutes silent writing in response</li>
+            <li>Go around the room: one sentence, not a summary, not a conclusion — the one thing you carry out of this room</li>
+            <li>Instructor closes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: PRESENTATION GUIDELINES ══ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 15 · Presentations</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">5–10 Minutes · No Slides Required</div>
+      <h1 class="slide-h1">Presentation <em>Guidelines</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">What to Prepare</div>
+            <p>A 5–10 minute presentation of your prospectus. Notes if you need them — no slides required. Think of it as talking to colleagues about work you care about, not performing for a committee. The room knows you. Speak to that.</p>
+            <br>
+            <p>Cover: what you are doing, why it matters, and what you are still figuring out. The third part is not a weakness — it is intellectual honesty, and it is what makes this a conversation rather than a report.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Optional: Bring Your Week 1 Card</div>
+            <p>If you held onto the Week 1 constellation card from your own copy, you're welcome to reference it in your presentation — 'when I started, I thought my project was about X; now I know it's actually about Y.' The arc matters.</p>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">Presentation Questions (Pick 2–3)</div>
+            <p>"What is the problem I'm working on, and why does it matter beyond my field? Who are my interlocutors — and who am I arguing against? What methodological move am I making? What am I still figuring out? Who is this for?"</p>
+          </div>
+          <div style="background:rgba(196,112,128,0.07); border:1px solid rgba(196,112,128,0.2); border-radius:4px; padding:1rem 1.2rem; margin-top:0.5rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">The Tone</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">This is not a defense. It is a celebration with teeth — honest, generative, and collegial. Students who were uncertain about their research questions at the beginning are now defending them with force. The room should feel the weight of that.</p>
+          </div>
+          <div style="background:var(--bg-card); border:1px solid rgba(250,240,242,0.08); border-radius:4px; padding:1rem 1.2rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">Final Submission Reminder</div>
+            <p style="font-family:var(--font-body); font-size:0.93rem; color:var(--muted); line-height:1.55;">Final prospectus due one week after this session. Submit via Moodle or email to kkcole2@ncsu.edu. Threshold grading applies — see Milestone 4 criteria.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: GUIDING QUESTIONS ══ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 15 · Presentations</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Click to Reveal · or press Enter</div>
+      <h1 class="slide-h1">Presentation <em>Questions</em></h1>
+      <div class="accent-rule"></div>
+      <div class="q-grid">
+        <div class="q-card" id="q1" onclick="revealQ(1)">
+          <div class="q-num">1</div>
+          <div class="q-body">What is the problem you are working on, and why does it matter beyond your field?
+            <span class="q-sub">Not 'this fills a gap' — why should someone outside CRDM care if this dissertation succeeds?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q2" onclick="revealQ(2)">
+          <div class="q-num">2</div>
+          <div class="q-body">Who are your interlocutors — the scholars you're in conversation with, the ones you're arguing against?
+            <span class="q-sub">A dissertation without an interlocutor is talking into a void. Who are you talking to, and what are you saying they got wrong?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q3" onclick="revealQ(3)">
+          <div class="q-num">3</div>
+          <div class="q-body">What methodological move are you making, and what does it allow you to see that other approaches don't?
+            <span class="q-sub">Not just "I use X method" — what does this method make visible that was previously invisible or unsayable?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q4" onclick="revealQ(4)">
+          <div class="q-num">4</div>
+          <div class="q-body">What are you still figuring out?
+            <span class="q-sub">This is not a weakness. This is the live edge of the work — where the dissertation is still thinking. Show the cohort where the real problem lives.</span>
+          </div>
+        </div>
+        <div class="q-card" id="q5" onclick="revealQ(5)">
+          <div class="q-num">5</div>
+          <div class="q-body">Who is this for — and what do you hope it does in the world?
+            <span class="q-sub">Your 'so what' sentence from Week 12. This is the moment to say it out loud, to the room, as a claim rather than a question.</span>
+          </div>
+        </div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextQ()">Reveal Question</button>
+      <div class="reveal-hint" id="reveal-hint">Click a question to reveal · or press <span class="key">Enter</span></div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: CARD RETURN ACTIVITY ══ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 15 · Closing Activity</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Week 1 Card Return · Press A to Advance</div>
+      <h1 class="slide-h1">The Cards <em>Return</em></h1>
+      <div class="accent-rule"></div>
+      <div class="card-layout">
+        <div class="card-col">
+          <div class="card-steps">
+            <div class="c-step active" id="cstep-1">
+              <div class="cs-num">1</div>
+              <div class="cs-body">
+                <div class="cs-title">Return the cards</div>
+                <div class="cs-text">Instructor returns the Week 1 constellation cards — collected at the very first class. Each person receives the card they wrote. Don't read it yet. Hold it.</div>
+              </div>
+            </div>
+            <div class="c-step" id="cstep-2">
+              <div class="cs-num">2</div>
+              <div class="cs-body">
+                <div class="cs-title">Read silently — 5 minutes</div>
+                <div class="cs-text">Read what you wrote. Who was this person? What did they think they were doing? What were they afraid of? What did they know? What did they have no idea about yet?</div>
+              </div>
+            </div>
+            <div class="c-step" id="cstep-3">
+              <div class="cs-num">3</div>
+              <div class="cs-body">
+                <div class="cs-title">Write in response — 5 minutes</div>
+                <div class="cs-text">What is different? What stayed true? What question do you carry forward? Write without editing. Write to the person on the card, or to yourself now — wherever the writing needs to go.</div>
+              </div>
+            </div>
+            <div class="c-step" id="cstep-4">
+              <div class="cs-num">4</div>
+              <div class="cs-body">
+                <div class="cs-title">Go around the room</div>
+                <div class="cs-text">Each person shares one sentence — not a summary, not a conclusion, not a performance. The one thing you are taking out of this room. It can be from your card, your response, your presentation, or the semester. One sentence.</div>
+              </div>
+            </div>
+            <div class="c-step" id="cstep-5">
+              <div class="cs-num">5</div>
+              <div class="cs-body">
+                <div class="cs-title">Instructor closes</div>
+                <div class="cs-text">Name the transformation explicitly. What does this cohort's collective intellectual project reveal about where CRDM is going? Let the silence land after the closing. Don't rush to end. This is the end.</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-nav">
+            <button class="c-btn" onclick="prevCStep()">← Back</button>
+            <span class="c-status" id="cstep-status">Step 1 of 5</span>
+            <button class="c-btn" onclick="nextCStep()">Next Step →</button>
+          </div>
+        </div>
+        <div class="card-col">
+          <div class="writing-seed">
+            <div class="ws-label">Why This Works</div>
+            <p>The card is evidence of transformation. Students who were uncertain about their research questions in Week 1 are now defending them with force. That arc is the course. Name it explicitly. Let it land.</p>
+          </div>
+          <div style="background:rgba(196,112,128,0.07); border:1px solid rgba(196,112,128,0.2); border-radius:4px; padding:1.1rem 1.3rem; margin-top:0.5rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem;">Optional: Letter to Next Cohort</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">Write a 300-word letter to next year's incoming CRDM cohort about what you wish you had known entering CRDM 790. Optional — but those who write it often say it clarifies what the semester actually gave them. Offer it; don't assign it.</p>
+          </div>
+          <div style="background:var(--bg-card); border:1px solid rgba(250,240,242,0.08); border-radius:4px; padding:1rem 1.2rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">This Moment</div>
+            <p style="font-family:var(--font-body); font-size:0.93rem; color:var(--muted); line-height:1.55;">This moment often produces genuine emotion — let it. The room has worked together for fifteen weeks. They have argued about their fields, audited their canons, found their ghosts, built their committees, and written prospectuses that are now real. That is not small.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: FULL SEMESTER RECAP ══ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 15 · The Semester</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">What You Did This Semester</div>
+      <h1 class="slide-h1">The Full <em>Arc</em></h1>
+      <div class="accent-rule"></div>
+      <div class="semester-grid">
+        <div style="grid-column:1/-1;" class="movement-divider">Movement I · Who Am I as a Scholar? · Weeks 1–5</div>
+        <div class="wk-card"><div class="wk-num">Wk 1</div><div class="wk-title">Arrivals</div><div class="wk-activity">Constellation Mapping</div></div>
+        <div class="wk-card"><div class="wk-num">Wk 2</div><div class="wk-title">Critical Pedagogy</div><div class="wk-activity">Institutional Autopsy</div></div>
+        <div class="wk-card"><div class="wk-num">Wk 3</div><div class="wk-title">The Past Is Not Past</div><div class="wk-activity">Wreckage &amp; Promise Gallery</div></div>
+        <div class="wk-card"><div class="wk-num">Wk 4</div><div class="wk-title">Who Gets to Live</div><div class="wk-activity">Concept Translation</div></div>
+        <div class="wk-card"><div class="wk-num">Wk 5</div><div class="wk-title">University Under Neoliberalism</div><div class="wk-activity">Identity Statement Swap <span class="wk-badge badge-m">M1 · 20%</span></div></div>
+        <div style="grid-column:1/-1;" class="movement-divider">Movement II · What Do I Know and Who Helps Me Know It? · Weeks 6–10</div>
+        <div class="wk-card"><div class="wk-num">Wk 6</div><div class="wk-title">Primitive Accumulation</div><div class="wk-activity">Canon Audit</div></div>
+        <div class="wk-card"><div class="wk-num">Wk 7</div><div class="wk-title">Hauntology</div><div class="wk-activity">Rapid Presentations</div></div>
+        <div class="wk-card"><div class="wk-num">Wk 8</div><div class="wk-title">Exam List Workshop</div><div class="wk-activity">Peer Review <span class="wk-badge badge-m">M2 · 25%</span></div></div>
+        <div class="wk-card"><div class="wk-num">Wk 9</div><div class="wk-title">Committee</div><div class="wk-activity">Email Workshop</div></div>
+        <div class="wk-card"><div class="wk-num">Wk 10</div><div class="wk-title">Individual Meetings</div><div class="wk-activity">Prospectus Seed <span class="wk-badge badge-m">M3 · 15%</span></div></div>
+        <div style="grid-column:1/-1;" class="movement-divider">Movement III · What Will I Make and Where Am I Going? · Weeks 11–15</div>
+        <div class="wk-card"><div class="wk-num">Wk 11</div><div class="wk-title">Marcuse</div><div class="wk-activity">Draft Audit</div></div>
+        <div class="wk-card"><div class="wk-num">Wk 12</div><div class="wk-title">Ghosh</div><div class="wk-activity">So What? Gauntlet</div></div>
+        <div class="wk-card"><div class="wk-num">Wk 13</div><div class="wk-title">Alt-Ac</div><div class="wk-activity">Three Versions</div></div>
+        <div class="wk-card"><div class="wk-num">Wk 14</div><div class="wk-title">Prospectus Workshop</div><div class="wk-activity">Peer Workshop <span class="wk-badge badge-m">M4 · 40%</span></div></div>
+        <div class="wk-card" style="border-color:rgba(196,112,128,0.35); background:rgba(196,112,128,0.07);"><div class="wk-num">Wk 15</div><div class="wk-title" style="color:var(--accent2);">Presentations</div><div class="wk-activity">Card Return · Closing</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: COHORT SYNTHESIS ══ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 15 · Cohort Synthesis</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">After the Presentations · Full Group</div>
+      <h1 class="slide-h1">What We're <em>Seeing</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">Patterns Across the Prospectuses</div>
+            <p>After hearing all the presentations: What methodological moves, theoretical frameworks, or political commitments keep appearing? These are not coincidental — they reflect shared formation, shared questions, a shared historical moment.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Where the Dissertations Speak to Each Other</div>
+            <p>Even projects that seem radically different — different archives, different objects, different fields — are in conversation. What are the conversations the cohort didn't plan? What would happen if these dissertations read each other?</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">What This Cohort's Work Reveals</div>
+            <p>If these dissertations all succeed — all get written, defended, published — what will CRDM look like in five years? What will the field have that it doesn't have now? This is not a hypothetical. It is a description of what is already happening in this room.</p>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">The Closing Circle</div>
+            <p>"One sentence — not a summary, not a conclusion, not a performance. The one thing you carry out of this room."</p>
+          </div>
+          <div style="background:rgba(196,112,128,0.07); border:1px solid rgba(196,112,128,0.2); border-radius:4px; padding:1rem 1.2rem; margin-top:0.5rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">Instructor's Close</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">Name the transformation explicitly. What does this cohort's collective intellectual project reveal about where CRDM is going? Let the silence land after the closing. Don't rush to end. This is the end — let it be the end.</p>
+          </div>
+          <div style="background:var(--bg-card); border:1px solid rgba(250,240,242,0.08); border-radius:4px; padding:1rem 1.2rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">Send the 'So What' Sentences</div>
+            <p style="font-family:var(--font-body); font-size:0.93rem; color:var(--muted); line-height:1.55;">The real 'so what' sentences from Week 12 — collected from the Gauntlet — make a remarkable document when read together. Consider sending them back to the cohort as a shared artifact of the semester.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: WHAT COMES NEXT ══ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 15 · After Today</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">After This Room</div>
+      <h1 class="slide-h1">What Comes <em>Next</em></h1>
+      <div class="accent-rule"></div>
+      <div class="ahead-grid">
+        <div class="ahead-item">
+          <div class="ahead-icon">◆</div>
+          <div>
+            <div class="ahead-label">Final Prospectus — Due One Week After Today · 40%</div>
+            <p>Submit via Moodle (PDF or Word preferred) or email to kkcole2@ncsu.edu. Use the feedback from Week 14. Make the revision you committed to in the closing circle. This is how the semester ends — not in the room, but in the writing.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">📇</div>
+          <div>
+            <div class="ahead-label">Keep Your Week 1 Card</div>
+            <p>Take it home. Keep it near the prospectus. The person on the card had questions you're now answering. The person you are now will be on someone else's card someday — in office hours, in a dissertation, in the way you teach. That transmission is the point.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">✉️</div>
+          <div>
+            <div class="ahead-label">Contact Your Committee</div>
+            <p>Send a note to your chair and readers — not as a formality, but as an intellectual act. Tell them what you heard at the presentations. Tell them what changed in the prospectus since you last spoke. This is the beginning of the working relationship the degree requires.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">🌱</div>
+          <div>
+            <div class="ahead-label">Now Write the Dissertation</div>
+            <p>The prospectus was never the end — it was the argument for the beginning. You know the problem. You know your interlocutors. You know your 'so what.' The committee is confirmed. The exam list is drafted. The imagination has been audited. Now write.</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:0.8rem; background:rgba(196,112,128,0.07); border:1px solid rgba(196,112,128,0.18); border-radius:4px; padding:0.85rem 1.2rem; text-align:center;">
+        <p style="font-family:var(--font-display); font-size:1.15rem; color:rgba(250,240,242,0.55); font-style:italic;">"What is different? What stayed true? What do you carry forward?"</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<div id="nav">
+  <div style="display:flex; align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 15 · PRESENTATIONS &amp; CARD RETURN</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex; gap:0.6rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+
+<div class="help-overlay" id="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
+    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
+    <div class="shortcut-row"><span>Reveal question (slide 4)</span><span><span class="key">Enter</span></span></div>
+    <div class="shortcut-row"><span>Card activity step (slide 5)</span><span><span class="key">A</span></span></div>
+    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
+    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+
+<script>
+// ── DISSOLVING PETAL / MOTE PARTICLES ────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let motes = []; let frame = 0;
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initMotes(); }
+  function initMotes() {
+    motes = [];
+    for (let i = 0; i < 55; i++) {
+      spawnMote(Math.random());
+    }
+  }
+  function spawnMote(t) {
+    motes.push({
+      x: Math.random() * canvas.width,
+      y: canvas.height * (0.2 + Math.random() * 0.8),
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: -(Math.random() * 0.35 + 0.06),
+      r: Math.random() * 2.2 + 0.5,
+      a: 0, maxA: Math.random() * 0.2 + 0.04,
+      life: t || 0, speed: Math.random() * 0.003 + 0.001,
+      phase: Math.random() * Math.PI * 2,
+      swing: (Math.random() - 0.5) * 0.008
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); frame++;
+    for (let i = motes.length - 1; i >= 0; i--) {
+      const m = motes[i];
+      m.life += m.speed;
+      if (m.life >= 1) { motes.splice(i, 1); spawnMote(0); continue; }
+      m.x += m.vx + Math.sin(frame * 0.012 + m.phase) * 0.18;
+      m.y += m.vy;
+      m.vx += m.swing; m.swing *= 0.998;
+      const fade = m.life < 0.15 ? m.life / 0.15 : m.life > 0.75 ? 1 - (m.life - 0.75) / 0.25 : 1;
+      const alpha = m.maxA * fade;
+      ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(196,112,128,${alpha})`; ctx.fill();
+      if (m.r > 1.2 && alpha > 0.05) {
+        ctx.beginPath(); ctx.arc(m.x, m.y, m.r * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(224,158,176,${alpha * 0.15})`; ctx.fill();
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', resize); resize(); draw();
+})();
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+const TOTAL = 8; let current = 1; let visited = new Set([1]);
+const slideNames = ['Title','Session Map','Presentation Guidelines','Presentation Questions','Card Return','Full Semester Arc','Cohort Synthesis','What Comes Next'];
+function goTo(n){if(n<1||n>TOTAL)return;document.getElementById('slide-'+current).classList.remove('active');current=n;visited.add(n);document.getElementById('slide-'+n).classList.add('active');updateNav();}
+function nextSlide(){goTo(current+1);} function prevSlide(){goTo(current-1);}
+function updateNav(){
+  document.getElementById('prev-btn').disabled=current===1;
+  document.getElementById('next-btn').disabled=current===TOTAL;
+  document.getElementById('slide-counter').textContent=current+' / '+TOTAL;
+  document.getElementById('progress-bar').style.width=((current/TOTAL)*100)+'%';
+  const dc=document.getElementById('slide-dots');dc.innerHTML='';
+  for(let i=1;i<=TOTAL;i++){const d=document.createElement('div');d.className='dot'+(i===current?' active':(visited.has(i)?' visited':''));d.onclick=()=>goTo(i);d.title=slideNames[i-1];dc.appendChild(d);}
+}
+let qRevealed=0;
+function revealQ(n){const c=document.getElementById('q'+n);if(!c.classList.contains('revealed')){c.classList.add('revealed');qRevealed=Math.max(qRevealed,n);if(qRevealed>=5){document.getElementById('reveal-btn').textContent='✓ All Questions Revealed';document.getElementById('reveal-btn').style.opacity='0.35';document.getElementById('reveal-hint').style.opacity='0';}}}
+function revealNextQ(){if(qRevealed<5)revealQ(qRevealed+1);}
+let cstep=1;
+function updateCStep(){for(let i=1;i<=5;i++){const el=document.getElementById('cstep-'+i);el.classList.remove('active','done');if(i<cstep)el.classList.add('done');else if(i===cstep)el.classList.add('active');}document.getElementById('cstep-status').textContent='Step '+cstep+' of 5';}
+function nextCStep(){if(cstep<5){cstep++;updateCStep();}} function prevCStep(){if(cstep>1){cstep--;updateCStep();}}
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('help-overlay').classList.contains('visible')){if(e.key==='Escape')closeHelp();return;}
+  switch(e.key){
+    case 'ArrowRight':case ' ':e.preventDefault();nextSlide();break;
+    case 'ArrowLeft':e.preventDefault();prevSlide();break;
+    case 'Enter':if(current===4){e.preventDefault();revealNextQ();}break;
+    case 'a':case 'A':if(current===5)nextCStep();break;
+    case 'Home':goTo(1);break;case 'End':goTo(TOTAL);break;
+    case '?':toggleHelp();break;case 'Escape':closeHelp();break;
+  }
+});
+function toggleHelp(){document.getElementById('help-overlay').classList.toggle('visible');}
+function closeHelp(){document.getElementById('help-overlay').classList.remove('visible');}
+updateNav();
+</script>
+</body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 13 · Paths Forward: Alt-Ac and Otherwise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night:   #0B080F;
+    --deep:    #100C18;
+    --ink:     #18132A;
+    --accent:  #9B6CB4;
+    --accent2: #C094D4;
+    --violet:  #AE80C8;
+    --parch:   #F5F0FA;
+    --muted:   rgba(245,240,250,0.54);
+    --bg-card: rgba(245,240,250,0.04);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'EB Garamond', Georgia, serif;
+    --font-mono:    'Inconsolata', monospace;
+  }
+  #slide-1 { background: radial-gradient(ellipse at 42% 50%, #1C0F2E 0%, #0B080F 70%); }
+  #slide-2 { background: var(--deep); }
+  #slide-3 { background: var(--ink); }
+  #slide-4 { background: var(--deep); }
+  #slide-5 { background: #0E0A18; }
+  #slide-6 { background: var(--ink); }
+  #slide-7 { background: var(--deep); }
+  #slide-8 { background: var(--night); }
+
+  /* ── THREE VERSIONS STEPPER ── */
+  .versions-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; flex: 1; }
+  .versions-col { display: flex; flex-direction: column; gap: 0.9rem; }
+  .versions-steps { background: var(--bg-card); border: 1px solid rgba(245,240,250,0.08); border-radius: 4px; overflow: hidden; flex: 1; }
+  .v-step { padding: 0.95rem 1.2rem; border-bottom: 1px solid rgba(245,240,250,0.06); display: flex; gap: 0.9rem; align-items: flex-start; opacity: 0.38; transition: all 0.25s; }
+  .v-step:last-child { border-bottom: none; }
+  .v-step.active { opacity: 1; background: rgba(155,108,180,0.1); border-left: 3px solid var(--accent); }
+  .v-step.done { opacity: 0.72; }
+  .vs-num { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--accent); opacity: 0.4; line-height: 1; flex-shrink: 0; width: 1.8rem; }
+  .v-step.active .vs-num { opacity: 1; }
+  .vs-body { flex: 1; }
+  .vs-title { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .vs-text { font-family: var(--font-body); font-size: 0.93rem; color: var(--muted); line-height: 1.5; }
+  .v-step.active .vs-text { color: rgba(245,240,250,0.85); }
+  .versions-nav { display: flex; gap: 0.8rem; margin-top: 0.9rem; align-items: center; justify-content: center; }
+  .v-btn { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--parch); background: rgba(155,108,180,0.13); border: 1px solid var(--accent); padding: 0.45rem 1.2rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .v-btn:hover { background: rgba(155,108,180,0.26); }
+  .v-status { font-family: var(--font-mono); font-size: 0.65rem; color: rgba(245,240,250,0.3); letter-spacing: 0.1em; }
+
+  /* ── THREE VERSIONS CARDS (slide 3) ── */
+  .three-versions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; flex: 1; }
+  .version-card { background: var(--bg-card); border: 1px solid rgba(245,240,250,0.07); border-radius: 4px; padding: 1.2rem 1.3rem; display: flex; flex-direction: column; gap: 0.5rem; transition: border-color 0.2s; }
+  .version-card:hover { border-color: rgba(155,108,180,0.3); }
+  .vc-num { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--accent); opacity: 0.3; line-height: 1; }
+  .vc-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.2rem; }
+  .vc-audience { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--parch); margin-bottom: 0.3rem; }
+  .vc-context { font-family: var(--font-body); font-size: 0.9rem; color: var(--muted); line-height: 1.5; font-style: italic; }
+  .vc-question { font-family: var(--font-body); font-size: 0.93rem; color: rgba(245,240,250,0.65); line-height: 1.5; margin-top: 0.4rem; }
+
+  /* ── SHARED ── */
+  .q-grid { display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+  .q-card { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px dashed rgba(245,240,250,0.09); border-radius: 4px; padding: 1rem 1.4rem; opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s; cursor: pointer; user-select: none; }
+  .q-card:not(.revealed):hover { border-color: var(--accent); background: rgba(155,108,180,0.07); }
+  .q-card.revealed { opacity: 1; transform: translateY(0); cursor: default; border-style: solid; border-color: rgba(245,240,250,0.07); }
+  .q-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--accent); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 2.2rem; }
+  .q-card.revealed .q-num { opacity: 1; }
+  .q-body { font-family: var(--font-body); font-size: 1rem; line-height: 1.55; color: var(--parch); }
+  .q-sub { display: block; font-style: italic; color: rgba(245,240,250,0.42); font-size: 0.9rem; margin-top: 0.2rem; }
+  .reveal-btn { display: flex; align-items: center; gap: 0.6rem; margin: 0.8rem auto 0; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em; color: var(--accent); background: rgba(245,240,250,0.04); border: 1px solid var(--accent); opacity: 0.7; padding: 0.5rem 1.3rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .reveal-btn:hover { background: rgba(155,108,180,0.18); opacity: 1; }
+  .reveal-hint { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(245,240,250,0.2); text-align: center; margin-top: 0.4rem; }
+  .reading-box { background: var(--bg-card); border: 1px solid rgba(245,240,250,0.08); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 0.9rem; }
+  .reading-box .rb-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.45rem; }
+  .reading-box p, .reading-box li { font-family: var(--font-body); font-size: 0.99rem; color: rgba(245,240,250,0.78); line-height: 1.6; }
+  .reading-box ul { list-style: none; }
+  .reading-box ul li::before { content: '·'; color: var(--accent); margin-right: 0.5rem; }
+  .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1; }
+  .map-card { background: var(--bg-card); border: 1px solid rgba(245,240,250,0.07); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .map-card .mc-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.17em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .map-card p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  .map-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .map-card ul li { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.5; }
+  .map-card ul li::before { content: '·'; color: var(--accent); margin-right: 0.4rem; }
+  .disc-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; flex: 1; }
+  .disc-col { display: flex; flex-direction: column; gap: 1rem; }
+  .writing-seed { background: rgba(155,108,180,0.09); border: 1px solid rgba(155,108,180,0.27); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .writing-seed .ws-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .writing-seed p { font-family: var(--font-display); font-size: 1.05rem; font-style: italic; color: var(--parch); line-height: 1.5; }
+  .fr-grid { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+  .fr-card { display: flex; gap: 1rem; background: var(--bg-card); border: 1px solid rgba(245,240,250,0.07); border-radius: 4px; padding: 0.9rem 1.2rem; align-items: flex-start; }
+  .fr-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .fr-body { flex: 1; }
+  .fr-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--parch); font-style: italic; margin-bottom: 0.2rem; }
+  .fr-author { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .fr-note { font-family: var(--font-body); font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+  .ahead-grid { display: flex; flex-direction: column; gap: 0.9rem; flex: 1; }
+  .ahead-item { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px solid rgba(245,240,250,0.07); border-radius: 4px; padding: 1rem 1.3rem; }
+  .ahead-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .ahead-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .ahead-item p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #deck { position: relative; z-index: 1; width: 100vw; height: 100vh; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+  .slide.active { opacity: 1; pointer-events: all; }
+  #nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 2rem; background: rgba(11,8,15,0.93); border-top: 1px solid rgba(155,108,180,0.18); backdrop-filter: blur(10px); }
+  #slide-dots { display: flex; gap: 0.45rem; align-items: center; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(155,108,180,0.2); cursor: pointer; transition: all 0.3s; }
+  .dot.active { background: var(--accent); transform: scale(1.5); }
+  .dot.visited { background: rgba(155,108,180,0.48); }
+  #nav-label { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(245,240,250,0.26); letter-spacing: 0.12em; margin-left: 1rem; }
+  .nav-btn { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--parch); background: rgba(155,108,180,0.1); border: 1px solid rgba(155,108,180,0.28); padding: 0.35rem 1rem; cursor: pointer; transition: all 0.2s; border-radius: 2px; }
+  .nav-btn:hover { background: rgba(155,108,180,0.22); border-color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  #slide-counter { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(245,240,250,0.26); }
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #4A2868, var(--accent), var(--accent2)); transition: width 0.4s ease; z-index: 50; }
+  .slide-header { padding: 1.1rem 4.5rem 0.9rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(245,240,250,0.06); flex-shrink: 0; }
+  .course-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: rgba(245,240,250,0.2); text-transform: uppercase; }
+  .week-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: var(--accent); opacity: 0.75; text-transform: uppercase; }
+  .slide-inner { flex: 1; padding: 2.6rem 4.5rem 4.8rem; display: flex; flex-direction: column; overflow: hidden; }
+  .slide-eyebrow { font-family: var(--font-mono); font-size: 0.69rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; }
+  .slide-eyebrow::before { content: ''; display: block; width: 1.8rem; height: 1px; background: var(--accent); opacity: 0.55; }
+  .slide-h1 { font-family: var(--font-display); font-size: clamp(2.3rem,4.2vw,3.4rem); font-weight: 700; line-height: 1.1; color: var(--parch); margin-bottom: 0.4rem; }
+  .slide-h1 em { font-style: italic; color: var(--accent2); }
+  .accent-rule { width: 3.5rem; height: 2px; background: linear-gradient(90deg,var(--accent),transparent); margin-bottom: 1.5rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation: fadeUp 0.48s ease forwards; }
+  .slide.active .slide-header { animation: fadeUp 0.48s ease 0.04s both; }
+  .help-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; }
+  .help-overlay.visible { display: flex; }
+  .help-box { background: #100C18; border: 1px solid rgba(245,240,250,0.12); border-radius: 6px; padding: 2rem 2.5rem; max-width: 440px; width: 90%; }
+  .help-box h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--parch); }
+  .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(245,240,250,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(245,240,250,0.6); }
+  .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(245,240,250,0.08); border: 1px solid rgba(245,240,250,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
+  .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+<div id="deck">
+
+  <!-- ══ SLIDE 1: TITLE ══ -->
+  <div class="slide active" id="slide-1">
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding: 0 6rem 5rem;">
+      <div style="font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.22em; color:rgba(155,108,180,0.55); margin-bottom:0.7rem; display:flex; align-items:center; gap:0.7rem;">
+        <span style="display:block; width:2rem; height:1px; background:rgba(155,108,180,0.4);"></span>
+        MOVEMENT III · WEEK 13
+      </div>
+      <h1 style="font-family:var(--font-display); font-size:clamp(2.8rem,5vw,4.4rem); font-weight:700; line-height:1.05; color:var(--parch); margin-bottom:0.3rem;">
+        Paths <em style="color:var(--accent2);">Forward</em>
+      </h1>
+      <div style="width:5rem; height:2px; background:linear-gradient(90deg,var(--accent),transparent); margin: 1rem 0 1.8rem;"></div>
+      <div style="font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.2em; color:rgba(245,240,250,0.2); margin-bottom:2.5rem;">WEEK 13 &nbsp;·&nbsp; CRDM 790 &nbsp;·&nbsp; Spring 2027</div>
+      <div style="display:flex; flex-direction:column; gap:0.4rem; border-left:2px solid rgba(155,108,180,0.28); padding-left:1.2rem;">
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,240,250,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(245,240,250,0.68);">Format:</strong> Guest lecturers (alt-ac paths) + Three Versions Side-by-Side activity</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,240,250,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(245,240,250,0.68);">No required reading</strong> — prepare your three project descriptions</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,240,250,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(245,240,250,0.68);">Next week:</strong> Full prospectus draft due — Milestone 4 (40%)</div>
+      </div>
+      <div style="position:absolute; top:1.5rem; right:5rem; font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; color:rgba(155,108,180,0.38); border:1px solid rgba(155,108,180,0.15); padding:0.28rem 0.65rem; border-radius:2px;">UDL COMPLIANT</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: SESSION MAP ══ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 13 · Movement III</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Session Map</div>
+      <h1 class="slide-h1">Today's <em>Arc</em></h1>
+      <div class="accent-rule"></div>
+      <div class="map-grid">
+        <div class="map-card">
+          <div class="mc-label">🗣️ Three Versions Pre-Work Sharing</div>
+          <ul>
+            <li>Open with small group sharing of all three versions before the guest arrives</li>
+            <li>What stays constant across all three? What changes?</li>
+            <li>Identify where the actual core of your project lives</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">🎤 Guest Presentation + Q&A</div>
+          <ul>
+            <li>Former CRDM students on non-academic paths — candor, not polish</li>
+            <li>Come with prepared questions about what's genuinely uncertain for you</li>
+            <li>Aim: honest accounts of what was hard and what the PhD actually gave them</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✦ Three Versions Side-by-Side (Full Group)</div>
+          <ul>
+            <li>Full group debrief of the pre-class writing</li>
+            <li>What does the grant version reveal that the hiring version hides?</li>
+            <li>Where is the most alive articulation of your stakes?</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✏️ Individual Writing + Share</div>
+          <ul>
+            <li>"Given what I heard today, the one thing I want my prospectus to do — that I hadn't thought about before — is ___."</li>
+            <li>Go around the room. These are commitments. Write them in your prospectus draft.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: THREE VERSIONS ══ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 13 · Pre-Class Writing</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">What You Brought to Class — Three 100-Word Descriptions</div>
+      <h1 class="slide-h1">Three <em>Versions</em></h1>
+      <div class="accent-rule"></div>
+      <div class="three-versions">
+        <div class="version-card">
+          <div class="vc-num">1</div>
+          <div class="vc-label">Academic</div>
+          <div class="vc-audience">For a hiring committee in your field</div>
+          <div class="vc-context">A search committee who knows the discipline, evaluates by field standards, reads contribution claims and theoretical positioning</div>
+          <div class="vc-question">What jargon is doing work here that plain language can't do? What is the contribution claim?</div>
+        </div>
+        <div class="version-card">
+          <div class="vc-num">2</div>
+          <div class="vc-label">Grant / Foundation</div>
+          <div class="vc-audience">For a foundation or nonprofit grant panel</div>
+          <div class="vc-context">Educated non-specialists who evaluate based on impact, public relevance, and whether the work matters beyond the university</div>
+          <div class="vc-question">What falls away when you remove disciplinary scaffolding? What do you have to translate to matter here?</div>
+        </div>
+        <div class="version-card">
+          <div class="vc-num">3</div>
+          <div class="vc-label">Journalism / Public</div>
+          <div class="vc-audience">For a journalist covering your research area</div>
+          <div class="vc-context">Curious and intelligent; needs to understand why this matters in terms a general reader can follow and care about</div>
+          <div class="vc-question">What is the story here? What makes this interesting to someone who has no obligation to care about scholarship?</div>
+        </div>
+      </div>
+      <div style="margin-top:1rem; background:rgba(155,108,180,0.07); border:1px solid rgba(155,108,180,0.2); border-radius:4px; padding:0.85rem 1.2rem;">
+        <p style="font-family:var(--font-body); font-size:0.97rem; color:var(--muted); line-height:1.55;">The differences between the three versions are the data. <strong style="color:rgba(245,240,250,0.8);">The most alive articulation of your stakes often lives in the grant or journalism version</strong> — not the academic one. Notice which version surprised you to write.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: GUIDING QUESTIONS ══ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 13 · Discussion</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Click to Reveal · or press Enter</div>
+      <h1 class="slide-h1">Guiding <em>Questions</em></h1>
+      <div class="accent-rule"></div>
+      <div class="q-grid">
+        <div class="q-card" id="q1" onclick="revealQ(1)">
+          <div class="q-num">1</div>
+          <div class="q-body">What skills, frameworks, and ways of thinking has the PhD actually given you — beyond your specific content area?
+            <span class="q-sub">Not the credential — the intellectual formation. What can you do now that you couldn't do at the start?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q2" onclick="revealQ(2)">
+          <div class="q-num">2</div>
+          <div class="q-body">How do you describe your expertise to someone in a hiring context who isn't in your field? What do you lead with?
+            <span class="q-sub">The person hired is not just 'the dissertation' — it's the thinker the dissertation trained. How would you describe that thinker?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q3" onclick="revealQ(3)">
+          <div class="q-num">3</div>
+          <div class="q-body">What would a 'public scholarship' version of your dissertation look like? A policy brief? A public-facing essay? A community partnership? A piece of journalism?
+            <span class="q-sub">Not "write for a general audience" — what form would best serve the argument you're actually making?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q4" onclick="revealQ(4)">
+          <div class="q-num">4</div>
+          <div class="q-body">What are you afraid of losing if you leave — or don't enter — the tenure track? What might you gain?
+            <span class="q-sub">Name the fear specifically. Then ask whether the fear is about the path or about who you think you'll be if you take it.</span>
+          </div>
+        </div>
+        <div class="q-card" id="q5" onclick="revealQ(5)">
+          <div class="q-num">5</div>
+          <div class="q-body">How do you design a dissertation that opens doors rather than closing them? What choices, now, keep more futures available?
+            <span class="q-sub">This is a design question — and it's not too late to make different choices before the prospectus is final.</span>
+          </div>
+        </div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextQ()">Reveal Question</button>
+      <div class="reveal-hint" id="reveal-hint">Click a question to reveal · or press <span class="key">Enter</span></div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: THREE VERSIONS ACTIVITY ══ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 13 · Activity</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Hands-On Activity · Press A to Advance</div>
+      <h1 class="slide-h1">Three Versions <em>Side-by-Side</em></h1>
+      <div class="accent-rule"></div>
+      <div class="versions-layout">
+        <div class="versions-col">
+          <div class="versions-steps">
+            <div class="v-step active" id="vstep-1">
+              <div class="vs-num">1</div>
+              <div class="vs-body">
+                <div class="vs-title">Share all three versions</div>
+                <div class="vs-text">In small groups: each person reads all three versions aloud. 6 minutes per person. Partners listen — no interrupting. Notice what surprises you in your own reading.</div>
+              </div>
+            </div>
+            <div class="v-step" id="vstep-2">
+              <div class="vs-num">2</div>
+              <div class="vs-body">
+                <div class="vs-title">What stays constant?</div>
+                <div class="vs-text">The group identifies: What stays constant across all three versions? What is the thing that you couldn't cut regardless of audience? That core is where your argument actually lives.</div>
+              </div>
+            </div>
+            <div class="v-step" id="vstep-3">
+              <div class="vs-num">3</div>
+              <div class="vs-body">
+                <div class="vs-title">What changes?</div>
+                <div class="vs-text">What changes most dramatically across the three versions? What vocabulary drops away? What framing shifts? The delta between versions tells you what is disciplinary costume versus what is essential argument.</div>
+              </div>
+            </div>
+            <div class="v-step" id="vstep-4">
+              <div class="vs-num">4</div>
+              <div class="vs-body">
+                <div class="vs-title">Where is the most alive version?</div>
+                <div class="vs-text">Identify together: which version is most alive? Which one makes you want to read the dissertation? The answer is often surprising. The grant or journalism version often contains the most urgent articulation of what's actually at stake.</div>
+              </div>
+            </div>
+            <div class="v-step" id="vstep-5">
+              <div class="vs-num">5</div>
+              <div class="vs-body">
+                <div class="vs-title">Individual writing + go-around</div>
+                <div class="vs-text">"Given what I heard today — from the guest and from this activity — the one thing I want my prospectus to do that I hadn't thought about before is ___." Go around the full room. Write these down. They are commitments.</div>
+              </div>
+            </div>
+          </div>
+          <div class="versions-nav">
+            <button class="v-btn" onclick="prevVStep()">← Back</button>
+            <span class="v-status" id="vstep-status">Step 1 of 5</span>
+            <button class="v-btn" onclick="nextVStep()">Next Step →</button>
+          </div>
+        </div>
+        <div class="versions-col">
+          <div class="writing-seed">
+            <div class="ws-label">The Key Insight</div>
+            <p>Students who can't write the journalism version don't yet know what their prospectus is arguing. The inability to translate is diagnostic — it points to where the argument is still unclear to the writer.</p>
+          </div>
+          <div style="background:rgba(155,108,180,0.07); border:1px solid rgba(155,108,180,0.2); border-radius:4px; padding:1.1rem 1.3rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem;">Non-Traditional Prospectus Note</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">If your post-degree goals are primarily non-academic, your prospectus may take an alternative form. This option requires the same intellectual rigor — it is differently difficult, not easier. Talk to instructor before Week 14. See syllabus appendix for details.</p>
+          </div>
+          <div style="background:var(--bg-card); border:1px solid rgba(245,240,250,0.08); border-radius:4px; padding:1rem 1.2rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">Prospectus Protocol</div>
+            <p style="font-family:var(--font-body); font-size:0.93rem; color:var(--muted); line-height:1.55;">Workshop Response Protocol distributed this week — read it before class next week. Come with written responses already drafted. The prospectus is due the night before Week 14.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: GUEST SPEAKER ══ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 13 · Guest</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Candor, Not Polish</div>
+      <h1 class="slide-h1">Guest <em>Conversation</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">Who we're hearing from</div>
+            <p>Former CRDM students who have taken non-academic paths — industry research, nonprofit or public sector, policy, journalism, other professional trajectories. Two guests with different paths when possible. The goal is honest accounts of what was hard, what they wished they'd done differently, and what the PhD actually gave them.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Questions to prepare</div>
+            <ul>
+              <li>What do you use from your PhD that you didn't expect to use?</li>
+              <li>What do you wish you had done differently during the degree?</li>
+              <li>What does your prospectus need to do if you want to keep multiple paths open?</li>
+              <li>What was the hardest moment of the transition — and what helped?</li>
+              <li>What would you say to someone who is afraid of leaving the tenure track?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">Listening Notes</div>
+            <p>"The thing I most needed to hear today was ___. The thing I'm carrying into my prospectus from this conversation is ___."</p>
+          </div>
+          <div style="background:rgba(155,108,180,0.07); border:1px solid rgba(155,108,180,0.2); border-radius:4px; padding:1rem 1.2rem; margin-top:0.5rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">The Frame for This Conversation</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">"We want candor, not polish." Set this explicitly before the guest speaks. Success narratives are easy to find. What's harder to find — and more useful — is honest reflection on what the degree actually prepared someone for, and what it didn't.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: FURTHER READING ══ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 13 · Optional Reading</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">No Required Reading This Week · Optional</div>
+      <h1 class="slide-h1">Optional <em>Reading</em></h1>
+      <div class="accent-rule"></div>
+      <div class="fr-grid">
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Karen Kelsky</div>
+            <div class="fr-title"><em>The Professor Is In</em> — alt-ac chapters</div>
+            <div class="fr-note">The clearest account of academic culture and the job market you will find — including the alt-ac chapters, which are as useful for non-academic paths as the academic ones. Available through Library Reserve. Read the alt-ac chapters now; save the academic job market chapters for later.</div>
+          </div>
+        </div>
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Kathleen Fitzpatrick</div>
+            <div class="fr-title"><em>Generous Thinking: A Radical Approach to Saving the University</em></div>
+            <div class="fr-note">On public scholarship — what it would mean for the university to genuinely connect to the publics it claims to serve. Useful if you're thinking about what form your dissertation's intellectual contribution could take beyond the traditional monograph.</div>
+          </div>
+        </div>
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Leonard Cassuto &amp; Robert Weisbuch</div>
+            <div class="fr-title"><em>The New PhD: How to Build a Better Graduate Education</em></div>
+            <div class="fr-note">Structural critique of doctoral education — why the system works the way it does, where it's changing, and what a more expansive version of doctoral preparation might look like. Useful context for understanding the systemic forces shaping the choices you're making now.</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-family:var(--font-body); font-size:0.88rem; color:rgba(245,240,250,0.28); font-style:italic; margin-top:0.8rem;">All available through Library Reserve · No Perusall purchase required this week</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: LOOKING AHEAD ══ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 13 → Week 14</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Leave</div>
+      <h1 class="slide-h1">Looking <em>Ahead</em></h1>
+      <div class="accent-rule"></div>
+      <div class="ahead-grid">
+        <div class="ahead-item">
+          <div class="ahead-icon">◆</div>
+          <div>
+            <div class="ahead-label">MILESTONE 4 DUE — Night Before Week 14 · 40% of Final Grade</div>
+            <p>Full Dissertation Prospectus — upload to Moodle or share via Google Drive. Bring print copies for your small group if you prefer print. Also write a one-paragraph director's note: What are you most uncertain about? What do you most need feedback on? What feels strong?</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">📋</div>
+          <div>
+            <div class="ahead-label">Read the Workshop Response Protocol</div>
+            <p>Being distributed this week. Read it before class. Come with written responses to your group members' drafts already drafted — not composing them in the room. The workshop works best when everyone comes prepared to give, not just to receive.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">✏️</div>
+          <div>
+            <div class="ahead-label">Use Your Three Versions</div>
+            <p>The most alive articulation of your stakes — likely from the grant or journalism version — belongs in your prospectus near the front. Your 'so what' sentence from Week 12 belongs there too. Use the work you've done in Weeks 11–13. It is not separate from the prospectus; it is the prospectus's foundation.</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:0.8rem; background:rgba(155,108,180,0.07); border:1px solid rgba(155,108,180,0.18); border-radius:4px; padding:0.8rem 1.1rem; text-align:center;">
+        <p style="font-family:var(--font-display); font-size:1.05rem; color:rgba(245,240,250,0.5); font-style:italic;">"The one thing I want my prospectus to do — that I hadn't thought about before today — is ___."</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<div id="nav">
+  <div style="display:flex; align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 13 · PATHS FORWARD</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex; gap:0.6rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+
+<div class="help-overlay" id="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
+    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
+    <div class="shortcut-row"><span>Reveal question (slide 4)</span><span><span class="key">Enter</span></span></div>
+    <div class="shortcut-row"><span>Activity step (slide 5)</span><span><span class="key">A</span></span></div>
+    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
+    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+
+<script>
+// ── BRANCHING PATH PARTICLES ──────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let paths = []; let frame = 0;
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initPaths(); }
+  function initPaths() {
+    paths = [];
+    const origins = 8;
+    for (let o = 0; o < origins; o++) {
+      const ox = Math.random() * canvas.width;
+      const oy = canvas.height * 0.3 + Math.random() * canvas.height * 0.4;
+      const branches = 2 + Math.floor(Math.random() * 2);
+      for (let b = 0; b < branches; b++) {
+        const angle = (Math.random() - 0.5) * Math.PI * 0.7;
+        paths.push({
+          ox, oy,
+          progress: Math.random(),
+          angle: -Math.PI/2 + angle,
+          speed: Math.random() * 0.003 + 0.001,
+          len: Math.random() * 80 + 40,
+          a: Math.random() * 0.12 + 0.03,
+          phase: Math.random() * Math.PI * 2,
+          r: Math.random() * 1.2 + 0.4,
+        });
+      }
+    }
+  }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); frame++;
+    paths.forEach(p => {
+      p.progress += p.speed;
+      if (p.progress > 1.5) { p.progress = 0; }
+      const t = p.progress > 1 ? 1 : p.progress;
+      const ex = p.ox + Math.cos(p.angle) * p.len * t;
+      const ey = p.oy + Math.sin(p.angle) * p.len * t;
+      const pulse = Math.sin(frame * 0.008 + p.phase);
+      const alpha = p.a * (0.4 + 0.6 * Math.max(0, 1 - Math.abs(p.progress - 0.75) * 2));
+      // draw line
+      ctx.beginPath(); ctx.moveTo(p.ox, p.oy); ctx.lineTo(ex, ey);
+      ctx.strokeStyle = `rgba(155,108,180,${alpha * 0.5})`; ctx.lineWidth = 0.6; ctx.stroke();
+      // draw tip dot
+      ctx.beginPath(); ctx.arc(ex, ey, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(192,148,212,${alpha})`; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', resize); resize(); draw();
+})();
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+const TOTAL = 8; let current = 1; let visited = new Set([1]);
+const slideNames = ['Title','Session Map','Three Versions','Guiding Questions','Activity','Guest Conversation','Optional Reading','Looking Ahead'];
+function goTo(n){if(n<1||n>TOTAL)return;document.getElementById('slide-'+current).classList.remove('active');current=n;visited.add(n);document.getElementById('slide-'+n).classList.add('active');updateNav();}
+function nextSlide(){goTo(current+1);} function prevSlide(){goTo(current-1);}
+function updateNav(){
+  document.getElementById('prev-btn').disabled=current===1;
+  document.getElementById('next-btn').disabled=current===TOTAL;
+  document.getElementById('slide-counter').textContent=current+' / '+TOTAL;
+  document.getElementById('progress-bar').style.width=((current/TOTAL)*100)+'%';
+  const dc=document.getElementById('slide-dots');dc.innerHTML='';
+  for(let i=1;i<=TOTAL;i++){const d=document.createElement('div');d.className='dot'+(i===current?' active':(visited.has(i)?' visited':''));d.onclick=()=>goTo(i);d.title=slideNames[i-1];dc.appendChild(d);}
+}
+let qRevealed=0;
+function revealQ(n){const c=document.getElementById('q'+n);if(!c.classList.contains('revealed')){c.classList.add('revealed');qRevealed=Math.max(qRevealed,n);if(qRevealed>=5){document.getElementById('reveal-btn').textContent='✓ All Questions Revealed';document.getElementById('reveal-btn').style.opacity='0.35';document.getElementById('reveal-hint').style.opacity='0';}}}
+function revealNextQ(){if(qRevealed<5)revealQ(qRevealed+1);}
+let vstep=1;
+function updateVStep(){for(let i=1;i<=5;i++){const el=document.getElementById('vstep-'+i);el.classList.remove('active','done');if(i<vstep)el.classList.add('done');else if(i===vstep)el.classList.add('active');}document.getElementById('vstep-status').textContent='Step '+vstep+' of 5';}
+function nextVStep(){if(vstep<5){vstep++;updateVStep();}} function prevVStep(){if(vstep>1){vstep--;updateVStep();}}
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('help-overlay').classList.contains('visible')){if(e.key==='Escape')closeHelp();return;}
+  switch(e.key){
+    case 'ArrowRight':case ' ':e.preventDefault();nextSlide();break;
+    case 'ArrowLeft':e.preventDefault();prevSlide();break;
+    case 'Enter':if(current===4){e.preventDefault();revealNextQ();}break;
+    case 'a':case 'A':if(current===5)nextVStep();break;
+    case 'Home':goTo(1);break;case 'End':goTo(TOTAL);break;
+    case '?':toggleHelp();break;case 'Escape':closeHelp();break;
+  }
+});
+function toggleHelp(){document.getElementById('help-overlay').classList.toggle('visible');}
+function closeHelp(){document.getElementById('help-overlay').classList.remove('visible');}
+updateNav();
+</script>
+</body>
+</html>

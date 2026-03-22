@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 12 · What Can Humanistic Imagination Actually Do?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night:   #030E0D;
+    --deep:    #060F0E;
+    --ink:     #0C1816;
+    --accent:  #3E9E8E;
+    --accent2: #70C4B6;
+    --teal:    #52B0A2;
+    --parch:   #EDF6F5;
+    --muted:   rgba(237,246,245,0.54);
+    --bg-card: rgba(237,246,245,0.04);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'EB Garamond', Georgia, serif;
+    --font-mono:    'Inconsolata', monospace;
+  }
+  #slide-1 { background: radial-gradient(ellipse at 38% 55%, #081E1C 0%, #030E0D 70%); }
+  #slide-2 { background: var(--deep); }
+  #slide-3 { background: var(--ink); }
+  #slide-4 { background: var(--deep); }
+  #slide-5 { background: #040E0D; }
+  #slide-6 { background: var(--ink); }
+  #slide-7 { background: var(--deep); }
+  #slide-8 { background: var(--night); }
+
+  /* ── GAUNTLET STEPPER ── */
+  .gauntlet-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; flex: 1; }
+  .gauntlet-col { display: flex; flex-direction: column; gap: 0.9rem; }
+  .gauntlet-steps { background: var(--bg-card); border: 1px solid rgba(237,246,245,0.08); border-radius: 4px; overflow: hidden; flex: 1; }
+  .g-step { padding: 0.95rem 1.2rem; border-bottom: 1px solid rgba(237,246,245,0.06); display: flex; gap: 0.9rem; align-items: flex-start; opacity: 0.38; transition: all 0.25s; cursor: pointer; }
+  .g-step:last-child { border-bottom: none; }
+  .g-step.active { opacity: 1; background: rgba(62,158,142,0.1); border-left: 3px solid var(--accent); }
+  .g-step.done { opacity: 0.72; }
+  .gs-num { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--accent); opacity: 0.4; line-height: 1; flex-shrink: 0; width: 1.8rem; }
+  .g-step.active .gs-num { opacity: 1; }
+  .gs-body { flex: 1; }
+  .gs-title { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .gs-text { font-family: var(--font-body); font-size: 0.93rem; color: var(--muted); line-height: 1.5; }
+  .g-step.active .gs-text { color: rgba(237,246,245,0.85); }
+  .gauntlet-nav { display: flex; gap: 0.8rem; margin-top: 0.9rem; align-items: center; justify-content: center; }
+  .g-btn { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--parch); background: rgba(62,158,142,0.13); border: 1px solid var(--accent); padding: 0.45rem 1.2rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .g-btn:hover { background: rgba(62,158,142,0.26); }
+  .g-status { font-family: var(--font-mono); font-size: 0.65rem; color: rgba(237,246,245,0.3); letter-spacing: 0.1em; }
+
+  /* ── Q CARDS ── */
+  .q-grid { display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+  .q-card { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px dashed rgba(237,246,245,0.09); border-radius: 4px; padding: 1rem 1.4rem; opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s; cursor: pointer; user-select: none; }
+  .q-card:not(.revealed):hover { border-color: var(--accent); background: rgba(62,158,142,0.07); }
+  .q-card.revealed { opacity: 1; transform: translateY(0); cursor: default; border-style: solid; border-color: rgba(237,246,245,0.07); }
+  .q-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--accent); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 2.2rem; }
+  .q-card.revealed .q-num { opacity: 1; }
+  .q-body { font-family: var(--font-body); font-size: 1rem; line-height: 1.55; color: var(--parch); }
+  .q-sub { display: block; font-style: italic; color: rgba(237,246,245,0.42); font-size: 0.9rem; margin-top: 0.2rem; }
+  .reveal-btn { display: flex; align-items: center; gap: 0.6rem; margin: 0.8rem auto 0; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em; color: var(--accent); background: rgba(237,246,245,0.04); border: 1px solid var(--accent); opacity: 0.7; padding: 0.5rem 1.3rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .reveal-btn:hover { background: rgba(62,158,142,0.18); opacity: 1; }
+  .reveal-hint { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(237,246,245,0.2); text-align: center; margin-top: 0.4rem; }
+  .reading-box { background: var(--bg-card); border: 1px solid rgba(237,246,245,0.08); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 0.9rem; }
+  .reading-box .rb-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.45rem; }
+  .reading-box p, .reading-box li { font-family: var(--font-body); font-size: 0.99rem; color: rgba(237,246,245,0.78); line-height: 1.6; }
+  .reading-box ul { list-style: none; }
+  .reading-box ul li::before { content: '·'; color: var(--accent); margin-right: 0.5rem; }
+  .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1; }
+  .map-card { background: var(--bg-card); border: 1px solid rgba(237,246,245,0.07); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .map-card .mc-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.17em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .map-card p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  .map-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .map-card ul li { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.5; }
+  .map-card ul li::before { content: '·'; color: var(--accent); margin-right: 0.4rem; }
+  .disc-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; flex: 1; }
+  .disc-col { display: flex; flex-direction: column; gap: 1rem; }
+  .writing-seed { background: rgba(62,158,142,0.09); border: 1px solid rgba(62,158,142,0.27); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .writing-seed .ws-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .writing-seed p { font-family: var(--font-display); font-size: 1.05rem; font-style: italic; color: var(--parch); line-height: 1.5; }
+  .fr-grid { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+  .fr-card { display: flex; gap: 1rem; background: var(--bg-card); border: 1px solid rgba(237,246,245,0.07); border-radius: 4px; padding: 0.9rem 1.2rem; align-items: flex-start; }
+  .fr-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .fr-body { flex: 1; }
+  .fr-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--parch); font-style: italic; margin-bottom: 0.2rem; }
+  .fr-author { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .fr-note { font-family: var(--font-body); font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+  .ahead-grid { display: flex; flex-direction: column; gap: 0.9rem; flex: 1; }
+  .ahead-item { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px solid rgba(237,246,245,0.07); border-radius: 4px; padding: 1rem 1.3rem; }
+  .ahead-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .ahead-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .ahead-item p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #deck { position: relative; z-index: 1; width: 100vw; height: 100vh; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+  .slide.active { opacity: 1; pointer-events: all; }
+  #nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 2rem; background: rgba(3,14,13,0.93); border-top: 1px solid rgba(62,158,142,0.18); backdrop-filter: blur(10px); }
+  #slide-dots { display: flex; gap: 0.45rem; align-items: center; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(62,158,142,0.2); cursor: pointer; transition: all 0.3s; }
+  .dot.active { background: var(--accent); transform: scale(1.5); }
+  .dot.visited { background: rgba(62,158,142,0.48); }
+  #nav-label { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(237,246,245,0.26); letter-spacing: 0.12em; margin-left: 1rem; }
+  .nav-btn { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--parch); background: rgba(62,158,142,0.1); border: 1px solid rgba(62,158,142,0.28); padding: 0.35rem 1rem; cursor: pointer; transition: all 0.2s; border-radius: 2px; }
+  .nav-btn:hover { background: rgba(62,158,142,0.22); border-color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  #slide-counter { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(237,246,245,0.26); }
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #1A5048, var(--accent), var(--accent2)); transition: width 0.4s ease; z-index: 50; }
+  .slide-header { padding: 1.1rem 4.5rem 0.9rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(237,246,245,0.06); flex-shrink: 0; }
+  .course-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: rgba(237,246,245,0.2); text-transform: uppercase; }
+  .week-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: var(--accent); opacity: 0.75; text-transform: uppercase; }
+  .slide-inner { flex: 1; padding: 2.6rem 4.5rem 4.8rem; display: flex; flex-direction: column; overflow: hidden; }
+  .slide-eyebrow { font-family: var(--font-mono); font-size: 0.69rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; }
+  .slide-eyebrow::before { content: ''; display: block; width: 1.8rem; height: 1px; background: var(--accent); opacity: 0.55; }
+  .slide-h1 { font-family: var(--font-display); font-size: clamp(2.3rem,4.2vw,3.4rem); font-weight: 700; line-height: 1.1; color: var(--parch); margin-bottom: 0.4rem; }
+  .slide-h1 em { font-style: italic; color: var(--accent2); }
+  .accent-rule { width: 3.5rem; height: 2px; background: linear-gradient(90deg,var(--accent),transparent); margin-bottom: 1.5rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation: fadeUp 0.48s ease forwards; }
+  .slide.active .slide-header { animation: fadeUp 0.48s ease 0.04s both; }
+  .help-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; }
+  .help-overlay.visible { display: flex; }
+  .help-box { background: #060F0E; border: 1px solid rgba(237,246,245,0.12); border-radius: 6px; padding: 2rem 2.5rem; max-width: 440px; width: 90%; }
+  .help-box h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--parch); }
+  .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(237,246,245,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(237,246,245,0.6); }
+  .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(237,246,245,0.08); border: 1px solid rgba(237,246,245,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
+  .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+<div id="deck">
+
+  <!-- ══ SLIDE 1: TITLE ══ -->
+  <div class="slide active" id="slide-1">
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding: 0 6rem 5rem;">
+      <div style="font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.22em; color:rgba(62,158,142,0.55); margin-bottom:0.7rem; display:flex; align-items:center; gap:0.7rem;">
+        <span style="display:block; width:2rem; height:1px; background:rgba(62,158,142,0.4);"></span>
+        MOVEMENT III · WEEK 12
+      </div>
+      <h1 style="font-family:var(--font-display); font-size:clamp(2.4rem,4.5vw,3.9rem); font-weight:700; line-height:1.05; color:var(--parch); margin-bottom:0.3rem;">
+        What Can Humanistic<br><em style="color:var(--accent2);">Imagination</em> Actually Do?
+      </h1>
+      <div style="width:5rem; height:2px; background:linear-gradient(90deg,var(--accent),transparent); margin: 1rem 0 1.8rem;"></div>
+      <div style="font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.2em; color:rgba(237,246,245,0.2); margin-bottom:2.5rem;">WEEK 12 &nbsp;·&nbsp; CRDM 790 &nbsp;·&nbsp; Spring 2027</div>
+      <div style="display:flex; flex-direction:column; gap:0.4rem; border-left:2px solid rgba(62,158,142,0.28); padding-left:1.2rem;">
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(237,246,245,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(237,246,245,0.68);">Reading:</strong> Amitav Ghosh, <em>The Great Derangement</em> (Perusall)</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(237,246,245,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(237,246,245,0.68);">Activity:</strong> The 'So What?' Gauntlet</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(237,246,245,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(237,246,245,0.68);">Pre-class:</strong> 150-word non-specialist project description</div>
+      </div>
+      <div style="position:absolute; top:1.5rem; right:5rem; font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; color:rgba(62,158,142,0.38); border:1px solid rgba(62,158,142,0.15); padding:0.28rem 0.65rem; border-radius:2px;">UDL COMPLIANT</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: SESSION MAP ══ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 12 · Movement III</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Session Map</div>
+      <h1 class="slide-h1">Today's <em>Arc</em></h1>
+      <div class="accent-rule"></div>
+      <div class="map-grid">
+        <div class="map-card">
+          <div class="mc-label">📖 Primary Reading (Perusall)</div>
+          <ul>
+            <li>Amitav Ghosh, <em>The Great Derangement: Climate Change and the Unthinkable</em></li>
+            <li>Perusall annotation: Find the moment where you feel most implicated as a humanist</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✏️ Pre-Class Writing</div>
+          <ul>
+            <li>150-word version of your dissertation project for a smart non-specialist</li>
+            <li>Someone curious and educated — but not in your field</li>
+            <li>What can you keep? What falls away? What is actually essential?</li>
+            <li>Bring it. This is the raw material for today's activity.</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">💬 Discussion</div>
+          <ul>
+            <li>Ghosh on the failure of humanistic imagination — and what that failure reveals</li>
+            <li>Discussion anchor: Ghosh on the impersonal and scale (pp. 7–26, 57–72)</li>
+            <li>What is the unthinkable in your research area?</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✦ 'So What?' Gauntlet</div>
+          <ul>
+            <li>Groups of three: each person presents their 150-word version</li>
+            <li>Partners ask — politely but relentlessly — "So what?"</li>
+            <li>Keep answering until you hit bedrock: what actually matters, to actual people</li>
+            <li>Each person writes one sentence — the real 'so what' — reads it to the room</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: PRE-CLASS WRITING ══ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 12 · Pre-Class Writing</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">What You Brought to Class</div>
+      <h1 class="slide-h1">The <em>Audience Test</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">The Prompt — 150 Words</div>
+            <p>Write a version of your dissertation project for a smart non-specialist — someone curious and educated, but not in your field. A journalist. A sibling with a different degree. A policy researcher who doesn't know your discipline.</p>
+            <br>
+            <p>What can you keep from your prospectus paragraph? What has to go? What, when the disciplinary scaffolding falls away, remains?</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Perusall Annotation</div>
+            <p>Find the moment in Ghosh where you feel most implicated as a humanist. Not the most interesting passage — the one where you feel he is asking you to answer for something. What is he asking you to answer for?</p>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">The Diagnostic</div>
+            <p>"What falls away when I translate this into plain language is ___. That tells me that my prospectus has been doing ___ instead of ___."</p>
+          </div>
+          <div style="background:rgba(62,158,142,0.07); border:1px solid rgba(62,158,142,0.2); border-radius:4px; padding:1rem 1.2rem; margin-top:0.5rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">Ghosh's Core Argument</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">Literary imagination has failed to reckon with climate change — not because writers aren't concerned, but because the conventions of serious fiction make it nearly impossible to represent the scale of forces involved. This is a failure of form, not just content. Ghosh asks: what would it take for the imagination to rise to the scale of the crisis?</p>
+          </div>
+          <div style="background:var(--bg-card); border:1px solid rgba(237,246,245,0.08); border-radius:4px; padding:1rem 1.2rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">Why This Matters for Your Dissertation</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">Ghosh is not just about climate. He is about what the imagination systematically refuses to engage — the unthinkable that is structurally excluded by the conventions of a form. What is the unthinkable in your field?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: GUIDING QUESTIONS ══ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 12 · Discussion</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Click to Reveal · or press Enter</div>
+      <h1 class="slide-h1">Guiding <em>Questions</em></h1>
+      <div class="accent-rule"></div>
+      <div class="q-grid">
+        <div class="q-card" id="q1" onclick="revealQ(1)">
+          <div class="q-num">1</div>
+          <div class="q-body">Ghosh argues that literary imagination has failed to reckon with climate change — and asks why. What does that failure reveal about what fiction and scholarship can and cannot do?
+            <span class="q-sub">Is this a failure of will, form, or something structural to the conventions of serious inquiry?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q2" onclick="revealQ(2)">
+          <div class="q-num">2</div>
+          <div class="q-body">Is your dissertation actually for something? Who is it for? Could a non-specialist care about it?
+            <span class="q-sub">Not "is it interesting to scholars?" — that's a contribution claim. Does it matter beyond the discipline? That's a stakes claim.</span>
+          </div>
+        </div>
+        <div class="q-card" id="q3" onclick="revealQ(3)">
+          <div class="q-num">3</div>
+          <div class="q-body">Ghosh moves between literary criticism, political analysis, and memoir. What does that generic instability make possible? What does it cost?
+            <span class="q-sub">What genre conventions govern your field's writing? What do they make it impossible to say?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q4" onclick="revealQ(4)">
+          <div class="q-num">4</div>
+          <div class="q-body">What would it mean for your work to matter outside the discipline — to a community, a public, a policy conversation? What would have to be true of the argument for that to be possible?
+            <span class="q-sub">Not "translate into a press release" — genuinely matter. What problem would your work help someone outside the discipline think about?</span>
+          </div>
+        </div>
+        <div class="q-card" id="q5" onclick="revealQ(5)">
+          <div class="q-num">5</div>
+          <div class="q-body">The 'unthinkable' in Ghosh is what the imagination systematically refuses to engage. What is the unthinkable in your research area — the thing the field circles around but cannot directly address?
+            <span class="q-sub">Your dissertation's contribution might live exactly here.</span>
+          </div>
+        </div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextQ()">Reveal Question</button>
+      <div class="reveal-hint" id="reveal-hint">Click a question to reveal · or press <span class="key">Enter</span></div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: SO WHAT GAUNTLET ══ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 12 · Activity</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Hands-On Activity · Press A to Advance</div>
+      <h1 class="slide-h1">The 'So What?' <em>Gauntlet</em></h1>
+      <div class="accent-rule"></div>
+      <div class="gauntlet-layout">
+        <div class="gauntlet-col">
+          <div class="gauntlet-steps">
+            <div class="g-step active" id="gstep-1">
+              <div class="gs-num">1</div>
+              <div class="gs-body">
+                <div class="gs-title">Form groups of three</div>
+                <div class="gs-text">Groups assigned by instructor — not self-selected. Each group will work through all three members' projects. Decide who goes first.</div>
+              </div>
+            </div>
+            <div class="g-step" id="gstep-2">
+              <div class="gs-num">2</div>
+              <div class="gs-body">
+                <div class="gs-title">Present the 150-word version</div>
+                <div class="gs-text">The first person presents their non-specialist version from the pre-class prompt. 2 minutes. Partners listen without interrupting.</div>
+              </div>
+            </div>
+            <div class="g-step" id="gstep-3">
+              <div class="gs-num">3</div>
+              <div class="gs-body">
+                <div class="gs-title">Ask: "So what?"</div>
+                <div class="gs-text">Both partners ask — politely but relentlessly — "So what?" The presenter must keep answering. Warm, patient, genuinely curious, unwilling to accept the first answer. The breakthrough often comes at the fourth or fifth 'so what.' Do not stop early.</div>
+              </div>
+            </div>
+            <div class="g-step" id="gstep-4">
+              <div class="gs-num">4</div>
+              <div class="gs-body">
+                <div class="gs-title">Hit bedrock</div>
+                <div class="gs-text">The goal: find the thing that actually matters, to actual people, in the actual world. Not "why is this interesting to scholars?" — but "why should anyone who isn't a scholar care?" Keep going until you get there.</div>
+              </div>
+            </div>
+            <div class="g-step" id="gstep-5">
+              <div class="gs-num">5</div>
+              <div class="gs-body">
+                <div class="gs-title">Write and share the real 'so what'</div>
+                <div class="gs-text">Each person writes one sentence — the real 'so what' that emerged from the gauntlet — and reads it to the full room. These sentences go into the prospectus. They make a remarkable document when collected.</div>
+              </div>
+            </div>
+          </div>
+          <div class="gauntlet-nav">
+            <button class="g-btn" onclick="prevGStep()">← Back</button>
+            <span class="g-status" id="gstep-status">Step 1 of 5</span>
+            <button class="g-btn" onclick="nextGStep()">Next Step →</button>
+          </div>
+        </div>
+        <div class="gauntlet-col">
+          <div class="writing-seed">
+            <div class="ws-label">The Distinction That Matters</div>
+            <p><strong>Contribution</strong> = why this matters to scholars. <strong>Stakes</strong> = why it matters to the world. Both belong in a prospectus — but stakes are almost always underdeveloped.</p>
+          </div>
+          <div style="background:rgba(62,158,142,0.07); border:1px solid rgba(62,158,142,0.2); border-radius:4px; padding:1.1rem 1.3rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem;">The Tone of the Gauntlet</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">The goal is not to embarrass anyone — it is to find the genuine stakes that are buried in disciplinary language. Set this norm explicitly. The 'so what?' is an act of care: it refuses to let you hide behind jargon when there's something real underneath.</p>
+          </div>
+          <div class="writing-seed" style="margin-top:0.1rem;">
+            <div class="ws-label">Collect the Sentences</div>
+            <p>Read the full room's 'real so what' sentences aloud as a set. This is the cohort's collective intellectual project — what is it saying?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: DISCUSSION ══ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 12 · Synthesis</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">After the Gauntlet</div>
+      <h1 class="slide-h1">Discussion &amp; <em>Synthesis</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">What Ghosh gives you</div>
+            <p>The question "what can the imagination actually do?" is not pessimistic — it is honest. Ghosh's argument clears the ground. If you know what imagination cannot do by itself, you know where it needs help: from community, from politics, from different forms. Your prospectus is one form. What can it do?</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">The 'so what' in the prospectus</div>
+            <p>Your real 'so what' sentence from today belongs in the prospectus — not buried in a conclusion, but near the beginning, where it can do rhetorical work. The reader needs to know early why they should care. The Gauntlet found it. Now use it.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Looking toward Week 13</div>
+            <p>Next week: guest lecturers from alt-ac paths, and the Three Versions activity. You will write your project description in three registers — for a field hiring committee, a grant panel, and a journalist. Come with your 'so what' sentence. It will travel across all three.</p>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">Writing Seed</div>
+            <p>"The real 'so what' of my dissertation — the thing I found at bedrock — is ___. What surprised me about finding it there was ___."</p>
+          </div>
+          <div style="background:var(--bg-card); border:1px solid rgba(237,246,245,0.08); border-radius:4px; padding:1rem 1.2rem; margin-top:0.5rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">Before You Leave</div>
+            <p style="font-family:var(--font-body); font-size:0.93rem; color:var(--muted); line-height:1.55;">Collect your real 'so what' sentence. It belongs in the prospectus — near the front, doing rhetorical work. Keep the 150-word non-specialist version too. You will need it in Week 13.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: FURTHER READING ══ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 12 · Further Reading</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">If This Week Opened Something</div>
+      <h1 class="slide-h1">Further <em>Reading</em></h1>
+      <div class="accent-rule"></div>
+      <div class="fr-grid">
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Ursula K. Le Guin</div>
+            <div class="fr-title"><em>"The Carrier Bag Theory of Fiction"</em></div>
+            <div class="fr-note">A short essay — six pages — that proposes an entirely different theory of narrative form. If Ghosh diagnoses a failure of imagination, Le Guin suggests a different shape for stories. Useful for anyone whose dissertation deals with narrative, form, or alternative ways of knowing.</div>
+          </div>
+        </div>
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Anna Tsing</div>
+            <div class="fr-title"><em>The Mushroom at the End of the World</em></div>
+            <div class="fr-note">On precarity, multispecies entanglement, and the possibilities of humanistic inquiry when the frame is not progress but survival. A model of what it looks like to write at the scale Ghosh is calling for — without abandoning close attention to the particular.</div>
+          </div>
+        </div>
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Amitav Ghosh</div>
+            <div class="fr-title"><em>The Great Derangement</em> — Full Text</div>
+            <div class="fr-note">The assigned sections cover the core argument. The full text extends the analysis into historical imaginaries of empire, capitalism, and Asian modernity. Worth reading in full if this framework is relevant to your project area.</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-family:var(--font-body); font-size:0.88rem; color:rgba(237,246,245,0.28); font-style:italic; margin-top:0.8rem;">Primary reading on Perusall · Further reading available through NCSU Libraries</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: LOOKING AHEAD ══ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 12 → Week 13</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Leave</div>
+      <h1 class="slide-h1">Looking <em>Ahead</em></h1>
+      <div class="accent-rule"></div>
+      <div class="ahead-grid">
+        <div class="ahead-item">
+          <div class="ahead-icon">🎤</div>
+          <div>
+            <div class="ahead-label">Week 13 · Paths Forward: Alt-Ac and Otherwise</div>
+            <p>Guest lecturers — former CRDM students who have taken non-academic paths. We want candor, not polish. Come with questions about what's genuinely uncertain for you, not what sounds professionally appropriate to ask.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">✏️</div>
+          <div>
+            <div class="ahead-label">Pre-Class Writing for Week 13 — Three Versions</div>
+            <p>Write three 100-word descriptions of the same project: (1) for a hiring committee in your field; (2) for a foundation or nonprofit grant panel; (3) for a journalist covering your research area. Bring all three. The differences between them will tell you something important about where the core of your project actually lives.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">📋</div>
+          <div>
+            <div class="ahead-label">Week 14 · Prospectus Workshop — Full Draft Due</div>
+            <p>Your complete prospectus draft is due the night before Week 14. Start now. Your revised sentence from Week 11 + your real 'so what' from today are the beginning. Use them.</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:0.8rem; background:rgba(62,158,142,0.07); border:1px solid rgba(62,158,142,0.18); border-radius:4px; padding:0.8rem 1.1rem; text-align:center;">
+        <p style="font-family:var(--font-display); font-size:1.05rem; color:rgba(237,246,245,0.5); font-style:italic;">"What actually matters — to actual people — is ___."</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<div id="nav">
+  <div style="display:flex; align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 12 · SO WHAT? GAUNTLET</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex; gap:0.6rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+
+<div class="help-overlay" id="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
+    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
+    <div class="shortcut-row"><span>Reveal question (slide 4)</span><span><span class="key">Enter</span></span></div>
+    <div class="shortcut-row"><span>Gauntlet step (slide 5)</span><span><span class="key">A</span></span></div>
+    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
+    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+
+<script>
+// ── WAVE CURRENT PARTICLES ───────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let pts = []; let frame = 0;
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initPts(); }
+  function initPts() {
+    pts = [];
+    for (let i = 0; i < 60; i++) {
+      const row = Math.floor(Math.random()*8);
+      pts.push({
+        x: Math.random()*canvas.width, y: (row/8)*canvas.height + Math.random()*50-25,
+        baseY: (row/8)*canvas.height,
+        speed: Math.random()*0.25+0.08,
+        amp: Math.random()*18+6,
+        freq: Math.random()*0.006+0.002,
+        phase: Math.random()*Math.PI*2,
+        r: Math.random()*1.8+0.5,
+        a: Math.random()*0.2+0.05
+      });
+    }
+  }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); frame++;
+    pts.forEach(p => {
+      p.x += p.speed;
+      if (p.x > canvas.width + 10) p.x = -10;
+      p.y = p.baseY + Math.sin(frame * p.freq + p.phase) * p.amp;
+      const pulse = Math.sin(frame * 0.007 + p.phase);
+      const alpha = p.a * (0.5 + 0.5 * pulse);
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(62,158,142,${alpha})`; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', resize); resize(); draw();
+})();
+
+// ── NAVIGATION ───────────────────────────────────────────────────────────────
+const TOTAL = 8; let current = 1; let visited = new Set([1]);
+const slideNames = ['Title','Session Map','Pre-Class Writing','Guiding Questions','So What Gauntlet','Synthesis','Further Reading','Looking Ahead'];
+function goTo(n){if(n<1||n>TOTAL)return;document.getElementById('slide-'+current).classList.remove('active');current=n;visited.add(n);document.getElementById('slide-'+n).classList.add('active');updateNav();}
+function nextSlide(){goTo(current+1);} function prevSlide(){goTo(current-1);}
+function updateNav(){
+  document.getElementById('prev-btn').disabled=current===1;
+  document.getElementById('next-btn').disabled=current===TOTAL;
+  document.getElementById('slide-counter').textContent=current+' / '+TOTAL;
+  document.getElementById('progress-bar').style.width=((current/TOTAL)*100)+'%';
+  const dc=document.getElementById('slide-dots');dc.innerHTML='';
+  for(let i=1;i<=TOTAL;i++){const d=document.createElement('div');d.className='dot'+(i===current?' active':(visited.has(i)?' visited':''));d.onclick=()=>goTo(i);d.title=slideNames[i-1];dc.appendChild(d);}
+}
+let qRevealed=0;
+function revealQ(n){const c=document.getElementById('q'+n);if(!c.classList.contains('revealed')){c.classList.add('revealed');qRevealed=Math.max(qRevealed,n);if(qRevealed>=5){document.getElementById('reveal-btn').textContent='✓ All Questions Revealed';document.getElementById('reveal-btn').style.opacity='0.35';document.getElementById('reveal-hint').style.opacity='0';}}}
+function revealNextQ(){if(qRevealed<5)revealQ(qRevealed+1);}
+let gstep=1;
+function updateGStep(){for(let i=1;i<=5;i++){const el=document.getElementById('gstep-'+i);el.classList.remove('active','done');if(i<gstep)el.classList.add('done');else if(i===gstep)el.classList.add('active');}document.getElementById('gstep-status').textContent='Step '+gstep+' of 5';}
+function nextGStep(){if(gstep<5){gstep++;updateGStep();}} function prevGStep(){if(gstep>1){gstep--;updateGStep();}}
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('help-overlay').classList.contains('visible')){if(e.key==='Escape')closeHelp();return;}
+  switch(e.key){
+    case 'ArrowRight':case ' ':e.preventDefault();nextSlide();break;
+    case 'ArrowLeft':e.preventDefault();prevSlide();break;
+    case 'Enter':if(current===4){e.preventDefault();revealNextQ();}break;
+    case 'a':case 'A':if(current===5)nextGStep();break;
+    case 'Home':goTo(1);break;case 'End':goTo(TOTAL);break;
+    case '?':toggleHelp();break;case 'Escape':closeHelp();break;
+  }
+});
+function toggleHelp(){document.getElementById('help-overlay').classList.toggle('visible');}
+function closeHelp(){document.getElementById('help-overlay').classList.remove('visible');}
+updateNav();
+</script>
+</body>
+</html>
