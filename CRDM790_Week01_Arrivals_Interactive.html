@@ -439,24 +439,14 @@
     padding: 1.2rem 1.6rem;
     opacity: 0;
     transform: translateY(12px);
-    transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s, border-color 0.2s;
-    cursor: pointer;
-    user-select: none;
-  }
-  .question-card:not(.revealed) {
-    border-style: dashed;
-    border-color: rgba(201,168,76,0.2);
-  }
-  .question-card:not(.revealed):hover {
-    border-color: rgba(201,168,76,0.45);
-    background: rgba(201,168,76,0.04);
+    transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s;
+    cursor: default;
   }
   .question-card.revealed {
     opacity: 1;
     transform: translateY(0);
-    cursor: default;
   }
-  .question-card.revealed:hover {
+  .question-card:hover.revealed {
     background: rgba(245,237,216,0.07);
   }
   .q-number {
@@ -924,9 +914,487 @@
     .slide-h1 { font-size: 2rem; }
     .title-main { font-size: 4rem; }
   }
+
+  /* ══════════════════════════════════════════════════ */
+  /* SKIP NAVIGATION                                    */
+  /* ══════════════════════════════════════════════════ */
+  .skip-nav {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 9999;
+    background: var(--gold);
+    color: var(--night);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 2px;
+    transition: top 0.2s;
+  }
+  .skip-nav:focus { top: 0.75rem; outline: 2px solid var(--amber); }
+
+  /* ══════════════════════════════════════════════════ */
+  /* NAV ENHANCEMENTS — Course links + Reading toggle   */
+  /* ══════════════════════════════════════════════════ */
+  .nav-week-link {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    color: rgba(245,237,216,0.65);
+    text-decoration: none;
+    border: 1px solid rgba(245,237,216,0.14);
+    padding: 0.28rem 0.65rem;
+    border-radius: 2px;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nav-week-link:hover {
+    background: rgba(245,237,216,0.07);
+    color: var(--parch);
+    border-color: rgba(245,237,216,0.28);
+  }
+  .nav-vsep {
+    width: 1px;
+    height: 1.1rem;
+    background: rgba(245,237,216,0.12);
+    flex-shrink: 0;
+    margin: 0 0.15rem;
+  }
+  .nav-btn-read {
+    background: rgba(201,168,76,0.14);
+    border-color: rgba(201,168,76,0.38);
+    color: var(--amber) !important;
+  }
+  .nav-btn-read:hover {
+    background: rgba(201,168,76,0.26);
+    border-color: var(--gold);
+  }
+  .nav-btn-read.active-read {
+    background: rgba(201,168,76,0.28);
+    border-color: var(--gold);
+  }
+
+  /* ══════════════════════════════════════════════════ */
+  /* READING MODE — Light document view                 */
+  /* ══════════════════════════════════════════════════ */
+  body.reading-mode {
+    overflow: auto !important;
+    background: #F5F0E8 !important;
+    color: #1C1410 !important;
+  }
+  body.reading-mode #starfield,
+  body.reading-mode #progress-bar,
+  body.reading-mode #deck { display: none !important; }
+  #reading-panel { display: none; }
+  body.reading-mode #reading-panel { display: block; }
+
+  .rp-wrap {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 3rem 2rem 8rem;
+  }
+  .rp-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8B7A60;
+    margin-bottom: 0.6rem;
+  }
+  .rp-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: #1C1410;
+    margin-bottom: 0.4rem;
+  }
+  .rp-title em { color: #7B4A20; font-style: italic; }
+  .rp-subtitle {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #5A4A3C;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    font-family: var(--font-body);
+  }
+  .rp-meta {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: #8B7A60;
+    letter-spacing: 0.06em;
+    padding: 1rem 0;
+    border-top: 1px solid #D9D0C4;
+    border-bottom: 1px solid #D9D0C4;
+    margin-bottom: 2rem;
+  }
+  .rp-opening-quote {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: #5A4A3C;
+    border-left: 2px solid #C9A84C;
+    padding: 0.75rem 1.2rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.65;
+    background: #EDE8DC;
+    border-radius: 0 4px 4px 0;
+  }
+  .rp-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #D9D0C4;
+  }
+  .rp-section:last-child { border-bottom: none; }
+  .rp-section-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #1C1410;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid #C9A84C;
+    display: inline-block;
+    margin-bottom: 0.35rem;
+  }
+  .rp-section-intro {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    color: #9B8A6C;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+  /* Timeline */
+  .rp-timeline { display: flex; flex-direction: column; }
+  .rp-tl-item {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid #EDEBE5;
+  }
+  .rp-tl-item:last-child { border-bottom: none; }
+  .rp-tl-time {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #9B8A6C;
+    padding-top: 0.1rem;
+  }
+  .rp-tl-label {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: #1C1410;
+    font-weight: 500;
+    margin-bottom: 0.15rem;
+  }
+  .rp-tl-desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: #5A4A3C;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  /* Prompt block */
+  .rp-prompt-block {
+    background: #EDE8DC;
+    border-left: 4px solid #C9A84C;
+    padding: 1.3rem 1.8rem;
+    margin-bottom: 1.3rem;
+    border-radius: 0 4px 4px 0;
+  }
+  .rp-prompt-meta {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    color: #9B8A6C;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .rp-prompt-q {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: #1C1410;
+    line-height: 1.6;
+    margin-bottom: 0.65rem;
+  }
+  .rp-prompt-note {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: #5A4A3C;
+    font-style: italic;
+  }
+  .rp-scaffolding-label {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    color: #9B8A6C;
+    text-transform: uppercase;
+    margin: 1rem 0 0.6rem;
+  }
+  .rp-scaffolding {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .rp-scaffolding li {
+    display: flex;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: #3C3028;
+    line-height: 1.5;
+  }
+  .rp-scaffolding li::before { content: '—'; color: #C9A84C; flex-shrink: 0; }
+  .rp-udl-options { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 0.75rem; }
+  .rp-udl-chip {
+    background: white;
+    border: 1px solid #D9D0C4;
+    border-radius: 3px;
+    padding: 0.4rem 0.8rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: #4A3F35;
+  }
+  /* Questions */
+  .rp-questions { display: flex; flex-direction: column; gap: 0.9rem; }
+  .rp-q-item {
+    display: flex;
+    gap: 1.2rem;
+    background: #EDE8DC;
+    border-radius: 4px;
+    padding: 1rem 1.4rem;
+    align-items: flex-start;
+  }
+  .rp-q-num {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: rgba(201,168,76,0.45);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2rem;
+  }
+  .rp-q-body { flex: 1; }
+  .rp-q-text { font-family: var(--font-body); font-size: 1.05rem; color: #1C1410; line-height: 1.55; }
+  .rp-q-sub {
+    display: block;
+    font-family: var(--font-body);
+    font-style: italic;
+    color: #6A5A4C;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+  }
+  /* Steps */
+  .rp-steps { display: flex; flex-direction: column; gap: 0.7rem; }
+  .rp-step {
+    display: flex;
+    gap: 1.2rem;
+    background: #EDE8DC;
+    border-radius: 4px;
+    padding: 1rem 1.4rem;
+    align-items: flex-start;
+  }
+  .rp-step-num {
+    width: 1.9rem; height: 1.9rem;
+    border-radius: 50%;
+    border: 1.5px solid #C9A84C;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #8B6A30;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .rp-step-content { flex: 1; }
+  .rp-step-title { font-family: var(--font-body); font-size: 1rem; font-weight: 500; color: #1C1410; margin-bottom: 0.2rem; }
+  .rp-step-time { font-family: var(--font-mono); font-size: 0.68rem; color: #9B8A6C; font-weight: normal; margin-left: 0.4rem; }
+  .rp-step-important { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; color: #E8845A; text-transform: uppercase; margin-left: 0.5rem; font-weight: normal; }
+  .rp-step-detail { font-family: var(--font-body); font-size: 0.92rem; font-style: italic; color: #5A4A3C; line-height: 1.4; }
+  .rp-step-note { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.1em; color: #9B8A6C; margin-top: 0.3rem; }
+  /* Timer note */
+  .rp-timer-note {
+    background: #EDE8DC;
+    border: 1px solid #C9A84C;
+    border-radius: 4px;
+    padding: 0.7rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #8B6A30;
+    margin-bottom: 1.2rem;
+  }
+  /* Gallery & Discussion grids */
+  .rp-gallery-grid, .rp-disc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  .rp-disc-grid { margin-bottom: 1.3rem; }
+  .rp-gallery-card, .rp-disc-card {
+    background: #EDE8DC;
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+  }
+  .rp-gallery-label, .rp-disc-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    color: #9B8A6C;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .rp-gallery-text, .rp-disc-text { font-family: var(--font-body); font-size: 0.93rem; color: #3C3028; line-height: 1.5; }
+  /* Closing */
+  .rp-closing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .rp-checklist { background: #EDE8DC; border-radius: 4px; padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; }
+  .rp-checklist-title { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: #9B8A6C; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .rp-checklist ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .rp-checklist ul li { font-family: var(--font-body); font-size: 0.95rem; color: #3C3028; line-height: 1.4; padding-left: 1.5rem; position: relative; }
+  .rp-checklist ul li::before { content: '☐'; position: absolute; left: 0; color: #C9A84C; }
+  .rp-next-week { background: #EDEAF5; border-left: 3px solid #7B6FD8; border-radius: 0 4px 4px 0; padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; }
+  .rp-next-week-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em; color: #7B6FD8; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .rp-next-week-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: #1C1410; margin-bottom: 0.3rem; }
+  .rp-milestone-box { background: #FBF0E8; border-left: 3px solid #C9A84C; border-radius: 0 4px 4px 0; padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; }
+  .rp-milestone-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.13em; color: #9B8A6C; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .rp-milestone-name { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: #1C1410; margin-bottom: 0.3rem; }
+  .rp-closing-quote { font-family: var(--font-body); font-size: 1.05rem; font-style: italic; color: #5A4A3C; line-height: 1.6; text-align: center; padding: 0 1rem; margin-top: 1rem; opacity: 0.75; }
+
+  /* Responsive */
+  /* ── SCROLL CONTROLS (reading mode only) ── */
+  #scroll-controls {
+    display: none;
+    position: fixed;
+    right: 1.4rem;
+    bottom: 4.5rem;
+    z-index: 200;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  body.reading-mode #scroll-controls { display: flex; }
+  .scroll-btn {
+    width: 2.5rem; height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid #C9A84C;
+    background: #F5F0E8;
+    color: #8B6A30;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.13);
+    transition: all 0.18s;
+    user-select: none;
+  }
+  .scroll-btn:hover {
+    background: #EDE8DC; color: #5A3A10;
+    border-color: #A07830;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.2);
+    transform: scale(1.08);
+  }
+  .scroll-btn:active { transform: scale(0.95); }
+  .scroll-btn-top {
+    width: 2.5rem; height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid #D9D0C4;
+    background: #F5F0E8;
+    color: #9B8A6C;
+    font-size: 0.68rem; letter-spacing: 0.04em;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+    transition: all 0.18s;
+    user-select: none;
+    font-family: var(--font-mono);
+    margin-top: 0.25rem;
+  }
+  .scroll-btn-top:hover { background: #EDE8DC; color: #5A3A10; border-color: #C9A84C; }
+
+  @media (max-width: 640px) {
+    .rp-gallery-grid, .rp-disc-grid, .rp-closing-grid { grid-template-columns: 1fr; }
+    .rp-wrap { padding: 1.5rem 1rem 6rem; }
+    .nav-week-link { font-size: 0.6rem; padding: 0.25rem 0.5rem; }
+    .rp-section-nav { display: none; }
+    #scroll-controls { right: 0.5rem; bottom: 4rem; }
+  }
+
+  /* ══════════════════════════════════════════════════ */
+  /* READING MODE — Sticky section nav strip             */
+  /* ══════════════════════════════════════════════════ */
+  .rp-section-nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(245,240,232,0.97);
+    border-bottom: 1px solid #D9D0C4;
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 1.5rem;
+  }
+  .rp-section-nav::-webkit-scrollbar { display: none; }
+  .rp-nav-item {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8B7A60;
+    text-decoration: none;
+    padding: 0.65rem 0.9rem;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .rp-nav-item:hover { color: #3C3028; border-bottom-color: #C9A84C; }
+  .rp-nav-item.rp-nav-active { color: #3C3028; border-bottom-color: #C9A84C; font-weight: 600; }
+
+  /* ══════════════════════════════════════════════════ */
+  /* READING MODE — Floating scroll buttons (FABs)      */
+  /* ══════════════════════════════════════════════════ */
+  .rp-scroll-fabs {
+    position: fixed;
+    bottom: 4.2rem;
+    right: 1.6rem;
+    z-index: 90;
+    display: none;
+    flex-direction: column;
+    gap: 0.4rem;
+    pointer-events: none;
+  }
+  body.reading-mode .rp-scroll-fabs { display: flex; pointer-events: all; }
+  .rp-fab {
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 50%;
+    background: #1C1410;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: #C9A84C;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s, transform 0.2s, background 0.15s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.22);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px);
+  }
+  .rp-fab.fab-visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .rp-fab:hover { background: #2E2318; border-color: var(--gold); }
+  .rp-fab:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 </style>
 </head>
 <body>
+<a href="#reading-panel" class="skip-nav" id="skip-to-content">Skip to reading view</a>
 
 <canvas id="starfield"></canvas>
 <div id="progress-bar"></div>
@@ -941,6 +1409,7 @@
     <div class="shortcut-row"><span>Start / pause timer</span><span><kbd class="key">T</kbd> (on timer slide)</span></div>
     <div class="shortcut-row"><span>Reset timer</span><span><kbd class="key">R</kbd> (on timer slide)</span></div>
     <div class="shortcut-row"><span>First / last slide</span><span><kbd class="key">Home</kbd> / <kbd class="key">End</kbd></span></div>
+    <div class="shortcut-row"><span>Toggle reading mode</span><span><kbd class="key">M</kbd></span></div>
     <div class="shortcut-row"><span>This help screen</span><span><kbd class="key">?</kbd></span></div>
     <div class="shortcut-row"><span>Close this screen</span><span><kbd class="key">Esc</kbd></span></div>
     <div class="help-close" onclick="closeHelp()">Close ✕</div>
@@ -1104,28 +1573,28 @@
       <div class="gold-rule"></div>
 
       <div class="questions-grid" id="questions-grid">
-        <div class="question-card" data-q="0" onclick="revealNextQuestion()">
+        <div class="question-card" data-q="0">
           <div class="q-number">1</div>
           <div class="q-text">
             What brought you to this program — and what do you hope it makes possible?
             <span class="q-subtext">Not the CV answer. The real one.</span>
           </div>
         </div>
-        <div class="question-card" data-q="1" onclick="revealNextQuestion()">
+        <div class="question-card" data-q="1">
           <div class="q-number">2</div>
           <div class="q-text">
             What question keeps you up at night — the one you can't stop returning to?
             <span class="q-subtext">The question your field doesn't quite solve, but you keep orbiting.</span>
           </div>
         </div>
-        <div class="question-card" data-q="2" onclick="revealNextQuestion()">
+        <div class="question-card" data-q="2">
           <div class="q-number">3</div>
           <div class="q-text">
             How would you describe your intellectual lineage? Who taught you how to think?
             <span class="q-subtext">Teachers, writers, thinkers — inside and outside the academy.</span>
           </div>
         </div>
-        <div class="question-card" data-q="3" onclick="revealNextQuestion()">
+        <div class="question-card" data-q="3">
           <div class="q-number">4</div>
           <div class="q-text">
             What does "becoming a scholar" mean to you right now, at this exact moment?
@@ -1137,7 +1606,7 @@
       <button class="click-to-reveal-btn" id="reveal-btn" onclick="revealNextQuestion()">
         ✦ &nbsp; Reveal Next Question
       </button>
-      <div id="reveal-hint">Click any card or this button to reveal one at a time &nbsp;·&nbsp; or press Enter</div>
+      <div id="reveal-hint">Click to reveal one question at a time &nbsp;·&nbsp; or press Enter</div>
     </div>
   </div>
 
@@ -1347,18 +1816,304 @@
 
 </div><!-- /deck -->
 
+<!-- SCROLL CONTROLS (visible in reading mode only) -->
+<div id="scroll-controls" aria-hidden="true">
+  <button class="scroll-btn" title="Scroll up" onclick="smoothScroll(-320)">↑</button>
+  <button class="scroll-btn" title="Scroll down" onclick="smoothScroll(320)">↓</button>
+  <button class="scroll-btn-top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">TOP</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- READING PANEL — Accessible document view. Toggle with ≡ Read or M.  -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<main id="reading-panel" aria-label="Week 1: Arrivals — reading view" aria-hidden="true" tabindex="-1">
+
+<!-- Section jump nav — sticky top strip -->
+<nav class="rp-section-nav" aria-label="Jump to section">
+  <a href="#rp-session-map"  class="rp-nav-item" data-section="rp-session-map">Session Map</a>
+  <a href="#rp-prompt"       class="rp-nav-item" data-section="rp-prompt">Writing Prompt</a>
+  <a href="#rp-questions"    class="rp-nav-item" data-section="rp-questions">Questions</a>
+  <a href="#rp-activity"     class="rp-nav-item" data-section="rp-activity">Activity</a>
+  <a href="#rp-gallery"      class="rp-nav-item" data-section="rp-gallery">Gallery Walk</a>
+  <a href="#rp-discussion"   class="rp-nav-item" data-section="rp-discussion">Discussion</a>
+  <a href="#rp-closing"      class="rp-nav-item" data-section="rp-closing">Before You Leave</a>
+</nav>
+
+<div class="rp-wrap">
+
+  <div class="rp-eyebrow">CRDM 790 · Movement I · Weeks 1–5</div>
+  <h1 class="rp-title">Week 1: <em>Arrivals</em></h1>
+  <p class="rp-subtitle">Who are we, and what are we doing here?</p>
+  <div class="rp-meta">
+    <span>Spring 2027</span>
+    <span>NC State University</span>
+    <span>Instructor: Kirsti K. Cole · kkcole2@ncsu.edu</span>
+    <span>Format: 3.5-hour face-to-face seminar</span>
+    <span>No required reading — come ready to talk</span>
+  </div>
+  <blockquote class="rp-opening-quote">"We begin not with a syllabus but with a question: what kind of scholar are you becoming?"</blockquote>
+
+  <!-- ── SESSION MAP ──────────────────────────────────── -->
+  <section class="rp-section" id="rp-session-map">
+    <h2 class="rp-section-title">Session Map</h2>
+    <span class="rp-section-intro">3.5 Hours, Together</span>
+    <div class="rp-timeline">
+      <div class="rp-tl-item">
+        <div class="rp-tl-time">0:00–0:20</div>
+        <div><div class="rp-tl-label">Logistics &amp; Course Overview</div><div class="rp-tl-desc">Moodle, Perusall, milestone schedule — keep this short. The room is anxious.</div></div>
+      </div>
+      <div class="rp-tl-item">
+        <div class="rp-tl-time">0:20–0:50</div>
+        <div><div class="rp-tl-label">Intellectual Autobiography Sharing</div><div class="rp-tl-desc">Students share their 200–300 word pieces. Instructor reads theirs first — model vulnerability.</div></div>
+      </div>
+      <div class="rp-tl-item">
+        <div class="rp-tl-time">0:50–1:30</div>
+        <div><div class="rp-tl-label">Constellation Mapping Activity</div><div class="rp-tl-desc">Index cards → wall gallery → silent walk → group pattern discussion.</div></div>
+      </div>
+      <div class="rp-tl-item">
+        <div class="rp-tl-time">1:30–1:45</div>
+        <div><div class="rp-tl-label">Break</div><div class="rp-tl-desc">Step away. Grab water. Return ready.</div></div>
+      </div>
+      <div class="rp-tl-item">
+        <div class="rp-tl-time">1:45–2:30</div>
+        <div><div class="rp-tl-label">Open Seminar: Three Questions</div><div class="rp-tl-desc">What brought you? What keeps you up? What do you hope this year makes possible?</div></div>
+      </div>
+      <div class="rp-tl-item">
+        <div class="rp-tl-time">2:30–3:00</div>
+        <div><div class="rp-tl-label">Semester Arc Preview</div><div class="rp-tl-desc">Three movements, four milestones, and why the structure is built this way. We return to your constellation cards at Week 15.</div></div>
+      </div>
+      <div class="rp-tl-item">
+        <div class="rp-tl-time">3:00–3:30</div>
+        <div><div class="rp-tl-label">Informal Time &amp; Individual Check-ins</div><div class="rp-tl-desc">Set the tone for office-hours culture. Good moment for quiet conversations.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRE-CLASS WRITING PROMPT ────────────────────── -->
+  <section class="rp-section" id="rp-prompt">
+    <h2 class="rp-section-title">Pre-Class Writing Prompt</h2>
+    <span class="rp-section-intro">Intellectual Autobiography · 200–300 words · Informal, not graded</span>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-q">"Where did you start, what changed you, and where are you now? — as a thinker, a reader, a person who ended up here."</div>
+      <p class="rp-prompt-note">This is for you and for the room. You will be invited to share, but never read aloud without your consent.</p>
+    </div>
+    <div class="rp-scaffolding-label">If you're not sure where to start, try these entry points:</div>
+    <ul class="rp-scaffolding">
+      <li>The book, class, or idea that first made you feel like a thinker — not just a student</li>
+      <li>The question you keep returning to that your field doesn't quite have language for</li>
+      <li>The moment you realized you were actually interested in this, not just good at it</li>
+      <li>What you thought graduate school would be, and what you're starting to suspect it actually is</li>
+    </ul>
+    <div class="rp-scaffolding-label">Multiple ways to share today:</div>
+    <div class="rp-udl-options">
+      <span class="rp-udl-chip">🎙️ Read aloud to the group</span>
+      <span class="rp-udl-chip">💬 Summarize in your own words</span>
+      <span class="rp-udl-chip">🤝 Share one-on-one first</span>
+      <span class="rp-udl-chip">✍️ Post to Moodle this week</span>
+    </div>
+  </section>
+
+  <!-- ── GUIDING QUESTIONS ────────────────────────────── -->
+  <section class="rp-section" id="rp-questions">
+    <h2 class="rp-section-title">Guiding Questions</h2>
+    <span class="rp-section-intro">Open Seminar · 1:45–2:30</span>
+    <div class="rp-questions">
+      <div class="rp-q-item">
+        <div class="rp-q-num">1</div>
+        <div class="rp-q-body">
+          <div class="rp-q-text">What brought you to this program — and what do you hope it makes possible?</div>
+          <span class="rp-q-sub">Not the CV answer. The real one.</span>
+        </div>
+      </div>
+      <div class="rp-q-item">
+        <div class="rp-q-num">2</div>
+        <div class="rp-q-body">
+          <div class="rp-q-text">What question keeps you up at night — the one you can't stop returning to?</div>
+          <span class="rp-q-sub">The question your field doesn't quite solve, but you keep orbiting.</span>
+        </div>
+      </div>
+      <div class="rp-q-item">
+        <div class="rp-q-num">3</div>
+        <div class="rp-q-body">
+          <div class="rp-q-text">How would you describe your intellectual lineage? Who taught you how to think?</div>
+          <span class="rp-q-sub">Teachers, writers, thinkers — inside and outside the academy.</span>
+        </div>
+      </div>
+      <div class="rp-q-item">
+        <div class="rp-q-num">4</div>
+        <div class="rp-q-body">
+          <div class="rp-q-text">What does "becoming a scholar" mean to you right now, at this exact moment?</div>
+          <span class="rp-q-sub">Before the semester shapes your answer — what does it mean today?</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONSTELLATION MAPPING ACTIVITY ──────────────── -->
+  <section class="rp-section" id="rp-activity">
+    <h2 class="rp-section-title">Activity: Constellation Mapping</h2>
+    <span class="rp-section-intro">0:50–1:30 · 40 minutes total</span>
+    <div class="rp-steps">
+      <div class="rp-step">
+        <div class="rp-step-num">1</div>
+        <div class="rp-step-content">
+          <div class="rp-step-title">Make your card <span class="rp-step-time">(10 min)</span></div>
+          <div class="rp-step-detail">Write your name in the center of a large index card. Around it, add 3–5 words: a discipline, a method, a thinker, a question, and <em>one surprise</em> — something that doesn't fit your official bio.</div>
+          <div class="rp-step-note">Supplies at the front. Use whatever feels right — words, small drawings, fragments.</div>
+        </div>
+      </div>
+      <div class="rp-step">
+        <div class="rp-step-num">2</div>
+        <div class="rp-step-content">
+          <div class="rp-step-title">Post to the wall</div>
+          <div class="rp-step-detail">When you're done, put your card on the wall. Find a spot that feels right — no particular arrangement yet.</div>
+        </div>
+      </div>
+      <div class="rp-step">
+        <div class="rp-step-num">3</div>
+        <div class="rp-step-content">
+          <div class="rp-step-title">Silent gallery walk <span class="rp-step-time">(5 min)</span></div>
+          <div class="rp-step-detail">Everyone walks the full gallery in silence. No talking, no pointing. Just read. Notice what surprises you.</div>
+        </div>
+      </div>
+      <div class="rp-step">
+        <div class="rp-step-num">4</div>
+        <div class="rp-step-content">
+          <div class="rp-step-title">Group discussion <span class="rp-step-time">(20 min)</span></div>
+          <div class="rp-step-detail">Return to your seats. As a full group: What patterns do you see? What surprised you? Where are the gaps? What's on every card — and what's missing entirely?</div>
+        </div>
+      </div>
+      <div class="rp-step">
+        <div class="rp-step-num">5</div>
+        <div class="rp-step-content">
+          <div class="rp-step-title">Keep your card <span class="rp-step-important">Important</span></div>
+          <div class="rp-step-detail">The instructor collects the cards at the end of today. They will be returned to you at Week 15. This loop — who you were on Day 1 vs. who you've become — is one of the strongest moments of the semester.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALLERY WALK ─────────────────────────────────── -->
+  <section class="rp-section" id="rp-gallery">
+    <h2 class="rp-section-title">Gallery Walk</h2>
+    <span class="rp-section-intro">Step 3 of Constellation Mapping · 5 minutes</span>
+    <div class="rp-timer-note">⏱ A 5-minute countdown timer is available in Slide Mode (Slide 6) for in-class use.</div>
+    <div class="rp-gallery-grid">
+      <div class="rp-gallery-card">
+        <div class="rp-gallery-label">During the walk</div>
+        <p class="rp-gallery-text">Move through the gallery in silence. Read every card. Don't talk, don't point, don't whisper. Just look and notice. What pulls your attention?</p>
+      </div>
+      <div class="rp-gallery-card">
+        <div class="rp-gallery-label">After the timer</div>
+        <p class="rp-gallery-text">Return to your seat. Take a moment before the discussion begins. What stayed with you? What surprised you? What do you want to ask?</p>
+      </div>
+      <div class="rp-gallery-card">
+        <div class="rp-gallery-label">Accessibility note</div>
+        <p class="rp-gallery-text">If moving through the gallery is difficult, cards can be brought to you, or a photo of the full gallery can be viewed on a device.</p>
+      </div>
+      <div class="rp-gallery-card">
+        <div class="rp-gallery-label">What to notice</div>
+        <p class="rp-gallery-text">Patterns — repeated disciplines, methods, thinkers. Surprises — the unexpected words, the things that don't fit. Absences — what isn't on any card.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DISCUSSION ───────────────────────────────────── -->
+  <section class="rp-section" id="rp-discussion">
+    <h2 class="rp-section-title">Discussion: What Does This Constellation Reveal?</h2>
+    <span class="rp-section-intro">Full group · ~20 minutes</span>
+    <div class="rp-disc-grid">
+      <div class="rp-disc-card">
+        <div class="rp-disc-label">Patterns</div>
+        <p class="rp-disc-text">What do you see appearing on multiple cards? What disciplines, methods, or thinkers are everywhere? What does that tell us about who we are as a cohort?</p>
+      </div>
+      <div class="rp-disc-card">
+        <div class="rp-disc-label">Surprises</div>
+        <p class="rp-disc-text">What words or ideas appeared that you didn't expect? The "surprise" category often reveals something truer than the official bio. What surprised you — or surprised others?</p>
+      </div>
+      <div class="rp-disc-card">
+        <div class="rp-disc-label">Absences</div>
+        <p class="rp-disc-text">What's <em>not</em> on any card? What fields, traditions, methods, or perspectives are missing? What does that gap mean — and what would it mean to address it?</p>
+      </div>
+      <div class="rp-disc-card">
+        <div class="rp-disc-label">Questions for the room</div>
+        <p class="rp-disc-text">Is there a card you want to ask about? A word you don't recognize? An idea you want to follow? This is the beginning of intellectual community — curiosity is welcome.</p>
+      </div>
+    </div>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-meta">Individual Writing Prompt · 5 minutes · End of discussion</div>
+      <div class="rp-prompt-q">Write one sentence beginning: <em>"The thing on my card I most want to explore this semester is ___"</em></div>
+      <p class="rp-prompt-note">Keep this. It may seed your Scholarly Identity Statement (due Week 5).</p>
+    </div>
+  </section>
+
+  <!-- ── BEFORE YOU LEAVE ─────────────────────────────── -->
+  <section class="rp-section" id="rp-closing">
+    <h2 class="rp-section-title">Before You Leave</h2>
+    <div class="rp-closing-grid">
+      <div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Before next week, make sure you have</div>
+          <ul>
+            <li>Access to Moodle and Perusall (link on syllabus)</li>
+            <li>Access to the shared Google Drive folder (link on Moodle)</li>
+            <li>The syllabus — read through the whole thing before Week 2</li>
+            <li>Kirsti's contact info: kkcole2@ncsu.edu</li>
+          </ul>
+        </div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">For Week 2 — bring to class</div>
+          <ul>
+            <li>Perusall annotations on Giroux (see prompt on course materials)</li>
+            <li>One passage you agree with + one you push back on</li>
+            <li>One concrete example from your own educational experience that confirms or complicates Giroux's argument</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="rp-next-week">
+          <div class="rp-next-week-label">Next Week · Week 2</div>
+          <div class="rp-next-week-title">Critical Pedagogy and the Scholar-Critic</div>
+          <p class="rp-disc-text">Henry Giroux, <em>On Critical Pedagogy</em> (selected chapters on Perusall). What does it mean to be a critic inside an institution? Can you critique the hand that grades you?</p>
+        </div>
+        <div class="rp-milestone-box" id="rp-milestone-1">
+          <div class="rp-milestone-label">◆ Milestone 1 · Week 5 · 20% of grade</div>
+          <div class="rp-milestone-name">Scholarly Identity Statement (~500 words)</div>
+          <p class="rp-disc-text">Who are you as a scholar? What animates your research, and why does it matter? Not a CV summary — a statement of intellectual purpose. Start thinking now.</p>
+        </div>
+        <p class="rp-closing-quote">"We will come back to your constellation cards in Week 15."</p>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /rp-wrap -->
+</main>
+
+<!-- Floating scroll buttons — reading mode only -->
+<div class="rp-scroll-fabs" aria-hidden="true">
+  <button class="rp-fab" id="fab-up"  onclick="rpScroll('up')"  title="Scroll up"   aria-label="Scroll up">↑</button>
+  <button class="rp-fab" id="fab-top" onclick="rpScroll('top')" title="Back to top"  aria-label="Back to top">⌂</button>
+  <button class="rp-fab" id="fab-dn"  onclick="rpScroll('dn')"  title="Scroll down" aria-label="Scroll down">↓</button>
+</div>
+
 <!-- NAVIGATION BAR -->
 <div id="nav">
   <div id="nav-left">
+    <!-- Course navigation — always visible -->
+    <a href="index.html" class="nav-week-link" aria-label="Return to course index">← Index</a>
+    <a href="CRDM790_Week02_Critical_Pedagogy.html" class="nav-week-link" id="next-week-link" aria-label="Go to Week 2: Critical Pedagogy">Week 2 →</a>
+    <span class="nav-vsep" aria-hidden="true"></span>
     <div id="slide-dots"></div>
     <span id="nav-label">WEEK 1 · ARRIVALS</span>
   </div>
-  <div style="display:flex; align-items:center; gap: 1.5rem;">
+  <div style="display:flex; align-items:center; gap: 0.6rem;">
     <span id="slide-counter">1 / 8</span>
-    <div id="nav-right">
+    <div id="nav-right" style="display:flex; gap:0.5rem; align-items:center;">
       <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
       <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
-      <button class="nav-btn" onclick="toggleHelp()">?</button>
+      <button class="nav-btn" id="help-btn" onclick="toggleHelp()">?</button>
+      <a href="index.html#milestones" class="nav-btn" id="milestones-link" style="display:none; text-decoration:none;" aria-label="Jump to milestone information on course index">◆ Milestones</a>
+      <button class="nav-btn nav-btn-read" id="read-toggle-btn" onclick="toggleReadingMode()" aria-label="Switch to reading mode" title="Reading mode (M)">≡ Read</button>
     </div>
   </div>
 </div>
@@ -1438,11 +2193,8 @@ function goTo(n) {
   current = n;
   visited.add(n);
   document.getElementById('slide-' + n).classList.add('active');
-  // auto-reveal first question when landing on slide 4
-  if (n === 4 && questionsRevealed === 0) {
-    setTimeout(() => revealNextQuestion(), 400);
-  }
   updateNav();
+  // reset any slide-specific state if needed
 }
 
 function nextSlide() { goTo(current + 1); }
@@ -1479,16 +2231,11 @@ function revealNextQuestion() {
     cards[questionsRevealed].classList.add('revealed');
     questionsRevealed++;
   }
-  const btn = document.getElementById('reveal-btn');
-  const hint = document.getElementById('reveal-hint');
   if (questionsRevealed >= cards.length) {
-    btn.textContent = '✓  All Questions Revealed';
-    btn.style.opacity = '0.35';
-    btn.style.cursor = 'default';
-    btn.onclick = null;
-    if (hint) hint.style.opacity = '0';
-  } else {
-    btn.textContent = '✦  Reveal Question ' + (questionsRevealed + 1);
+    document.getElementById('reveal-btn').textContent = '✓  All Questions Revealed';
+    document.getElementById('reveal-btn').style.opacity = '0.4';
+    document.getElementById('reveal-btn').style.cursor = 'default';
+    document.getElementById('reveal-hint').style.opacity = '0';
   }
 }
 
@@ -1593,6 +2340,7 @@ document.addEventListener('keydown', e => {
       break;
     case 'Home': goTo(1); break;
     case 'End': goTo(TOTAL); break;
+    case 'm': case 'M': toggleReadingMode(); break;
     case '?': toggleHelp(); break;
     case 'Escape': closeHelp(); break;
   }
@@ -1604,6 +2352,104 @@ function toggleHelp() {
 function closeHelp() {
   document.getElementById('help-overlay').classList.remove('visible');
 }
+
+// ── SCROLL HELPER ────────────────────────────────────────────────────────────
+function smoothScroll(delta) {
+  window.scrollBy({ top: delta, behavior: 'smooth' });
+}
+
+// ── READING MODE ─────────────────────────────────────────────────────────────
+let readingMode = false;
+
+function toggleReadingMode() {
+  readingMode = !readingMode;
+  const body     = document.body;
+  const panel    = document.getElementById('reading-panel');
+  const deck     = document.getElementById('deck');
+  const btn      = document.getElementById('read-toggle-btn');
+  const counter  = document.getElementById('slide-counter');
+  const prevBtn  = document.getElementById('prev-btn');
+  const nextBtn  = document.getElementById('next-btn');
+  const helpBtn  = document.getElementById('help-btn');
+  const dots     = document.getElementById('slide-dots');
+  const label    = document.getElementById('nav-label');
+  const mLink    = document.getElementById('milestones-link');
+
+  closeHelp();
+
+  if (readingMode) {
+    body.classList.add('reading-mode');
+    panel.setAttribute('aria-hidden', 'false');
+    deck.setAttribute('aria-hidden', 'true');
+    btn.textContent = '⊞ Slides';
+    btn.setAttribute('aria-label', 'Switch back to slide view');
+    btn.classList.add('active-read');
+    counter.style.display = 'none';
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+    helpBtn.style.display = 'none';
+    dots.style.display = 'none';
+    label.textContent = 'WEEK 1 · ARRIVALS — Reading Mode';
+    label.style.opacity = '0.55';
+    mLink.style.display = 'inline-block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    panel.focus({ preventScroll: true });
+  } else {
+    body.classList.remove('reading-mode');
+    panel.setAttribute('aria-hidden', 'true');
+    deck.setAttribute('aria-hidden', 'false');
+    btn.textContent = '≡ Read';
+    btn.setAttribute('aria-label', 'Switch to reading mode');
+    btn.classList.remove('active-read');
+    counter.style.display = '';
+    prevBtn.style.display = '';
+    nextBtn.style.display = '';
+    helpBtn.style.display = '';
+    dots.style.display = '';
+    label.textContent = 'WEEK 1 · ARRIVALS';
+    label.style.opacity = '';
+    mLink.style.display = 'none';
+  }
+}
+
+// ── READING MODE SCROLL UTILS ──────────────────────────────────────────────
+function rpScroll(dir) {
+  const amt = window.innerHeight * 0.72;
+  if (dir === 'top') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else if (dir === 'up') {
+    window.scrollBy({ top: -amt, behavior: 'smooth' });
+  } else {
+    window.scrollBy({ top: amt, behavior: 'smooth' });
+  }
+}
+
+(function() {
+  const sections = ['rp-session-map','rp-prompt','rp-questions','rp-activity','rp-gallery','rp-discussion','rp-closing'];
+  function updateReadingUI() {
+    if (!readingMode) return;
+    const scrollY = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const fabUp  = document.getElementById('fab-up');
+    const fabTop = document.getElementById('fab-top');
+    const fabDn  = document.getElementById('fab-dn');
+    if (fabUp && fabTop && fabDn) {
+      fabTop.classList.toggle('fab-visible', scrollY > 200);
+      fabUp.classList.toggle('fab-visible',  scrollY > 60);
+      fabDn.classList.toggle('fab-visible',  scrollY < maxScroll - 40);
+    }
+    let activeId = sections[0];
+    for (const id of sections) {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 100) activeId = id;
+    }
+    document.querySelectorAll('.rp-nav-item').forEach(a => {
+      a.classList.toggle('rp-nav-active', a.dataset.section === activeId);
+    });
+  }
+  window.addEventListener('scroll', updateReadingUI, { passive: true });
+  window.addEventListener('resize', updateReadingUI, { passive: true });
+})();
 
 // init
 updateNav();
