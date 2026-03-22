@@ -176,10 +176,118 @@
   .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(239,245,238,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(239,245,238,0.6); }
   .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(239,245,238,0.08); border: 1px solid rgba(239,245,238,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
   .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+
+  .skip-nav { position:absolute; top:-100px; left:1rem; z-index:9999; background:var(--accent); color:#000; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; padding:0.5rem 1rem; border-radius:2px; transition:top 0.2s; }
+  .skip-nav:focus { top:0.75rem; outline:2px solid var(--accent2,var(--accent)); }
+  .nav-week-link { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:rgba(245,237,216,0.65); text-decoration:none; border:1px solid rgba(245,237,216,0.14); padding:0.28rem 0.65rem; border-radius:2px; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
+  .nav-week-link:hover { background:rgba(245,237,216,0.07); color:var(--parch); border-color:rgba(245,237,216,0.28); }
+  .nav-vsep { width:1px; height:1.1rem; background:rgba(245,237,216,0.12); flex-shrink:0; margin:0 0.15rem; }
+  .nav-btn-read { background:rgba(201,168,76,0.14)!important; border-color:rgba(201,168,76,0.38)!important; color:#E8B84B!important; }
+  .nav-btn-read:hover { background:rgba(201,168,76,0.26)!important; border-color:#C9A84C!important; }
+  .nav-btn-read.active-read { background:rgba(201,168,76,0.28)!important; border-color:#C9A84C!important; }
+  body.reading-mode { overflow:auto!important; background:#F5F0E8!important; color:#1C1410!important; }
+  body.reading-mode #starfield, body.reading-mode #progress-bar, body.reading-mode #deck { display:none!important; }
+  #reading-panel { display:none; }
+  body.reading-mode #reading-panel { display:block; }
+  .rp-section-nav { position:sticky; top:0; z-index:40; background:rgba(245,240,232,0.97); border-bottom:1px solid #D9D0C4; backdrop-filter:blur(6px); display:flex; align-items:center; overflow-x:auto; scrollbar-width:none; padding:0 1.5rem; }
+  .rp-section-nav::-webkit-scrollbar { display:none; }
+  .rp-nav-item { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8B7A60; text-decoration:none; padding:0.65rem 0.9rem; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.15s; flex-shrink:0; }
+  .rp-nav-item:hover { color:#3C3028; border-bottom-color:#C9A84C; }
+  .rp-nav-item.rp-nav-active { color:#3C3028; border-bottom-color:#C9A84C; font-weight:600; }
+  .rp-wrap { max-width:740px; margin:0 auto; padding:3rem 2rem 8rem; }
+  .rp-eyebrow { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:#8B7A60; margin-bottom:0.6rem; }
+  .rp-title { font-family:var(--font-display); font-size:clamp(2rem,5vw,3.2rem); font-weight:700; line-height:1.1; color:#1C1410; margin-bottom:0.4rem; }
+  .rp-title em { color:#7B4A20; font-style:italic; }
+  .rp-subtitle { font-size:1.1rem; font-style:italic; color:#5A4A3C; margin-bottom:1.5rem; line-height:1.5; font-family:var(--font-body); }
+  .rp-meta { display:flex; gap:1.2rem; flex-wrap:wrap; font-family:var(--font-mono); font-size:0.68rem; color:#8B7A60; letter-spacing:0.06em; padding:1rem 0; border-top:1px solid #D9D0C4; border-bottom:1px solid #D9D0C4; margin-bottom:2rem; }
+  .rp-opening-quote { font-family:var(--font-body); font-size:1.05rem; font-style:italic; color:#5A4A3C; border-left:2px solid #C9A84C; padding:0.75rem 1.2rem; margin-bottom:2.5rem; line-height:1.65; background:#EDE8DC; border-radius:0 4px 4px 0; }
+  .rp-opening-quote cite { display:block; margin-top:0.5rem; font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; color:#9B8A6C; font-style:normal; }
+  .rp-section { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid #D9D0C4; }
+  .rp-section:last-child { border-bottom:none; }
+  .rp-section-title { font-family:var(--font-display); font-size:1.35rem; font-weight:600; color:#1C1410; padding-bottom:0.4rem; border-bottom:2px solid #C9A84C; display:inline-block; margin-bottom:0.35rem; }
+  .rp-section-intro { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:1.2rem; display:block; }
+  .rp-timeline { display:flex; flex-direction:column; }
+  .rp-tl-item { display:grid; grid-template-columns:6rem 1fr; gap:1rem; padding:0.7rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-tl-item:last-child { border-bottom:none; }
+  .rp-tl-time { font-family:var(--font-mono); font-size:0.7rem; color:#9B8A6C; padding-top:0.1rem; }
+  .rp-tl-label { font-family:var(--font-body); font-size:1rem; color:#1C1410; font-weight:500; margin-bottom:0.15rem; }
+  .rp-tl-desc { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; line-height:1.4; }
+  .rp-reading-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.2rem 1.6rem; border-radius:0 4px 4px 0; margin-bottom:1.1rem; }
+  .rp-reading-label { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.5rem; }
+  .rp-reading-list { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-reading-list li { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.5; padding-left:1rem; position:relative; }
+  .rp-reading-list li::before { content:"·"; position:absolute; left:0; color:#C9A84C; }
+  .rp-reading-text { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.55; }
+  .rp-reading-text strong { color:#1C1410; }
+  .rp-note-banner { background:rgba(255,200,100,0.12); border:1px solid rgba(200,150,50,0.3); border-radius:4px; padding:0.8rem 1.1rem; margin-bottom:1.1rem; font-family:var(--font-body); font-size:0.93rem; color:#5A4020; font-style:italic; line-height:1.5; }
+  .rp-concepts-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.9rem; margin-top:1rem; }
+  .rp-concept-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-concept-term { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#7B4A20; margin-bottom:0.3rem; }
+  .rp-concept-def { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-prompt-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.3rem 1.8rem; margin-bottom:1.3rem; border-radius:0 4px 4px 0; }
+  .rp-prompt-meta { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-prompt-q { font-family:var(--font-display); font-size:1.15rem; font-style:italic; color:#1C1410; line-height:1.6; margin-bottom:0.65rem; }
+  .rp-prompt-note { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; }
+  .rp-questions { display:flex; flex-direction:column; gap:0.9rem; }
+  .rp-q-item { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-q-num { font-family:var(--font-display); font-size:1.9rem; font-weight:700; color:rgba(201,168,76,0.45); line-height:1; flex-shrink:0; width:2rem; }
+  .rp-q-body { flex:1; }
+  .rp-q-text { font-family:var(--font-body); font-size:1.05rem; color:#1C1410; line-height:1.55; }
+  .rp-q-sub { display:block; font-family:var(--font-body); font-style:italic; color:#6A5A4C; font-size:0.9rem; margin-top:0.25rem; }
+  .rp-steps { display:flex; flex-direction:column; gap:0.7rem; }
+  .rp-step { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-step-num { width:1.9rem; height:1.9rem; border-radius:50%; border:1.5px solid #C9A84C; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.72rem; color:#8B6A30; flex-shrink:0; margin-top:0.1rem; }
+  .rp-step-content { flex:1; }
+  .rp-step-title { font-family:var(--font-body); font-size:1rem; font-weight:500; color:#1C1410; margin-bottom:0.2rem; }
+  .rp-step-time { font-family:var(--font-mono); font-size:0.68rem; color:#9B8A6C; margin-left:0.4rem; }
+  .rp-step-detail { font-family:var(--font-body); font-size:0.92rem; font-style:italic; color:#5A4A3C; line-height:1.4; }
+  .rp-step-note { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:#9B8A6C; margin-top:0.3rem; }
+  .rp-timer-note { background:#EDE8DC; border:1px solid #C9A84C; border-radius:4px; padding:0.7rem 1rem; font-family:var(--font-mono); font-size:0.7rem; color:#8B6A30; margin-bottom:1.2rem; }
+  .rp-cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+  .rp-card { background:#EDE8DC; border-radius:4px; padding:1rem 1.2rem; }
+  .rp-card-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.16em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-card-text { font-family:var(--font-body); font-size:0.93rem; color:#3C3028; line-height:1.5; }
+  .rp-closing-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+  .rp-checklist { background:#EDE8DC; border-radius:4px; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-checklist-title { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-checklist ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-checklist ul li { font-family:var(--font-body); font-size:0.95rem; color:#3C3028; line-height:1.4; padding-left:1.5rem; position:relative; }
+  .rp-checklist ul li::before { content:"☐"; position:absolute; left:0; color:#C9A84C; }
+  .rp-next-week { background:#EDEAF5; border-left:3px solid #7B6FD8; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-next-week-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.14em; color:#7B6FD8; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-next-week-title { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-next-week-body { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; font-style:italic; line-height:1.5; }
+  .rp-milestone-box { background:#FBF0E8; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-due { background:rgba(181,52,42,0.08); border-left:3px solid #DC503C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.13em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-milestone-due .rp-milestone-label { color:#DC503C; }
+  .rp-milestone-name { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-body-text { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; line-height:1.55; }
+  .rp-writing-seed { background:#EDE8DC; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1rem 1.3rem; margin-top:1rem; }
+  .rp-writing-seed-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-writing-seed-q { font-family:var(--font-display); font-size:1rem; font-style:italic; color:#1C1410; line-height:1.5; }
+  .rp-criteria-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1.2rem; }
+  .rp-crit-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-crit-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-crit-text { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-threshold-row { display:grid; grid-template-columns:auto 1fr; gap:0 0.9rem; align-items:baseline; padding:0.55rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-threshold-row:last-child { border-bottom:none; }
+  .rp-th-level { font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
+  .rp-th-complete { color:#3D8B5E; }
+  .rp-th-revision { color:#8B6A30; }
+  .rp-th-missing  { color:#B5352A; }
+  .rp-th-desc { font-family:var(--font-body); font-size:0.92rem; color:#5A4A3C; line-height:1.45; }
+  .rp-scroll-fabs { position:fixed; bottom:4.2rem; right:1.6rem; z-index:90; display:none; flex-direction:column; gap:0.4rem; pointer-events:none; }
+  body.reading-mode .rp-scroll-fabs { display:flex; pointer-events:all; }
+  .rp-fab { width:2.3rem; height:2.3rem; border-radius:50%; background:#1C1410; border:1px solid rgba(201,168,76,0.4); color:#C9A84C; font-size:0.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s,transform 0.2s,background 0.15s; box-shadow:0 2px 10px rgba(0,0,0,0.22); opacity:0; pointer-events:none; transform:translateY(6px); }
+  .rp-fab.fab-visible { opacity:1; pointer-events:all; transform:translateY(0); }
+  .rp-fab:hover { background:#2E2318; border-color:#C9A84C; }
+  @media(max-width:640px){.rp-concepts-grid,.rp-cards-grid,.rp-closing-grid,.rp-criteria-grid{grid-template-columns:1fr;}.rp-wrap{padding:1.5rem 1rem 6rem;}.rp-section-nav{display:none;}}
 </style>
 </head>
 <body>
 
+<a href="#reading-panel" class="skip-nav" id="skip-to-content">Skip to reading view</a>
 <canvas id="starfield"></canvas>
 <div id="progress-bar"></div>
 
@@ -567,34 +675,172 @@
 </div><!-- /deck -->
 
 <!-- NAV -->
+<main id="reading-panel" role="region" aria-label="Week 10: Individual Meetings — reading view" aria-hidden="true" tabindex="-1">
+<nav class="rp-section-nav" aria-label="Jump to section">
+  <a href="#rp-session-map"  class="rp-nav-item" data-section="rp-session-map">Session Map</a>
+  <a href="#rp-milestone"    class="rp-nav-item" data-section="rp-milestone">Milestone 3</a>
+  <a href="#rp-reflection"   class="rp-nav-item" data-section="rp-reflection">Reflection Prompts</a>
+  <a href="#rp-seed"         class="rp-nav-item" data-section="rp-seed">Prospectus Seed</a>
+  <a href="#rp-recap"        class="rp-nav-item" data-section="rp-recap">Movement II Recap</a>
+  <a href="#rp-closing"      class="rp-nav-item" data-section="rp-closing">Rest &amp; Return</a>
+</nav>
+<div class="rp-wrap">
+  <div class="rp-eyebrow">CRDM 790 &#183; Movement II &#183; Week 10</div>
+  <h1 class="rp-title">Individual <em>Meetings</em> Week</h1>
+  <p class="rp-subtitle">No full group session &#8212; individual check-ins with instructor. Come prepared. These are working sessions.</p>
+  <div class="rp-meta">
+    <span>Format: individual check-ins (20&#8211;30 min each)</span>
+    <span style="color:#DC503C;">&#9670; Milestone 3 due this week</span>
+  </div>
+
+  <section class="rp-section" id="rp-session-map">
+    <h2 class="rp-section-title">This Week&#8217;s Arc</h2>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">&#128197; Format</div><p class="rp-card-text">No full group session. Individual check-ins with instructor &#8212; 20&#8211;30 minutes each. Sign up for a slot via Moodle. Come prepared; these meetings are working sessions, not status reports.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#9670; Milestone Due</div><p class="rp-card-text">Committee Confirmation &#8212; 15% of final grade. Email confirmation from your chair is sufficient. Or: written plan with named faculty + realistic timeline. Submit via Moodle or email.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#9999;&#65039; Before Your Meeting</div><p class="rp-card-text">Complete the Prospectus Seed Writing (300&#8211;500 words &#8212; see below). Review your Week 8 exam list with feedback. Identify your one most unresolved question. Bring this writing &#8212; you will read it together.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#10022; Use This Week To</div><p class="rp-card-text">Confirm committee contact. Revise exam list from Week 8 feedback. Begin prospectus framing. <strong>Rest. Read something for pleasure.</strong></p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-milestone">
+    <h2 class="rp-section-title">Milestone 3 &#8212; Committee Confirmation</h2>
+    <span class="rp-section-intro">15% of final grade &#183; Due by your individual meeting or end of Week 10</span>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">What counts as confirmation</div>
+      <ul class="rp-reading-list">
+        <li><strong>Option A:</strong> An email from your chair (or co-chairs) confirming they have agreed to serve &#8212; forward this to instructor</li>
+        <li><strong>Option B:</strong> A written plan naming all committee members, their roles, and a realistic timeline for completing assembly if members have not yet confirmed</li>
+        <li><strong>Non-academic track:</strong> Name the people (professional mentors, faculty contacts) who will support candidacy and explain how</li>
+      </ul>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">How to submit</div>
+      <ul class="rp-reading-list">
+        <li>Google Drive &#8212; M3 subfolder (<a href="CRDM790_Submissions.html#m3" style="color:#C9943A;">full details</a>)</li>
+        <li>Moodle &#8212; Committee Confirmation dropbox</li>
+        <li>Email directly: kkcole2@ncsu.edu with subject &#8220;CRDM 790 Committee Confirmation &#8211; [Your Name]&#8221;</li>
+        <li>Bring documentation to your individual meeting</li>
+      </ul>
+    </div>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-meta">Running into obstacles?</div>
+      <div class="rp-prompt-q">Flag them now &#8212; do not wait. Faculty go silent, timelines shift, advisors move institutions. The earlier you name the obstacle, the more options you have.</div>
+      <p class="rp-prompt-note">Bring the specific sticking point to your individual meeting. This milestone is graded on completeness and evidence of genuine progress &#8212; not on having a fully assembled committee.</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Movement II milestones</div>
+      <ul class="rp-reading-list">
+        <li>M2 &#183; Draft Exam List (Week 8) &#8212; 25%</li>
+        <li><strong>M3 &#183; Committee Confirmation (this week) &#8212; 15%</strong></li>
+        <li>M4 &#183; Dissertation Prospectus (Week 14 draft / Week 15+1 final) &#8212; 40%</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-reflection">
+    <h2 class="rp-section-title">Reflection Prompts for Your Meeting</h2>
+    <span class="rp-section-intro">For your 20&#8211;30 minute individual meeting</span>
+    <div class="rp-questions">
+      <div class="rp-q-item"><div class="rp-q-num">1</div><div class="rp-q-body"><div class="rp-q-text">What has changed since Week 1? Compare where you were in your scholarly identity statement to where you are now. What shifted &#8212; and what surprised you?</div><span class="rp-q-sub">Not &#8220;I learned a lot.&#8221; What specifically changed in how you understand your project or your field?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">2</div><div class="rp-q-body"><div class="rp-q-text">Where is your exam list still unresolved? What conversation is happening on your list that you haven&#8217;t been able to articulate yet?</div><span class="rp-q-sub">Bring the list. Mark the texts you&#8217;re least sure about. Name the gap you keep circling.</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">3</div><div class="rp-q-body"><div class="rp-q-text">What is the central problem your dissertation addresses &#8212; in one sentence? Not your topic. The problem. The thing that is wrong or unknown or contested that your work intervenes in.</div><span class="rp-q-sub">This is hard. That&#8217;s why we&#8217;re doing it here, together, before you write it alone.</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">4</div><div class="rp-q-body"><div class="rp-q-text">What does your committee assembly reveal about your project? Who you are asking &#8212; and who you haven&#8217;t approached &#8212; tells you something about what kind of dissertation you&#8217;re imagining.</div></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">5</div><div class="rp-q-body"><div class="rp-q-text">What are you most afraid of about the prospectus? Name the specific fear. Not &#8220;failing&#8221; &#8212; what do you think you will discover when you try to write the whole argument down?</div><span class="rp-q-sub">The fear is usually diagnostic. It often points to the thing you most need to work on.</span></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-seed">
+    <h2 class="rp-section-title">Prospectus Seed Writing</h2>
+    <span class="rp-section-intro">Before Your Meeting &#183; 300&#8211;500 Words &#183; Write fast and messy</span>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-meta">The Prompt</div>
+      <div class="rp-prompt-q">&#8220;The problem my dissertation addresses is ___, and it matters because ___.&#8221;</div>
+      <p class="rp-prompt-note">Start with that sentence &#8212; then keep going. Write the argument you&#8217;re trying to make, the thinkers you&#8217;re in conversation with, the method you&#8217;re reaching for. Aim for 300&#8211;500 words. Stop when you get there even if you&#8217;re not done.</p>
+    </div>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">The rules</div><p class="rp-card-text">Do not edit as you write. Do not reread until you reach the word count. Do not open your exam list while writing. Write it the <em>day before</em> your meeting &#8212; not a week in advance.</p></div>
+      <div class="rp-card"><div class="rp-card-label">Why this works</div><p class="rp-card-text">The prospectus requires you to claim an argument before you&#8217;ve finished researching. Seed writing practices that cognitive move. This is the central intellectual skill of doctoral writing &#8212; it only develops through practice, not through waiting until you&#8217;re ready.</p></div>
+    </div>
+    <div class="rp-writing-seed">
+      <div class="rp-writing-seed-label">After your meeting</div>
+      <div class="rp-writing-seed-q">Revise exactly <em>one sentence</em> from your seed writing based on what you discussed. Just one. Email the revised sentence to instructor. Subject: &#8220;CRDM 790 Seed Revision &#8211; [Your Name].&#8221; This is your bridge into Movement III.</div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-recap">
+    <h2 class="rp-section-title">Movement II Recap</h2>
+    <span class="rp-section-intro">What we built together &#183; Weeks 6&#8211;10</span>
+    <div class="rp-timeline">
+      <div class="rp-tl-item"><div class="rp-tl-time">Week 6</div><div><div class="rp-tl-label">Primitive Accumulation &#8212; Federici</div><div class="rp-tl-desc">Whose labor built your field? The canon as enclosure &#8212; what was taken, from whom, to make &#8220;knowledge&#8221; possible. Canon Audit.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">Week 7</div><div><div class="rp-tl-label">Hauntology &#8212; Fisher &#183; Derrida</div><div class="rp-tl-desc">What does your field mourn? The specters of futures that never arrived. 3-minute presentations.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">Week 8</div><div><div class="rp-tl-label">Exam List Workshop &#8212; Haraway</div><div class="rp-tl-desc">Situated knowledges: who gets to claim to know, from where, and what your list reveals. &#9670; M2 Due (25%).</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">Week 9</div><div><div class="rp-tl-label">Committee as Intellectual Community &#8212; Kelsky</div><div class="rp-tl-desc">Not bureaucracy &#8212; intellectual relationship. Who will challenge your work productively? Email Workshop.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">Week 10</div><div><div class="rp-tl-label">Individual Meetings</div><div class="rp-tl-desc">The problem you are trying to address. One sentence. Then 300&#8211;500 words toward the answer. &#9670; M3 Due (15%).</div></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-closing">
+    <h2 class="rp-section-title">Rest. Return.</h2>
+    <div class="rp-closing-grid">
+      <div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Submit before break</div>
+          <ul>
+            <li>Committee Confirmation &#8212; 15% of final grade &#8212; due by end of Week 10</li>
+            <li>If running into obstacles, send a note now rather than after break</li>
+          </ul>
+        </div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Send your revised sentence</div>
+          <ul><li>After your individual meeting, revise one sentence from your Prospectus Seed Writing and email it. Subject: &#8220;CRDM 790 Seed Revision &#8211; [Your Name].&#8221; This is your connection into Movement III.</li></ul>
+        </div>
+      </div>
+      <div>
+        <div class="rp-next-week">
+          <div class="rp-next-week-label">Read something for pleasure</div>
+          <div class="rp-next-week-title">Not for your exam list.</div>
+          <p class="rp-next-week-body">Not to annotate. A novel, a collection of essays, a book you&#8217;ve been meaning to read for years. The imagination that moves your dissertation needs to be fed, not only directed.</p>
+        </div>
+        <div class="rp-milestone-box">
+          <div class="rp-milestone-label">Movement III begins &#8212; Week 11</div>
+          <p class="rp-body-text">Marcuse &#8212; imagination, drafting, and the central question of the semester: what does it mean to make an argument that matters? Come back rested. The prospectus is waiting.</p>
+        </div>
+      </div>
+    </div>
+    <div class="rp-prompt-block" style="text-align:center; margin-top:1rem;">
+      <div class="rp-prompt-q" style="text-align:center;">&#8220;The problem my dissertation addresses is ___, and it matters because ___.&#8221;</div>
+      <p class="rp-prompt-note" style="text-align:center;">Bring this sentence back with you.</p>
+    </div>
+  </section>
+</div></main>
+
+<div class="rp-scroll-fabs" aria-hidden="true">
+  <button class="rp-fab" id="fab-up"  onclick="rpScroll('up')"  aria-label="Scroll up">↑</button>
+  <button class="rp-fab" id="fab-top" onclick="rpScroll('top')" aria-label="Back to top">⌂</button>
+  <button class="rp-fab" id="fab-dn"  onclick="rpScroll('dn')"  aria-label="Scroll down">↓</button>
+</div>
+
 <div id="nav">
-  <div style="display:flex; align-items:center;">
+  <div id="nav-left" style="display:flex;align-items:center;gap:0.4rem;">
+    <a href="index.html" class="nav-week-link" aria-label="Return to course index">← Index</a>
+    <a href="CRDM790_Week09_Committee.html" class="nav-week-link" aria-label="Go to Week 9">← Week 9</a>
+    <a href="CRDM790_Week11_One_Dimensional.html" class="nav-week-link" aria-label="Go to Week 11">Week 11 →</a>
+    <span class="nav-vsep" aria-hidden="true"></span>
     <div id="slide-dots"></div>
     <span id="nav-label">WEEK 10 · INDIVIDUAL MEETINGS</span>
   </div>
-  <div style="display:flex; align-items:center; gap:1.5rem;">
+  <div style="display:flex;align-items:center;gap:0.6rem;">
     <span id="slide-counter">1 / 8</span>
-    <div style="display:flex; gap:0.6rem;">
+    <div style="display:flex;gap:0.5rem;align-items:center;">
       <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
       <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
-      <button class="nav-btn" onclick="toggleHelp()">?</button>
+      <button class="nav-btn" id="help-btn" onclick="toggleHelp()">?</button>
+      <a href="index.html#milestones" class="nav-btn" id="milestones-link" style="display:none;text-decoration:none;" aria-label="Jump to milestones">◆ Milestones</a>
+      <button class="nav-btn nav-btn-read" id="read-toggle-btn" onclick="toggleReadingMode()" aria-label="Switch to reading mode" title="Reading mode (M)">≡ Read</button>
     </div>
   </div>
 </div>
-
-<!-- HELP -->
-<div class="help-overlay" id="help-overlay">
-  <div class="help-box">
-    <h3>Keyboard Shortcuts</h3>
-    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
-    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
-    <div class="shortcut-row"><span>Reveal prompt (slide 4)</span><span><span class="key">Enter</span></span></div>
-    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
-    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
-    <div class="help-close" onclick="closeHelp()">Close ✕</div>
-  </div>
-</div>
-
 <script>
 // ── SEED PARTICLE FIELD ───────────────────────────────────────────────────────
 (function() {
@@ -733,6 +979,8 @@ document.addEventListener('keydown', e => {
     case 'Enter': if (current === 4) { e.preventDefault(); revealNextPrompt(); } break;
     case 'Home': goTo(1); break;
     case 'End': goTo(TOTAL); break;
+    case 'm': case 'M': toggleReadingMode(); break;
+    case 'm': case 'M': toggleReadingMode(); break;
     case '?': toggleHelp(); break;
     case 'Escape': closeHelp(); break;
   }
@@ -740,7 +988,59 @@ document.addEventListener('keydown', e => {
 function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
 function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
 
+
+// ── READING MODE ──────────────────────────────────────────────────────────────
+let readingMode = false;
+function toggleReadingMode() {
+  readingMode = !readingMode;
+  const body=document.body,panel=document.getElementById('reading-panel'),
+        deck=document.getElementById('deck'),btn=document.getElementById('read-toggle-btn'),
+        counter=document.getElementById('slide-counter'),prevBtn=document.getElementById('prev-btn'),
+        nextBtn=document.getElementById('next-btn'),helpBtn=document.getElementById('help-btn'),
+        dots=document.getElementById('slide-dots'),label=document.getElementById('nav-label'),
+        mLink=document.getElementById('milestones-link');
+  closeHelp();
+  if(readingMode){
+    body.classList.add('reading-mode');panel.setAttribute('aria-hidden','false');
+    deck.setAttribute('aria-hidden','true');btn.textContent='⊞ Slides';
+    btn.setAttribute('aria-label','Switch back to slide view');btn.classList.add('active-read');
+    counter.style.display='none';prevBtn.style.display='none';nextBtn.style.display='none';
+    helpBtn.style.display='none';dots.style.display='none';
+    label.textContent='WEEK 10 · INDIVIDUAL MEETINGS — Reading Mode';label.style.opacity='0.55';
+    mLink.style.display='inline-block';window.scrollTo({top:0,behavior:'smooth'});
+    panel.focus({preventScroll:true});
+  } else {
+    body.classList.remove('reading-mode');panel.setAttribute('aria-hidden','true');
+    deck.setAttribute('aria-hidden','false');btn.textContent='≡ Read';
+    btn.setAttribute('aria-label','Switch to reading mode');btn.classList.remove('active-read');
+    counter.style.display='';prevBtn.style.display='';nextBtn.style.display='';
+    helpBtn.style.display='';dots.style.display='';
+    label.textContent='WEEK 10 · INDIVIDUAL MEETINGS';label.style.opacity='';mLink.style.display='none';
+  }
+}
+function rpScroll(dir){
+  if(dir==='top') window.scrollTo({top:0,behavior:'smooth'});
+  else if(dir==='up') window.scrollBy({top:-window.innerHeight*0.72,behavior:'smooth'});
+  else window.scrollBy({top:window.innerHeight*0.72,behavior:'smooth'});
+}
+(function(){
+  const sections=["rp-session-map", "rp-milestone", "rp-reflection", "rp-seed", "rp-recap", "rp-closing"];
+  function upd(){
+    if(!readingMode) return;
+    const sy=window.scrollY,mx=document.documentElement.scrollHeight-window.innerHeight;
+    const fu=document.getElementById('fab-up'),ft=document.getElementById('fab-top'),fd=document.getElementById('fab-dn');
+    if(fu&&ft&&fd){ft.classList.toggle('fab-visible',sy>200);fu.classList.toggle('fab-visible',sy>60);fd.classList.toggle('fab-visible',sy<mx-40);}
+    let act=sections[0];
+    for(const id of sections){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=100)act=id;}
+    document.querySelectorAll('.rp-nav-item').forEach(a=>a.classList.toggle('rp-nav-active',a.dataset.section===act));
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+})();
+
 updateNav();
+
+
 </script>
 </body>
 </html>
