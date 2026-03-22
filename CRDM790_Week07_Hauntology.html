@@ -171,10 +171,118 @@
   .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(232,239,248,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(232,239,248,0.6); }
   .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(232,239,248,0.08); border: 1px solid rgba(232,239,248,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
   .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+
+  .skip-nav { position:absolute; top:-100px; left:1rem; z-index:9999; background:var(--accent); color:#000; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; padding:0.5rem 1rem; border-radius:2px; transition:top 0.2s; }
+  .skip-nav:focus { top:0.75rem; outline:2px solid var(--accent2,var(--accent)); }
+  .nav-week-link { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:rgba(245,237,216,0.65); text-decoration:none; border:1px solid rgba(245,237,216,0.14); padding:0.28rem 0.65rem; border-radius:2px; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
+  .nav-week-link:hover { background:rgba(245,237,216,0.07); color:var(--parch); border-color:rgba(245,237,216,0.28); }
+  .nav-vsep { width:1px; height:1.1rem; background:rgba(245,237,216,0.12); flex-shrink:0; margin:0 0.15rem; }
+  .nav-btn-read { background:rgba(201,168,76,0.14)!important; border-color:rgba(201,168,76,0.38)!important; color:#E8B84B!important; }
+  .nav-btn-read:hover { background:rgba(201,168,76,0.26)!important; border-color:#C9A84C!important; }
+  .nav-btn-read.active-read { background:rgba(201,168,76,0.28)!important; border-color:#C9A84C!important; }
+  body.reading-mode { overflow:auto!important; background:#F5F0E8!important; color:#1C1410!important; }
+  body.reading-mode #starfield, body.reading-mode #progress-bar, body.reading-mode #deck { display:none!important; }
+  #reading-panel { display:none; }
+  body.reading-mode #reading-panel { display:block; }
+  .rp-section-nav { position:sticky; top:0; z-index:40; background:rgba(245,240,232,0.97); border-bottom:1px solid #D9D0C4; backdrop-filter:blur(6px); display:flex; align-items:center; overflow-x:auto; scrollbar-width:none; padding:0 1.5rem; }
+  .rp-section-nav::-webkit-scrollbar { display:none; }
+  .rp-nav-item { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8B7A60; text-decoration:none; padding:0.65rem 0.9rem; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.15s; flex-shrink:0; }
+  .rp-nav-item:hover { color:#3C3028; border-bottom-color:#C9A84C; }
+  .rp-nav-item.rp-nav-active { color:#3C3028; border-bottom-color:#C9A84C; font-weight:600; }
+  .rp-wrap { max-width:740px; margin:0 auto; padding:3rem 2rem 8rem; }
+  .rp-eyebrow { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:#8B7A60; margin-bottom:0.6rem; }
+  .rp-title { font-family:var(--font-display); font-size:clamp(2rem,5vw,3.2rem); font-weight:700; line-height:1.1; color:#1C1410; margin-bottom:0.4rem; }
+  .rp-title em { color:#7B4A20; font-style:italic; }
+  .rp-subtitle { font-size:1.1rem; font-style:italic; color:#5A4A3C; margin-bottom:1.5rem; line-height:1.5; font-family:var(--font-body); }
+  .rp-meta { display:flex; gap:1.2rem; flex-wrap:wrap; font-family:var(--font-mono); font-size:0.68rem; color:#8B7A60; letter-spacing:0.06em; padding:1rem 0; border-top:1px solid #D9D0C4; border-bottom:1px solid #D9D0C4; margin-bottom:2rem; }
+  .rp-opening-quote { font-family:var(--font-body); font-size:1.05rem; font-style:italic; color:#5A4A3C; border-left:2px solid #C9A84C; padding:0.75rem 1.2rem; margin-bottom:2.5rem; line-height:1.65; background:#EDE8DC; border-radius:0 4px 4px 0; }
+  .rp-opening-quote cite { display:block; margin-top:0.5rem; font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; color:#9B8A6C; font-style:normal; }
+  .rp-section { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid #D9D0C4; }
+  .rp-section:last-child { border-bottom:none; }
+  .rp-section-title { font-family:var(--font-display); font-size:1.35rem; font-weight:600; color:#1C1410; padding-bottom:0.4rem; border-bottom:2px solid #C9A84C; display:inline-block; margin-bottom:0.35rem; }
+  .rp-section-intro { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:1.2rem; display:block; }
+  .rp-timeline { display:flex; flex-direction:column; }
+  .rp-tl-item { display:grid; grid-template-columns:6rem 1fr; gap:1rem; padding:0.7rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-tl-item:last-child { border-bottom:none; }
+  .rp-tl-time { font-family:var(--font-mono); font-size:0.7rem; color:#9B8A6C; padding-top:0.1rem; }
+  .rp-tl-label { font-family:var(--font-body); font-size:1rem; color:#1C1410; font-weight:500; margin-bottom:0.15rem; }
+  .rp-tl-desc { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; line-height:1.4; }
+  .rp-reading-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.2rem 1.6rem; border-radius:0 4px 4px 0; margin-bottom:1.1rem; }
+  .rp-reading-label { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.5rem; }
+  .rp-reading-list { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-reading-list li { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.5; padding-left:1rem; position:relative; }
+  .rp-reading-list li::before { content:"·"; position:absolute; left:0; color:#C9A84C; }
+  .rp-reading-text { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.55; }
+  .rp-reading-text strong { color:#1C1410; }
+  .rp-note-banner { background:rgba(255,200,100,0.12); border:1px solid rgba(200,150,50,0.3); border-radius:4px; padding:0.8rem 1.1rem; margin-bottom:1.1rem; font-family:var(--font-body); font-size:0.93rem; color:#5A4020; font-style:italic; line-height:1.5; }
+  .rp-concepts-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.9rem; margin-top:1rem; }
+  .rp-concept-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-concept-term { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#7B4A20; margin-bottom:0.3rem; }
+  .rp-concept-def { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-prompt-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.3rem 1.8rem; margin-bottom:1.3rem; border-radius:0 4px 4px 0; }
+  .rp-prompt-meta { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-prompt-q { font-family:var(--font-display); font-size:1.15rem; font-style:italic; color:#1C1410; line-height:1.6; margin-bottom:0.65rem; }
+  .rp-prompt-note { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; }
+  .rp-questions { display:flex; flex-direction:column; gap:0.9rem; }
+  .rp-q-item { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-q-num { font-family:var(--font-display); font-size:1.9rem; font-weight:700; color:rgba(201,168,76,0.45); line-height:1; flex-shrink:0; width:2rem; }
+  .rp-q-body { flex:1; }
+  .rp-q-text { font-family:var(--font-body); font-size:1.05rem; color:#1C1410; line-height:1.55; }
+  .rp-q-sub { display:block; font-family:var(--font-body); font-style:italic; color:#6A5A4C; font-size:0.9rem; margin-top:0.25rem; }
+  .rp-steps { display:flex; flex-direction:column; gap:0.7rem; }
+  .rp-step { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-step-num { width:1.9rem; height:1.9rem; border-radius:50%; border:1.5px solid #C9A84C; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.72rem; color:#8B6A30; flex-shrink:0; margin-top:0.1rem; }
+  .rp-step-content { flex:1; }
+  .rp-step-title { font-family:var(--font-body); font-size:1rem; font-weight:500; color:#1C1410; margin-bottom:0.2rem; }
+  .rp-step-time { font-family:var(--font-mono); font-size:0.68rem; color:#9B8A6C; margin-left:0.4rem; }
+  .rp-step-detail { font-family:var(--font-body); font-size:0.92rem; font-style:italic; color:#5A4A3C; line-height:1.4; }
+  .rp-step-note { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:#9B8A6C; margin-top:0.3rem; }
+  .rp-timer-note { background:#EDE8DC; border:1px solid #C9A84C; border-radius:4px; padding:0.7rem 1rem; font-family:var(--font-mono); font-size:0.7rem; color:#8B6A30; margin-bottom:1.2rem; }
+  .rp-cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+  .rp-card { background:#EDE8DC; border-radius:4px; padding:1rem 1.2rem; }
+  .rp-card-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.16em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-card-text { font-family:var(--font-body); font-size:0.93rem; color:#3C3028; line-height:1.5; }
+  .rp-closing-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+  .rp-checklist { background:#EDE8DC; border-radius:4px; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-checklist-title { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-checklist ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-checklist ul li { font-family:var(--font-body); font-size:0.95rem; color:#3C3028; line-height:1.4; padding-left:1.5rem; position:relative; }
+  .rp-checklist ul li::before { content:"☐"; position:absolute; left:0; color:#C9A84C; }
+  .rp-next-week { background:#EDEAF5; border-left:3px solid #7B6FD8; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-next-week-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.14em; color:#7B6FD8; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-next-week-title { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-next-week-body { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; font-style:italic; line-height:1.5; }
+  .rp-milestone-box { background:#FBF0E8; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-due { background:rgba(181,52,42,0.08); border-left:3px solid #DC503C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.13em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-milestone-due .rp-milestone-label { color:#DC503C; }
+  .rp-milestone-name { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-body-text { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; line-height:1.55; }
+  .rp-writing-seed { background:#EDE8DC; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1rem 1.3rem; margin-top:1rem; }
+  .rp-writing-seed-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-writing-seed-q { font-family:var(--font-display); font-size:1rem; font-style:italic; color:#1C1410; line-height:1.5; }
+  .rp-criteria-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1.2rem; }
+  .rp-crit-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-crit-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-crit-text { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-threshold-row { display:grid; grid-template-columns:auto 1fr; gap:0 0.9rem; align-items:baseline; padding:0.55rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-threshold-row:last-child { border-bottom:none; }
+  .rp-th-level { font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
+  .rp-th-complete { color:#3D8B5E; }
+  .rp-th-revision { color:#8B6A30; }
+  .rp-th-missing  { color:#B5352A; }
+  .rp-th-desc { font-family:var(--font-body); font-size:0.92rem; color:#5A4A3C; line-height:1.45; }
+  .rp-scroll-fabs { position:fixed; bottom:4.2rem; right:1.6rem; z-index:90; display:none; flex-direction:column; gap:0.4rem; pointer-events:none; }
+  body.reading-mode .rp-scroll-fabs { display:flex; pointer-events:all; }
+  .rp-fab { width:2.3rem; height:2.3rem; border-radius:50%; background:#1C1410; border:1px solid rgba(201,168,76,0.4); color:#C9A84C; font-size:0.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s,transform 0.2s,background 0.15s; box-shadow:0 2px 10px rgba(0,0,0,0.22); opacity:0; pointer-events:none; transform:translateY(6px); }
+  .rp-fab.fab-visible { opacity:1; pointer-events:all; transform:translateY(0); }
+  .rp-fab:hover { background:#2E2318; border-color:#C9A84C; }
+  @media(max-width:640px){.rp-concepts-grid,.rp-cards-grid,.rp-closing-grid,.rp-criteria-grid{grid-template-columns:1fr;}.rp-wrap{padding:1.5rem 1rem 6rem;}.rp-section-nav{display:none;}}
 </style>
 </head>
 <body>
 
+<a href="#reading-panel" class="skip-nav" id="skip-to-content">Skip to reading view</a>
 <canvas id="starfield"></canvas>
 <div id="progress-bar"></div>
 
@@ -457,36 +565,168 @@
 </div><!-- /deck -->
 
 <!-- NAV -->
+<main id="reading-panel" role="region" aria-label="Week 7: Hauntology — reading view" aria-hidden="true" tabindex="-1">
+<nav class="rp-section-nav" aria-label="Jump to section">
+  <a href="#rp-session-map" class="rp-nav-item" data-section="rp-session-map">Session Map</a>
+  <a href="#rp-reading"     class="rp-nav-item" data-section="rp-reading">Reading Guide</a>
+  <a href="#rp-prompt"      class="rp-nav-item" data-section="rp-prompt">Pre-Class Tasks</a>
+  <a href="#rp-questions"   class="rp-nav-item" data-section="rp-questions">Questions</a>
+  <a href="#rp-activity"    class="rp-nav-item" data-section="rp-activity">Presentations</a>
+  <a href="#rp-synthesis"   class="rp-nav-item" data-section="rp-synthesis">Group Mapping</a>
+  <a href="#rp-closing"     class="rp-nav-item" data-section="rp-closing">Looking Ahead</a>
+</nav>
+<div class="rp-wrap">
+  <div class="rp-eyebrow">CRDM 790 &#183; Movement II &#183; Week 7</div>
+  <h1 class="rp-title"><em>Hauntology:</em> What Haunts Your Field?</h1>
+  <p class="rp-subtitle">Neither present nor absent &#8212; the spectre disrupts the stable ontology of the canon.</p>
+  <div class="rp-meta">
+    <span>Reading: Fisher, <em>Ghosts of My Life</em> &#183; Derrida, <em>Specters of Marx</em></span>
+    <span>Activity: Hauntology Rapid Presentations</span>
+  </div>
+
+  <section class="rp-section" id="rp-session-map">
+    <h2 class="rp-section-title">Session Map</h2>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">&#128214; Primary Readings</div><p class="rp-card-text">Mark Fisher, <em>Ghosts of My Life</em> &#8212; selected chapters. Jacques Derrida, <em>Specters of Marx</em> &#8212; excerpts. Haunting reflection due &#8212; bring or post to Moodle before class.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#9999;&#65039; Pre-Class Writing (Required)</div><p class="rp-card-text">~1 page, informal. Identify one haunting in your field &#8212; something that keeps returning unresolved. Perusall annotation: Fisher&#8217;s most useful analytical concept applied to your research.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#10022; Hands-On Activity</div><p class="rp-card-text">Hauntology Rapid Presentations &#8212; 3 min each, no slides. Spectral connection responses from the group. Group map of hauntings on the board.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#9670; Milestone Building</div><p class="rp-card-text">Exam List due <strong>before Week 8</strong>. Use today&#8217;s haunting to identify gaps or absences in your current list. What has your field suppressed that your list should surface?</p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-reading">
+    <h2 class="rp-section-title">Reading Guide</h2>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Assigned (Perusall)</div>
+      <ul class="rp-reading-list">
+        <li>Mark Fisher, <em>Ghosts of My Life</em> &#8212; selected chapters</li>
+        <li>Jacques Derrida, <em>Specters of Marx</em> &#8212; excerpts</li>
+      </ul>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Reading Fisher + Derrida Together</div>
+      <p class="rp-reading-text">Fisher uses Derrida&#8217;s &#8220;hauntology&#8221; &#8212; the state of being haunted by what never arrived &#8212; to describe cultural paralysis. Derrida&#8217;s spectre is neither present nor absent. Read them in dialogue: where do they agree? Where does Fisher flatten what Derrida leaves open?</p>
+    </div>
+    <div class="rp-concepts-grid">
+      <div class="rp-concept-card"><div class="rp-concept-term">Hauntology</div><p class="rp-concept-def">The condition of being haunted by what was possible but never arrived &#8212; Fisher uses it to describe a culture that can no longer imagine futures different from the present.</p></div>
+      <div class="rp-concept-card"><div class="rp-concept-term">The Spectre</div><p class="rp-concept-def">Derrida: neither present nor absent, living nor dead. Disrupts stable ontologies. Returns without being invited, cannot be fully expelled.</p></div>
+      <div class="rp-concept-card"><div class="rp-concept-term">Lost Future</div><p class="rp-concept-def">Fisher&#8217;s account of cultural paralysis: mourning not what we had and lost, but what we were promised and never received.</p></div>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Suggested (Not Required)</div>
+      <ul class="rp-reading-list">
+        <li>Saidiya Hartman, <em>Wayward Lives, Beautiful Experiments</em> &#8212; practices what Fisher and Derrida theorize</li>
+        <li>Eve Kosofsky Sedgwick, &#8220;Paranoid Reading and Reparative Reading&#8221; &#8212; asks what we want <em>from</em> reading, directly in dialogue with hauntology as method</li>
+        <li>Jacques Derrida, <em>Archive Fever</em> &#8212; shorter than <em>Specters</em>, more methodologically tractable</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-prompt">
+    <h2 class="rp-section-title">Pre-Class Tasks</h2>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-meta">Required &#8212; ~1 Page, Informal &#8212; Haunting Reflection</div>
+      <div class="rp-prompt-q">Identify one haunting in your field: something that keeps returning, that hasn&#8217;t been dealt with, that the field seems to keep circling without resolving.</div>
+      <p class="rp-prompt-note">Ask yourself: What is the haunting? Why does it keep coming back? What would it mean for the field to actually reckon with it? Post to Moodle before class, or bring a hard copy. You will present this today &#8212; 3 minutes, no slides.</p>
+    </div>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-meta">Perusall Annotation</div>
+      <div class="rp-prompt-q">Find Fisher&#8217;s most useful analytical concept in your assigned chapters. Write an annotation applying it to something in your research area.</div>
+      <p class="rp-prompt-note">What does it let you see that you couldn&#8217;t see before?</p>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-questions">
+    <h2 class="rp-section-title">Guiding Questions</h2>
+    <div class="rp-questions">
+      <div class="rp-q-item"><div class="rp-q-num">1</div><div class="rp-q-body"><div class="rp-q-text">Fisher uses &#8220;hauntology&#8221; to describe a culture that can no longer imagine futures different from the present. Where do you see that paralysis in your field?</div><span class="rp-q-sub">What future has your discipline given up on &#8212; and does it know it?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">2</div><div class="rp-q-body"><div class="rp-q-text">Derrida&#8217;s &#8220;spectre&#8221; is neither present nor absent &#8212; it disrupts stable ontologies. What specters haunt the texts you study? What returns in them that they cannot fully contain?</div></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">3</div><div class="rp-q-body"><div class="rp-q-text">Fisher mourns a specific future &#8212; the cultural possibilities of the post-war left &#8212; that never fully arrived. What future does your field mourn? Is that mourning productive or paralyzing?</div></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">4</div><div class="rp-q-body"><div class="rp-q-text">Is hauntology a <em>method</em> or a <em>mood</em>? How would you use it analytically &#8212; not just atmospherically &#8212; in your own research?</div><span class="rp-q-sub">Sedgwick distinguishes paranoid reading from reparative reading. Which is hauntology? Which do you tend toward?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">5</div><div class="rp-q-body"><div class="rp-q-text">How does hauntology sit alongside Federici from last week? If Federici asks what was suppressed, Fisher asks what refuses to stay suppressed. Are these the same question?</div></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-activity">
+    <h2 class="rp-section-title">Hauntology Rapid Presentations</h2>
+    <span class="rp-section-intro">3 minutes each &#183; No slides &#183; Just talk &#183; Share your haunting</span>
+    <div class="rp-timer-note">&#9201; A 3-minute countdown timer per presenter is available in Slide Mode (Slide 5).</div>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">Format</div><p class="rp-card-text">Each person speaks for 3 minutes: name the haunting, explain why it keeps coming back, say what it would mean to actually reckon with it. No slides. Speak from your reflection.</p></div>
+      <div class="rp-card"><div class="rp-card-label">After each presentation</div><p class="rp-card-text">One person offers a &#8220;spectral connection&#8221; &#8212; a place where this haunting resonates with their own field or research. Then a brief open response before moving to the next presenter.</p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-synthesis">
+    <h2 class="rp-section-title">Group Mapping</h2>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-q">Map the hauntings on the board. What patterns are you seeing? Are there shared specters &#8212; something that haunts multiple fields? Where are the divergences?</div>
+    </div>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">The key debrief question</div><p class="rp-card-text">Which hauntings seem like they could become dissertation projects? How does naming the haunting change your relationship to it? Fisher suggests that naming the loss is the first step toward imagining beyond it.</p></div>
+      <div class="rp-card"><div class="rp-card-label">Carrying it forward</div><p class="rp-card-text">Your haunting is the negative space of your research &#8212; what your field has refused to fully address. It belongs in your exam list rationale. Use it when you write your rationale paragraph before Week 8.</p></div>
+    </div>
+    <div class="rp-writing-seed">
+      <div class="rp-writing-seed-label">Closing prompt</div>
+      <div class="rp-writing-seed-q">&#8220;The haunting I am naming for my field is ___. My exam list is, in part, an argument that this haunting deserves to be reckoned with.&#8221;</div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-closing">
+    <h2 class="rp-section-title">Looking Ahead</h2>
+    <div class="rp-closing-grid">
+      <div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Week 8 &#8212; No New Primary Text</div>
+          <ul>
+            <li>Your exam list draft <em>is</em> the reading this week</li>
+            <li>Structured peer review in pairs, then full-group discussion</li>
+            <li>Come prepared to defend the logic of your list</li>
+          </ul>
+        </div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Write your rationale paragraph this week</div>
+          <ul><li>Not &#8220;these are important texts&#8221; &#8212; but <em>why these texts, in this configuration, for this project?</em> Use your haunting, your Canon Audit, and your Federici annotation as evidence.</li></ul>
+        </div>
+      </div>
+      <div>
+        <div class="rp-milestone-due">
+          <div class="rp-milestone-label">&#9670; Milestone 2 &#8212; Due Before Week 8</div>
+          <div class="rp-milestone-name">Draft Exam List</div>
+          <p class="rp-body-text">With a one-paragraph rationale explaining the organizing logic. Upload to Moodle or bring to class. Worth <strong>25% of final grade</strong>. It does not need to be final &#8212; it needs to be <em>real</em>.</p>
+        </div>
+        <blockquote class="rp-opening-quote" style="margin-bottom:0;">&#8220;Neither present nor absent &#8212; the spectre disrupts the stable ontology of the canon. Your exam list is your argument about what should be present.&#8221;</blockquote>
+      </div>
+    </div>
+  </section>
+</div></main>
+
+<div class="rp-scroll-fabs" aria-hidden="true">
+  <button class="rp-fab" id="fab-up"  onclick="rpScroll('up')"  aria-label="Scroll up">↑</button>
+  <button class="rp-fab" id="fab-top" onclick="rpScroll('top')" aria-label="Back to top">⌂</button>
+  <button class="rp-fab" id="fab-dn"  onclick="rpScroll('dn')"  aria-label="Scroll down">↓</button>
+</div>
+
 <div id="nav">
-  <div style="display:flex; align-items:center;">
+  <div id="nav-left" style="display:flex;align-items:center;gap:0.4rem;">
+    <a href="index.html" class="nav-week-link" aria-label="Return to course index">← Index</a>
+    <a href="CRDM790_Week06_Primitive_Accumulation.html" class="nav-week-link" aria-label="Go to Week 6">← Week 6</a>
+    <a href="CRDM790_Week08_Exam_List_Workshop.html" class="nav-week-link" aria-label="Go to Week 8">Week 8 →</a>
+    <span class="nav-vsep" aria-hidden="true"></span>
     <div id="slide-dots"></div>
     <span id="nav-label">WEEK 7 · HAUNTOLOGY</span>
   </div>
-  <div style="display:flex; align-items:center; gap:1.5rem;">
+  <div style="display:flex;align-items:center;gap:0.6rem;">
     <span id="slide-counter">1 / 8</span>
-    <div style="display:flex; gap:0.6rem;">
+    <div style="display:flex;gap:0.5rem;align-items:center;">
       <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
       <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
-      <button class="nav-btn" onclick="toggleHelp()">?</button>
+      <button class="nav-btn" id="help-btn" onclick="toggleHelp()">?</button>
+      <a href="index.html#milestones" class="nav-btn" id="milestones-link" style="display:none;text-decoration:none;" aria-label="Jump to milestones">◆ Milestones</a>
+      <button class="nav-btn nav-btn-read" id="read-toggle-btn" onclick="toggleReadingMode()" aria-label="Switch to reading mode" title="Reading mode (M)">≡ Read</button>
     </div>
   </div>
 </div>
-
-<!-- HELP -->
-<div class="help-overlay" id="help-overlay">
-  <div class="help-box">
-    <h3>Keyboard Shortcuts</h3>
-    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
-    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
-    <div class="shortcut-row"><span>Reveal question</span><span><span class="key">Enter</span></span></div>
-    <div class="shortcut-row"><span>Timer start/pause</span><span><span class="key">T</span></span></div>
-    <div class="shortcut-row"><span>Timer reset</span><span><span class="key">R</span></span></div>
-    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
-    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
-    <div class="help-close" onclick="closeHelp()">Close ✕</div>
-  </div>
-</div>
-
 <script>
 // ── GHOST PARTICLE FIELD ─────────────────────────────────────────────────────
 (function() {
@@ -663,6 +903,7 @@ document.addEventListener('keydown', e => {
     case 'r': case 'R': if (current === 5) resetTimer(); break;
     case 'Home': goTo(1); break;
     case 'End': goTo(TOTAL); break;
+    case 'm': case 'M': toggleReadingMode(); break;
     case '?': toggleHelp(); break;
     case 'Escape': closeHelp(); break;
   }
@@ -670,7 +911,60 @@ document.addEventListener('keydown', e => {
 function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
 function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
 
+
+// ── READING MODE ──────────────────────────────────────────────────────────────
+let readingMode = false;
+function toggleReadingMode() {
+  readingMode = !readingMode;
+  const body=document.body,panel=document.getElementById('reading-panel'),
+        deck=document.getElementById('deck'),btn=document.getElementById('read-toggle-btn'),
+        counter=document.getElementById('slide-counter'),prevBtn=document.getElementById('prev-btn'),
+        nextBtn=document.getElementById('next-btn'),helpBtn=document.getElementById('help-btn'),
+        dots=document.getElementById('slide-dots'),label=document.getElementById('nav-label'),
+        mLink=document.getElementById('milestones-link');
+  closeHelp();
+  if(readingMode){
+    body.classList.add('reading-mode');panel.setAttribute('aria-hidden','false');
+    deck.setAttribute('aria-hidden','true');btn.textContent='⊞ Slides';
+    btn.setAttribute('aria-label','Switch back to slide view');btn.classList.add('active-read');
+    counter.style.display='none';prevBtn.style.display='none';nextBtn.style.display='none';
+    helpBtn.style.display='none';dots.style.display='none';
+    label.textContent='WEEK 7 · HAUNTOLOGY — Reading Mode';label.style.opacity='0.55';
+    mLink.style.display='inline-block';window.scrollTo({top:0,behavior:'smooth'});
+    panel.focus({preventScroll:true});
+  } else {
+    body.classList.remove('reading-mode');panel.setAttribute('aria-hidden','true');
+    deck.setAttribute('aria-hidden','false');btn.textContent='≡ Read';
+    btn.setAttribute('aria-label','Switch to reading mode');btn.classList.remove('active-read');
+    counter.style.display='';prevBtn.style.display='';nextBtn.style.display='';
+    helpBtn.style.display='';dots.style.display='';
+    label.textContent='WEEK 7 · HAUNTOLOGY';label.style.opacity='';mLink.style.display='none';
+  }
+}
+// ── SCROLL UTILS ──────────────────────────────────────────────────────────────
+function rpScroll(dir){
+  if(dir==='top') window.scrollTo({top:0,behavior:'smooth'});
+  else if(dir==='up') window.scrollBy({top:-window.innerHeight*0.72,behavior:'smooth'});
+  else window.scrollBy({top:window.innerHeight*0.72,behavior:'smooth'});
+}
+(function(){
+  const sections=["rp-session-map", "rp-reading", "rp-prompt", "rp-questions", "rp-activity", "rp-synthesis", "rp-closing"];
+  function upd(){
+    if(!readingMode) return;
+    const sy=window.scrollY,mx=document.documentElement.scrollHeight-window.innerHeight;
+    const fu=document.getElementById('fab-up'),ft=document.getElementById('fab-top'),fd=document.getElementById('fab-dn');
+    if(fu&&ft&&fd){ft.classList.toggle('fab-visible',sy>200);fu.classList.toggle('fab-visible',sy>60);fd.classList.toggle('fab-visible',sy<mx-40);}
+    let act=sections[0];
+    for(const id of sections){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=100)act=id;}
+    document.querySelectorAll('.rp-nav-item').forEach(a=>a.classList.toggle('rp-nav-active',a.dataset.section===act));
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+})();
+
 updateNav();
+
+
 </script>
 </body>
 </html>
