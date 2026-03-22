@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 10 · Individual Meetings Week</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night:   #050A07;
+    --deep:    #0A0F0C;
+    --ink:     #111A14;
+    --accent:  #5E8F6F;
+    --accent2: #90C4A0;
+    --sage:    #7AAE8C;
+    --parch:   #EFF5EE;
+    --muted:   rgba(239,245,238,0.54);
+    --bg-card: rgba(239,245,238,0.04);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'EB Garamond', Georgia, serif;
+    --font-mono:    'Inconsolata', monospace;
+  }
+
+  #slide-1 { background: radial-gradient(ellipse at 45% 55%, #0B1A10 0%, #050A07 70%); }
+  #slide-2 { background: var(--deep); }
+  #slide-3 { background: var(--ink); }
+  #slide-4 { background: var(--deep); }
+  #slide-5 { background: #090E0B; }
+  #slide-6 { background: var(--ink); }
+  #slide-7 { background: var(--deep); }
+  #slide-8 { background: var(--night); }
+
+  /* ── PROMPT CARDS (slide 4) ── */
+  .prompt-stack { display: flex; flex-direction: column; gap: 0.65rem; flex: 1; }
+  .prompt-card {
+    background: var(--bg-card); border: 1px solid rgba(239,245,238,0.08);
+    border-left: 3px solid rgba(94,143,111,0.25);
+    border-radius: 4px; padding: 0.95rem 1.3rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.4s, transform 0.4s;
+    cursor: pointer;
+  }
+  .prompt-card:not(.revealed):hover { border-left-color: var(--accent); background: rgba(94,143,111,0.07); }
+  .prompt-card.revealed { opacity: 1; transform: translateY(0); cursor: default; border-left-color: var(--accent); }
+  .prompt-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--accent); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 2rem; }
+  .prompt-card.revealed .prompt-num { opacity: 1; }
+  .prompt-body { font-family: var(--font-body); font-size: 1rem; line-height: 1.55; color: var(--parch); }
+  .prompt-sub { display: block; font-style: italic; color: rgba(239,245,238,0.42); font-size: 0.9rem; margin-top: 0.2rem; }
+
+  /* ── PROSPECTUS SEED SLIDE (slide 5) ── */
+  .seed-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; flex: 1; }
+  .seed-col { display: flex; flex-direction: column; gap: 0.9rem; }
+  .seed-prompt {
+    background: rgba(94,143,111,0.09); border: 1px solid rgba(94,143,111,0.28);
+    border-left: 4px solid var(--accent); border-radius: 4px; padding: 1.4rem 1.6rem;
+  }
+  .seed-prompt .sp-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.6rem; }
+  .seed-prompt .sp-text { font-family: var(--font-display); font-size: 1.18rem; font-style: italic; color: var(--parch); line-height: 1.55; }
+  .seed-prompt .sp-blank { border-bottom: 1px solid rgba(239,245,238,0.28); display: inline-block; min-width: 6rem; margin: 0 0.3rem; }
+  .seed-rules { background: var(--bg-card); border: 1px solid rgba(239,245,238,0.08); border-radius: 4px; padding: 1.1rem 1.3rem; }
+  .seed-rules .sr-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.16em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .seed-rules ul { list-style: none; display: flex; flex-direction: column; gap: 0.38rem; }
+  .seed-rules ul li { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.5; }
+  .seed-rules ul li::before { content: '·'; color: var(--accent); margin-right: 0.45rem; }
+
+  /* ── MOVEMENT II RECAP (slide 6) ── */
+  .recap-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; flex: 1; }
+  .recap-card {
+    background: var(--bg-card); border: 1px solid rgba(239,245,238,0.07);
+    border-radius: 4px; padding: 1rem 1rem 1.2rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    transition: border-color 0.2s, background 0.2s; cursor: default;
+  }
+  .recap-card:hover { border-color: rgba(94,143,111,0.3); background: rgba(94,143,111,0.05); }
+  .rc-week { font-family: var(--font-mono); font-size: 0.57rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; opacity: 0.75; }
+  .rc-title { font-family: var(--font-display); font-size: 0.97rem; font-weight: 600; color: var(--parch); line-height: 1.25; }
+  .rc-author { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.1em; color: rgba(239,245,238,0.35); margin-top: 0.1rem; }
+  .rc-key { font-family: var(--font-body); font-size: 0.88rem; color: var(--muted); font-style: italic; line-height: 1.45; margin-top: 0.3rem; flex: 1; }
+  .rc-badge { margin-top: 0.5rem; display: inline-block; font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em; color: var(--accent); background: rgba(94,143,111,0.1); border: 1px solid rgba(94,143,111,0.2); padding: 0.18rem 0.5rem; border-radius: 2px; }
+
+  /* ── MOVEMENT III PREVIEW (slide 7) ── */
+  .m3-grid { display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+  .m3-row {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    background: var(--bg-card); border: 1px solid rgba(239,245,238,0.07);
+    border-radius: 4px; padding: 0.85rem 1.2rem;
+    transition: border-color 0.2s;
+  }
+  .m3-row:hover { border-color: rgba(94,143,111,0.25); }
+  .m3-week { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; width: 4.5rem; flex-shrink: 0; padding-top: 0.1rem; }
+  .m3-body { flex: 1; }
+  .m3-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--parch); margin-bottom: 0.18rem; }
+  .m3-note { font-family: var(--font-body); font-size: 0.9rem; color: var(--muted); line-height: 1.45; }
+  .m3-badge { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em; color: #C4A44A; background: rgba(196,164,74,0.1); border: 1px solid rgba(196,164,74,0.25); padding: 0.15rem 0.45rem; border-radius: 2px; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ── Q CARDS ── */
+  .q-grid { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+  .q-card { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px dashed rgba(239,245,238,0.09); border-radius: 4px; padding: 1rem 1.4rem; opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s; cursor: pointer; user-select: none; }
+  .q-card:not(.revealed):hover { border-color: var(--accent); background: rgba(94,143,111,0.07); }
+  .q-card.revealed { opacity: 1; transform: translateY(0); cursor: default; border-style: solid; border-color: rgba(239,245,238,0.07); }
+  .q-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--accent); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 2.2rem; }
+  .q-card.revealed .q-num { opacity: 1; }
+  .q-body { font-family: var(--font-body); font-size: 1.02rem; line-height: 1.55; color: var(--parch); }
+  .q-sub { display: block; font-style: italic; color: rgba(239,245,238,0.42); font-size: 0.9rem; margin-top: 0.2rem; }
+  .reveal-btn { display: flex; align-items: center; gap: 0.6rem; margin: 0.9rem auto 0; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em; color: var(--accent); background: rgba(239,245,238,0.04); border: 1px solid var(--accent); opacity: 0.7; padding: 0.5rem 1.3rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .reveal-btn:hover { background: rgba(94,143,111,0.18); opacity: 1; }
+  .reveal-hint { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(239,245,238,0.2); text-align: center; margin-top: 0.4rem; }
+
+  /* ── READING BOX ── */
+  .reading-box { background: var(--bg-card); border: 1px solid rgba(239,245,238,0.08); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 0.9rem; }
+  .reading-box .rb-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.45rem; }
+  .reading-box p, .reading-box li { font-family: var(--font-body); font-size: 0.99rem; color: rgba(239,245,238,0.78); line-height: 1.6; }
+  .reading-box ul { list-style: none; }
+  .reading-box ul li::before { content: '·'; color: var(--accent); margin-right: 0.5rem; }
+
+  /* ── MAP GRID ── */
+  .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1; }
+  .map-card { background: var(--bg-card); border: 1px solid rgba(239,245,238,0.07); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .map-card .mc-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.17em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .map-card p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  .map-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .map-card ul li { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.5; }
+  .map-card ul li::before { content: '·'; color: var(--accent); margin-right: 0.4rem; }
+
+  /* ── DISC LAYOUT ── */
+  .disc-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; flex: 1; }
+  .disc-col { display: flex; flex-direction: column; gap: 1rem; }
+  .writing-seed { background: rgba(94,143,111,0.09); border: 1px solid rgba(94,143,111,0.27); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .writing-seed .ws-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .writing-seed p { font-family: var(--font-display); font-size: 1.05rem; font-style: italic; color: var(--parch); line-height: 1.5; }
+
+  /* ── AHEAD ── */
+  .ahead-grid { display: flex; flex-direction: column; gap: 0.9rem; flex: 1; }
+  .ahead-item { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px solid rgba(239,245,238,0.07); border-radius: 4px; padding: 1rem 1.3rem; }
+  .ahead-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .ahead-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .ahead-item p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── SHARED ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #deck { position: relative; z-index: 1; width: 100vw; height: 100vh; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+  .slide.active { opacity: 1; pointer-events: all; }
+  #nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 2rem; background: rgba(5,10,7,0.93); border-top: 1px solid rgba(94,143,111,0.18); backdrop-filter: blur(10px); }
+  #slide-dots { display: flex; gap: 0.45rem; align-items: center; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(94,143,111,0.2); cursor: pointer; transition: all 0.3s; }
+  .dot.active { background: var(--accent); transform: scale(1.5); }
+  .dot.visited { background: rgba(94,143,111,0.48); }
+  #nav-label { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(239,245,238,0.26); letter-spacing: 0.12em; margin-left: 1rem; }
+  .nav-btn { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--parch); background: rgba(94,143,111,0.1); border: 1px solid rgba(94,143,111,0.28); padding: 0.35rem 1rem; cursor: pointer; transition: all 0.2s; border-radius: 2px; }
+  .nav-btn:hover { background: rgba(94,143,111,0.22); border-color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  #slide-counter { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(239,245,238,0.26); }
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #2D5C40, var(--accent), var(--accent2)); transition: width 0.4s ease; z-index: 50; }
+  .slide-header { padding: 1.1rem 4.5rem 0.9rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(239,245,238,0.06); flex-shrink: 0; }
+  .course-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: rgba(239,245,238,0.2); text-transform: uppercase; }
+  .week-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: var(--accent); opacity: 0.75; text-transform: uppercase; }
+  .slide-inner { flex: 1; padding: 2.6rem 4.5rem 4.8rem; display: flex; flex-direction: column; overflow: hidden; }
+  .slide-eyebrow { font-family: var(--font-mono); font-size: 0.69rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; }
+  .slide-eyebrow::before { content: ''; display: block; width: 1.8rem; height: 1px; background: var(--accent); opacity: 0.55; }
+  .slide-h1 { font-family: var(--font-display); font-size: clamp(2.3rem,4.2vw,3.4rem); font-weight: 700; line-height: 1.1; color: var(--parch); margin-bottom: 0.4rem; }
+  .slide-h1 em { font-style: italic; color: var(--accent2); }
+  .slide-h2 { font-family: var(--font-display); font-size: clamp(1.4rem,2.2vw,1.9rem); font-weight: 600; color: var(--parch); margin-bottom: 0.9rem; line-height: 1.2; }
+  .accent-rule { width: 3.5rem; height: 2px; background: linear-gradient(90deg,var(--accent),transparent); margin-bottom: 1.5rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation: fadeUp 0.48s ease forwards; }
+  .slide.active .slide-header { animation: fadeUp 0.48s ease 0.04s both; }
+  .help-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; }
+  .help-overlay.visible { display: flex; }
+  .help-box { background: #111A14; border: 1px solid rgba(239,245,238,0.12); border-radius: 6px; padding: 2rem 2.5rem; max-width: 440px; width: 90%; }
+  .help-box h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--parch); }
+  .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(239,245,238,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(239,245,238,0.6); }
+  .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(239,245,238,0.08); border: 1px solid rgba(239,245,238,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
+  .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+
+<div id="deck">
+
+  <!-- ══ SLIDE 1: TITLE ══ -->
+  <div class="slide active" id="slide-1">
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding: 0 6rem 5rem;">
+      <div style="font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.22em; color:rgba(94,143,111,0.55); margin-bottom:0.7rem; display:flex; align-items:center; gap:0.7rem;">
+        <span style="display:block; width:2rem; height:1px; background:rgba(94,143,111,0.4);"></span>
+        MOVEMENT II · WEEK 10
+      </div>
+      <h1 style="font-family:var(--font-display); font-size:clamp(3rem,5.5vw,5rem); font-weight:700; line-height:1.05; color:var(--parch); margin-bottom:0.3rem;">
+        Individual<br><em style="color:var(--accent2);">Meetings</em> Week
+      </h1>
+      <div style="width:5rem; height:2px; background:linear-gradient(90deg,var(--accent),transparent); margin: 1rem 0 1.8rem;"></div>
+      <div style="font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.2em; color:rgba(239,245,238,0.2); margin-bottom:2.5rem;">WEEK 10 &nbsp;·&nbsp; CRDM 790 &nbsp;·&nbsp; Spring 2027</div>
+      <div style="display:flex; flex-direction:column; gap:0.4rem; border-left:2px solid rgba(94,143,111,0.28); padding-left:1.2rem;">
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(239,245,238,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(239,245,238,0.68);">Format:</strong> No full group session — individual check-ins with instructor</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(239,245,238,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(239,245,238,0.68);">Milestone due:</strong> Committee Confirmation — 15% of final grade</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(239,245,238,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(239,245,238,0.68);">Activity:</strong> Prospectus Seed Writing (async) + individual meeting</div>
+      </div>
+      <div style="position:absolute; top:1.5rem; right:5rem; font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; color:rgba(94,143,111,0.38); border:1px solid rgba(94,143,111,0.15); padding:0.28rem 0.65rem; border-radius:2px;">UDL COMPLIANT</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: SESSION MAP ══ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 10 · Movement II</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Session Map</div>
+      <h1 class="slide-h1">This Week's <em>Arc</em></h1>
+      <div class="accent-rule"></div>
+      <div class="map-grid">
+        <div class="map-card">
+          <div class="mc-label">📅 Format</div>
+          <ul>
+            <li>No full group session this week</li>
+            <li>Individual check-ins with instructor — 20–30 minutes each</li>
+            <li>Sign up for a slot via Moodle (link posted in course shell)</li>
+            <li>Come prepared; these meetings are working sessions, not status reports</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">◆ Milestone Due</div>
+          <ul>
+            <li><strong>Committee Confirmation</strong> — 15% of final grade</li>
+            <li>Email confirmation from your chair is sufficient</li>
+            <li>Or: written plan with named faculty + realistic timeline</li>
+            <li>Submit via Moodle or email instructor directly</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✏️ Before Your Meeting</div>
+          <ul>
+            <li>Complete the Prospectus Seed Writing (300–500 words — see Slide 5)</li>
+            <li>Review your Week 8 exam list with feedback in hand</li>
+            <li>Identify your one most unresolved question</li>
+            <li>Bring this writing to your check-in — we will read it together</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✦ Use This Week To</div>
+          <ul>
+            <li>Confirm committee contact (follow up on your Week 9 emails)</li>
+            <li>Revise exam list from Week 8 peer and instructor feedback</li>
+            <li>Begin prospectus framing — what problem does this dissertation address?</li>
+            <li>Rest. Read something for pleasure.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: MILESTONE DUE ══ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 10 · Milestone</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">15% of Final Grade</div>
+      <h1 class="slide-h1">Committee <em>Confirmation</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">What Counts as Confirmation</div>
+            <ul>
+              <li>An email from your chair (or co-chairs) confirming they have agreed to serve — forward this to instructor</li>
+              <li>A written plan naming all committee members, their roles, and a realistic timeline for completing assembly if members have not yet confirmed</li>
+              <li>If you are on a non-academic track: name the people (professional mentors, faculty contacts) who will support candidacy and explain how</li>
+            </ul>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">How to Submit</div>
+            <ul>
+              <li>Upload to Moodle (Committee Confirmation dropbox), or</li>
+              <li>Email directly to instructor at kkcole2@ncsu.edu with subject line: CRDM 790 Committee Confirmation – [Your Name]</li>
+              <li>Due by the time of your individual meeting, or by end of Week 10</li>
+            </ul>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">Running Into Obstacles?</div>
+            <p>Flag them now — do not wait. Faculty go silent, timelines shift, advisors move institutions. The earlier you name the obstacle, the more options you have. Bring the specific sticking point to your individual meeting.</p>
+          </div>
+          <div style="background:rgba(94,143,111,0.07); border:1px solid rgba(94,143,111,0.2); border-radius:4px; padding:1rem 1.2rem; margin-top:0.1rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.16em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem;">Grading Note</div>
+            <p style="font-family:var(--font-body); font-size:0.95rem; color:var(--muted); line-height:1.55;">This milestone is graded on completeness and evidence of genuine progress — not on having a fully assembled committee. A thoughtful written plan with named faculty and an honest timeline demonstrates the work.</p>
+          </div>
+          <div style="background:rgba(94,143,111,0.07); border:1px solid rgba(94,143,111,0.2); border-radius:4px; padding:1rem 1.2rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.16em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem;">Movement II Milestones</div>
+            <div style="display:flex; flex-direction:column; gap:0.35rem;">
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-body); font-size:0.93rem; color:var(--muted);">
+                <span>M2 · Draft Exam List (Week 8)</span>
+                <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent);">25%</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-body); font-size:0.93rem; color:var(--parch); background:rgba(94,143,111,0.08); padding:0.3rem 0.6rem; border-radius:3px; margin: 0 -0.6rem;">
+                <span>M3 · Committee Confirmation <strong>(this week)</strong></span>
+                <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent);">15%</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-body); font-size:0.93rem; color:var(--muted);">
+                <span>M4 · Dissertation Prospectus (Week 14)</span>
+                <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent);">40%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: REFLECTION PROMPTS ══ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 10 · Individual Meeting</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">For Your 20–30 Minute Meeting</div>
+      <h1 class="slide-h1">Reflection <em>Prompts</em></h1>
+      <div class="accent-rule"></div>
+      <div class="prompt-stack">
+        <div class="prompt-card" id="p1" onclick="revealPrompt(1)">
+          <div class="prompt-num">1</div>
+          <div class="prompt-body">What has changed since Week 1? Compare where you were in your scholarly identity statement to where you are now. What shifted — and what surprised you?
+            <span class="prompt-sub">Not "I learned a lot." What specifically changed in how you understand your project or your field?</span>
+          </div>
+        </div>
+        <div class="prompt-card" id="p2" onclick="revealPrompt(2)">
+          <div class="prompt-num">2</div>
+          <div class="prompt-body">Where is your exam list still unresolved? What conversation is happening on your list that you haven't been able to articulate yet?
+            <span class="prompt-sub">Bring the list. Mark the texts you're least sure about. Name the gap you keep circling.</span>
+          </div>
+        </div>
+        <div class="prompt-card" id="p3" onclick="revealPrompt(3)">
+          <div class="prompt-num">3</div>
+          <div class="prompt-body">What is the central problem your dissertation addresses — in one sentence? Not your topic. The problem. The thing that is wrong or unknown or contested that your work intervenes in.
+            <span class="prompt-sub">This is hard. That's why we're doing it here, together, before you write it alone.</span>
+          </div>
+        </div>
+        <div class="prompt-card" id="p4" onclick="revealPrompt(4)">
+          <div class="prompt-num">4</div>
+          <div class="prompt-body">What does your committee assembly reveal about your project? Who you are asking — and who you haven't approached — tells you something about what kind of dissertation you're imagining.
+            <span class="prompt-sub">What does it reveal about who you think should be reading your work?</span>
+          </div>
+        </div>
+        <div class="prompt-card" id="p5" onclick="revealPrompt(5)">
+          <div class="prompt-num">5</div>
+          <div class="prompt-body">What are you most afraid of about the prospectus? Name the specific fear. Not "failing" — what do you think you will discover when you try to write the whole argument down?
+            <span class="prompt-sub">The fear is usually diagnostic. It often points to the thing you most need to work on.</span>
+          </div>
+        </div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextPrompt()">Reveal Prompt</button>
+      <div class="reveal-hint" id="reveal-hint">Click a prompt to reveal · or press <span class="key">Enter</span></div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: PROSPECTUS SEED WRITING ══ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 10 · Async Activity</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before Your Meeting · 300–500 Words</div>
+      <h1 class="slide-h1">Prospectus <em>Seed</em> Writing</h1>
+      <div class="accent-rule"></div>
+      <div class="seed-layout">
+        <div class="seed-col">
+          <div class="seed-prompt">
+            <div class="sp-label">The Prompt</div>
+            <div class="sp-text">
+              "The problem my dissertation addresses is <span class="sp-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>, and it matters because <span class="sp-blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>."
+            </div>
+          </div>
+          <div class="reading-box" style="margin-bottom:0;">
+            <div class="rb-label">What to Write</div>
+            <ul>
+              <li>Start with the sentence above — then keep going</li>
+              <li>Write the argument you're trying to make, the thinkers you're in conversation with, the method you're reaching for</li>
+              <li>Write toward the shape of a prospectus introduction — you are not writing the prospectus yet, you are writing toward it</li>
+              <li>Aim for 300–500 words. Stop when you get there even if you're not done</li>
+            </ul>
+          </div>
+        </div>
+        <div class="seed-col">
+          <div class="seed-rules">
+            <div class="sr-label">The Rules</div>
+            <ul>
+              <li>Do not edit as you write. Write fast and messy</li>
+              <li>Do not reread until you reach the word count</li>
+              <li>Do not open your exam list while you're writing</li>
+              <li>Write it the day before your meeting — not a week in advance</li>
+            </ul>
+          </div>
+          <div class="writing-seed">
+            <div class="ws-label">After Your Meeting</div>
+            <p>Revise exactly <em>one sentence</em> from your seed writing based on what you discussed. Just one. Send the revised sentence to instructor by email. This is your bridge into Movement III.</p>
+          </div>
+          <div style="background:var(--bg-card); border:1px solid rgba(239,245,238,0.08); border-radius:4px; padding:1rem 1.2rem;">
+            <div style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.45rem;">Why This Works</div>
+            <p style="font-family:var(--font-body); font-size:0.93rem; color:var(--muted); line-height:1.55;">The prospectus requires you to know what you're arguing before you've finished researching. Seed writing practices the cognitive move of claiming an argument in advance of certainty. This is the central intellectual skill of doctoral writing — and it only develops through practice, not through waiting until you're ready.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: MOVEMENT II RECAP ══ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Movement II · Weeks 6–10</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">What We Built Together</div>
+      <h1 class="slide-h1">Movement II <em>Recap</em></h1>
+      <div class="accent-rule"></div>
+      <div class="recap-grid">
+        <div class="recap-card">
+          <div class="rc-week">Week 6</div>
+          <div class="rc-title">Primitive Accumulation</div>
+          <div class="rc-author">Silvia Federici</div>
+          <div class="rc-key">Whose labor built your field? The canon as enclosure — what was taken, from whom, in order to make "knowledge" possible.</div>
+          <div class="rc-badge">Canon Audit</div>
+        </div>
+        <div class="recap-card">
+          <div class="rc-week">Week 7</div>
+          <div class="rc-title">Hauntology</div>
+          <div class="rc-author">Fisher · Derrida</div>
+          <div class="rc-key">What does your field mourn? The specters of futures that never arrived — and how the past structures what feels possible now.</div>
+          <div class="rc-badge">3-Min Presentations</div>
+        </div>
+        <div class="recap-card">
+          <div class="rc-week">Week 8</div>
+          <div class="rc-title">Exam List Workshop</div>
+          <div class="rc-author">Haraway</div>
+          <div class="rc-key">Situated knowledges — who gets to claim to know, from where, and what your list reveals about whose knowledge you trust.</div>
+          <div class="rc-badge" style="background:rgba(196,164,74,0.1); border-color:rgba(196,164,74,0.25); color:#C4A44A;">M2 Due · 25%</div>
+        </div>
+        <div class="recap-card">
+          <div class="rc-week">Week 9</div>
+          <div class="rc-title">Committee as Intellectual Community</div>
+          <div class="rc-author">Kelsky</div>
+          <div class="rc-key">Not bureaucracy — intellectual relationship. Who will challenge your work productively? What do you owe them?</div>
+          <div class="rc-badge">Email Workshop</div>
+        </div>
+        <div class="recap-card" style="border-color:rgba(94,143,111,0.25); background:rgba(94,143,111,0.06);">
+          <div class="rc-week">Week 10</div>
+          <div class="rc-title">Individual Meetings</div>
+          <div class="rc-author">You + Instructor</div>
+          <div class="rc-key">The problem you are trying to address. One sentence. Then 300–500 words toward the answer.</div>
+          <div class="rc-badge" style="background:rgba(196,164,74,0.1); border-color:rgba(196,164,74,0.25); color:#C4A44A;">M3 Due · 15%</div>
+        </div>
+      </div>
+      <div style="margin-top:0.9rem; font-family:var(--font-body); font-size:0.93rem; color:rgba(239,245,238,0.35); font-style:italic; text-align:center;">Movement II: <em>What do I know, and who helps me know it?</em> — You have answered this question. Now Movement III asks: <em>What do I build?</em></div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: MOVEMENT III PREVIEW ══ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Looking Ahead · Movement III</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">After Spring Break · Weeks 11–15</div>
+      <h1 class="slide-h1">Movement III: <em>Now What?</em></h1>
+      <div class="accent-rule"></div>
+      <div class="m3-grid">
+        <div class="m3-row">
+          <div class="m3-week">Week 11</div>
+          <div class="m3-body">
+            <div class="m3-title">Marcuse · <em>One-Dimensional Man</em></div>
+            <div class="m3-note">The one-dimensional dissertation — when our arguments flatten into what is already sayable. Imagination as a scholarly problem.</div>
+          </div>
+        </div>
+        <div class="m3-row">
+          <div class="m3-week">Week 12</div>
+          <div class="m3-body">
+            <div class="m3-title">Ghosh · <em>The Great Derangement</em></div>
+            <div class="m3-note">Scale, catastrophe, and the limits of scholarly address. The "So What?" Gauntlet: what does it matter if your dissertation succeeds?</div>
+          </div>
+        </div>
+        <div class="m3-row">
+          <div class="m3-week">Week 13</div>
+          <div class="m3-body">
+            <div class="m3-title">Alt-Ac &amp; Beyond · Guest Lecturers</div>
+            <div class="m3-note">Three versions of your future: academic, adjacent, and outside. What your dissertation means in each context.</div>
+          </div>
+        </div>
+        <div class="m3-row">
+          <div class="m3-week">Week 14</div>
+          <div class="m3-body">
+            <div class="m3-title">Prospectus Workshop</div>
+            <div class="m3-note">Full draft due — workshopped in class. This is the main event of the semester.</div>
+          </div>
+          <div class="m3-badge">M4 · 40%</div>
+        </div>
+        <div class="m3-row">
+          <div class="m3-week">Week 15</div>
+          <div class="m3-body">
+            <div class="m3-title">Presentations + Week 1 Return</div>
+            <div class="m3-note">Brief presentations on prospectus arguments. Your Week 1 card returned — read it, then write a response.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: REST AND RETURN ══ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 10 → Spring Break</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Go</div>
+      <h1 class="slide-h1">Rest. <em>Return.</em></h1>
+      <div class="accent-rule"></div>
+      <div class="ahead-grid">
+        <div class="ahead-item">
+          <div class="ahead-icon">◆</div>
+          <div>
+            <div class="ahead-label">Submit Before Break</div>
+            <p>Committee Confirmation — 15% of final grade — due by end of Week 10 via Moodle or email. If you are running into obstacles, send a note now rather than after break.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">✉️</div>
+          <div>
+            <div class="ahead-label">Send Your Revised Sentence</div>
+            <p>After your individual meeting, revise one sentence from your Prospectus Seed Writing and email it to instructor. Subject line: CRDM 790 Seed Revision – [Your Name]. This is your connection into Movement III.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">📖</div>
+          <div>
+            <div class="ahead-label">Read Something for Pleasure</div>
+            <p>Not for your exam list. Not to annotate. A novel, a collection of essays, a book you've been meaning to read for years. The imagination that moves your dissertation needs to be fed, not only directed.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">🌱</div>
+          <div>
+            <div class="ahead-label">When You Return: Movement III Begins</div>
+            <p>Week 11 opens with Marcuse — we turn toward imagination, drafting, and the central question of the semester: what does it mean to make an argument that matters? Come back rested. The prospectus is waiting.</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:0.9rem; background:rgba(94,143,111,0.07); border:1px solid rgba(94,143,111,0.18); border-radius:4px; padding:0.8rem 1.1rem; text-align:center;">
+        <p style="font-family:var(--font-display); font-size:1.1rem; color:rgba(239,245,238,0.55); font-style:italic;">"The problem my dissertation addresses is ___, and it matters because ___."</p>
+        <p style="font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:rgba(239,245,238,0.25); margin-top:0.5rem;">BRING THIS SENTENCE BACK WITH YOU</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<div id="nav">
+  <div style="display:flex; align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 10 · INDIVIDUAL MEETINGS</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex; gap:0.6rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+
+<!-- HELP -->
+<div class="help-overlay" id="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
+    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
+    <div class="shortcut-row"><span>Reveal prompt (slide 4)</span><span><span class="key">Enter</span></span></div>
+    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
+    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+
+<script>
+// ── SEED PARTICLE FIELD ───────────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let seeds = [];
+  let frame = 0;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initSeeds();
+  }
+
+  function initSeeds() {
+    seeds = [];
+    const count = 55;
+    for (let i = 0; i < count; i++) {
+      seeds.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height + canvas.height * 0.1,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: -(Math.random() * 0.22 + 0.04),
+        r: Math.random() * 1.5 + 0.4,
+        a: Math.random() * 0.3 + 0.06,
+        phase: Math.random() * Math.PI * 2,
+        drift: (Math.random() - 0.5) * 0.008,
+        tail: Math.random() * 0.6 + 0.3,
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    frame++;
+
+    seeds.forEach(s => {
+      // Gentle sinusoidal horizontal drift
+      s.vx += s.drift;
+      if (Math.abs(s.vx) > 0.3) s.drift *= -1;
+
+      s.x += s.vx;
+      s.y += s.vy;
+
+      // Wrap vertically
+      if (s.y < -10) { s.y = canvas.height + 10; s.x = Math.random() * canvas.width; }
+      if (s.x < -10) s.x = canvas.width + 10;
+      if (s.x > canvas.width + 10) s.x = -10;
+
+      const pulse = Math.sin(frame * 0.006 + s.phase);
+      const alpha = s.a * (0.5 + 0.5 * pulse);
+
+      // Draw seed dot
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(144,196,160,${alpha})`;
+      ctx.fill();
+
+      // Draw faint tail (thread upward)
+      const tailLen = s.tail * 12;
+      const grad = ctx.createLinearGradient(s.x, s.y, s.x - s.vx * tailLen * 3, s.y + tailLen);
+      grad.addColorStop(0, `rgba(94,143,111,${alpha * 0.55})`);
+      grad.addColorStop(1, `rgba(94,143,111,0)`);
+      ctx.beginPath();
+      ctx.moveTo(s.x, s.y);
+      ctx.lineTo(s.x - s.vx * tailLen * 3, s.y + tailLen);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 0.6;
+      ctx.stroke();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize(); draw();
+})();
+
+// ── NAVIGATION ───────────────────────────────────────────────────────────────
+const TOTAL = 8;
+let current = 1;
+let visited = new Set([1]);
+const slideNames = ['Title','Session Map','Milestone','Reflection Prompts','Prospectus Seed','Movement II Recap','Movement III Preview','Rest & Return'];
+
+function goTo(n) {
+  if (n < 1 || n > TOTAL) return;
+  document.getElementById('slide-' + current).classList.remove('active');
+  current = n;
+  visited.add(n);
+  document.getElementById('slide-' + n).classList.add('active');
+  updateNav();
+}
+function nextSlide() { goTo(current + 1); }
+function prevSlide() { goTo(current - 1); }
+
+function updateNav() {
+  document.getElementById('prev-btn').disabled = current === 1;
+  document.getElementById('next-btn').disabled = current === TOTAL;
+  document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
+  document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
+  const dotCont = document.getElementById('slide-dots');
+  dotCont.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === current ? ' active' : (visited.has(i) ? ' visited' : ''));
+    d.onclick = () => goTo(i);
+    d.title = slideNames[i - 1];
+    dotCont.appendChild(d);
+  }
+}
+
+// ── PROMPT REVEAL ────────────────────────────────────────────────────────────
+let pRevealed = 0;
+function revealPrompt(n) {
+  const card = document.getElementById('p' + n);
+  if (!card.classList.contains('revealed')) {
+    card.classList.add('revealed');
+    pRevealed = Math.max(pRevealed, n);
+    if (pRevealed >= 5) {
+      document.getElementById('reveal-btn').textContent = '✓ All Prompts Revealed';
+      document.getElementById('reveal-btn').style.opacity = '0.35';
+      document.getElementById('reveal-hint').style.opacity = '0';
+    }
+  }
+}
+function revealNextPrompt() { if (pRevealed < 5) revealPrompt(pRevealed + 1); }
+
+// ── KEYBOARD ─────────────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (document.getElementById('help-overlay').classList.contains('visible')) {
+    if (e.key === 'Escape') closeHelp(); return;
+  }
+  switch(e.key) {
+    case 'ArrowRight': case ' ': e.preventDefault(); nextSlide(); break;
+    case 'ArrowLeft': e.preventDefault(); prevSlide(); break;
+    case 'Enter': if (current === 4) { e.preventDefault(); revealNextPrompt(); } break;
+    case 'Home': goTo(1); break;
+    case 'End': goTo(TOTAL); break;
+    case '?': toggleHelp(); break;
+    case 'Escape': closeHelp(); break;
+  }
+});
+function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
+function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
+
+updateNav();
+</script>
+</body>
+</html>
