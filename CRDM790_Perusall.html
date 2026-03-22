@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perusall Annotation Guide — CRDM 790 Spring 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F5F0E8;
+  --surface:  #EDE8DC;
+  --surface2: #E4DDD0;
+  --ink:      #1C1410;
+  --ink-mid:  #4A3F35;
+  --ink-soft: #8B7A60;
+  --border:   #D9D0C4;
+  --gold:     #C9A84C;
+  --amber:    #E8B84B;
+  --dim:      rgba(28,20,16,0.45);
+  --sidebar-bg:     #1C1410;
+  --sidebar-text:   #F0E6CC;
+  --sidebar-muted:  #7A6C62;
+  --sidebar-hover:  #2E231C;
+  --sidebar-active: #3D2B1A;
+  --sidebar-accent: #C9A84C;
+  --shadow:   0 2px 12px rgba(0,0,0,0.07);
+  --ann:      #8B5A2B;
+  --ann-bg:   #FBF0E8;
+  --ann-mid:  #C9843A;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'EB Garamond', Georgia, serif;
+  --font-mono:    'Inconsolata', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--ink); display: flex; min-height: 100vh; line-height: 1.7; }
+
+/* SIDEBAR */
+.sidebar { width: 240px; min-width: 240px; background: var(--sidebar-bg); color: var(--sidebar-text); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 100; }
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: #4A3A2E; border-radius: 2px; }
+.sidebar-header { padding: 28px 20px 20px; border-bottom: 1px solid #2E231C; }
+.sidebar-course { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sidebar-accent); margin-bottom: 6px; }
+.sidebar-title { font-family: var(--font-display); font-size: 15px; line-height: 1.4; color: var(--sidebar-text); font-weight: 600; }
+.sidebar-sub { font-size: 11px; color: var(--sidebar-muted); margin-top: 4px; }
+.sidebar-section-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sidebar-muted); padding: 14px 20px 6px; }
+.sidebar-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; cursor: pointer; transition: background 0.15s; border-left: 2px solid transparent; text-decoration: none; color: var(--sidebar-text); font-size: 13px; }
+.sidebar-link:hover { background: var(--sidebar-hover); }
+.sidebar-link.active { background: var(--sidebar-active); border-left-color: var(--sidebar-accent); }
+.sidebar-link-icon { font-size: 14px; min-width: 18px; text-align: center; }
+
+/* MAIN */
+.main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.topbar { background: var(--bg); border-bottom: 1px solid var(--border); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.topbar-breadcrumb { font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); letter-spacing: 0.06em; }
+.topbar-back { font-family: var(--font-mono); font-size: 11px; color: var(--ann-mid); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: opacity 0.15s; }
+.topbar-back:hover { opacity: 0.7; }
+
+/* PAGE */
+.page { padding: 48px 44px 80px; max-width: 900px; }
+.page-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+.page-heading { font-family: var(--font-display); font-size: 38px; font-weight: 700; line-height: 1.15; color: var(--ink); margin-bottom: 12px; }
+.page-heading em { font-style: italic; color: var(--ann); }
+.page-intro { font-family: var(--font-body); font-size: 15px; color: var(--ink-mid); max-width: 680px; line-height: 1.75; margin-bottom: 40px; }
+
+/* SECTION */
+.section-block { margin-bottom: 52px; }
+.section-heading { font-family: var(--font-display); font-size: 26px; font-weight: 600; color: var(--ink); padding-bottom: 12px; border-bottom: 1.5px solid var(--border); margin-bottom: 20px; scroll-margin-top: 80px; }
+
+/* QUICK REF */
+.quick-ref { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 40px; }
+.qr-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px 14px; box-shadow: var(--shadow); text-align: center; }
+.qr-icon { font-size: 26px; margin-bottom: 8px; }
+.qr-num { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--ann); line-height: 1; }
+.qr-label { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-top: 4px; }
+.qr-desc { font-size: 12px; color: var(--ink-mid); margin-top: 5px; line-height: 1.4; }
+
+/* DEADLINE ROW */
+.deadline-row { background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); margin-bottom: 12px; display: flex; }
+.deadline-when { width: 140px; min-width: 140px; display: flex; flex-direction: column; justify-content: center; padding: 14px 16px; background: var(--ann); color: white; }
+.deadline-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 3px; }
+.deadline-title { font-size: 13px; font-weight: 600; color: white; line-height: 1.3; }
+.deadline-body { flex: 1; padding: 14px 18px; }
+.deadline-body-title { font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 4px; }
+.deadline-body-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+/* ANATOMY CARDS */
+.anatomy-card { background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); margin-bottom: 14px; }
+.anatomy-header { display: flex; align-items: center; gap: 14px; padding: 13px 20px; background: var(--ann); color: white; }
+.anatomy-step { font-family: var(--font-mono); font-size: 11px; font-weight: 500; background: rgba(255,255,255,0.2); border-radius: 4px; padding: 3px 10px; white-space: nowrap; }
+.anatomy-title { font-family: var(--font-display); font-size: 17px; font-weight: 600; color: white; }
+.anatomy-req { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.65); margin-left: auto; white-space: nowrap; }
+.anatomy-body { padding: 18px 22px; }
+.anatomy-desc { font-size: 14px; color: var(--ink-mid); line-height: 1.65; margin-bottom: 14px; }
+.ex-label { font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ann-mid); margin-bottom: 5px; }
+.ex-box { background: var(--ann-bg); border-left: 3px solid var(--ann-mid); border-radius: 0 6px 6px 0; padding: 13px 16px; margin-bottom: 10px; font-size: 13px; color: var(--ink-mid); font-style: italic; line-height: 1.55; }
+.ex-box strong { color: var(--ink); font-style: normal; }
+.weak-box { background: #FFF6F4; border-left: 3px solid #C44; border-radius: 0 6px 6px 0; padding: 13px 16px; margin-bottom: 10px; }
+.weak-label { font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: #C44; margin-bottom: 5px; }
+.weak-text { font-size: 13px; color: var(--ink-mid); font-style: italic; line-height: 1.55; }
+.tip-box { background: #EDF7F2; border: 1px solid #6BAF8C; border-radius: 6px; padding: 11px 16px; font-size: 13px; color: #2A6048; display: flex; align-items: flex-start; gap: 8px; margin-top: 6px; line-height: 1.5; }
+.tip-box strong { color: #2A6048; }
+
+/* WEEKLY PROMPTS */
+.week-prompt-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+.week-prompt-row { display: grid; grid-template-columns: 7rem 1fr; border-top: 1px solid var(--border); background: white; }
+.week-prompt-row:first-child { border-top: none; }
+.wp-week { display: flex; flex-direction: column; justify-content: flex-start; padding: 16px 14px; background: var(--surface); border-right: 1px solid var(--border); }
+.wp-week-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2px; }
+.wp-week-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--gold); line-height: 1.1; }
+.wp-week-text { font-family: var(--font-body); font-size: 0.82rem; font-style: italic; color: var(--ink-soft); margin-top: 2px; line-height: 1.3; }
+.wp-body { padding: 16px 20px; }
+.wp-reading { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ann-mid); margin-bottom: 6px; }
+.wp-prompt { font-family: var(--font-body); font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+.wp-prompt strong { color: var(--ink); }
+.wp-bring { margin-top: 8px; background: var(--ann-bg); border-radius: 4px; padding: 7px 10px; font-size: 13px; color: var(--ann); font-style: italic; }
+.wp-none { font-family: var(--font-body); font-size: 13px; color: var(--ink-soft); font-style: italic; padding: 16px 20px; }
+.wp-tbd { background: var(--surface); }
+.wp-tbd .wp-body { opacity: 0.55; }
+
+/* READING LEAD */
+.lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+.lead-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; box-shadow: var(--shadow); }
+.lead-card-title { font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.lead-card-icon { font-size: 18px; }
+.lead-card ul { padding-left: 16px; font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+.lead-card li { margin-bottom: 4px; }
+
+/* RUBRIC */
+.rubric-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+.rubric-table th { background: var(--ink); color: white; padding: 10px 14px; text-align: left; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 400; }
+.rubric-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--ink-mid); vertical-align: top; line-height: 1.55; }
+.rubric-table tr:last-child td { border-bottom: none; }
+.rubric-table tr:nth-child(even) td { background: var(--surface); }
+.level-badge { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--ink); }
+
+/* FAQ */
+.faq-item { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; box-shadow: var(--shadow); margin-bottom: 10px; }
+.faq-q { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--ink); margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start; }
+.faq-q-icon { color: var(--ann-mid); font-family: var(--font-mono); font-size: 12px; flex-shrink: 0; padding-top: 3px; }
+.faq-a { font-size: 13.5px; color: var(--ink-mid); line-height: 1.65; padding-left: 22px; }
+.faq-a a { color: var(--ann-mid); text-decoration: underline; text-underline-offset: 2px; }
+
+/* MOODLE CTA */
+.moodle-cta { background: var(--ink); border-radius: 8px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+.moodle-cta-text { color: rgba(240,230,204,0.85); font-size: 14px; line-height: 1.5; }
+.moodle-cta-text strong { color: var(--amber); }
+.moodle-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: var(--ink); border: none; border-radius: 24px; padding: 10px 20px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; text-decoration: none; letter-spacing: 0.04em; white-space: nowrap; transition: background 0.15s; }
+.moodle-btn:hover { background: var(--amber); }
+
+@media (max-width: 760px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .quick-ref { grid-template-columns: 1fr 1fr; }
+  .lead-grid { grid-template-columns: 1fr; }
+  .page { padding: 24px 20px 60px; }
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-course">CRDM 790 · Spring 2027</div>
+    <div class="sidebar-title">Issues in Communication, Rhetoric &amp; Digital Media</div>
+    <div class="sidebar-sub">Kirsti K. Cole · NC State</div>
+  </div>
+  <div class="sidebar-section-label">Pages</div>
+  <a class="sidebar-link" href="index.html"><span class="sidebar-link-icon">⌂</span> Course Website</a>
+  <a class="sidebar-link" href="CRDM790_Submissions.html"><span class="sidebar-link-icon">📁</span> Submissions &amp; Google Drive</a>
+  <a class="sidebar-link active" href="CRDM790_Perusall.html"><span class="sidebar-link-icon">📖</span> Perusall Annotation Guide</a>
+  <div class="sidebar-section-label">Jump To</div>
+  <a class="sidebar-link" href="#when"><span class="sidebar-link-icon">①</span> When Annotations Are Due</a>
+  <a class="sidebar-link" href="#anatomy"><span class="sidebar-link-icon">②</span> Anatomy of an Annotation</a>
+  <a class="sidebar-link" href="#prompts"><span class="sidebar-link-icon">③</span> Week-by-Week Prompts</a>
+  <a class="sidebar-link" href="#lead"><span class="sidebar-link-icon">④</span> Reading Lead Role</a>
+  <a class="sidebar-link" href="#grading"><span class="sidebar-link-icon">⑤</span> What Counts as Strong</a>
+  <a class="sidebar-link" href="#faq"><span class="sidebar-link-icon">⑥</span> FAQ</a>
+  <div class="sidebar-section-label">Quick Links</div>
+  <a class="sidebar-link" href="https://app.perusall.com" target="_blank" rel="noopener"><span class="sidebar-link-icon">🔗</span> Open Perusall</a>
+  <a class="sidebar-link" href="https://drive.google.com/drive/folders/11b2tBd6zBeLkuu-aV2_smhfBx9rEBcx3?usp=sharing" target="_blank" rel="noopener"><span class="sidebar-link-icon">📂</span> Google Drive Folder</a>
+  <a class="sidebar-link" href="https://calendar.app.google/pgZeqTD9Kd9ZxBPX7" target="_blank" rel="noopener"><span class="sidebar-link-icon">📅</span> Office Hours</a>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-breadcrumb">CRDM 790 · Spring 2027 → Perusall Annotation Guide</div>
+    <a class="topbar-back" href="index.html">← Back to Course Website</a>
+  </div>
+
+  <div class="page">
+    <div class="page-tag">CRDM 790 · Spring 2027 · Kirsti K. Cole</div>
+    <h1 class="page-heading">Perusall <em>Annotation Guide</em></h1>
+    <p class="page-intro">Perusall is where we do our thinking before we do it together. Annotations are not a reading quiz or a comprehension check — they are your first draft of engagement with a text. This course is built around close, committed reading. Your annotations make the seminar possible.</p>
+
+    <div class="quick-ref">
+      <div class="qr-card">
+        <div class="qr-icon">✏️</div>
+        <div class="qr-num">3–6</div>
+        <div class="qr-label">Quotes</div>
+        <div class="qr-desc">Highlighted passages that struck you — compelling, confusing, or impossible to ignore</div>
+      </div>
+      <div class="qr-card">
+        <div class="qr-icon">🗺</div>
+        <div class="qr-num">1</div>
+        <div class="qr-label">Summary</div>
+        <div class="qr-desc">Core argument of the reading in your own words — not a paraphrase, a synthesis</div>
+      </div>
+      <div class="qr-card">
+        <div class="qr-icon">❓</div>
+        <div class="qr-num">2–3</div>
+        <div class="qr-label">Questions</div>
+        <div class="qr-desc">Genuine, open questions — not rhetorical ones, not answerable by re-reading</div>
+      </div>
+      <div class="qr-card">
+        <div class="qr-icon">🪞</div>
+        <div class="qr-num">1</div>
+        <div class="qr-label">Reflection</div>
+        <div class="qr-desc">Connection to your research, your experience, or the course arc so far</div>
+      </div>
+    </div>
+
+    <!-- WHEN -->
+    <div class="section-block" id="when">
+      <h2 class="section-heading">When Annotations Are Due</h2>
+      <div class="deadline-row">
+        <div class="deadline-when">
+          <div class="deadline-label">Weekly seminar</div>
+          <div class="deadline-title">Before class</div>
+        </div>
+        <div class="deadline-body">
+          <div class="deadline-body-title">All annotations due before the session begins</div>
+          <div class="deadline-body-desc">CRDM 790 meets weekly for a 3.5-hour seminar. All Perusall annotations for that week's readings are due before class begins — not the night before class, not by end of day. Annotations are how you prepare to think together. Coming in without them means coming in unprepared to do the work.</div>
+        </div>
+      </div>
+      <div class="deadline-row">
+        <div class="deadline-when" style="background: var(--ann-mid);">
+          <div class="deadline-label">Week-specific prompts</div>
+          <div class="deadline-title">See below</div>
+        </div>
+        <div class="deadline-body">
+          <div class="deadline-body-title">Each week has a specific annotation focus</div>
+          <div class="deadline-body-desc">The general framework (quotes, summary, questions, reflection) applies every week. But each week also has a specific prompt tied to that session's theme and activity — see the <a href="#prompts" style="color: var(--ann-mid);">Week-by-Week Prompts</a> section below. The specific prompt is where you focus your sharpest attention; the general framework fills in around it.</div>
+        </div>
+      </div>
+      <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:16px 20px;box-shadow:var(--shadow);font-size:13.5px;color:var(--ink-mid);line-height:1.65;margin-top:12px;">
+        <strong style="color:var(--ink);">Milestone weeks:</strong> In weeks where a milestone is due (Weeks 5, 8, 10, 14), select the reading most directly relevant to your milestone work for full annotation, and integrate references to the other readings into your submission. Kirsti will indicate this in the Moodle module for each milestone week.
+      </div>
+    </div>
+
+    <!-- ANATOMY -->
+    <div class="section-block" id="anatomy">
+      <h2 class="section-heading">Anatomy of a Strong Annotation</h2>
+      <p style="font-size:14px;color:var(--ink-soft);font-style:italic;margin-bottom:20px;">Each annotation thread should contain most or all of these elements. You don&#39;t need to write them as labeled sections — weave them together. The goal is thinking on the page, not a completed form.</p>
+
+      <div class="anatomy-card">
+        <div class="anatomy-header">
+          <div class="anatomy-step">Part 1</div>
+          <div class="anatomy-title">Highlight a Passage — and Say Why</div>
+          <div class="anatomy-req">3–6 per reading</div>
+        </div>
+        <div class="anatomy-body">
+          <p class="anatomy-desc">Highlight any passage that makes you stop — because it clarifies something, because it troubles you, because it contradicts something you believe, or because you don&#39;t understand it. Then write a comment explaining what caught your attention. Don&#39;t highlight silently.</p>
+          <div class="ex-label">Strong Example</div>
+          <div class="ex-box">"Mbembe writes that sovereignty is &#39;the capacity to define who matters and who does not.&#39; I keep coming back to this because &#39;matters&#39; does double work — it means both significance and material consequence. That ambiguity seems deliberate. Does it mean his account of necropolitics is fundamentally about representation and recognition, or about physical survival? Both?"</div>
+          <div class="weak-box">
+            <div class="weak-label">Too thin — avoid this</div>
+            <div class="weak-text">"This is an interesting quote." / Highlighting without any comment.</div>
+          </div>
+          <div class="tip-box">💡 <span>You don&#39;t need to fully understand a passage to annotate it. <strong>Confusion is a legitimate annotation.</strong> &#34;I don&#39;t understand what Giroux means by &#39;postmodern divide&#39; here — I thought he meant...&#34; is excellent work. Difficulty is not failure.</span></div>
+        </div>
+      </div>
+
+      <div class="anatomy-card">
+        <div class="anatomy-header">
+          <div class="anatomy-step">Part 2</div>
+          <div class="anatomy-title">Brief Summary — In Your Own Words</div>
+          <div class="anatomy-req">1 per reading</div>
+        </div>
+        <div class="anatomy-body">
+          <p class="anatomy-desc">Somewhere in your annotations, distill the reading&#39;s central argument in 3–5 sentences. No direct quotes. Write it as if explaining the text to a doctoral colleague in a different field who has never encountered it. The constraint reveals whether you actually understood it.</p>
+          <div class="ex-label">Strong Example</div>
+          <div class="ex-box">"Benjamin&#39;s &#39;Theses&#39; argue that historicism — history as progress — serves power by suppressing the claims of the past&#39;s losers. His alternative is a &#39;weak messianism&#39;: history can be redeemed, but only if the present recognizes itself as called to answer for what has been destroyed. For me the hardest claim is Thesis IX — that what we call progress is literally the storm blowing the angel away from the wreckage it cannot stop accumulating."</div>
+          <div class="weak-box">
+            <div class="weak-label">Too thin — avoid this</div>
+            <div class="weak-text">"Benjamin talks about history and how it relates to the present."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="anatomy-card">
+        <div class="anatomy-header">
+          <div class="anatomy-step">Part 3</div>
+          <div class="anatomy-title">Genuine Questions</div>
+          <div class="anatomy-req">2–3 per reading</div>
+        </div>
+        <div class="anatomy-body">
+          <p class="anatomy-desc">These must be questions you genuinely cannot answer — not rhetorical softeners on claims you&#39;re already making. Strong questions open something up. They&#39;re the questions you want the room to work on together, not the ones you already know the answer to.</p>
+          <div class="ex-label">Strong Examples</div>
+          <div class="ex-box">"Giroux argues that education either domesticates or liberates — but can a single course do both? I&#39;m thinking about a class where students are &#39;liberated&#39; into a framework they didn&#39;t choose any more than the one they&#39;re being liberated from. Is that actually different?"</div>
+          <div class="ex-box" style="margin-top:8px;">"Brown&#39;s account of &#39;homo oeconomicus&#39; as the neoliberal subject assumes that subjectivity is formed primarily through economic rationality. But where does that leave desire, affect, trauma? She seems to know this is incomplete — is her silence about it strategic?"</div>
+          <div class="weak-box">
+            <div class="weak-label">Too thin — avoid this</div>
+            <div class="weak-text">"Is this still relevant today?" / "How does this apply to digital media?"</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="anatomy-card">
+        <div class="anatomy-header">
+          <div class="anatomy-step">Part 4</div>
+          <div class="anatomy-title">Reflection — Connection to Your Research or Experience</div>
+          <div class="anatomy-req">1 per reading</div>
+        </div>
+        <div class="anatomy-body">
+          <p class="anatomy-desc">Connect the reading to your own research area, your intellectual history, or another course text. This is where theory meets your project. Be specific — not &#34;this is relevant to communication&#34; but exactly what mechanism, what object, what problem in your work the reading touches.</p>
+          <div class="ex-label">Strong Examples</div>
+          <div class="ex-box">"Reading Mbembe alongside my work on algorithmic content moderation, I keep thinking about who decides which content is &#39;harmful&#39; — who exercises the sovereign right to make content invisible, to let certain speech die. Mbembe gives me language for this that platform governance scholarship keeps dancing around."</div>
+          <div class="ex-box" style="margin-top:8px;">"This connects to what Benjamin said last week in a way I didn&#39;t expect — Brown&#39;s &#39;human capital&#39; and Benjamin&#39;s &#39;angel of history&#39; are both figures watching a catastrophe accumulate and calling it something else. That parallelism might actually be doing work in how I frame my prospectus."</div>
+          <div class="tip-box">💡 <span><strong>Disagreement counts.</strong> &#34;I think Giroux&#39;s framework breaks down in online learning contexts because...&#34; is a strong reflection. You are not required to agree with the readings — you are required to engage seriously with them.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK-BY-WEEK PROMPTS -->
+    <div class="section-block" id="prompts">
+      <h2 class="section-heading">Week-by-Week Annotation Prompts</h2>
+      <p style="font-size:14px;color:var(--ink-soft);font-style:italic;margin-bottom:20px;">Each week has a specific focus for your Perusall work, in addition to the general annotation framework above. Weeks 6–15 will be posted in Moodle as materials become available.</p>
+
+      <div class="week-prompt-list">
+
+        <div class="week-prompt-row">
+          <div class="wp-week">
+            <div class="wp-week-label">Week</div>
+            <div class="wp-week-num">1</div>
+            <div class="wp-week-text">Arrivals</div>
+          </div>
+          <div class="wp-none">No Perusall this week — come ready to talk. The pre-class work is an informal 200–300 word intellectual autobiography, not an annotation.</div>
+        </div>
+
+        <div class="week-prompt-row">
+          <div class="wp-week">
+            <div class="wp-week-label">Week</div>
+            <div class="wp-week-num">2</div>
+            <div class="wp-week-text">Giroux</div>
+          </div>
+          <div class="wp-body">
+            <div class="wp-reading">Giroux, On Critical Pedagogy — Ch. 1 &amp; 2 (Perusall)</div>
+            <div class="wp-prompt">Annotate <strong>one passage you agree with</strong> — 2–3 sentences of genuine response, not summary. And annotate <strong>one passage you push back on</strong> — same standard. Don&#39;t hedge your disagreement.<br><br>Also bring to class: one concrete example from your own educational experience that either confirms or complicates Giroux&#39;s argument.</div>
+            <div class="wp-bring">⚠️ MLK Day note: If course meets on Jan 18, see Moodle for the async alternative (250-word reflection + one annotation). Prompt: &#34;Name one assumption in your field you have inherited without questioning.&#34;</div>
+          </div>
+        </div>
+
+        <div class="week-prompt-row">
+          <div class="wp-week">
+            <div class="wp-week-label">Week</div>
+            <div class="wp-week-num">3</div>
+            <div class="wp-week-text">Benjamin</div>
+          </div>
+          <div class="wp-body">
+            <div class="wp-reading">Benjamin, Illuminations — The Storyteller / Work of Art / Theses (Perusall)</div>
+            <div class="wp-prompt">Mark <strong>one moment in the &#34;Theses on the Philosophy of History&#34; that you find cryptic</strong>. Write a genuine question about it — not rhetorical, not a softened claim. The difficulty of this text is not a problem to be solved before annotating. It is the thing to annotate.<br><br>Also bring to class: one object — a photo, text, image, or sound clip — representing something in your research area that feels unresolved or haunted. You don&#39;t need to explain it fully.</div>
+          </div>
+        </div>
+
+        <div class="week-prompt-row">
+          <div class="wp-week">
+            <div class="wp-week-label">Week</div>
+            <div class="wp-week-num">4</div>
+            <div class="wp-week-text">Mbembe</div>
+          </div>
+          <div class="wp-body">
+            <div class="wp-reading">Mbembe, Necropolitics — Introduction + Ch. 3 (Perusall)</div>
+            <div class="wp-prompt">Identify <strong>one concept from Mbembe that you think could be directly applied to your research area</strong>. Write a 3–4 sentence annotation explaining how — not &#34;this relates to power&#34; but what <em>specific mechanism</em>, operating through what means, in what you study.<br><br>Also bring to class: one example from media, policy, your archive, or your community that illustrates necropolitical logic. Be ready to put it on the table.</div>
+          </div>
+        </div>
+
+        <div class="week-prompt-row">
+          <div class="wp-week">
+            <div class="wp-week-label">Week</div>
+            <div class="wp-week-num">5</div>
+            <div class="wp-week-text">Brown</div>
+          </div>
+          <div class="wp-body">
+            <div class="wp-reading">Brown, Undoing the Demos — Introduction + Ch. 1 + Ch. 6 (Perusall)</div>
+            <div class="wp-prompt">Find <strong>one moment in Brown where you feel implicated</strong> — where her argument lands on you, not just on an abstraction. Write an honest annotation beginning: <em>&#34;I feel implicated because ___&#34;</em><br><br>Note: Milestone 1 (Scholarly Identity Statement) is due before this session. In the milestone week, prioritize Ch. 6 (&#34;Educating Human Capital&#34;) for your full annotation.</div>
+            <div class="wp-bring">◆ Milestone 1 due before class this week.</div>
+          </div>
+        </div>
+
+        <div class="week-prompt-row wp-tbd">
+          <div class="wp-week">
+            <div class="wp-week-label">Weeks</div>
+            <div class="wp-week-num">6–15</div>
+            <div class="wp-week-text">Movement II &amp; III</div>
+          </div>
+          <div class="wp-body">
+            <div class="wp-reading">Federici · Fisher · Derrida · Haraway · Kelsky · Marcuse · Ghosh</div>
+            <div class="wp-prompt">Week-specific prompts for Weeks 6–15 will be posted in Moodle as session materials become available. The general annotation framework (quotes, summary, questions, reflection) applies every week. Check the course website and Moodle at the start of each week.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- READING LEAD -->
+    <div class="section-block" id="lead">
+      <h2 class="section-heading">Reading Lead Role</h2>
+      <p style="font-size:14px;color:var(--ink-soft);font-style:italic;margin-bottom:20px;">Starting Week 2, students take turns serving as Reading Lead for the session. Leading doesn&#39;t mean presenting — it means opening the conversation and making it possible for everyone to enter. Your job is to facilitate, not to lecture.</p>
+
+      <div class="lead-grid">
+        <div class="lead-card">
+          <div class="lead-card-title"><span class="lead-card-icon">📋</span> Before Class — In Perusall</div>
+          <ul>
+            <li>Annotate the week&#39;s readings more thoroughly than usual — your annotations model the depth you want from the group</li>
+            <li>Post a brief summary of the reading&#39;s core argument as a Perusall thread — this becomes the shared anchor for discussion</li>
+            <li>Post <strong>at least one discussion-starter thread</strong> with a question you&#39;re genuinely curious about — not one with a predetermined answer</li>
+            <li>Respond to at least <strong>two peer annotations</strong> — this signals that other people&#39;s thinking is being read</li>
+          </ul>
+        </div>
+        <div class="lead-card">
+          <div class="lead-card-title"><span class="lead-card-icon">🗣</span> During Class</div>
+          <ul>
+            <li>Open with a 5-minute summary of the reading — grounded in your Perusall summary, addressed to the group</li>
+            <li>Pose your Perusall question as the first discussion prompt — you&#39;ve already given everyone time to think about it</li>
+            <li>Guide, don&#39;t lecture. Your role is to make space for everyone&#39;s voice, especially quieter members</li>
+            <li>Wrap up with a synthesis: what&#39;s unresolved, what&#39;s been clarified, what carries forward</li>
+          </ul>
+        </div>
+        <div class="lead-card">
+          <div class="lead-card-title"><span class="lead-card-icon">💬</span> Things That Work</div>
+          <ul>
+            <li>&#34;Can someone build on what [name] just said?&#34;</li>
+            <li>&#34;I noticed several of us got stuck on X in Perusall — let&#39;s start there.&#34;</li>
+            <li>&#34;What&#39;s the most uncomfortable implication of this reading for your research?&#34;</li>
+            <li>Calling on people by name to invite quieter voices</li>
+            <li>Returning to the text when discussion gets too abstract</li>
+          </ul>
+        </div>
+        <div class="lead-card">
+          <div class="lead-card-title"><span class="lead-card-icon">🚫</span> Things to Avoid</div>
+          <ul>
+            <li>Reading your summary from notes without making eye contact</li>
+            <li>Asking yes/no questions</li>
+            <li>Letting the same 2–3 people dominate</li>
+            <li>Answering your own questions before anyone else can respond</li>
+            <li>Running over time — leave space for synthesis and transition</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="moodle-cta">
+        <div class="moodle-cta-text">
+          <strong>Sign up for your Reading Lead slot in Moodle — Week 1 or as soon as possible.</strong><br>
+          Each student leads once. Earlier slots fill fastest.
+        </div>
+        <a class="moodle-btn" href="https://moodle-courses.ncsu.edu" target="_blank" rel="noopener">Go to Moodle →</a>
+      </div>
+    </div>
+
+    <!-- GRADING -->
+    <div class="section-block" id="grading">
+      <h2 class="section-heading">What Counts as Strong — and What Doesn&#39;t</h2>
+      <p style="font-size:14px;color:var(--ink-soft);font-style:italic;margin-bottom:16px;">Perusall annotations are evaluated using threshold grading — the same framework as milestones. Kirsti reviews annotations directly in addition to Perusall&#39;s algorithm. Here is what she is looking for.</p>
+      <table class="rubric-table">
+        <thead>
+          <tr><th>Level</th><th>What It Looks Like</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="level-badge">Complete &amp; Substantive</div></td>
+            <td>Annotations demonstrate careful, committed reading. Passages are chosen for specific reasons. Comments analyze rather than summarize. Questions are genuinely open and show intellectual risk. Reflection connects the reading specifically to your research area or the course arc. Shows evidence of rereading or sitting with difficulty. The weekly-specific prompt has been engaged directly.</td>
+          </tr>
+          <tr>
+            <td><div class="level-badge">Nearly There</div></td>
+            <td>Meets the general numerical requirements but may stay at the surface of what the passage says rather than what it implies. Questions are present but answerable by re-reading. The specific weekly prompt may be addressed briefly rather than substantively. Reflection is generic (&#34;this is relevant to my research&#34;) rather than specific.</td>
+          </tr>
+          <tr>
+            <td><div class="level-badge">Developing</div></td>
+            <td>Annotations are technically present but thin: highlights without substantive comments, summary that paraphrases too closely, questions that could be answered by re-reading, reflection that doesn&#39;t connect to anything specific. The weekly prompt may not be addressed at all.</td>
+          </tr>
+          <tr>
+            <td><div class="level-badge">Not Yet Complete</div></td>
+            <td>No annotations submitted, or annotations submitted after class has met. Late annotations are accepted and will count toward your record, but they do not count toward the group&#39;s collective preparation. Reach out to Kirsti before the deadline if life circumstances are a factor — not after.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section-block" id="faq">
+      <h2 class="section-heading">Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-icon">Q</span> How long should my annotations be?</div>
+        <div class="faq-a">There&#39;s no word count requirement, but in practice a substantive annotation thread runs 300–500 words across all your comments. Shorter is fine if each comment is doing real intellectual work. Longer is fine if you&#39;re genuinely working through something. Perusall flags comments it considers too short automatically — if you&#39;re getting flags, the comments likely need more development, not more quantity.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-icon">Q</span> Should I respond to other students&#39; annotations?</div>
+        <div class="faq-a">Yes — especially as Reading Lead, but for everyone, responding to at least one peer annotation per reading builds the pre-class conversation. Short responses count: &#34;This is exactly what I was puzzling over — I&#39;d push further and ask...&#34; or &#34;I read this differently — I thought Benjamin meant...&#34; is substantial enough.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-icon">Q</span> The reading is extremely difficult and I don&#39;t understand most of it. What do I annotate?</div>
+        <div class="faq-a">Annotate your confusion — directly and specifically. &#34;I don&#39;t understand what Mbembe means by &#39;state of exception&#39; on p. 70 — is this Agamben&#39;s concept or something different? He uses it as though we should already know.&#34; That is a strong annotation. It locates a real problem and invites the class to work on it. The worst thing to do with a difficult text is to annotate only the parts you understood.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-icon">Q</span> I submitted my annotation late. Does it still count?</div>
+        <div class="faq-a">Late annotations are accepted and will count toward your overall labor record, but they do not contribute to the group&#39;s collective preparation for that session — because they weren&#39;t there when everyone needed them. If circumstances are affecting your ability to annotate on time, contact Kirsti before the deadline. Patterns of late submission without communication will factor into your final assessment.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-icon">Q</span> How do I access Perusall?</div>
+        <div class="faq-a">Through the Moodle course page at <a href="https://moodle-courses.ncsu.edu" target="_blank">moodle-courses.ncsu.edu</a>, or directly at <a href="https://app.perusall.com" target="_blank">app.perusall.com</a>. Your course join code is in the Week 1 Moodle module. If you have trouble accessing a reading, email <a href="mailto:kkcole2@ncsu.edu">kkcole2@ncsu.edu</a> and do not wait until class day.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q"><span class="faq-q-icon">Q</span> Can I annotate in a language other than English?</div>
+        <div class="faq-a">Yes. If thinking in another language helps you engage more deeply with a text, do it. Kirsti reads Spanish and can work with other languages via translation tools. The goal is genuine intellectual engagement, not English performance. Note in your annotation that you&#39;re writing in another language so your classmates can engage with it too (translations welcome but not required).</div>
+      </div>
+
+    </div>
+  </div><!-- /page -->
+</div><!-- /main -->
+</body>
+</html>

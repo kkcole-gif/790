@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submissions &amp; Google Drive — CRDM 790 Spring 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F5F0E8;
+  --surface:  #EDE8DC;
+  --surface2: #E4DDD0;
+  --ink:      #1C1410;
+  --ink-mid:  #4A3F35;
+  --ink-soft: #8B7A60;
+  --border:   #D9D0C4;
+  --gold:     #C9A84C;
+  --amber:    #E8B84B;
+  --sidebar-bg:     #1C1410;
+  --sidebar-text:   #F0E6CC;
+  --sidebar-muted:  #7A6C62;
+  --sidebar-hover:  #2E231C;
+  --sidebar-active: #3D2B1A;
+  --sidebar-accent: #C9A84C;
+  --shadow:   0 2px 12px rgba(0,0,0,0.07);
+  --m1: #7B6FD8; --m1-bg: rgba(123,111,216,0.08); --m1-border: rgba(123,111,216,0.3);
+  --m2: #C9943A; --m2-bg: rgba(201,148,58,0.08);  --m2-border: rgba(201,148,58,0.3);
+  --m3: #4A7C6F; --m3-bg: rgba(74,124,111,0.08);  --m3-border: rgba(74,124,111,0.3);
+  --m4: #B5352A; --m4-bg: rgba(181,53,42,0.08);   --m4-border: rgba(181,53,42,0.3);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'EB Garamond', Georgia, serif;
+  --font-mono:    'Inconsolata', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--ink); display: flex; min-height: 100vh; line-height: 1.7; }
+
+/* SIDEBAR */
+.sidebar { width: 240px; min-width: 240px; background: var(--sidebar-bg); color: var(--sidebar-text); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 100; }
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: #4A3A2E; border-radius: 2px; }
+.sidebar-header { padding: 28px 20px 20px; border-bottom: 1px solid #2E231C; }
+.sidebar-course { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sidebar-accent); margin-bottom: 6px; }
+.sidebar-title { font-family: var(--font-display); font-size: 15px; line-height: 1.4; color: var(--sidebar-text); font-weight: 600; }
+.sidebar-sub { font-size: 11px; color: var(--sidebar-muted); margin-top: 4px; }
+.sidebar-section-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sidebar-muted); padding: 14px 20px 6px; }
+.sidebar-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; cursor: pointer; transition: background 0.15s; border-left: 2px solid transparent; text-decoration: none; color: var(--sidebar-text); font-size: 13px; }
+.sidebar-link:hover { background: var(--sidebar-hover); }
+.sidebar-link.active { background: var(--sidebar-active); border-left-color: var(--sidebar-accent); }
+.sidebar-link-icon { font-size: 14px; min-width: 18px; text-align: center; }
+
+/* MAIN */
+.main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.topbar { background: var(--bg); border-bottom: 1px solid var(--border); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.topbar-breadcrumb { font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); letter-spacing: 0.06em; }
+.topbar-back { font-family: var(--font-mono); font-size: 11px; color: #C9943A; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: opacity 0.15s; }
+.topbar-back:hover { opacity: 0.7; }
+
+/* PAGE */
+.page { padding: 48px 44px 80px; max-width: 920px; }
+.page-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+.page-heading { font-family: var(--font-display); font-size: 38px; font-weight: 700; line-height: 1.15; color: var(--ink); margin-bottom: 12px; }
+.page-heading em { font-style: italic; color: #C9943A; }
+.page-intro { font-family: var(--font-body); font-size: 15px; color: var(--ink-mid); max-width: 700px; line-height: 1.75; margin-bottom: 40px; }
+
+/* SECTION */
+.section-block { margin-bottom: 56px; }
+.section-heading { font-family: var(--font-display); font-size: 26px; font-weight: 600; color: var(--ink); padding-bottom: 12px; border-bottom: 1.5px solid var(--border); margin-bottom: 20px; scroll-margin-top: 80px; }
+
+/* DRIVE HERO */
+.drive-hero {
+  background: var(--ink);
+  border-radius: 10px;
+  padding: 28px 32px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.drive-icon { font-size: 3rem; flex-shrink: 0; }
+.drive-text { flex: 1; }
+.drive-title { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--amber); margin-bottom: 4px; }
+.drive-desc { font-family: var(--font-body); font-size: 0.95rem; color: rgba(240,230,204,0.7); line-height: 1.55; margin-bottom: 14px; }
+.drive-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--ink); text-decoration: none;
+  border-radius: 24px; padding: 10px 22px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; transition: background 0.15s; white-space: nowrap;
+}
+.drive-btn:hover { background: var(--amber); }
+.drive-instructions {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 28px;
+}
+.drive-step { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; box-shadow: var(--shadow); }
+.drive-step-num { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 6px; }
+.drive-step-title { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.drive-step-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+/* SUBMISSION OPTIONS STRIP */
+.sub-options { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.sub-option { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; box-shadow: var(--shadow); font-size: 13px; color: var(--ink-mid); display: flex; align-items: center; gap: 8px; }
+.sub-option-icon { font-size: 16px; }
+.sub-option strong { color: var(--ink); }
+
+/* MILESTONE CARDS */
+.milestone-block { background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); margin-bottom: 24px; }
+.milestone-block-header { display: flex; align-items: center; gap: 16px; padding: 18px 24px; border-bottom: 1px solid var(--border); }
+.m1 .milestone-block-header { background: var(--m1-bg); border-bottom-color: var(--m1-border); }
+.m2 .milestone-block-header { background: var(--m2-bg); border-bottom-color: var(--m2-border); }
+.m3 .milestone-block-header { background: var(--m3-bg); border-bottom-color: var(--m3-border); }
+.m4 .milestone-block-header { background: var(--m4-bg); border-bottom-color: var(--m4-border); }
+.m-badge { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; white-space: nowrap; flex-shrink: 0; }
+.m1 .m-badge { background: var(--m1-bg); color: var(--m1); border: 1px solid var(--m1-border); }
+.m2 .m-badge { background: var(--m2-bg); color: var(--m2); border: 1px solid var(--m2-border); }
+.m3 .m-badge { background: var(--m3-bg); color: var(--m3); border: 1px solid var(--m3-border); }
+.m4 .m-badge { background: var(--m4-bg); color: var(--m4); border: 1px solid var(--m4-border); }
+.m-header-text { flex: 1; }
+.m-title-main { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--ink); }
+.m-title-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--ink-soft); margin-top: 2px; }
+.m-pct { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; margin-left: auto; flex-shrink: 0; }
+.m1 .m-pct { color: var(--m1); }
+.m2 .m-pct { color: var(--m2); }
+.m3 .m-pct { color: var(--m3); }
+.m4 .m-pct { color: var(--m4); }
+.milestone-block-body { padding: 20px 24px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; }
+.m-body-desc { font-family: var(--font-body); font-size: 14px; color: var(--ink-mid); line-height: 1.7; margin-bottom: 14px; }
+.m-what-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+.m-what-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.m-what-list li { display: flex; gap: 8px; font-size: 13.5px; color: var(--ink-mid); line-height: 1.45; }
+.m-what-list li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+.m-threshold { display: flex; flex-direction: column; gap: 8px; }
+.m-threshold-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2px; }
+.th-row { display: flex; gap: 8px; align-items: flex-start; }
+.th-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; padding: 3px 8px; border-radius: 2px; flex-shrink: 0; white-space: nowrap; }
+.th-complete  { background: rgba(74,124,111,0.12); color: #3D8B5E; border: 1px solid rgba(74,124,111,0.3); }
+.th-revision  { background: rgba(201,148,58,0.12); color: #8B6A30; border: 1px solid rgba(201,148,58,0.3); }
+.th-missing   { background: rgba(181,53,42,0.10); color: #B5352A; border: 1px solid rgba(181,53,42,0.25); }
+.th-desc { font-size: 12.5px; color: var(--ink-mid); line-height: 1.45; }
+.m-side { display: flex; flex-direction: column; gap: 14px; }
+.m-sub-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+.m-sub-box-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+.m-sub-option { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--ink-mid); padding: 5px 0; border-bottom: 1px solid var(--border); line-height: 1.4; }
+.m-sub-option:last-child { border-bottom: none; padding-bottom: 0; }
+.m-sub-option-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.m-due-box { border-radius: 8px; padding: 14px 16px; }
+.m1 .m-due-box { background: var(--m1-bg); border: 1px solid var(--m1-border); }
+.m2 .m-due-box { background: var(--m2-bg); border: 1px solid var(--m2-border); }
+.m3 .m-due-box { background: var(--m3-bg); border: 1px solid var(--m3-border); }
+.m4 .m-due-box { background: var(--m4-bg); border: 1px solid var(--m4-border); }
+.m-due-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; }
+.m-due-date { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--ink); }
+.m-due-note { font-size: 12px; color: var(--ink-soft); margin-top: 4px; font-style: italic; }
+.m-ai-note { background: var(--surface); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 10px 14px; font-size: 12.5px; color: var(--ink-mid); font-style: italic; line-height: 1.5; }
+.m-alt-note { background: rgba(74,124,111,0.07); border: 1px solid rgba(74,124,111,0.25); border-radius: 6px; padding: 10px 14px; font-size: 12.5px; color: #3D6B5E; line-height: 1.5; }
+
+/* GRADING OVERVIEW */
+.grading-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.grading-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px; box-shadow: var(--shadow); text-align: center; }
+.grading-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+.gc-complete .grading-label { color: #3D8B5E; }
+.gc-revision .grading-label  { color: #8B6A30; }
+.gc-missing .grading-label   { color: #B5352A; }
+.grading-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.55; }
+
+@media (max-width: 760px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .page { padding: 24px 20px 60px; }
+  .milestone-block-body { grid-template-columns: 1fr; }
+  .drive-instructions { grid-template-columns: 1fr; }
+  .grading-grid { grid-template-columns: 1fr; }
+  .drive-hero { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-course">CRDM 790 · Spring 2027</div>
+    <div class="sidebar-title">Issues in Communication, Rhetoric &amp; Digital Media</div>
+    <div class="sidebar-sub">Kirsti K. Cole · NC State</div>
+  </div>
+  <div class="sidebar-section-label">Pages</div>
+  <a class="sidebar-link" href="index.html"><span class="sidebar-link-icon">⌂</span> Course Website</a>
+  <a class="sidebar-link active" href="CRDM790_Submissions.html"><span class="sidebar-link-icon">📁</span> Submissions &amp; Google Drive</a>
+  <a class="sidebar-link" href="CRDM790_Perusall.html"><span class="sidebar-link-icon">📖</span> Perusall Annotation Guide</a>
+  <div class="sidebar-section-label">Milestones</div>
+  <a class="sidebar-link" href="#m1"><span class="sidebar-link-icon">①</span> M1 — Scholarly Identity</a>
+  <a class="sidebar-link" href="#m2"><span class="sidebar-link-icon">②</span> M2 — Exam List</a>
+  <a class="sidebar-link" href="#m3"><span class="sidebar-link-icon">③</span> M3 — Committee</a>
+  <a class="sidebar-link" href="#m4"><span class="sidebar-link-icon">④</span> M4 — Prospectus</a>
+  <div class="sidebar-section-label">Quick Links</div>
+  <a class="sidebar-link" href="https://drive.google.com/drive/folders/11b2tBd6zBeLkuu-aV2_smhfBx9rEBcx3?usp=sharing" target="_blank" rel="noopener"><span class="sidebar-link-icon">📂</span> Open Google Drive Folder</a>
+  <a class="sidebar-link" href="https://moodle-courses.ncsu.edu" target="_blank" rel="noopener"><span class="sidebar-link-icon">🔗</span> Moodle Course Page</a>
+  <a class="sidebar-link" href="https://calendar.app.google/pgZeqTD9Kd9ZxBPX7" target="_blank" rel="noopener"><span class="sidebar-link-icon">📅</span> Office Hours</a>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-breadcrumb">CRDM 790 · Spring 2027 → Submissions &amp; Google Drive</div>
+    <a class="topbar-back" href="index.html">← Back to Course Website</a>
+  </div>
+
+  <div class="page">
+    <div class="page-tag">CRDM 790 · Spring 2027 · Kirsti K. Cole</div>
+    <h1 class="page-heading">Submissions &amp; <em>Google Drive</em></h1>
+    <p class="page-intro">All four milestones can be submitted through Moodle, email, or the shared Google Drive folder — whichever format works best for you. This page covers what to submit for each milestone, how to submit it, and what the evaluation criteria are. If any submission format creates a barrier, contact Kirsti before the deadline.</p>
+
+    <!-- DRIVE HERO -->
+    <div class="section-block" id="drive">
+      <h2 class="section-heading">Google Drive — Shared Course Folder</h2>
+      <div class="drive-hero">
+        <div class="drive-icon">📂</div>
+        <div class="drive-text">
+          <div class="drive-title">CRDM 790 Spring 2027 — Shared Google Drive Folder</div>
+          <div class="drive-desc">The shared Google Drive folder is available for milestone submissions and course materials. Request edit access when you open it for the first time. Use your NC State Google account (@ncsu.edu) to ensure access is granted.</div>
+          <a class="drive-btn" href="https://drive.google.com/drive/folders/11b2tBd6zBeLkuu-aV2_smhfBx9rEBcx3?usp=sharing" target="_blank" rel="noopener">📂 Open Google Drive Folder →</a>
+        </div>
+      </div>
+
+      <div class="drive-instructions">
+        <div class="drive-step">
+          <div class="drive-step-num">1</div>
+          <div class="drive-step-title">Open the folder</div>
+          <div class="drive-step-desc">Click the link above or the sidebar link. Sign in with your NC State Google account (NetID@ncsu.edu).</div>
+        </div>
+        <div class="drive-step">
+          <div class="drive-step-num">2</div>
+          <div class="drive-step-title">Find your subfolder</div>
+          <div class="drive-step-desc">There is a subfolder for each milestone. Place your submission in the correct milestone folder with a clear filename: <em>LastName_M1.pdf</em></div>
+        </div>
+        <div class="drive-step">
+          <div class="drive-step-num">3</div>
+          <div class="drive-step-title">Confirm access</div>
+          <div class="drive-step-desc">After uploading, verify the file is visible. If you have access issues, email <a href="mailto:kkcole2@ncsu.edu" style="color:#C9943A;">kkcole2@ncsu.edu</a> — do not wait until class day.</div>
+        </div>
+      </div>
+
+      <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:16px 20px;box-shadow:var(--shadow);font-size:13.5px;color:var(--ink-mid);line-height:1.65;">
+        <strong style="color:var(--ink);">All submission formats are equally accepted.</strong> Google Drive, Moodle upload, email attachment, or hard copy before class — whichever works for you is fine. There is no penalty for any of these formats. If you are uncertain whether a particular format will work, email Kirsti before the deadline.
+      </div>
+    </div>
+
+    <!-- GRADING FRAMEWORK -->
+    <div class="section-block" id="grading">
+      <h2 class="section-heading">How Milestones Are Graded</h2>
+      <p style="font-size:14px;color:var(--ink-soft);font-style:italic;margin-bottom:16px;">All milestones use threshold grading — not a point rubric. Each milestone is evaluated as one of three levels. The aim is honest, direct assessment of intellectual work without the distortion of partial-credit arithmetic.</p>
+      <div class="grading-grid">
+        <div class="grading-card gc-complete">
+          <div class="grading-label">Complete &amp; Substantive</div>
+          <div class="grading-desc">The work fully meets the milestone&#39;s intellectual and formal requirements. Demonstrates genuine engagement, specificity, and the intellectual work the milestone asks for. This is the expected outcome for work submitted on time with honest effort.</div>
+        </div>
+        <div class="grading-card gc-revision">
+          <div class="grading-label">Nearly There / In Revision</div>
+          <div class="grading-desc">The work is present and engaged but has one or more elements that are underdeveloped, generic, or not yet meeting the intellectual bar. Revision is expected. Kirsti will indicate specifically what needs to change.</div>
+        </div>
+        <div class="grading-card gc-missing">
+          <div class="grading-label">Not Yet Complete</div>
+          <div class="grading-desc">Not submitted, or does not meet minimum expectations for doctoral-level work. Please come talk to Kirsti — not after the deadline, before it if you see it coming. The conversation is the intervention.</div>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:13.5px;color:var(--ink-mid);line-height:1.65;">
+        <strong style="color:var(--ink);">On revision:</strong> A "Nearly There" evaluation is not a failure — it is an accurate description of where the work is, with a clear path forward. Milestones revised to "Complete &amp; Substantive" level receive full credit for that milestone. The revision deadline is agreed upon individually.
+      </div>
+    </div>
+
+    <!-- M1 -->
+    <div class="section-block milestone-block m1" id="m1">
+      <div class="milestone-block-header">
+        <span class="m-badge">Milestone 1</span>
+        <div class="m-header-text">
+          <div class="m-title-main">Scholarly Identity Statement</div>
+          <div class="m-title-meta">Movement I · ~500 words · Due before class, Week 5</div>
+        </div>
+        <div class="m-pct">20%</div>
+      </div>
+      <div class="milestone-block-body">
+        <div>
+          <p class="m-body-desc">Not a CV summary. A statement of intellectual purpose, written in your own voice — what questions drive you, what animates your research, and why any of it matters. This is harder than it sounds, and that difficulty is the point.</p>
+          <div class="m-what-label">What to submit</div>
+          <ul class="m-what-list">
+            <li>~500 words answering: Who are you as a scholar? What do you care about, and why does it matter?</li>
+            <li>Written from conviction, not for a committee — it should sound like you wrote it</li>
+            <li>A stranger should not be able to have written this statement; it should be distinctly yours</li>
+          </ul>
+          <div class="m-threshold">
+            <div class="m-threshold-title">Threshold criteria</div>
+            <div class="th-row"><span class="th-label th-complete">Complete</span><span class="th-desc">Genuine intellectual purpose; articulates why the research matters; goes beyond CV summary; written with conviction and specificity.</span></div>
+            <div class="th-row" style="margin-top:6px;"><span class="th-label th-revision">Revision</span><span class="th-desc">Reads as written for a committee rather than from conviction; stakes are unclear; or reads like a topic list rather than a purpose statement.</span></div>
+          </div>
+          <div class="m-ai-note" style="margin-top:14px;">AI may be used for brainstorming or light editing. The substance must be yours — your voice, your convictions. A statement written by AI cannot do what this milestone asks. Its purpose is to surface what you actually think and want.</div>
+        </div>
+        <div class="m-side">
+          <div class="m-due-box">
+            <div class="m-due-label">Due</div>
+            <div class="m-due-date">Before class · Week 5</div>
+            <div class="m-due-note">Submit by the time class begins. Late submissions accepted; contact Kirsti if circumstances arise.</div>
+          </div>
+          <div class="m-sub-box">
+            <div class="m-sub-box-title">Submission options</div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📂</span><span><strong>Google Drive</strong> — upload to the M1 subfolder as <em>LastName_M1.pdf</em></span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">🖥</span><span><strong>Moodle</strong> — upload PDF, Word, or plain text via the course page</span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📧</span><span><strong>Email</strong> — send to kkcole2@ncsu.edu</span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📄</span><span><strong>Hard copy</strong> — bring before class begins</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M2 -->
+    <div class="section-block milestone-block m2" id="m2">
+      <div class="milestone-block-header">
+        <span class="m-badge">Milestone 2</span>
+        <div class="m-header-text">
+          <div class="m-title-main">Draft Comprehensive Exam List</div>
+          <div class="m-title-meta">Movement II · Two parts · Due before class, Week 8</div>
+        </div>
+        <div class="m-pct">25%</div>
+      </div>
+      <div class="milestone-block-body">
+        <div>
+          <p class="m-body-desc">Building your exam list is one of the most significant intellectual acts of doctoral training. It is not a catalog of what your field values — it is an argument about what you value and what your project needs. The draft workshopped in Week 8 does not need to be complete. It needs to be real.</p>
+          <div class="m-what-label">What to submit — Two required parts</div>
+          <ul class="m-what-list">
+            <li><strong>Part 1 — Draft Exam List:</strong> Working draft with full citations, organized by your own intellectual logic (theme, method, genealogy, period, or combination). Lists in CRDM typically run 50–80 texts across all areas. The organizing structure matters more than total number at this stage.</li>
+            <li><strong>Part 2 — Rationale Paragraph:</strong> One substantive paragraph arguing why these texts, in this configuration, are the right preparation for this project. Not a description of what you included — an argument.</li>
+          </ul>
+          <div class="m-threshold">
+            <div class="m-threshold-title">Threshold criteria</div>
+            <div class="th-row"><span class="th-label th-complete">Complete</span><span class="th-desc">Clear intellectual organizing logic. Rationale argues rather than describes. Demonstrates awareness of inclusions, exclusions, and why. Substantive enough to workshop.</span></div>
+            <div class="th-row" style="margin-top:6px;"><span class="th-label th-revision">Revision</span><span class="th-desc">Rationale describes rather than argues; organizing logic is unclear or unreflective; no acknowledgment of gaps or choices.</span></div>
+          </div>
+          <div class="m-alt-note" style="margin-top:14px;">🔁 <strong>Workshop note:</strong> Your draft will be peer-reviewed in class during Week 8. Revision is expected before Week 10. Submitting a rough draft is fine — submitting nothing is not. The workshop cannot work without your list.</div>
+        </div>
+        <div class="m-side">
+          <div class="m-due-box">
+            <div class="m-due-label">Due</div>
+            <div class="m-due-date">Before class · Week 8</div>
+            <div class="m-due-note">Bring a print copy to class for the workshop in addition to your digital submission.</div>
+          </div>
+          <div class="m-sub-box">
+            <div class="m-sub-box-title">Submission options</div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📂</span><span><strong>Google Drive</strong> — M2 subfolder as <em>LastName_M2.pdf</em></span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">🖥</span><span><strong>Moodle</strong> — PDF, Word, or plain text</span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📧</span><span><strong>Email</strong> — kkcole2@ncsu.edu</span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📄</span><span><strong>Print copy</strong> — bring to class (plus Moodle upload if possible)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M3 -->
+    <div class="section-block milestone-block m3" id="m3">
+      <div class="milestone-block-header">
+        <span class="m-badge">Milestone 3</span>
+        <div class="m-header-text">
+          <div class="m-title-main">Committee Confirmation</div>
+          <div class="m-title-meta">Movement II · One of two options · Due Week 10 (individual meetings week)</div>
+        </div>
+        <div class="m-pct">15%</div>
+      </div>
+      <div class="milestone-block-body">
+        <div>
+          <p class="m-body-desc">Forming your committee is not only an administrative step — it is the beginning of a sustained intellectual relationship. The people you ask will shape your project and your relationship to the field for years. This milestone makes the process real, not just planned.</p>
+          <div class="m-what-label">Submit one of two options</div>
+          <ul class="m-what-list">
+            <li><strong>Option A — Email confirmation from your chair:</strong> Forward or paste the email confirming their willingness to serve. Even a brief reply ("Yes, I&#39;m on board") is sufficient. Your chair is the most important committee relationship; this option confirms you have made that contact real.</li>
+            <li><strong>Option B — Written plan with named faculty and timeline:</strong> If your chair has not yet formally confirmed, submit a plan that includes: named faculty for each position, current status of each conversation (have asked / waiting / planning to ask by [specific date]), and a realistic timeline for completing committee assembly.</li>
+          </ul>
+          <div class="m-threshold">
+            <div class="m-threshold-title">Threshold criteria</div>
+            <div class="th-row"><span class="th-label th-complete">Complete</span><span class="th-desc">Chair confirmed (Option A), or written plan with named faculty, current status of each conversation, and a specific, realistic timeline (Option B).</span></div>
+            <div class="th-row" style="margin-top:6px;"><span class="th-label th-revision">Revision</span><span class="th-desc">Plan submitted but faculty are unnamed, or timeline is vague or not credible. Shows committee formation has not begun in any real way.</span></div>
+          </div>
+          <div class="m-alt-note" style="margin-top:14px;">🙋 <strong>If you&#39;re running into obstacles</strong> — faculty haven&#39;t responded, you&#39;re uncertain who to ask, you&#39;re navigating a difficult advising dynamic — flag it in your submission and raise it in your Week 10 individual meeting. Do not wait. The individual meeting is precisely the time to problem-solve. Silence is the one thing that cannot help you here.</div>
+        </div>
+        <div class="m-side">
+          <div class="m-due-box">
+            <div class="m-due-label">Due</div>
+            <div class="m-due-date">Week 10 — individual meetings week</div>
+            <div class="m-due-note">You may bring documentation to your individual meeting in lieu of a separate submission.</div>
+          </div>
+          <div class="m-sub-box">
+            <div class="m-sub-box-title">Submission options</div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📂</span><span><strong>Google Drive</strong> — M3 subfolder</span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">🖥</span><span><strong>Moodle</strong> — paste as online text, upload doc, or attach forwarded email</span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📧</span><span><strong>Email</strong> — kkcole2@ncsu.edu</span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">🤝</span><span><strong>Bring to your individual meeting</strong> — documentation in hand counts</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M4 -->
+    <div class="section-block milestone-block m4" id="m4">
+      <div class="milestone-block-header">
+        <span class="m-badge">Milestone 4</span>
+        <div class="m-header-text">
+          <div class="m-title-main">Dissertation Prospectus (or Equivalent)</div>
+          <div class="m-title-meta">Movement III · Workshop draft: night before Wk 14 · Final: one week after Wk 15</div>
+        </div>
+        <div class="m-pct">40%</div>
+      </div>
+      <div class="milestone-block-body">
+        <div>
+          <p class="m-body-desc">The most consequential document you will write before the dissertation itself. Not a summary of what you plan to do — an argument that there is a real problem worth investigating, that you are positioned to investigate it, and that you have a principled method for doing so. A strong prospectus does intellectual work; it does not just describe work to be done.</p>
+          <div class="m-what-label">Four interconnected elements (no required structure)</div>
+          <ul class="m-what-list">
+            <li><strong>The Problem:</strong> What question are you asking, and why does it matter? Names the specific phenomenon, tension, or gap — not "I am studying social media" but what your project addresses and why it is consequential.</li>
+            <li><strong>The Conversation:</strong> Who has addressed this before, and what does your project do differently? Not a literature review — a visible account of the intellectual conversation your dissertation enters, and your position within it.</li>
+            <li><strong>The Method:</strong> How will you pursue this question, and why is that the right approach? Justifies the method, does not just name it. Explains how the method produces the kind of knowledge your question requires.</li>
+            <li><strong>The Stakes:</strong> Why does this matter — to scholars, yes, but also beyond the discipline? Goes further than "this will contribute to the literature."</li>
+          </ul>
+          <div class="m-threshold">
+            <div class="m-threshold-title">Threshold criteria</div>
+            <div class="th-row"><span class="th-label th-complete">Complete</span><span class="th-desc">Clear problem statement; genuinely situated in existing scholarship; methodology justified (not just named); stakes articulated beyond the field. Shows independent thinking and forward momentum.</span></div>
+            <div class="th-row" style="margin-top:6px;"><span class="th-label th-revision">Revision</span><span class="th-desc">One or more core elements underdeveloped — problem present but method unjustified, stakes described but not developed, or workshop draft was incomplete.</span></div>
+          </div>
+          <div class="m-alt-note" style="margin-top:14px;">🔄 <strong>Non-traditional option:</strong> If your post-degree goals are primarily non-academic, your prospectus may take the form of a public-facing research proposal or professional research agenda. Same rigor, differently difficult. Talk to Kirsti before Week 11 to discuss format.</div>
+          <div class="m-ai-note" style="margin-top:10px;">AI may be used for brainstorming or editing. Problem framing, scholarly situatedness, methodological argument, and stakes articulation must be yours.</div>
+        </div>
+        <div class="m-side">
+          <div class="m-due-box">
+            <div class="m-due-label">Workshop draft due</div>
+            <div class="m-due-date">11:59 PM — night before Week 14</div>
+            <div class="m-due-note">Include a director&#39;s note (separate page): What are you most uncertain about? What do you most need feedback on? What feels strong?</div>
+          </div>
+          <div class="m-due-box" style="margin-top:12px;">
+            <div class="m-due-label">Final version due</div>
+            <div class="m-due-date">One week after Week 15</div>
+            <div class="m-due-note">Revised based on workshop feedback and individual conversations.</div>
+          </div>
+          <div class="m-sub-box">
+            <div class="m-sub-box-title">Submission options</div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📂</span><span><strong>Google Drive</strong> — M4 subfolder, or share a Drive link</span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">🖥</span><span><strong>Moodle</strong> — PDF or Word preferred</span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📧</span><span><strong>Email</strong> — kkcole2@ncsu.edu</span></div>
+            <div class="m-sub-option"><span class="m-sub-option-icon">📄</span><span><strong>Print copies</strong> — bring enough for small group (workshop only)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page -->
+</div><!-- /main -->
+</body>
+</html>
