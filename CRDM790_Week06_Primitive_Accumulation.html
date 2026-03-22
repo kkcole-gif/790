@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 6 · Primitive Accumulation and the Labor of Knowledge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night:   #0E0804;
+    --deep:    #160D06;
+    --ink:     #1C1209;
+    --accent:  #C17A2A;
+    --accent2: #E8A255;
+    --rust:    #A04A1A;
+    --parch:   #F5ECD8;
+    --muted:   rgba(245,236,216,0.55);
+    --bg-card: rgba(245,236,216,0.04);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'EB Garamond', Georgia, serif;
+    --font-mono:    'Inconsolata', monospace;
+  }
+
+  #slide-1 { background: radial-gradient(ellipse at 30% 60%, #2A1206 0%, #0E0804 65%); }
+  #slide-2 { background: var(--deep); }
+  #slide-3 { background: var(--ink); }
+  #slide-4 { background: var(--deep); }
+  #slide-5 { background: #120C08; }
+  #slide-6 { background: var(--ink); }
+  #slide-7 { background: var(--deep); }
+  #slide-8 { background: var(--night); }
+
+  /* ── MOVEMENT II BANNER ── */
+  .mvmt-band {
+    border-left: 4px solid var(--accent);
+    padding-left: 1.4rem;
+    margin-bottom: 3rem;
+  }
+  .mvmt-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; letter-spacing: 0.26em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .mvmt-sub {
+    font-family: var(--font-body); font-size: 0.95rem;
+    font-style: italic; color: rgba(245,236,216,0.38);
+  }
+  .title-big {
+    font-family: var(--font-display);
+    font-size: clamp(3rem,6vw,5.5rem); font-weight: 700;
+    line-height: 1.0; color: var(--parch);
+    margin: 2.5rem 0 0.5rem;
+  }
+  .title-big em { color: var(--accent2); font-style: italic; }
+  .title-week {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    letter-spacing: 0.2em; color: rgba(245,236,216,0.22);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── NOTE BANNER ── */
+  .note-banner {
+    background: rgba(193,122,42,0.1); border: 1px solid rgba(193,122,42,0.28);
+    border-radius: 3px; padding: 0.7rem 1.2rem;
+    display: flex; gap: 0.8rem; align-items: flex-start;
+    margin-bottom: 1.1rem;
+  }
+  .note-banner .nb-icon { font-size: 1rem; flex-shrink: 0; }
+  .note-banner p { font-family: var(--font-body); font-size: 0.93rem; color: rgba(232,162,85,0.88); font-style: italic; line-height: 1.5; }
+
+  /* ── PROMPT BOX ── */
+  .prompt-box {
+    background: rgba(193,122,42,0.08); border: 1px solid rgba(193,122,42,0.25);
+    border-left: 4px solid var(--accent); border-radius: 4px;
+    padding: 1.3rem 1.6rem; margin-bottom: 1rem;
+  }
+  .prompt-box .pb-label {
+    font-family: var(--font-mono); font-size: 0.6rem;
+    letter-spacing: 0.18em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .prompt-box p, .prompt-box li {
+    font-family: var(--font-body); font-size: 1rem;
+    color: rgba(245,236,216,0.82); line-height: 1.65;
+  }
+  .prompt-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .prompt-box ul li::before { content: '·'; color: var(--accent); margin-right: 0.5rem; }
+
+  /* ── CANON AUDIT ACTIVITY ── */
+  .audit-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    margin-top: 0.8rem; flex: 1;
+  }
+  .audit-col { display: flex; flex-direction: column; gap: 0.75rem; }
+  .audit-step {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: var(--bg-card); border: 1px solid rgba(245,236,216,0.07);
+    border-radius: 4px; padding: 0.9rem 1.1rem;
+    cursor: pointer; transition: all 0.25s;
+    opacity: 0.55;
+  }
+  .audit-step.current {
+    opacity: 1; border-color: var(--accent);
+    background: rgba(193,122,42,0.1);
+  }
+  .audit-step.done {
+    opacity: 0.8; border-color: rgba(193,122,42,0.3);
+  }
+  .audit-step.done .as-num { color: rgba(193,122,42,0.5); }
+  .as-num {
+    font-family: var(--font-display); font-size: 1.6rem;
+    font-weight: 700; color: var(--accent); line-height: 1;
+    flex-shrink: 0; width: 2rem;
+  }
+  .as-body { flex: 1; }
+  .as-title {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    letter-spacing: 0.14em; color: var(--accent2);
+    text-transform: uppercase; margin-bottom: 0.3rem;
+  }
+  .as-body p {
+    font-family: var(--font-body); font-size: 0.95rem;
+    color: rgba(245,236,216,0.78); line-height: 1.5;
+  }
+  .audit-nav {
+    display: flex; gap: 0.8rem; margin-top: 0.9rem;
+    align-items: center; justify-content: center;
+  }
+  .audit-btn {
+    font-family: var(--font-mono); font-size: 0.68rem;
+    letter-spacing: 0.14em; color: var(--parch);
+    background: rgba(193,122,42,0.14); border: 1px solid var(--accent);
+    padding: 0.45rem 1.2rem; cursor: pointer;
+    border-radius: 2px; transition: all 0.2s; text-transform: uppercase;
+  }
+  .audit-btn:hover { background: rgba(193,122,42,0.28); }
+  .audit-status {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    color: rgba(245,236,216,0.3); letter-spacing: 0.1em;
+  }
+
+  /* ── Q CARDS ── */
+  .q-grid { display: flex; flex-direction: column; gap: 0.8rem; flex: 1; }
+  .q-card {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    background: var(--bg-card); border: 1px dashed rgba(245,236,216,0.1);
+    border-radius: 4px; padding: 1rem 1.4rem;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.4s, transform 0.4s;
+    cursor: pointer; user-select: none;
+  }
+  .q-card:not(.revealed):hover { border-color: var(--accent); background: rgba(193,122,42,0.06); }
+  .q-card.revealed { opacity: 1; transform: translateY(0); cursor: default; border-style: solid; border-color: rgba(245,236,216,0.07); }
+  .q-card.revealed:hover { background: rgba(245,236,216,0.04); }
+  .q-num {
+    font-family: var(--font-display); font-size: 1.9rem;
+    font-weight: 700; color: var(--accent); opacity: 0.28;
+    line-height: 1; flex-shrink: 0; width: 2.2rem;
+  }
+  .q-card.revealed .q-num { opacity: 1; }
+  .q-body { font-family: var(--font-body); font-size: 1.02rem; line-height: 1.55; color: var(--parch); }
+  .q-sub { display: block; font-style: italic; color: rgba(245,236,216,0.42); font-size: 0.9rem; margin-top: 0.2rem; }
+  .reveal-btn {
+    display: flex; align-items: center; gap: 0.6rem;
+    margin: 1rem auto 0; font-family: var(--font-mono); font-size: 0.68rem;
+    letter-spacing: 0.16em; color: var(--accent);
+    background: rgba(245,236,216,0.04); border: 1px solid var(--accent);
+    opacity: 0.7; padding: 0.5rem 1.3rem; cursor: pointer;
+    border-radius: 2px; transition: all 0.2s; text-transform: uppercase;
+  }
+  .reveal-btn:hover { background: rgba(193,122,42,0.18); opacity: 1; }
+  .reveal-hint {
+    font-family: var(--font-mono); font-size: 0.62rem;
+    letter-spacing: 0.12em; color: rgba(245,236,216,0.22);
+    text-align: center; margin-top: 0.45rem;
+  }
+
+  /* ── READING BOX ── */
+  .reading-box {
+    background: var(--bg-card); border: 1px solid rgba(245,236,216,0.08);
+    border-left: 3px solid var(--accent); border-radius: 4px;
+    padding: 1.2rem 1.5rem; margin-bottom: 1rem;
+  }
+  .reading-box .rb-label {
+    font-family: var(--font-mono); font-size: 0.6rem;
+    letter-spacing: 0.18em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 0.45rem;
+  }
+  .reading-box p, .reading-box li {
+    font-family: var(--font-body); font-size: 0.99rem;
+    color: rgba(245,236,216,0.78); line-height: 1.6;
+  }
+  .reading-box ul { list-style: none; }
+  .reading-box ul li::before { content: '·'; color: var(--accent); margin-right: 0.5rem; }
+
+  /* ── FURTHER READING ── */
+  .fr-grid { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+  .fr-card {
+    display: flex; gap: 1rem; background: var(--bg-card);
+    border: 1px solid rgba(245,236,216,0.07); border-radius: 4px;
+    padding: 0.9rem 1.2rem; align-items: flex-start;
+  }
+  .fr-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .fr-body { flex: 1; }
+  .fr-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--parch); font-style: italic; margin-bottom: 0.2rem; }
+  .fr-author { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .fr-note { font-family: var(--font-body); font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── MILESTONE CARD ── */
+  .milestone-card {
+    background: rgba(160,74,26,0.1); border: 1px solid rgba(160,74,26,0.35);
+    border-radius: 6px; padding: 1.5rem 2rem;
+  }
+  .mc-badge {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    letter-spacing: 0.18em; color: var(--accent2);
+    text-transform: uppercase; margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .mc-badge::before { content: '◆'; font-size: 0.7rem; }
+  .mc-title { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; color: var(--parch); margin-bottom: 0.3rem; }
+  .mc-due { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 1rem; }
+  .mc-body { font-family: var(--font-body); font-size: 0.99rem; color: rgba(245,236,216,0.75); line-height: 1.6; }
+
+  /* ── MAP GRID (Session Map) ── */
+  .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1; }
+  .map-card {
+    background: var(--bg-card); border: 1px solid rgba(245,236,216,0.07);
+    border-radius: 4px; padding: 1.1rem 1.4rem;
+  }
+  .map-card .mc-label {
+    font-family: var(--font-mono); font-size: 0.6rem;
+    letter-spacing: 0.17em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .map-card p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  .map-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .map-card ul li { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.5; }
+  .map-card ul li::before { content: '·'; color: var(--accent); margin-right: 0.4rem; }
+
+  /* ── DISCUSSION ── */
+  .disc-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; flex: 1; }
+  .disc-col { display: flex; flex-direction: column; gap: 1rem; }
+  .writing-seed {
+    background: rgba(193,122,42,0.1); border: 1px solid rgba(193,122,42,0.3);
+    border-left: 4px solid var(--accent); border-radius: 4px;
+    padding: 1.1rem 1.4rem;
+  }
+  .writing-seed .ws-label {
+    font-family: var(--font-mono); font-size: 0.6rem;
+    letter-spacing: 0.15em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 0.4rem;
+  }
+  .writing-seed p { font-family: var(--font-display); font-size: 1.05rem; font-style: italic; color: var(--parch); line-height: 1.5; }
+
+  /* ── AHEAD CARD ── */
+  .ahead-grid { display: flex; flex-direction: column; gap: 0.9rem; flex: 1; }
+  .ahead-item {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    background: var(--bg-card); border: 1px solid rgba(245,236,216,0.07);
+    border-radius: 4px; padding: 1rem 1.3rem;
+  }
+  .ahead-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .ahead-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .ahead-item p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── SHARED STRUCTURE ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #deck { position: relative; z-index: 1; width: 100vw; height: 100vh; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+  .slide.active { opacity: 1; pointer-events: all; }
+  #nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 2rem; background: rgba(14,8,4,0.92); border-top: 1px solid rgba(193,122,42,0.18); backdrop-filter: blur(10px); }
+  #slide-dots { display: flex; gap: 0.45rem; align-items: center; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(193,122,42,0.2); cursor: pointer; transition: all 0.3s; }
+  .dot.active { background: var(--accent); transform: scale(1.5); }
+  .dot.visited { background: rgba(193,122,42,0.5); }
+  #nav-label { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(245,236,216,0.28); letter-spacing: 0.12em; margin-left: 1rem; }
+  .nav-btn { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--parch); background: rgba(193,122,42,0.1); border: 1px solid rgba(193,122,42,0.3); padding: 0.35rem 1rem; cursor: pointer; transition: all 0.2s; border-radius: 2px; }
+  .nav-btn:hover { background: rgba(193,122,42,0.22); border-color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  #slide-counter { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(245,236,216,0.28); }
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--rust), var(--accent), var(--accent2)); transition: width 0.4s ease; z-index: 50; }
+  .slide-header { padding: 1.1rem 4.5rem 0.9rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(245,236,216,0.06); flex-shrink: 0; }
+  .course-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: rgba(245,236,216,0.22); text-transform: uppercase; }
+  .week-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: var(--accent); opacity: 0.75; text-transform: uppercase; }
+  .slide-inner { flex: 1; padding: 2.6rem 4.5rem 4.8rem; display: flex; flex-direction: column; overflow: hidden; }
+  .slide-eyebrow { font-family: var(--font-mono); font-size: 0.69rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; }
+  .slide-eyebrow::before { content: ''; display: block; width: 1.8rem; height: 1px; background: var(--accent); opacity: 0.6; }
+  .slide-h1 { font-family: var(--font-display); font-size: clamp(2.3rem,4.2vw,3.4rem); font-weight: 700; line-height: 1.1; color: var(--parch); margin-bottom: 0.4rem; }
+  .slide-h1 em { font-style: italic; color: var(--accent2); }
+  .slide-h2 { font-family: var(--font-display); font-size: clamp(1.4rem,2.2vw,1.9rem); font-weight: 600; color: var(--parch); margin-bottom: 0.9rem; line-height: 1.2; }
+  .accent-rule { width: 3.5rem; height: 2px; background: linear-gradient(90deg,var(--accent),transparent); margin-bottom: 1.5rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation: fadeUp 0.48s ease forwards; }
+  .slide.active .slide-header { animation: fadeUp 0.48s ease 0.04s both; }
+  .help-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; }
+  .help-overlay.visible { display: flex; }
+  .help-box { background: #1C1209; border: 1px solid rgba(245,236,216,0.14); border-radius: 6px; padding: 2rem 2.5rem; max-width: 440px; width: 90%; }
+  .help-box h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--parch); }
+  .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(245,236,216,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(245,236,216,0.6); }
+  .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(245,236,216,0.08); border: 1px solid rgba(245,236,216,0.2); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
+  .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+
+<div id="deck">
+
+  <!-- ══ SLIDE 1: TITLE ══ -->
+  <div class="slide active" id="slide-1">
+    <div class="slide-inner" style="justify-content:center; padding: 4rem 6rem;">
+      <div class="mvmt-band">
+        <div class="mvmt-label">Movement II · Weeks 6–10</div>
+        <div class="mvmt-sub">What Do I Know and Who Helps Me Know It?</div>
+      </div>
+      <div class="title-big"><em>Primitive Accumulation</em><br>and the Labor<br>of Knowledge</div>
+      <div class="title-week">WEEK 6 &nbsp;·&nbsp; CRDM 790 &nbsp;·&nbsp; Spring 2027</div>
+      <div style="display:flex; flex-direction:column; gap:0.4rem; border-left:2px solid rgba(193,122,42,0.3); padding-left:1.2rem;">
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,236,216,0.45); font-style:italic;"><strong style="font-style:normal; color:rgba(245,236,216,0.7);">Primary text:</strong> Silvia Federici, <em>Caliban and the Witch</em></div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,236,216,0.45); font-style:italic;"><strong style="font-style:normal; color:rgba(245,236,216,0.7);">Activity:</strong> Canon Audit</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,236,216,0.45); font-style:italic;"><strong style="font-style:normal; color:rgba(245,236,216,0.7);">Instructor:</strong> Kirsti K. Cole</div>
+      </div>
+      <div style="position:absolute; top:1.5rem; right:5rem; font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; color:rgba(193,122,42,0.4); border:1px solid rgba(193,122,42,0.18); padding:0.28rem 0.65rem; border-radius:2px;">UDL COMPLIANT</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: SESSION MAP ══ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 6 · Movement II</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Session Map</div>
+      <h1 class="slide-h1">Today's Arc</h1>
+      <div class="accent-rule"></div>
+      <div class="map-grid">
+        <div class="map-card">
+          <div class="mc-label">📖 Primary Reading</div>
+          <ul>
+            <li>Silvia Federici, <em>Caliban and the Witch</em> — selected chapters</li>
+            <li>Reading available on Perusall</li>
+            <li>Bring your annotations — we start from your questions</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✏️ Pre-Class Writing</div>
+          <ul>
+            <li>First-pass exam list: 10 texts, one sentence each</li>
+            <li>Perusall annotation: find one place Federici speaks to your field</li>
+            <li>Bring both — we'll use them in the Canon Audit</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✦ Hands-On Activity</div>
+          <ul>
+            <li>Canon Audit — mapping the demographic shape of inherited fields</li>
+            <li>Large paper or whiteboard</li>
+            <li>Each person identifies one suppressed text to argue for</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">⚠️ Note</div>
+          <p>If course meets Tuesday, Wellness Day (Feb 16) falls this week. Asynchronous version on Moodle — complete before next class.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: PRE-CLASS PROMPT ══ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 6 · Pre-Class Writing</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before We Met</div>
+      <h1 class="slide-h1">Pre-Class <em>Writing Prompt</em></h1>
+      <div class="accent-rule"></div>
+      <div class="prompt-box">
+        <div class="pb-label">✏️ Task One — Begin Your Exam List</div>
+        <ul>
+          <li>Make a first-pass list of <strong>10 texts</strong> you are currently imagining on your comprehensive exam list.</li>
+          <li>Don't worry about getting it right — just get it on paper.</li>
+          <li>Include a <strong>one-sentence note</strong> about why each text belongs.</li>
+          <li>We will use this list in the Canon Audit today and at the Week 8 workshop.</li>
+        </ul>
+      </div>
+      <div class="prompt-box">
+        <div class="pb-label">✏️ Task Two — Perusall Annotation</div>
+        <p>Find <strong>one place in Federici</strong> that speaks specifically to your field. Write an annotation connecting her argument to a dynamic you recognize in your own research area. What does she reveal that your field has left unnamed?</p>
+      </div>
+      <div style="background:rgba(245,236,216,0.04); border:1px solid rgba(245,236,216,0.07); border-radius:4px; padding:0.9rem 1.2rem; margin-top:0.5rem;">
+        <p style="font-family:var(--font-body); font-size:0.93rem; color:rgba(245,236,216,0.5); font-style:italic; line-height:1.5;">Both tasks feed directly into today's Canon Audit. Bring them in whatever form you have them — rough is fine. The point is to start somewhere real.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: GUIDING QUESTIONS ══ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 6 · Guiding Questions</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Into the Text</div>
+      <h1 class="slide-h1">Questions to Bring</h1>
+      <div class="accent-rule"></div>
+      <div class="q-grid" id="q-grid">
+        <div class="q-card" id="q1" onclick="revealQ(1)">
+          <div class="q-num">1</div>
+          <div class="q-body">Federici argues the witch hunts were systematic disciplining of women's bodies at the dawn of capitalism — not superstition, but politics. What does that argument require you to <em>revise</em> about how you think about early modernity?</div>
+        </div>
+        <div class="q-card" id="q2" onclick="revealQ(2)">
+          <div class="q-num">2</div>
+          <div class="q-body">"Primitive accumulation" is usually about land and labor. Federici extends it to bodies and knowledge. <em>Where do you see that extension in the fields you are inheriting?</em><span class="q-sub">What has been "enclosed" in your discipline? What has been made to look like non-knowledge?</span></div>
+        </div>
+        <div class="q-card" id="q3" onclick="revealQ(3)">
+          <div class="q-num">3</div>
+          <div class="q-body">As you begin building your exam list: <em>whose labor built your field?</em> Whose names appear in the canon — and whose do not? What would it mean to build a list that actively redresses that?</div>
+        </div>
+        <div class="q-card" id="q4" onclick="revealQ(4)">
+          <div class="q-num">4</div>
+          <div class="q-body">How does Federici's materialism sit with the more discursive frameworks we've read so far — Mbembe, Brown? <em>Are these frameworks in tension? In conversation?</em> What does each miss about the other?</div>
+        </div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextQ()">▶ Reveal Next Question</button>
+      <div class="reveal-hint" id="reveal-hint">Click card or press Enter to reveal · Space/→ to advance slides</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: CANON AUDIT ACTIVITY ══ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 6 · Hands-On Activity</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">✦ Activity</div>
+      <h1 class="slide-h1"><em>Canon Audit</em></h1>
+      <div class="accent-rule"></div>
+      <div class="audit-grid">
+        <div class="audit-col">
+          <div class="audit-step" id="step-0">
+            <div class="as-num">1</div>
+            <div class="as-body">
+              <div class="as-title">List the canon</div>
+              <p>On a large sheet: list 8–10 foundational texts in your primary field. The texts that appear in every syllabus, every lit review, every "you should have read this by now" conversation.</p>
+            </div>
+          </div>
+          <div class="audit-step" id="step-1">
+            <div class="as-num">2</div>
+            <div class="as-body">
+              <div class="as-title">Annotate demographic positions</div>
+              <p>For each text: note the author's apparent demographic position (to the best of your knowledge). Mark texts that center Global South, feminist, queer, or disabled voices.</p>
+            </div>
+          </div>
+          <div class="audit-step" id="step-2">
+            <div class="as-num">3</div>
+            <div class="as-body">
+              <div class="as-title">Group read the shape</div>
+              <p>As a cohort: What does the audit reveal? What is the demographic shape of the canon you've been handed? Where is it monolithic? Where are the surprises?</p>
+            </div>
+          </div>
+        </div>
+        <div class="audit-col">
+          <div class="audit-step" id="step-3">
+            <div class="as-num">4</div>
+            <div class="as-body">
+              <div class="as-title">Name the missing text</div>
+              <p>Each person writes: <em>One text currently missing from their field's standard canon that they want to argue belongs there.</em> Be specific. Make the case.</p>
+            </div>
+          </div>
+          <div class="audit-step" id="step-4">
+            <div class="as-num">5</div>
+            <div class="as-body">
+              <div class="as-title">Brief sharing round</div>
+              <p>Go around the room. Each person shares their missing text and makes their argument in 90 seconds. The group responds: Does this text belong? What does its absence reveal?</p>
+            </div>
+          </div>
+          <div class="audit-step" id="step-5">
+            <div class="as-num">6</div>
+            <div class="as-body">
+              <div class="as-title">Carry forward</div>
+              <p>Save your audit and your missing text argument. Both feed directly into your Week 8 Exam List Workshop. This is the beginning of your list's intellectual rationale.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="audit-nav">
+        <button class="audit-btn" onclick="prevStep()">← Back</button>
+        <span class="audit-status" id="audit-status">Step 1 of 6</span>
+        <button class="audit-btn" onclick="nextStep()">Next Step →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: DISCUSSION ══ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 6 · Discussion</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Closing the Loop</div>
+      <h1 class="slide-h1">Discussion &amp; <em>Synthesis</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">Where we are</div>
+            <p>You've mapped your field's canonical shape, named its absences, and begun locating Federici's argument inside your own research territory. What did the audit make visible that you hadn't articulated before?</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">The question Federici leaves us with</div>
+            <p>If the witch trials were about disciplining bodies at the birth of capitalism — whose bodies are being disciplined in your field right now? Whose knowledges are being made to look marginal?</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Looking toward Week 8</div>
+            <p>Your exam list is not just a reading list — it is an argument about what your field is and where it needs to go. Today is the first draft of that argument.</p>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">Writing Seed</div>
+            <p>"The canon I've inherited assumes ___. One text I want to argue belongs there is ___, because ___."</p>
+          </div>
+          <div class="writing-seed" style="margin-top: 0.5rem;">
+            <div class="ws-label">Exit Prompt</div>
+            <p>One sentence: What has Federici made you see that you cannot unsee?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: FURTHER READING ══ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 6 · Further Reading</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">If This Week Opened Something</div>
+      <h1 class="slide-h1">Going <em>Deeper</em></h1>
+      <div class="accent-rule"></div>
+      <div class="fr-grid">
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Saidiya Hartman</div>
+            <div class="fr-title">"Venus in Two Acts"</div>
+            <div class="fr-note">On the archive, its silences, and humanistic imagination. Essential pairing with next week's Fisher/Derrida — she does what they theorize, beautifully.</div>
+          </div>
+        </div>
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">María Lugones</div>
+            <div class="fr-title">"Heterosexualism and the Colonial/Modern Gender System"</div>
+            <div class="fr-note">Extends Federici's analysis through a decolonial feminist lens — what Federici's Eurocentrism misses about colonial gender violence and its afterlives.</div>
+          </div>
+        </div>
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Cedric Robinson</div>
+            <div class="fr-title"><em>Black Marxism</em></div>
+            <div class="fr-note">The racial capitalism argument that runs alongside and sometimes against Federici — useful if your work touches race and political economy together.</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-family:var(--font-body); font-size:0.88rem; color:rgba(245,236,216,0.3); font-style:italic; margin-top:1rem;">All available through Library Reserve · No Perusall purchase required</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: LOOKING AHEAD ══ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 6 → Week 7</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Leave</div>
+      <h1 class="slide-h1">Looking <em>Ahead</em></h1>
+      <div class="accent-rule"></div>
+      <div class="ahead-grid">
+        <div class="ahead-item">
+          <div class="ahead-icon">👻</div>
+          <div>
+            <div class="ahead-label">Week 7 · Hauntology: What Haunts Your Field?</div>
+            <p>Primary reading: Mark Fisher, <em>Ghosts of My Life</em> (selected chapters) + Jacques Derrida, <em>Specters of Marx</em> (excerpts). Both on Perusall.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">✏️</div>
+          <div>
+            <div class="ahead-label">Required Before Week 7</div>
+            <p>Haunting reflection — ~1 page, informal. Identify one haunting in your field: something that keeps returning, that hasn't been dealt with, that the field seems to keep circling. Post to Moodle <em>or</em> bring to class. This is a required pre-class task.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">◆</div>
+          <div>
+            <div class="ahead-label">Milestone Building — Exam List Due Week 8</div>
+            <p>Your Draft Exam List with a one-paragraph rationale is due <strong>before Week 8</strong>. Use your Canon Audit notes from today as raw material. Start revising.</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:1.2rem; background:rgba(193,122,42,0.08); border:1px solid rgba(193,122,42,0.2); border-radius:4px; padding:0.9rem 1.2rem;">
+        <p style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,236,216,0.6); font-style:italic;">"The exam list is not an obstacle course. It is a portrait of your intellectual genealogy — the map of how you came to think the way you think."</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<div id="nav">
+  <div style="display:flex; align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 6 · PRIMITIVE ACCUMULATION</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex; gap:0.6rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+
+<!-- HELP -->
+<div class="help-overlay" id="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
+    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
+    <div class="shortcut-row"><span>Reveal question</span><span><span class="key">Enter</span></span></div>
+    <div class="shortcut-row"><span>Audit step forward</span><span><span class="key">A</span></span></div>
+    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
+    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+
+<script>
+// ── EMBER PARTICLE FIELD ─────────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let embers = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initEmbers();
+  }
+
+  function initEmbers() {
+    embers = [];
+    const count = Math.floor(canvas.width * canvas.height / 9000);
+    for (let i = 0; i < count; i++) {
+      embers.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.3,
+        vy: -(Math.random() * 0.15 + 0.04),
+        vx: (Math.random() - 0.5) * 0.06,
+        a: Math.random() * 0.5 + 0.1,
+        life: Math.random(),
+        decay: Math.random() * 0.0008 + 0.0002,
+        hue: Math.random() * 30 + 15, // 15-45 = orange-yellow
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    embers.forEach(e => {
+      e.y += e.vy;
+      e.x += e.vx;
+      e.life -= e.decay;
+      if (e.life <= 0 || e.y < -10) {
+        e.y = canvas.height + 5;
+        e.x = Math.random() * canvas.width;
+        e.life = Math.random() * 0.7 + 0.3;
+      }
+      const alpha = e.a * Math.min(e.life * 3, 1);
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${e.hue}, 80%, 60%, ${alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize(); draw();
+})();
+
+// ── NAVIGATION ───────────────────────────────────────────────────────────────
+const TOTAL = 8;
+let current = 1;
+let visited = new Set([1]);
+const slideNames = ['Title','Session Map','Pre-Class Prompt','Guiding Questions','Canon Audit','Discussion','Further Reading','Looking Ahead'];
+
+function goTo(n) {
+  if (n < 1 || n > TOTAL) return;
+  document.getElementById('slide-' + current).classList.remove('active');
+  current = n;
+  visited.add(n);
+  document.getElementById('slide-' + n).classList.add('active');
+  updateNav();
+}
+function nextSlide() { goTo(current + 1); }
+function prevSlide() { goTo(current - 1); }
+
+function updateNav() {
+  document.getElementById('prev-btn').disabled = current === 1;
+  document.getElementById('next-btn').disabled = current === TOTAL;
+  document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
+  document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
+  const dotCont = document.getElementById('slide-dots');
+  dotCont.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === current ? ' active' : (visited.has(i) ? ' visited' : ''));
+    d.onclick = () => goTo(i);
+    d.title = slideNames[i - 1];
+    dotCont.appendChild(d);
+  }
+}
+
+// ── QUESTION REVEAL ──────────────────────────────────────────────────────────
+let qRevealed = 0;
+function revealQ(n) {
+  const card = document.getElementById('q' + n);
+  if (!card.classList.contains('revealed')) {
+    card.classList.add('revealed');
+    qRevealed = Math.max(qRevealed, n);
+    if (qRevealed >= 4) {
+      document.getElementById('reveal-btn').textContent = '✓ All Questions Revealed';
+      document.getElementById('reveal-btn').style.opacity = '0.35';
+      document.getElementById('reveal-hint').style.opacity = '0';
+    }
+  }
+}
+function revealNextQ() {
+  if (qRevealed < 4) { revealQ(qRevealed + 1); }
+}
+
+// ── CANON AUDIT STEP TRACKER ─────────────────────────────────────────────────
+let auditStep = 0;
+function updateAudit() {
+  const steps = document.querySelectorAll('.audit-step');
+  steps.forEach((s, i) => {
+    s.classList.remove('current', 'done');
+    if (i < auditStep) s.classList.add('done');
+    else if (i === auditStep) s.classList.add('current');
+  });
+  document.getElementById('audit-status').textContent = 'Step ' + (auditStep + 1) + ' of 6';
+}
+function nextStep() { if (auditStep < 5) { auditStep++; updateAudit(); } }
+function prevStep() { if (auditStep > 0) { auditStep--; updateAudit(); } }
+updateAudit();
+
+// ── KEYBOARD ─────────────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (document.getElementById('help-overlay').classList.contains('visible')) {
+    if (e.key === 'Escape') closeHelp(); return;
+  }
+  switch(e.key) {
+    case 'ArrowRight': case ' ': e.preventDefault(); nextSlide(); break;
+    case 'ArrowLeft': e.preventDefault(); prevSlide(); break;
+    case 'Enter': if (current === 4) { e.preventDefault(); revealNextQ(); } break;
+    case 'a': case 'A': if (current === 5) nextStep(); break;
+    case 'Home': goTo(1); break;
+    case 'End': goTo(TOTAL); break;
+    case '?': toggleHelp(); break;
+    case 'Escape': closeHelp(); break;
+  }
+});
+function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
+function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
+
+updateNav();
+</script>
+</body>
+</html>

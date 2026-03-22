@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 8 · Exam List Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night:   #0A0804;
+    --deep:    #120E06;
+    --ink:     #1A1408;
+    --accent:  #B87530;
+    --accent2: #D4A060;
+    --warm:    #E8C088;
+    --parch:   #F5EAD4;
+    --muted:   rgba(245,234,212,0.54);
+    --bg-card: rgba(245,234,212,0.04);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'EB Garamond', Georgia, serif;
+    --font-mono:    'Inconsolata', monospace;
+  }
+
+  #slide-1 { background: radial-gradient(ellipse at 50% 40%, #1E1406 0%, #0A0804 70%); }
+  #slide-2 { background: var(--deep); }
+  #slide-3 { background: #160E06; }
+  #slide-4 { background: var(--ink); }
+  #slide-5 { background: var(--deep); }
+  #slide-6 { background: var(--ink); }
+  #slide-7 { background: var(--deep); }
+  #slide-8 { background: var(--night); }
+
+  /* ── MILESTONE FULL ── */
+  .milestone-full {
+    background: rgba(184,117,48,0.1); border: 1px solid rgba(184,117,48,0.35);
+    border-radius: 6px; padding: 1.8rem 2.2rem;
+  }
+  .mf-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.2rem; }
+  .mf-badge { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.18em; color: var(--accent2); text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; }
+  .mf-badge::before { content: '◆'; font-size: 0.8rem; }
+  .mf-weight { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; color: var(--accent); background: rgba(184,117,48,0.15); border: 1px solid rgba(184,117,48,0.3); padding: 0.28rem 0.65rem; border-radius: 2px; }
+  .mf-title { font-family: var(--font-display); font-size: 2.1rem; font-weight: 700; color: var(--parch); margin-bottom: 0.25rem; }
+  .mf-due { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 1.2rem; }
+  .mf-body { font-family: var(--font-body); font-size: 1rem; color: rgba(245,234,212,0.78); line-height: 1.65; }
+
+  /* ── PROTOCOL STEPS ── */
+  .protocol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; flex: 1; }
+  .protocol-step {
+    background: var(--bg-card); border: 1px solid rgba(245,234,212,0.07);
+    border-radius: 4px; padding: 1rem 1.2rem;
+    cursor: pointer; transition: all 0.25s; opacity: 0.5;
+  }
+  .protocol-step.current { opacity: 1; border-color: var(--accent); background: rgba(184,117,48,0.1); }
+  .protocol-step.done { opacity: 0.75; border-color: rgba(184,117,48,0.28); }
+  .ps-header { display: flex; align-items: baseline; gap: 0.7rem; margin-bottom: 0.4rem; }
+  .ps-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--accent); line-height: 1; }
+  .protocol-step.done .ps-num { color: rgba(184,117,48,0.45); }
+  .ps-title { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em; color: var(--accent2); text-transform: uppercase; }
+  .protocol-step p { font-family: var(--font-body); font-size: 0.94rem; color: var(--muted); line-height: 1.5; }
+  .protocol-nav { display: flex; gap: 0.8rem; margin-top: 0.9rem; align-items: center; justify-content: center; }
+  .protocol-btn { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--parch); background: rgba(184,117,48,0.13); border: 1px solid var(--accent); padding: 0.45rem 1.2rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .protocol-btn:hover { background: rgba(184,117,48,0.26); }
+  .protocol-status { font-family: var(--font-mono); font-size: 0.65rem; color: rgba(245,234,212,0.3); letter-spacing: 0.1em; }
+
+  /* ── Q CARDS ── */
+  .q-grid { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+  .q-card { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px dashed rgba(245,234,212,0.09); border-radius: 4px; padding: 1rem 1.4rem; opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s; cursor: pointer; user-select: none; }
+  .q-card:not(.revealed):hover { border-color: var(--accent); background: rgba(184,117,48,0.07); }
+  .q-card.revealed { opacity: 1; transform: translateY(0); cursor: default; border-style: solid; border-color: rgba(245,234,212,0.07); }
+  .q-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--accent); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 2.2rem; }
+  .q-card.revealed .q-num { opacity: 1; }
+  .q-body { font-family: var(--font-body); font-size: 1.02rem; line-height: 1.55; color: var(--parch); }
+  .q-sub { display: block; font-style: italic; color: rgba(245,234,212,0.42); font-size: 0.9rem; margin-top: 0.2rem; }
+  .reveal-btn { display: flex; align-items: center; gap: 0.6rem; margin: 0.9rem auto 0; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em; color: var(--accent); background: rgba(245,234,212,0.04); border: 1px solid var(--accent); opacity: 0.7; padding: 0.5rem 1.3rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .reveal-btn:hover { background: rgba(184,117,48,0.18); opacity: 1; }
+  .reveal-hint { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(245,234,212,0.2); text-align: center; margin-top: 0.4rem; }
+
+  /* ── READING / SPEC BOX ── */
+  .reading-box { background: var(--bg-card); border: 1px solid rgba(245,234,212,0.08); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 0.9rem; }
+  .reading-box .rb-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.45rem; }
+  .reading-box p, .reading-box li { font-family: var(--font-body); font-size: 0.99rem; color: rgba(245,234,212,0.78); line-height: 1.6; }
+  .reading-box ul { list-style: none; }
+  .reading-box ul li::before { content: '·'; color: var(--accent); margin-right: 0.5rem; }
+
+  /* ── DISC LAYOUT ── */
+  .disc-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; flex: 1; }
+  .disc-col { display: flex; flex-direction: column; gap: 1rem; }
+  .writing-seed { background: rgba(184,117,48,0.09); border: 1px solid rgba(184,117,48,0.27); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .writing-seed .ws-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .writing-seed p { font-family: var(--font-display); font-size: 1.05rem; font-style: italic; color: var(--parch); line-height: 1.5; }
+
+  /* ── MAP GRID ── */
+  .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1; }
+  .map-card { background: var(--bg-card); border: 1px solid rgba(245,234,212,0.07); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .map-card .mc-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.17em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .map-card p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  .map-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .map-card ul li { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.5; }
+  .map-card ul li::before { content: '·'; color: var(--accent); margin-right: 0.4rem; }
+
+  /* ── HARAWAY BOX ── */
+  .haraway-box { background: rgba(184,117,48,0.07); border: 1px solid rgba(184,117,48,0.22); border-radius: 4px; padding: 1.3rem 1.6rem; }
+  .haraway-box .hb-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .haraway-box p { font-family: var(--font-body); font-size: 0.99rem; color: rgba(245,234,212,0.78); line-height: 1.65; }
+
+  /* ── AHEAD GRID ── */
+  .ahead-grid { display: flex; flex-direction: column; gap: 0.9rem; flex: 1; }
+  .ahead-item { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px solid rgba(245,234,212,0.07); border-radius: 4px; padding: 1rem 1.3rem; }
+  .ahead-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .ahead-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .ahead-item p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── SHARED ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #deck { position: relative; z-index: 1; width: 100vw; height: 100vh; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+  .slide.active { opacity: 1; pointer-events: all; }
+  #nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 2rem; background: rgba(10,8,4,0.93); border-top: 1px solid rgba(184,117,48,0.18); backdrop-filter: blur(10px); }
+  #slide-dots { display: flex; gap: 0.45rem; align-items: center; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(184,117,48,0.2); cursor: pointer; transition: all 0.3s; }
+  .dot.active { background: var(--accent); transform: scale(1.5); }
+  .dot.visited { background: rgba(184,117,48,0.48); }
+  #nav-label { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(245,234,212,0.26); letter-spacing: 0.12em; margin-left: 1rem; }
+  .nav-btn { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--parch); background: rgba(184,117,48,0.1); border: 1px solid rgba(184,117,48,0.28); padding: 0.35rem 1rem; cursor: pointer; transition: all 0.2s; border-radius: 2px; }
+  .nav-btn:hover { background: rgba(184,117,48,0.22); border-color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  #slide-counter { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(245,234,212,0.26); }
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #7A4A18, var(--accent), var(--warm)); transition: width 0.4s ease; z-index: 50; }
+  .slide-header { padding: 1.1rem 4.5rem 0.9rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(245,234,212,0.06); flex-shrink: 0; }
+  .course-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: rgba(245,234,212,0.2); text-transform: uppercase; }
+  .week-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: var(--accent); opacity: 0.75; text-transform: uppercase; }
+  .slide-inner { flex: 1; padding: 2.6rem 4.5rem 4.8rem; display: flex; flex-direction: column; overflow: hidden; }
+  .slide-eyebrow { font-family: var(--font-mono); font-size: 0.69rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; }
+  .slide-eyebrow::before { content: ''; display: block; width: 1.8rem; height: 1px; background: var(--accent); opacity: 0.55; }
+  .slide-h1 { font-family: var(--font-display); font-size: clamp(2.3rem,4.2vw,3.4rem); font-weight: 700; line-height: 1.1; color: var(--parch); margin-bottom: 0.4rem; }
+  .slide-h1 em { font-style: italic; color: var(--accent2); }
+  .slide-h2 { font-family: var(--font-display); font-size: clamp(1.4rem,2.2vw,1.9rem); font-weight: 600; color: var(--parch); margin-bottom: 0.9rem; line-height: 1.2; }
+  .accent-rule { width: 3.5rem; height: 2px; background: linear-gradient(90deg,var(--accent),transparent); margin-bottom: 1.5rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation: fadeUp 0.48s ease forwards; }
+  .slide.active .slide-header { animation: fadeUp 0.48s ease 0.04s both; }
+  .help-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; }
+  .help-overlay.visible { display: flex; }
+  .help-box { background: #1A1408; border: 1px solid rgba(245,234,212,0.12); border-radius: 6px; padding: 2rem 2.5rem; max-width: 440px; width: 90%; }
+  .help-box h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--parch); }
+  .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(245,234,212,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(245,234,212,0.6); }
+  .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(245,234,212,0.08); border: 1px solid rgba(245,234,212,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
+  .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+
+<div id="deck">
+
+  <!-- ══ SLIDE 1: TITLE ══ -->
+  <div class="slide active" id="slide-1">
+    <div class="slide-inner" style="justify-content:center; padding:4rem 6rem;">
+      <div style="border-left:4px solid var(--accent); padding-left:1.4rem; margin-bottom:3rem;">
+        <div style="font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.26em; color:var(--accent); text-transform:uppercase; margin-bottom:0.35rem;">Movement II · Week 8</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; font-style:italic; color:rgba(245,234,212,0.35);">What Do I Know and Who Helps Me Know It?</div>
+      </div>
+      <div style="font-family:var(--font-display); font-size:clamp(3rem,6vw,5.5rem); font-weight:700; line-height:1.0; color:var(--parch); margin:2.5rem 0 0.5rem;"><em style="color:var(--accent2); font-style:italic;">Exam List</em><br>Workshop</div>
+      <div style="font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.2em; color:rgba(245,234,212,0.2); margin-bottom:2.5rem;">WEEK 8 &nbsp;·&nbsp; CRDM 790 &nbsp;·&nbsp; Spring 2027</div>
+      <div style="display:flex; flex-direction:column; gap:0.4rem; border-left:2px solid rgba(184,117,48,0.28); padding-left:1.2rem;">
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,234,212,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(245,234,212,0.68);">Primary text:</strong> Your exam list draft — the reading is you</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,234,212,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(245,234,212,0.68);">Activity:</strong> Structured peer review in pairs, then full group</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,234,212,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(245,234,212,0.7);">Milestone due:</strong> Draft Exam List — 25% of final grade</div>
+      </div>
+      <div style="position:absolute; top:1.5rem; right:5rem; font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; color:rgba(184,117,48,0.38); border:1px solid rgba(184,117,48,0.15); padding:0.28rem 0.65rem; border-radius:2px;">UDL COMPLIANT</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: SESSION MAP ══ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 8 · Movement II</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Session Map</div>
+      <h1 class="slide-h1">Today's Arc</h1>
+      <div class="accent-rule"></div>
+      <div class="map-grid">
+        <div class="map-card">
+          <div class="mc-label">📋 No New Primary Text</div>
+          <p>Your exam list draft <em>is</em> the reading this week. Structured peer review in pairs, then full-group discussion. The goal: understand the intellectual logic your list is already making — and where it breaks down.</p>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">◆ Milestone Due</div>
+          <ul>
+            <li>Draft Exam List — upload to Moodle <em>or</em> bring to class</li>
+            <li>One-paragraph rationale explaining organizing logic</li>
+            <li>Worth 25% of final grade</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✦ Peer Review Structure</div>
+          <ul>
+            <li>Pairs assigned by instructor</li>
+            <li>Exchange lists + rationale paragraphs</li>
+            <li>Written response protocol — 15 min per list</li>
+            <li>Paired discussion — 10 min each</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">💬 Full Group Debrief</div>
+          <p>What patterns are emerging across this cohort's lists? Where do they overlap or diverge in surprising ways? What does the collective shape of these lists reveal about where CRDM is going?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: MILESTONE FULL ══ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 8 · Milestone Due</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">◆ Milestone 2</div>
+      <h1 class="slide-h1">Draft <em>Exam List</em></h1>
+      <div class="accent-rule"></div>
+      <div class="milestone-full">
+        <div class="mf-top">
+          <div class="mf-badge">Draft Exam List</div>
+          <div class="mf-weight">25% of Final Grade</div>
+        </div>
+        <div class="mf-title">Due Before This Session</div>
+        <div class="mf-due">SUBMIT VIA MOODLE UPLOAD OR BRING TO CLASS</div>
+        <div class="mf-body">
+          <p>A working draft of your comprehensive exam reading list with a <strong>one-paragraph rationale</strong> explaining the organizing logic of the list.</p>
+          <br>
+          <p><strong>It does not need to be final. It needs to be real.</strong></p>
+          <br>
+          <p>The rationale paragraph should answer: <em>Why these texts, in this configuration, for this project?</em> Not "these are important texts" — but what argument about your field does the list already make?</p>
+        </div>
+      </div>
+      <div style="margin-top:1rem; background:rgba(184,117,48,0.07); border:1px solid rgba(184,117,48,0.2); border-radius:4px; padding:0.9rem 1.2rem;">
+        <p style="font-family:var(--font-body); font-size:0.93rem; color:rgba(245,234,212,0.55); font-style:italic; line-height:1.55;">Your Canon Audit from Week 6 and your haunting from Week 7 are the first draft of this rationale. Use them. The list and the logic are not separate — they are the same intellectual act.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: PEER REVIEW QUESTIONS ══ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 8 · Guiding Questions for Peer Review</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Into Each Other's Lists</div>
+      <h1 class="slide-h1">Questions for <em>Peer Review</em></h1>
+      <div class="accent-rule"></div>
+      <div class="q-grid" id="q-grid">
+        <div class="q-card" id="q1" onclick="revealQ(1)">
+          <div class="q-num">1</div>
+          <div class="q-body">What is the <strong>intellectual logic</strong> holding this list together? Is it organized by theme, method, genealogy, intervention — or something else?<span class="q-sub">Does the organizing logic serve the project, or has the list grown beyond its own argument?</span></div>
+        </div>
+        <div class="q-card" id="q2" onclick="revealQ(2)">
+          <div class="q-num">2</div>
+          <div class="q-body">Where are the <strong>temporal, geographic, or demographic gaps</strong>? What fields or traditions are absent — and does their absence feel intentional or accidental?</div>
+        </div>
+        <div class="q-card" id="q3" onclick="revealQ(3)">
+          <div class="q-num">3</div>
+          <div class="q-body">Does the list reflect what the <em>field</em> values, what <em>you</em> value, or what your <em>committee</em> values? Are those the same?<span class="q-sub">This is a real question, not a rhetorical one. The three may genuinely differ.</span></div>
+        </div>
+        <div class="q-card" id="q4" onclick="revealQ(4)">
+          <div class="q-num">4</div>
+          <div class="q-body">Is there a text on this list you <em>haven't actually read yet?</em> What would it mean to build a list you're genuinely excited about — not just one that passes muster?</div>
+        </div>
+        <div class="q-card" id="q5" onclick="revealQ(5)">
+          <div class="q-num">5</div>
+          <div class="q-body">Haraway asks: <em>from where are you claiming to know?</em> Does this list's structure reveal an answer? What does the list's positionality look like from the outside?</div>
+        </div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextQ()">▶ Reveal Next Question</button>
+      <div class="reveal-hint" id="reveal-hint">Click card or press Enter to reveal</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: STRUCTURED PEER REVIEW PROTOCOL ══ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 8 · Structured Peer Review</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">✦ Activity — Structured Peer Review</div>
+      <h1 class="slide-h1">The <em>Protocol</em></h1>
+      <div class="accent-rule"></div>
+      <div class="protocol-grid" id="protocol-grid">
+        <div class="protocol-step" id="step-0">
+          <div class="ps-header"><div class="ps-num">1</div><div class="ps-title">Exchange Lists</div></div>
+          <p>Swap your Draft Exam List and rationale paragraph with your assigned partner. Read in silence — 10 minutes. No commentary yet.</p>
+        </div>
+        <div class="protocol-step" id="step-1">
+          <div class="ps-header"><div class="ps-num">2</div><div class="ps-title">The organizing logic I see:</div></div>
+          <p>Write one sentence: What argument does this list already make? Not what you think it <em>should</em> argue — what it <em>does</em> argue, as currently configured.</p>
+        </div>
+        <div class="protocol-step" id="step-2">
+          <div class="ps-header"><div class="ps-num">3</div><div class="ps-title">A gap I notice:</div></div>
+          <p>Name one temporal, geographic, methodological, or demographic gap. Be specific — not "more diversity" but "no work from the Global South on this question."</p>
+        </div>
+        <div class="protocol-step" id="step-3">
+          <div class="ps-header"><div class="ps-num">4</div><div class="ps-title">A text I'd add and why:</div></div>
+          <p>Suggest one text not currently on the list — and explain in 1–2 sentences why it belongs and what it would do for the list's argument.</p>
+        </div>
+        <div class="protocol-step" id="step-4">
+          <div class="ps-header"><div class="ps-num">5</div><div class="ps-title">The most interesting tension:</div></div>
+          <p>Find two texts on the list that pull in different directions. What is the tension? Does the list resolve it, or leave it productive and open?</p>
+        </div>
+        <div class="protocol-step" id="step-5">
+          <div class="ps-header"><div class="ps-num">6</div><div class="ps-title">Partners share + discuss</div></div>
+          <p>Share your written responses. 10 minutes each — <em>the author listens before speaking.</em> What surprises you about how your partner read your list?</p>
+        </div>
+      </div>
+      <div class="protocol-nav">
+        <button class="protocol-btn" onclick="prevStep()">← Back</button>
+        <span class="protocol-status" id="protocol-status">Step 1 of 6</span>
+        <button class="protocol-btn" onclick="nextStep()">Next Step →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: FULL GROUP DISCUSSION ══ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 8 · Full Group Discussion</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">After Pair Review</div>
+      <h1 class="slide-h1">Group <em>Debrief</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">What we're looking for together</div>
+            <ul>
+              <li>What patterns are we seeing across this cohort's lists?</li>
+              <li>Where do the lists overlap in surprising ways?</li>
+              <li>Where do they diverge — and what does that reveal?</li>
+              <li>What does this cohort's collective intellectual project look like?</li>
+            </ul>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">The stakes of this moment</div>
+            <p>The exam list is not just a hoop. It is a portrait of your intellectual genealogy — who you've been reading, who formed you, and who you are in conversation with as you begin your dissertation. Build it like it matters, because it does.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Next steps after today</div>
+            <p>Revise your list using today's feedback. Bring it to your Week 10 individual meeting. The list will continue to evolve — but it now has a real argument behind it.</p>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">Writing Seed</div>
+            <p>"The thing I learned about my list today that I didn't know before was ___."</p>
+          </div>
+          <div class="writing-seed" style="margin-top:0.5rem;">
+            <div class="ws-label">The Most Important Revision</div>
+            <p>Write one sentence: the single most important change you will make to your list based on today's feedback. This becomes your working task for the next two weeks.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: HARAWAY ══ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 8 · Supplementary Reading</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">If This Week Opened Something</div>
+      <h1 class="slide-h1">Haraway on <em>Situated Knowledges</em></h1>
+      <div class="accent-rule"></div>
+      <div class="haraway-box">
+        <div class="hb-label">📖 Donna Haraway — "Situated Knowledges: The Science Question in Feminism and the Privilege of Partial Perspective"</div>
+        <p>Haraway's essay is the methodological backbone for thinking about why the positionality of your list matters — not just <em>what</em> you've read, but <em>from where</em> you are claiming to know. Her concept of "situated knowledges" argues that there is no view from nowhere: all knowledge claims are made from specific, embodied positions, and the pretense of objectivity is itself a political act.</p>
+      </div>
+      <div style="margin-top:1rem;" class="reading-box">
+        <div class="rb-label">The question it asks your list</div>
+        <p>From where is your exam list claiming to know? What is the "god's eye view" assumption built into the list's standard disciplinary shape — and where can you disrupt it?</p>
+      </div>
+      <div style="margin-top:0.8rem;" class="reading-box">
+        <div class="rb-label">Also worth reading</div>
+        <ul>
+          <li>Haraway, <em>Staying with the Trouble</em> — extends situated knowledges into feminist science studies; useful for method chapters</li>
+          <li>Sandra Harding, <em>"Strong Objectivity"</em> — the feminist standpoint epistemology argument that Haraway is in dialogue with</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: LOOKING AHEAD ══ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 8 → Week 9</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Leave</div>
+      <h1 class="slide-h1">Looking <em>Ahead</em></h1>
+      <div class="accent-rule"></div>
+      <div class="ahead-grid">
+        <div class="ahead-item">
+          <div class="ahead-icon">🤝</div>
+          <div>
+            <div class="ahead-label">Week 9 · Committee as Intellectual Community</div>
+            <p>The practical and relational work of building a committee: who you need, why, and how to ask. Guest speaker — a recently advanced student or faculty member speaking candidly. Committee status check-ins with instructor.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">✏️</div>
+          <div>
+            <div class="ahead-label">Pre-Class for Week 9</div>
+            <p>Committee map: draw or write out your ideal committee. Name each position (chair, readers, outside member) and write 2–3 sentences about why each person. Also: draft the email you will send to your first committee contact. We will workshop it in class.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">◆</div>
+          <div>
+            <div class="ahead-label">Milestone 3 Coming — Week 10</div>
+            <p><strong>Committee Confirmation</strong> is due Week 10 (15% of final grade). Email confirmation from your chair, or a written plan with named faculty + timeline. Use Weeks 9–10 to make that first contact.</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:1rem; background:rgba(184,117,48,0.07); border:1px solid rgba(184,117,48,0.18); border-radius:4px; padding:0.9rem 1.2rem;">
+        <p style="font-family:var(--font-body); font-size:0.95rem; color:rgba(245,234,212,0.55); font-style:italic;">"Your committee is not just a bureaucratic requirement. It is your intellectual community. Build it with intention."</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<div id="nav">
+  <div style="display:flex; align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 8 · EXAM LIST WORKSHOP</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex; gap:0.6rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+
+<!-- HELP -->
+<div class="help-overlay" id="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
+    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
+    <div class="shortcut-row"><span>Reveal question (slide 4)</span><span><span class="key">Enter</span></span></div>
+    <div class="shortcut-row"><span>Protocol step (slide 5)</span><span><span class="key">A</span></span></div>
+    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
+    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+
+<script>
+// ── WARM GRAIN PARTICLE FIELD ────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let frame = 0;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles();
+  }
+
+  function initParticles() {
+    particles = [];
+    const count = 80;
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.8 + 0.5,
+        a: Math.random() * 0.3 + 0.05,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.005 + 0.001,
+        vx: (Math.random() - 0.5) * 0.05,
+        vy: (Math.random() - 0.5) * 0.03,
+        hue: Math.random() * 20 + 25,
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    frame++;
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      const pulse = Math.sin(frame * p.speed + p.phase);
+      const alpha = p.a * (0.6 + 0.4 * pulse);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${p.hue}, 70%, 60%, ${alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize(); draw();
+})();
+
+// ── NAVIGATION ───────────────────────────────────────────────────────────────
+const TOTAL = 8;
+let current = 1;
+let visited = new Set([1]);
+const slideNames = ['Title','Session Map','Milestone Due','Peer Review Questions','Structured Protocol','Group Debrief','Haraway','Looking Ahead'];
+
+function goTo(n) {
+  if (n < 1 || n > TOTAL) return;
+  document.getElementById('slide-' + current).classList.remove('active');
+  current = n;
+  visited.add(n);
+  document.getElementById('slide-' + n).classList.add('active');
+  updateNav();
+}
+function nextSlide() { goTo(current + 1); }
+function prevSlide() { goTo(current - 1); }
+
+function updateNav() {
+  document.getElementById('prev-btn').disabled = current === 1;
+  document.getElementById('next-btn').disabled = current === TOTAL;
+  document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
+  document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
+  const dotCont = document.getElementById('slide-dots');
+  dotCont.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === current ? ' active' : (visited.has(i) ? ' visited' : ''));
+    d.onclick = () => goTo(i);
+    d.title = slideNames[i - 1];
+    dotCont.appendChild(d);
+  }
+}
+
+// ── QUESTION REVEAL ──────────────────────────────────────────────────────────
+let qRevealed = 0;
+function revealQ(n) {
+  const card = document.getElementById('q' + n);
+  if (!card.classList.contains('revealed')) {
+    card.classList.add('revealed');
+    qRevealed = Math.max(qRevealed, n);
+    if (qRevealed >= 5) {
+      document.getElementById('reveal-btn').textContent = '✓ All Questions Revealed';
+      document.getElementById('reveal-btn').style.opacity = '0.35';
+      document.getElementById('reveal-hint').style.opacity = '0';
+    }
+  }
+}
+function revealNextQ() { if (qRevealed < 5) revealQ(qRevealed + 1); }
+
+// ── PROTOCOL STEP TRACKER ────────────────────────────────────────────────────
+let protocolStep = 0;
+function updateProtocol() {
+  const steps = document.querySelectorAll('.protocol-step');
+  steps.forEach((s, i) => {
+    s.classList.remove('current', 'done');
+    if (i < protocolStep) s.classList.add('done');
+    else if (i === protocolStep) s.classList.add('current');
+  });
+  document.getElementById('protocol-status').textContent = 'Step ' + (protocolStep + 1) + ' of 6';
+}
+function nextStep() { if (protocolStep < 5) { protocolStep++; updateProtocol(); } }
+function prevStep() { if (protocolStep > 0) { protocolStep--; updateProtocol(); } }
+updateProtocol();
+
+// ── KEYBOARD ─────────────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (document.getElementById('help-overlay').classList.contains('visible')) {
+    if (e.key === 'Escape') closeHelp(); return;
+  }
+  switch(e.key) {
+    case 'ArrowRight': case ' ': e.preventDefault(); nextSlide(); break;
+    case 'ArrowLeft': e.preventDefault(); prevSlide(); break;
+    case 'Enter': if (current === 4) { e.preventDefault(); revealNextQ(); } break;
+    case 'a': case 'A': if (current === 5) nextStep(); break;
+    case 'Home': goTo(1); break;
+    case 'End': goTo(TOTAL); break;
+    case '?': toggleHelp(); break;
+    case 'Escape': closeHelp(); break;
+  }
+});
+function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
+function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
+
+updateNav();
+</script>
+</body>
+</html>

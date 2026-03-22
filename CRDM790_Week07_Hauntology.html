@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRDM 790 · Week 7 · Hauntology: What Haunts Your Field?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night:   #060810;
+    --deep:    #090C18;
+    --ink:     #0D1020;
+    --accent:  #6B9EC4;
+    --accent2: #9AC8E0;
+    --ghost:   #A8C8DD;
+    --parch:   #E8EFF8;
+    --muted:   rgba(232,239,248,0.52);
+    --bg-card: rgba(232,239,248,0.04);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'EB Garamond', Georgia, serif;
+    --font-mono:    'Inconsolata', monospace;
+  }
+
+  #slide-1 { background: radial-gradient(ellipse at 70% 30%, #0D1830 0%, #060810 70%); }
+  #slide-2 { background: var(--deep); }
+  #slide-3 { background: var(--ink); }
+  #slide-4 { background: var(--deep); }
+  #slide-5 { background: #08080F; }
+  #slide-6 { background: var(--ink); }
+  #slide-7 { background: var(--deep); }
+  #slide-8 { background: var(--night); }
+
+  /* ── MOVEMENT II BAND ── */
+  .mvmt-band { border-left: 4px solid var(--accent); padding-left: 1.4rem; margin-bottom: 3rem; }
+  .mvmt-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.26em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.35rem; }
+  .mvmt-sub { font-family: var(--font-body); font-size: 0.95rem; font-style: italic; color: rgba(232,239,248,0.35); }
+  .title-big { font-family: var(--font-display); font-size: clamp(3rem,5.5vw,5rem); font-weight: 700; line-height: 1.0; color: var(--parch); margin: 2.5rem 0 0.5rem; }
+  .title-big em { color: var(--accent2); font-style: italic; }
+  .title-week { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.2em; color: rgba(232,239,248,0.2); margin-bottom: 2.5rem; }
+
+  /* ── SPECTRE BOX (special hauntology component) ── */
+  .spectre-box {
+    background: rgba(107,158,196,0.06); border: 1px solid rgba(107,158,196,0.2);
+    border-radius: 4px; padding: 1.2rem 1.5rem; position: relative; overflow: hidden;
+  }
+  .spectre-box::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(107,158,196,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .spectre-box .sb-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .spectre-box p { font-family: var(--font-body); font-size: 1rem; color: rgba(232,239,248,0.78); line-height: 1.65; }
+
+  /* ── PROMPT BOX ── */
+  .prompt-box { background: rgba(107,158,196,0.07); border: 1px solid rgba(107,158,196,0.22); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1.3rem 1.6rem; margin-bottom: 1rem; }
+  .prompt-box .pb-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .prompt-box p, .prompt-box li { font-family: var(--font-body); font-size: 1rem; color: rgba(232,239,248,0.82); line-height: 1.65; }
+  .prompt-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .prompt-box ul li::before { content: '·'; color: var(--accent); margin-right: 0.5rem; }
+
+  /* ── Q CARDS ── */
+  .q-grid { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+  .q-card { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px dashed rgba(232,239,248,0.09); border-radius: 4px; padding: 1rem 1.4rem; opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s; cursor: pointer; user-select: none; }
+  .q-card:not(.revealed):hover { border-color: var(--accent); background: rgba(107,158,196,0.07); }
+  .q-card.revealed { opacity: 1; transform: translateY(0); cursor: default; border-style: solid; border-color: rgba(232,239,248,0.07); }
+  .q-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--accent); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 2.2rem; }
+  .q-card.revealed .q-num { opacity: 1; }
+  .q-body { font-family: var(--font-body); font-size: 1.02rem; line-height: 1.55; color: var(--parch); }
+  .q-sub { display: block; font-style: italic; color: rgba(232,239,248,0.4); font-size: 0.9rem; margin-top: 0.2rem; }
+  .reveal-btn { display: flex; align-items: center; gap: 0.6rem; margin: 0.9rem auto 0; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em; color: var(--accent); background: rgba(232,239,248,0.04); border: 1px solid var(--accent); opacity: 0.7; padding: 0.5rem 1.3rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .reveal-btn:hover { background: rgba(107,158,196,0.15); opacity: 1; }
+  .reveal-hint { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(232,239,248,0.2); text-align: center; margin-top: 0.4rem; }
+
+  /* ── TIMER ── */
+  .timer-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; gap: 1.5rem; }
+  .timer-display { font-family: var(--font-mono); font-size: clamp(4rem,8vw,7rem); color: var(--parch); letter-spacing: 0.05em; transition: color 0.4s; }
+  .timer-display.urgent { color: #E8604A; }
+  .timer-status { font-family: var(--font-body); font-size: 1.1rem; color: var(--muted); font-style: italic; }
+  .timer-sub { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; color: rgba(232,239,248,0.3); text-align: center; max-width: 40rem; line-height: 1.6; }
+  .timer-controls { display: flex; gap: 1rem; }
+  .timer-btn { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.13em; color: var(--parch); background: rgba(107,158,196,0.12); border: 1px solid var(--accent); padding: 0.5rem 1.5rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; text-transform: uppercase; }
+  .timer-btn:hover { background: rgba(107,158,196,0.25); }
+  .timer-btn.secondary { background: transparent; border-color: rgba(232,239,248,0.2); }
+  .timer-btn.secondary:hover { background: rgba(232,239,248,0.06); }
+  .presentation-meta { display: flex; gap: 2rem; align-items: center; }
+  .pm-item { text-align: center; }
+  .pm-val { font-family: var(--font-mono); font-size: 1.4rem; color: var(--accent2); margin-bottom: 0.2rem; }
+  .pm-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em; color: rgba(232,239,248,0.35); text-transform: uppercase; }
+
+  /* ── READING BOX ── */
+  .reading-box { background: var(--bg-card); border: 1px solid rgba(232,239,248,0.08); border-left: 3px solid var(--accent); border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 0.9rem; }
+  .reading-box .rb-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.45rem; }
+  .reading-box p, .reading-box li { font-family: var(--font-body); font-size: 0.99rem; color: rgba(232,239,248,0.78); line-height: 1.6; }
+  .reading-box ul { list-style: none; }
+  .reading-box ul li::before { content: '·'; color: var(--accent); margin-right: 0.5rem; }
+
+  /* ── FURTHER READING ── */
+  .fr-grid { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+  .fr-card { display: flex; gap: 1rem; background: var(--bg-card); border: 1px solid rgba(232,239,248,0.07); border-radius: 4px; padding: 0.9rem 1.2rem; align-items: flex-start; }
+  .fr-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .fr-body { flex: 1; }
+  .fr-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--parch); font-style: italic; margin-bottom: 0.2rem; }
+  .fr-author { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .fr-note { font-family: var(--font-body); font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── MAP GRID ── */
+  .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1; }
+  .map-card { background: var(--bg-card); border: 1px solid rgba(232,239,248,0.07); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .map-card .mc-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.17em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .map-card p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+  .map-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .map-card ul li { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.5; }
+  .map-card ul li::before { content: '·'; color: var(--accent); margin-right: 0.4rem; }
+
+  /* ── DISC LAYOUT ── */
+  .disc-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; flex: 1; }
+  .disc-col { display: flex; flex-direction: column; gap: 1rem; }
+  .writing-seed { background: rgba(107,158,196,0.1); border: 1px solid rgba(107,158,196,0.28); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1.1rem 1.4rem; }
+  .writing-seed .ws-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .writing-seed p { font-family: var(--font-display); font-size: 1.05rem; font-style: italic; color: var(--parch); line-height: 1.5; }
+
+  /* ── AHEAD GRID ── */
+  .ahead-grid { display: flex; flex-direction: column; gap: 0.9rem; flex: 1; }
+  .ahead-item { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg-card); border: 1px solid rgba(232,239,248,0.07); border-radius: 4px; padding: 1rem 1.3rem; }
+  .ahead-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .ahead-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .ahead-item p { font-family: var(--font-body); font-size: 0.97rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── MILESTONE BANNER ── */
+  .milestone-banner { background: rgba(107,158,196,0.08); border: 1px solid rgba(107,158,196,0.25); border-radius: 4px; padding: 1rem 1.4rem; margin-top: 0.8rem; display: flex; gap: 1rem; align-items: flex-start; }
+  .mb-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .mb-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .milestone-banner p { font-family: var(--font-body); font-size: 0.95rem; color: rgba(232,239,248,0.72); line-height: 1.55; }
+
+  /* ── SHARED ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: var(--font-body); color: var(--parch); }
+  #starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #deck { position: relative; z-index: 1; width: 100vw; height: 100vh; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+  .slide.active { opacity: 1; pointer-events: all; }
+  #nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 2rem; background: rgba(6,8,16,0.92); border-top: 1px solid rgba(107,158,196,0.15); backdrop-filter: blur(10px); }
+  #slide-dots { display: flex; gap: 0.45rem; align-items: center; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(107,158,196,0.18); cursor: pointer; transition: all 0.3s; }
+  .dot.active { background: var(--accent); transform: scale(1.5); }
+  .dot.visited { background: rgba(107,158,196,0.45); }
+  #nav-label { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(232,239,248,0.25); letter-spacing: 0.12em; margin-left: 1rem; }
+  .nav-btn { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--parch); background: rgba(107,158,196,0.1); border: 1px solid rgba(107,158,196,0.28); padding: 0.35rem 1rem; cursor: pointer; transition: all 0.2s; border-radius: 2px; }
+  .nav-btn:hover { background: rgba(107,158,196,0.2); border-color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  #slide-counter { font-family: var(--font-mono); font-size: 0.67rem; color: rgba(232,239,248,0.25); }
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #3A5A78, var(--accent), var(--accent2)); transition: width 0.4s ease; z-index: 50; }
+  .slide-header { padding: 1.1rem 4.5rem 0.9rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(232,239,248,0.05); flex-shrink: 0; }
+  .course-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: rgba(232,239,248,0.2); text-transform: uppercase; }
+  .week-tag { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.16em; color: var(--accent); opacity: 0.75; text-transform: uppercase; }
+  .slide-inner { flex: 1; padding: 2.6rem 4.5rem 4.8rem; display: flex; flex-direction: column; overflow: hidden; }
+  .slide-eyebrow { font-family: var(--font-mono); font-size: 0.69rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; }
+  .slide-eyebrow::before { content: ''; display: block; width: 1.8rem; height: 1px; background: var(--accent); opacity: 0.55; }
+  .slide-h1 { font-family: var(--font-display); font-size: clamp(2.3rem,4.2vw,3.4rem); font-weight: 700; line-height: 1.1; color: var(--parch); margin-bottom: 0.4rem; }
+  .slide-h1 em { font-style: italic; color: var(--accent2); }
+  .slide-h2 { font-family: var(--font-display); font-size: clamp(1.4rem,2.2vw,1.9rem); font-weight: 600; color: var(--parch); margin-bottom: 0.9rem; line-height: 1.2; }
+  .accent-rule { width: 3.5rem; height: 2px; background: linear-gradient(90deg,var(--accent),transparent); margin-bottom: 1.5rem; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .slide-inner { animation: fadeUp 0.48s ease forwards; }
+  .slide.active .slide-header { animation: fadeUp 0.48s ease 0.04s both; }
+  .help-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; }
+  .help-overlay.visible { display: flex; }
+  .help-box { background: #0D1020; border: 1px solid rgba(232,239,248,0.12); border-radius: 6px; padding: 2rem 2.5rem; max-width: 440px; width: 90%; }
+  .help-box h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--parch); }
+  .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(232,239,248,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(232,239,248,0.6); }
+  .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(232,239,248,0.08); border: 1px solid rgba(232,239,248,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
+  .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div id="progress-bar"></div>
+
+<div id="deck">
+
+  <!-- ══ SLIDE 1: TITLE ══ -->
+  <div class="slide active" id="slide-1">
+    <div class="slide-inner" style="justify-content:center; padding:4rem 6rem;">
+      <div class="mvmt-band">
+        <div class="mvmt-label">Movement II · Week 7</div>
+        <div class="mvmt-sub">What Do I Know and Who Helps Me Know It?</div>
+      </div>
+      <div class="title-big"><em>Hauntology:</em><br>What Haunts<br>Your Field?</div>
+      <div class="title-week">WEEK 7 &nbsp;·&nbsp; CRDM 790 &nbsp;·&nbsp; Spring 2027</div>
+      <div style="display:flex; flex-direction:column; gap:0.4rem; border-left:2px solid rgba(107,158,196,0.28); padding-left:1.2rem;">
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(232,239,248,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(232,239,248,0.68);">Primary texts:</strong> Mark Fisher, <em>Ghosts of My Life</em> · Jacques Derrida, <em>Specters of Marx</em></div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(232,239,248,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(232,239,248,0.68);">Activity:</strong> Hauntology Rapid Presentations + Timer</div>
+        <div style="font-family:var(--font-body); font-size:0.95rem; color:rgba(232,239,248,0.42); font-style:italic;"><strong style="font-style:normal; color:rgba(232,239,248,0.68);">Pre-class required:</strong> Haunting reflection (~1 page)</div>
+      </div>
+      <div style="position:absolute; top:1.5rem; right:5rem; font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.15em; color:rgba(107,158,196,0.38); border:1px solid rgba(107,158,196,0.15); padding:0.28rem 0.65rem; border-radius:2px;">UDL COMPLIANT</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: SESSION MAP ══ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 7 · Movement II</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Session Map</div>
+      <h1 class="slide-h1">Today's Arc</h1>
+      <div class="accent-rule"></div>
+      <div class="map-grid">
+        <div class="map-card">
+          <div class="mc-label">📖 Primary Readings</div>
+          <ul>
+            <li>Mark Fisher, <em>Ghosts of My Life</em> — selected chapters (Perusall)</li>
+            <li>Jacques Derrida, <em>Specters of Marx</em> — excerpts (Perusall)</li>
+            <li>Haunting reflection due — bring or post to Moodle before class</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✏️ Pre-Class Writing (Required)</div>
+          <p>~1 page, informal. Identify <strong>one haunting in your field</strong> — something that keeps returning, that hasn't been dealt with, that the field seems to keep circling without resolving. Perusall annotation: Fisher's most useful analytical concept applied to your research.</p>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">✦ Hands-On Activity</div>
+          <ul>
+            <li>Hauntology Rapid Presentations — 3 min each, no slides</li>
+            <li>Spectral connection responses from the group</li>
+            <li>Group map of hauntings on the board</li>
+          </ul>
+        </div>
+        <div class="map-card">
+          <div class="mc-label">◆ Milestone Building</div>
+          <p>Exam List due <strong>before Week 8</strong>. Use today's haunting to identify gaps or absences in your current list. What has your field suppressed that your list should surface?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: PRE-CLASS PROMPT ══ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 7 · Pre-Class Writing</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before We Met</div>
+      <h1 class="slide-h1">The <em>Haunting</em> Reflection</h1>
+      <div class="accent-rule"></div>
+      <div class="prompt-box">
+        <div class="pb-label">✏️ Required — ~1 Page, Informal</div>
+        <p>Identify <strong>one haunting in your field</strong>: something that keeps returning, that hasn't been dealt with, that the field seems to keep circling without resolving. Ask yourself:</p>
+        <ul style="margin-top:0.6rem;">
+          <li>What is the haunting?</li>
+          <li>Why does it keep coming back?</li>
+          <li>What would it mean for the field to actually reckon with it?</li>
+        </ul>
+        <p style="margin-top:0.6rem; font-style:italic; color:rgba(232,239,248,0.55);">Post to Moodle before class, or bring a hard copy. You will present this today — 3 minutes, no slides.</p>
+      </div>
+      <div class="prompt-box">
+        <div class="pb-label">✏️ Perusall Annotation</div>
+        <p>Find Fisher's <strong>most useful analytical concept</strong> in your assigned chapters. Write an annotation applying it to something in your research area. What does it let you see that you couldn't see before?</p>
+      </div>
+      <div class="spectre-box" style="margin-top:0.5rem;">
+        <div class="sb-label">Thinking With Fisher + Derrida Together</div>
+        <p>Fisher uses Derrida's "hauntology" — the state of being haunted by what never arrived — to describe cultural paralysis. Derrida's spectre is neither present nor absent. Read them in dialogue: where do they agree? Where does Fisher flatten what Derrida leaves open?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: GUIDING QUESTIONS ══ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 7 · Guiding Questions</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Into the Text</div>
+      <h1 class="slide-h1">Questions to Bring</h1>
+      <div class="accent-rule"></div>
+      <div class="q-grid" id="q-grid">
+        <div class="q-card" id="q1" onclick="revealQ(1)">
+          <div class="q-num">1</div>
+          <div class="q-body">Fisher uses "hauntology" to describe a culture that can no longer imagine futures different from the present. <em>Where do you see that paralysis in your field?</em><span class="q-sub">What future has your discipline given up on — and does it know it?</span></div>
+        </div>
+        <div class="q-card" id="q2" onclick="revealQ(2)">
+          <div class="q-num">2</div>
+          <div class="q-body">Derrida's "specter" is neither present nor absent — it disrupts stable ontologies. <em>What specters haunt the texts you study?</em> What returns in them that they cannot fully contain?</div>
+        </div>
+        <div class="q-card" id="q3" onclick="revealQ(3)">
+          <div class="q-num">3</div>
+          <div class="q-body">Fisher mourns a specific future — the cultural possibilities of the post-war left — that never fully arrived. <em>What future does your field mourn?</em> Is that mourning productive or paralyzing?</div>
+        </div>
+        <div class="q-card" id="q4" onclick="revealQ(4)">
+          <div class="q-num">4</div>
+          <div class="q-body">Is hauntology a <em>method</em> or a <em>mood</em>? How would you use it analytically — not just atmospherically — in your own research?<span class="q-sub">Sedgwick (supplementary) distinguishes paranoid reading from reparative reading. Which is hauntology? Which do you tend toward?</span></div>
+        </div>
+        <div class="q-card" id="q5" onclick="revealQ(5)">
+          <div class="q-num">5</div>
+          <div class="q-body">How does hauntology sit alongside Federici from last week? <em>If Federici asks what was suppressed, Fisher asks what refuses to stay suppressed.</em> Are these the same question?</div>
+        </div>
+      </div>
+      <button class="reveal-btn" id="reveal-btn" onclick="revealNextQ()">▶ Reveal Next Question</button>
+      <div class="reveal-hint" id="reveal-hint">Click card or press Enter to reveal</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: RAPID PRESENTATIONS TIMER ══ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 7 · Hauntology Presentations</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">✦ Activity — Rapid Presentations</div>
+      <h1 class="slide-h1" style="margin-bottom:0.3rem;">3 Minutes Each</h1>
+      <div style="font-family:var(--font-body); font-size:1rem; color:var(--muted); margin-bottom:1rem; font-style:italic;">No slides. Just talk. Share your haunting.</div>
+      <div class="timer-stage">
+        <div class="presentation-meta">
+          <div class="pm-item"><div class="pm-val" id="pres-count">3:00</div><div class="pm-label">Per person</div></div>
+          <div class="pm-item"><div class="pm-val">1</div><div class="pm-label">Spectral response</div></div>
+          <div class="pm-item"><div class="pm-val">👻</div><div class="pm-label">No slides</div></div>
+        </div>
+        <div class="timer-display" id="timer-display">3:00</div>
+        <div class="timer-status" id="timer-status">Ready — press Start when speaker begins</div>
+        <div class="timer-controls">
+          <button class="timer-btn" id="timer-start-btn" onclick="toggleTimer()">Start</button>
+          <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+        </div>
+        <div class="timer-sub">After each presentation: one person offers a "spectral connection" — does this haunting appear in your field too, in a different form? Then the group maps all hauntings on the board. Are there patterns? Shared specters? Diverging ones?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: DISCUSSION ══ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 7 · Discussion</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">After the Presentations</div>
+      <h1 class="slide-h1">Group <em>Mapping</em></h1>
+      <div class="accent-rule"></div>
+      <div class="disc-layout">
+        <div class="disc-col">
+          <div class="reading-box">
+            <div class="rb-label">Map the hauntings</div>
+            <ul>
+              <li>What patterns are you seeing across the cohort's hauntings?</li>
+              <li>Are there shared specters — something that haunts multiple fields?</li>
+              <li>Where are the divergences? What does that reveal?</li>
+            </ul>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">The key debrief question</div>
+            <p>Which hauntings seem like they could become dissertation projects? <em>How does naming the haunting change your relationship to it?</em> Fisher suggests that naming the loss is the first step toward imagining beyond it.</p>
+          </div>
+          <div class="reading-box">
+            <div class="rb-label">Carrying it forward</div>
+            <p>Your haunting is the negative space of your research — what your field has suppressed. Your exam list should account for it: who has written about this haunting, and from what position?</p>
+          </div>
+        </div>
+        <div class="disc-col">
+          <div class="writing-seed">
+            <div class="ws-label">Writing Seed</div>
+            <p>"The haunting I identified in my field is ___. It keeps returning because ___. My dissertation could address it by ___."</p>
+          </div>
+          <div class="writing-seed" style="margin-top:0.5rem;">
+            <div class="ws-label">Exit Prompt</div>
+            <p>One sentence: What does hauntology give you as a method that you don't get from other frameworks we've read?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: FURTHER READING ══ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 7 · Further Reading</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">If This Week Opened Something</div>
+      <h1 class="slide-h1">Going <em>Deeper</em></h1>
+      <div class="accent-rule"></div>
+      <div class="fr-grid">
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Saidiya Hartman</div>
+            <div class="fr-title"><em>Wayward Lives, Beautiful Experiments</em></div>
+            <div class="fr-note">A model of writing <em>with</em> and <em>about</em> the archive's silences — she practices what Fisher and Derrida theorize. Essential if your work involves historical erasure or the unarchived.</div>
+          </div>
+        </div>
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Eve Kosofsky Sedgwick</div>
+            <div class="fr-title">"Paranoid Reading and Reparative Reading"</div>
+            <div class="fr-note">One of the most generative methodological essays in the humanities. Asks what we want <em>from</em> reading — not just what we find. Directly in dialogue with hauntology as method.</div>
+          </div>
+        </div>
+        <div class="fr-card">
+          <div class="fr-icon">📖</div>
+          <div class="fr-body">
+            <div class="fr-author">Jacques Derrida</div>
+            <div class="fr-title"><em>Archive Fever</em></div>
+            <div class="fr-note">Shorter than <em>Specters</em> and more methodologically tractable — his account of archival desire, death drive, and the compulsion to preserve what is already lost.</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-family:var(--font-body); font-size:0.88rem; color:rgba(232,239,248,0.28); font-style:italic; margin-top:1rem;">All available through Library Reserve · Perusall excerpts for Sedgwick</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: LOOKING AHEAD ══ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="course-tag">CRDM 790 · Spring 2027</span>
+      <span class="week-tag">Week 7 → Week 8</span>
+    </div>
+    <div class="slide-inner">
+      <div class="slide-eyebrow">Before You Leave</div>
+      <h1 class="slide-h1">Looking <em>Ahead</em></h1>
+      <div class="accent-rule"></div>
+      <div class="ahead-grid">
+        <div class="ahead-item">
+          <div class="ahead-icon">📋</div>
+          <div>
+            <div class="ahead-label">Week 8 · Exam List Workshop</div>
+            <p>No new primary text — <em>your exam list draft is the reading</em>. Structured peer review in pairs, then full-group discussion. Come prepared to defend the logic of your list.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">◆</div>
+          <div>
+            <div class="ahead-label">MILESTONE DUE — Before Week 8</div>
+            <p><strong>Draft Exam List</strong> with a one-paragraph rationale explaining the organizing logic. Upload to Moodle or bring to class. Worth <strong>25% of final grade</strong>. It does not need to be final — it needs to be <em>real</em>.</p>
+          </div>
+        </div>
+        <div class="ahead-item">
+          <div class="ahead-icon">✏️</div>
+          <div>
+            <div class="ahead-label">Write Your Rationale Paragraph This Week</div>
+            <p>Not "these are important texts" — but <em>why these texts, in this configuration, for this project?</em> Use your haunting, your Canon Audit, and your Federici annotation as evidence.</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:1rem; background:rgba(107,158,196,0.07); border:1px solid rgba(107,158,196,0.18); border-radius:4px; padding:0.9rem 1.2rem;">
+        <p style="font-family:var(--font-body); font-size:0.95rem; color:rgba(232,239,248,0.55); font-style:italic;">"Neither present nor absent — the specter disrupts the stable ontology of the canon. Your exam list is your argument about what should be present."</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<div id="nav">
+  <div style="display:flex; align-items:center;">
+    <div id="slide-dots"></div>
+    <span id="nav-label">WEEK 7 · HAUNTOLOGY</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:1.5rem;">
+    <span id="slide-counter">1 / 8</span>
+    <div style="display:flex; gap:0.6rem;">
+      <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+      <button class="nav-btn" onclick="toggleHelp()">?</button>
+    </div>
+  </div>
+</div>
+
+<!-- HELP -->
+<div class="help-overlay" id="help-overlay">
+  <div class="help-box">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
+    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
+    <div class="shortcut-row"><span>Reveal question</span><span><span class="key">Enter</span></span></div>
+    <div class="shortcut-row"><span>Timer start/pause</span><span><span class="key">T</span></span></div>
+    <div class="shortcut-row"><span>Timer reset</span><span><span class="key">R</span></span></div>
+    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
+    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
+    <div class="help-close" onclick="closeHelp()">Close ✕</div>
+  </div>
+</div>
+
+<script>
+// ── GHOST PARTICLE FIELD ─────────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let ghosts = [];
+  let frame = 0;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initGhosts();
+  }
+
+  function initGhosts() {
+    ghosts = [];
+    const count = 120;
+    for (let i = 0; i < count; i++) {
+      ghosts.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2.5 + 0.4,
+        vx: (Math.random() - 0.5) * 0.12,
+        vy: (Math.random() - 0.5) * 0.08,
+        a: Math.random() * 0.25 + 0.05,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.006 + 0.002,
+        hue: Math.random() * 40 + 190, // 190-230 = blue-cyan
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    frame++;
+    ghosts.forEach(g => {
+      g.x += g.vx;
+      g.y += g.vy;
+      if (g.x < -10) g.x = canvas.width + 10;
+      if (g.x > canvas.width + 10) g.x = -10;
+      if (g.y < -10) g.y = canvas.height + 10;
+      if (g.y > canvas.height + 10) g.y = -10;
+      const pulse = Math.sin(frame * g.speed + g.phase);
+      const alpha = g.a * (0.5 + 0.5 * pulse);
+      const grd = ctx.createRadialGradient(g.x, g.y, 0, g.x, g.y, g.r * 3);
+      grd.addColorStop(0, `hsla(${g.hue}, 60%, 75%, ${alpha})`);
+      grd.addColorStop(1, `hsla(${g.hue}, 60%, 75%, 0)`);
+      ctx.beginPath();
+      ctx.arc(g.x, g.y, g.r * 3, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize(); draw();
+})();
+
+// ── NAVIGATION ───────────────────────────────────────────────────────────────
+const TOTAL = 8;
+let current = 1;
+let visited = new Set([1]);
+const slideNames = ['Title','Session Map','Pre-Class Prompt','Guiding Questions','Rapid Presentations','Discussion','Further Reading','Looking Ahead'];
+
+function goTo(n) {
+  if (n < 1 || n > TOTAL) return;
+  document.getElementById('slide-' + current).classList.remove('active');
+  current = n;
+  visited.add(n);
+  document.getElementById('slide-' + n).classList.add('active');
+  updateNav();
+}
+function nextSlide() { goTo(current + 1); }
+function prevSlide() { goTo(current - 1); }
+
+function updateNav() {
+  document.getElementById('prev-btn').disabled = current === 1;
+  document.getElementById('next-btn').disabled = current === TOTAL;
+  document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
+  document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
+  const dotCont = document.getElementById('slide-dots');
+  dotCont.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === current ? ' active' : (visited.has(i) ? ' visited' : ''));
+    d.onclick = () => goTo(i);
+    d.title = slideNames[i - 1];
+    dotCont.appendChild(d);
+  }
+}
+
+// ── QUESTION REVEAL ──────────────────────────────────────────────────────────
+let qRevealed = 0;
+function revealQ(n) {
+  const card = document.getElementById('q' + n);
+  if (!card.classList.contains('revealed')) {
+    card.classList.add('revealed');
+    qRevealed = Math.max(qRevealed, n);
+    if (qRevealed >= 5) {
+      document.getElementById('reveal-btn').textContent = '✓ All Questions Revealed';
+      document.getElementById('reveal-btn').style.opacity = '0.35';
+      document.getElementById('reveal-hint').style.opacity = '0';
+    }
+  }
+}
+function revealNextQ() { if (qRevealed < 5) revealQ(qRevealed + 1); }
+
+// ── TIMER ─────────────────────────────────────────────────────────────────────
+let timerSeconds = 180; // 3 minutes
+let timerRunning = false;
+let timerInterval = null;
+
+function toggleTimer() {
+  timerRunning ? pauseTimer() : startTimer();
+}
+function startTimer() {
+  timerRunning = true;
+  document.getElementById('timer-start-btn').textContent = 'Pause';
+  document.getElementById('timer-status').textContent = 'Speaking — 3 minutes per person';
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      document.getElementById('timer-display').textContent = '0:00';
+      document.getElementById('timer-status').textContent = 'Time — open for spectral response';
+      document.getElementById('timer-start-btn').textContent = 'Start';
+      try {
+        const ctx2 = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx2.createOscillator();
+        const gain = ctx2.createGain();
+        osc.connect(gain); gain.connect(ctx2.destination);
+        osc.frequency.value = 528;
+        gain.gain.setValueAtTime(0.25, ctx2.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx2.currentTime + 2);
+        osc.start(); osc.stop(ctx2.currentTime + 2);
+      } catch(e) {}
+    }
+  }, 1000);
+}
+function pauseTimer() {
+  timerRunning = false;
+  clearInterval(timerInterval);
+  document.getElementById('timer-start-btn').textContent = 'Resume';
+  document.getElementById('timer-status').textContent = 'Paused';
+}
+function resetTimer() {
+  pauseTimer();
+  timerSeconds = 180;
+  document.getElementById('timer-start-btn').textContent = 'Start';
+  document.getElementById('timer-status').textContent = 'Ready — press Start when speaker begins';
+  updateTimerDisplay();
+}
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  const el = document.getElementById('timer-display');
+  el.textContent = m + ':' + String(s).padStart(2, '0');
+  el.classList.toggle('urgent', timerSeconds <= 30);
+}
+
+// ── KEYBOARD ─────────────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (document.getElementById('help-overlay').classList.contains('visible')) {
+    if (e.key === 'Escape') closeHelp(); return;
+  }
+  switch(e.key) {
+    case 'ArrowRight': case ' ': e.preventDefault(); nextSlide(); break;
+    case 'ArrowLeft': e.preventDefault(); prevSlide(); break;
+    case 'Enter': if (current === 4) { e.preventDefault(); revealNextQ(); } break;
+    case 't': case 'T': if (current === 5) toggleTimer(); break;
+    case 'r': case 'R': if (current === 5) resetTimer(); break;
+    case 'Home': goTo(1); break;
+    case 'End': goTo(TOTAL); break;
+    case '?': toggleHelp(); break;
+    case 'Escape': closeHelp(); break;
+  }
+});
+function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
+function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
+
+updateNav();
+</script>
+</body>
+</html>
