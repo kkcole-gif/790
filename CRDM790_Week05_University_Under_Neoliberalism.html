@@ -154,9 +154,117 @@
   .tl-label { font-family:var(--font-body); font-size:1rem; color:var(--parch); font-weight:500; line-height:1.3; margin-bottom:0.15rem; }
   .tl-desc { font-family:var(--font-body); font-size:0.86rem; font-style:italic; color:rgba(255,255,255,0.45); line-height:1.4; }
 
+
+  .skip-nav { position:absolute; top:-100px; left:1rem; z-index:9999; background:var(--accent); color:#000; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; padding:0.5rem 1rem; border-radius:2px; transition:top 0.2s; }
+  .skip-nav:focus { top:0.75rem; outline:2px solid var(--accent2,var(--accent)); }
+  .nav-week-link { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:rgba(245,237,216,0.65); text-decoration:none; border:1px solid rgba(245,237,216,0.14); padding:0.28rem 0.65rem; border-radius:2px; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
+  .nav-week-link:hover { background:rgba(245,237,216,0.07); color:var(--parch); border-color:rgba(245,237,216,0.28); }
+  .nav-vsep { width:1px; height:1.1rem; background:rgba(245,237,216,0.12); flex-shrink:0; margin:0 0.15rem; }
+  .nav-btn-read { background:rgba(201,168,76,0.14)!important; border-color:rgba(201,168,76,0.38)!important; color:#E8B84B!important; }
+  .nav-btn-read:hover { background:rgba(201,168,76,0.26)!important; border-color:#C9A84C!important; }
+  .nav-btn-read.active-read { background:rgba(201,168,76,0.28)!important; border-color:#C9A84C!important; }
+  body.reading-mode { overflow:auto!important; background:#F5F0E8!important; color:#1C1410!important; }
+  body.reading-mode #starfield, body.reading-mode #progress-bar, body.reading-mode #deck { display:none!important; }
+  #reading-panel { display:none; }
+  body.reading-mode #reading-panel { display:block; }
+  .rp-section-nav { position:sticky; top:0; z-index:40; background:rgba(245,240,232,0.97); border-bottom:1px solid #D9D0C4; backdrop-filter:blur(6px); display:flex; align-items:center; overflow-x:auto; scrollbar-width:none; padding:0 1.5rem; }
+  .rp-section-nav::-webkit-scrollbar { display:none; }
+  .rp-nav-item { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8B7A60; text-decoration:none; padding:0.65rem 0.9rem; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.15s; flex-shrink:0; }
+  .rp-nav-item:hover { color:#3C3028; border-bottom-color:#C9A84C; }
+  .rp-nav-item.rp-nav-active { color:#3C3028; border-bottom-color:#C9A84C; font-weight:600; }
+  .rp-wrap { max-width:740px; margin:0 auto; padding:3rem 2rem 8rem; }
+  .rp-eyebrow { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:#8B7A60; margin-bottom:0.6rem; }
+  .rp-title { font-family:var(--font-display); font-size:clamp(2rem,5vw,3.2rem); font-weight:700; line-height:1.1; color:#1C1410; margin-bottom:0.4rem; }
+  .rp-title em { color:#7B4A20; font-style:italic; }
+  .rp-subtitle { font-size:1.1rem; font-style:italic; color:#5A4A3C; margin-bottom:1.5rem; line-height:1.5; font-family:var(--font-body); }
+  .rp-meta { display:flex; gap:1.2rem; flex-wrap:wrap; font-family:var(--font-mono); font-size:0.68rem; color:#8B7A60; letter-spacing:0.06em; padding:1rem 0; border-top:1px solid #D9D0C4; border-bottom:1px solid #D9D0C4; margin-bottom:2rem; }
+  .rp-opening-quote { font-family:var(--font-body); font-size:1.05rem; font-style:italic; color:#5A4A3C; border-left:2px solid #C9A84C; padding:0.75rem 1.2rem; margin-bottom:2.5rem; line-height:1.65; background:#EDE8DC; border-radius:0 4px 4px 0; }
+  .rp-opening-quote cite { display:block; margin-top:0.5rem; font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; color:#9B8A6C; font-style:normal; }
+  .rp-section { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid #D9D0C4; }
+  .rp-section:last-child { border-bottom:none; }
+  .rp-section-title { font-family:var(--font-display); font-size:1.35rem; font-weight:600; color:#1C1410; padding-bottom:0.4rem; border-bottom:2px solid #C9A84C; display:inline-block; margin-bottom:0.35rem; }
+  .rp-section-intro { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:1.2rem; display:block; }
+  .rp-timeline { display:flex; flex-direction:column; }
+  .rp-tl-item { display:grid; grid-template-columns:6rem 1fr; gap:1rem; padding:0.7rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-tl-item:last-child { border-bottom:none; }
+  .rp-tl-time { font-family:var(--font-mono); font-size:0.7rem; color:#9B8A6C; padding-top:0.1rem; }
+  .rp-tl-label { font-family:var(--font-body); font-size:1rem; color:#1C1410; font-weight:500; margin-bottom:0.15rem; }
+  .rp-tl-desc { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; line-height:1.4; }
+  .rp-reading-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.2rem 1.6rem; border-radius:0 4px 4px 0; margin-bottom:1.1rem; }
+  .rp-reading-label { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.5rem; }
+  .rp-reading-list { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-reading-list li { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.5; padding-left:1rem; position:relative; }
+  .rp-reading-list li::before { content:"·"; position:absolute; left:0; color:#C9A84C; }
+  .rp-reading-text { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.55; }
+  .rp-reading-text strong { color:#1C1410; }
+  .rp-note-banner { background:rgba(255,200,100,0.12); border:1px solid rgba(200,150,50,0.3); border-radius:4px; padding:0.8rem 1.1rem; margin-bottom:1.1rem; font-family:var(--font-body); font-size:0.93rem; color:#5A4020; font-style:italic; line-height:1.5; }
+  .rp-concepts-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.9rem; margin-top:1rem; }
+  .rp-concept-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-concept-term { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#7B4A20; margin-bottom:0.3rem; }
+  .rp-concept-def { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-prompt-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.3rem 1.8rem; margin-bottom:1.3rem; border-radius:0 4px 4px 0; }
+  .rp-prompt-meta { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-prompt-q { font-family:var(--font-display); font-size:1.15rem; font-style:italic; color:#1C1410; line-height:1.6; margin-bottom:0.65rem; }
+  .rp-prompt-note { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; }
+  .rp-questions { display:flex; flex-direction:column; gap:0.9rem; }
+  .rp-q-item { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-q-num { font-family:var(--font-display); font-size:1.9rem; font-weight:700; color:rgba(201,168,76,0.45); line-height:1; flex-shrink:0; width:2rem; }
+  .rp-q-body { flex:1; }
+  .rp-q-text { font-family:var(--font-body); font-size:1.05rem; color:#1C1410; line-height:1.55; }
+  .rp-q-sub { display:block; font-family:var(--font-body); font-style:italic; color:#6A5A4C; font-size:0.9rem; margin-top:0.25rem; }
+  .rp-steps { display:flex; flex-direction:column; gap:0.7rem; }
+  .rp-step { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-step-num { width:1.9rem; height:1.9rem; border-radius:50%; border:1.5px solid #C9A84C; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.72rem; color:#8B6A30; flex-shrink:0; margin-top:0.1rem; }
+  .rp-step-content { flex:1; }
+  .rp-step-title { font-family:var(--font-body); font-size:1rem; font-weight:500; color:#1C1410; margin-bottom:0.2rem; }
+  .rp-step-time { font-family:var(--font-mono); font-size:0.68rem; color:#9B8A6C; margin-left:0.4rem; }
+  .rp-step-detail { font-family:var(--font-body); font-size:0.92rem; font-style:italic; color:#5A4A3C; line-height:1.4; }
+  .rp-step-note { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:#9B8A6C; margin-top:0.3rem; }
+  .rp-timer-note { background:#EDE8DC; border:1px solid #C9A84C; border-radius:4px; padding:0.7rem 1rem; font-family:var(--font-mono); font-size:0.7rem; color:#8B6A30; margin-bottom:1.2rem; }
+  .rp-cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+  .rp-card { background:#EDE8DC; border-radius:4px; padding:1rem 1.2rem; }
+  .rp-card-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.16em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-card-text { font-family:var(--font-body); font-size:0.93rem; color:#3C3028; line-height:1.5; }
+  .rp-closing-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+  .rp-checklist { background:#EDE8DC; border-radius:4px; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-checklist-title { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-checklist ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-checklist ul li { font-family:var(--font-body); font-size:0.95rem; color:#3C3028; line-height:1.4; padding-left:1.5rem; position:relative; }
+  .rp-checklist ul li::before { content:"☐"; position:absolute; left:0; color:#C9A84C; }
+  .rp-next-week { background:#EDEAF5; border-left:3px solid #7B6FD8; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-next-week-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.14em; color:#7B6FD8; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-next-week-title { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-next-week-body { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; font-style:italic; line-height:1.5; }
+  .rp-milestone-box { background:#FBF0E8; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-due { background:rgba(181,52,42,0.08); border-left:3px solid #DC503C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.13em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-milestone-due .rp-milestone-label { color:#DC503C; }
+  .rp-milestone-name { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-body-text { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; line-height:1.55; }
+  .rp-writing-seed { background:#EDE8DC; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1rem 1.3rem; margin-top:1rem; }
+  .rp-writing-seed-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-writing-seed-q { font-family:var(--font-display); font-size:1rem; font-style:italic; color:#1C1410; line-height:1.5; }
+  .rp-criteria-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1.2rem; }
+  .rp-crit-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-crit-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-crit-text { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-threshold-row { display:grid; grid-template-columns:auto 1fr; gap:0 0.9rem; align-items:baseline; padding:0.55rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-threshold-row:last-child { border-bottom:none; }
+  .rp-th-level { font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
+  .rp-th-complete { color:#3D8B5E; }
+  .rp-th-revision { color:#8B6A30; }
+  .rp-th-missing  { color:#B5352A; }
+  .rp-th-desc { font-family:var(--font-body); font-size:0.92rem; color:#5A4A3C; line-height:1.45; }
+  .rp-scroll-fabs { position:fixed; bottom:4.2rem; right:1.6rem; z-index:90; display:none; flex-direction:column; gap:0.4rem; pointer-events:none; }
+  body.reading-mode .rp-scroll-fabs { display:flex; pointer-events:all; }
+  .rp-fab { width:2.3rem; height:2.3rem; border-radius:50%; background:#1C1410; border:1px solid rgba(201,168,76,0.4); color:#C9A84C; font-size:0.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s,transform 0.2s,background 0.15s; box-shadow:0 2px 10px rgba(0,0,0,0.22); opacity:0; pointer-events:none; transform:translateY(6px); }
+  .rp-fab.fab-visible { opacity:1; pointer-events:all; transform:translateY(0); }
+  .rp-fab:hover { background:#2E2318; border-color:#C9A84C; }
+  @media(max-width:640px){.rp-concepts-grid,.rp-cards-grid,.rp-closing-grid,.rp-criteria-grid{grid-template-columns:1fr;}.rp-wrap{padding:1.5rem 1rem 6rem;}.rp-section-nav{display:none;}}
 </style>
 </head>
 <body>
+<a href="#reading-panel" class="skip-nav" id="skip-to-content">Skip to reading view</a>
 <canvas id="starfield"></canvas>
 <div id="progress-bar"></div>
 <div id="help-overlay" class="help-overlay">
@@ -168,6 +276,7 @@
     <div class="shortcut-row"><span>Start / pause timer</span><span><kbd class="key">T</kbd></span></div>
     <div class="shortcut-row"><span>Reset timer</span><span><kbd class="key">R</kbd></span></div>
     <div class="shortcut-row"><span>First / last slide</span><span><kbd class="key">Home</kbd> / <kbd class="key">End</kbd></span></div>
+    <div class="shortcut-row"><span>Toggle reading mode</span><span><kbd class="key">M</kbd></span></div>
     <div class="shortcut-row"><span>Help</span><span><kbd class="key">?</kbd></span></div>
     <div class="shortcut-row"><span>Close</span><span><kbd class="key">Esc</kbd></span></div>
     <div class="help-close" onclick="closeHelp()">Close ✕</div>
@@ -490,17 +599,223 @@
   </div>
   
 </div>
+<main id="reading-panel" role="region" aria-label="Week 5: The University Under Neoliberalism — reading view" aria-hidden="true" tabindex="-1">
+<nav class="rp-section-nav" aria-label="Jump to section">
+  <a href="#rp-session-map" class="rp-nav-item" data-section="rp-session-map">Session Map</a>
+  <a href="#rp-reading"     class="rp-nav-item" data-section="rp-reading">Reading Guide</a>
+  <a href="#rp-questions"   class="rp-nav-item" data-section="rp-questions">Questions</a>
+  <a href="#rp-activity"    class="rp-nav-item" data-section="rp-activity">Activity</a>
+  <a href="#rp-synthesis"   class="rp-nav-item" data-section="rp-synthesis">Synthesis</a>
+  <a href="#rp-milestone"   class="rp-nav-item" data-section="rp-milestone">Milestone 1</a>
+  <a href="#rp-closing"     class="rp-nav-item" data-section="rp-closing">Looking Ahead</a>
+</nav>
+<div class="rp-wrap">
+  <div class="rp-eyebrow">CRDM 790 · Movement I · Week 5 · Milestone 1 Due</div>
+  <h1 class="rp-title">Week 5: The University Under <em>Neoliberalism</em></h1>
+  <p class="rp-subtitle">Who are we being trained to be — and who do we want to be?</p>
+  <div class="rp-meta">
+    <span>Reading: Brown, <em>Undoing the Demos</em> (Perusall)</span>
+    <span>Activity: Identity Statement Swap</span>
+    <span style="color:#DC503C;">◆ Milestone 1 due before class</span>
+  </div>
+  <blockquote class="rp-opening-quote">&#8220;Neoliberalism attacks democratic values at the level of the subject, transforming citizens into entrepreneurs of themselves.&#8221;<cite>&#8212; Wendy Brown, <em>Undoing the Demos</em></cite></blockquote>
+
+  <section class="rp-section" id="rp-session-map">
+    <h2 class="rp-section-title">Session Map</h2>
+    <span class="rp-section-intro">Brown, Identity Statements, and the Close of Movement I</span>
+    <div class="rp-timeline">
+      <div class="rp-tl-item"><div class="rp-tl-time">0:00&#8211;0:30</div><div><div class="rp-tl-label">Open: &#8220;What is the university actually for?&#8221;</div><div class="rp-tl-desc">Hold this question before turning to Brown. Let the room answer it first &#8212; then read Brown&#8217;s answer back to them. The gap between their answers and hers is the session.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">0:30&#8211;1:15</div><div><div class="rp-tl-label">Brown on neoliberalism as political rationality &#8212; Ch. 1</div><div class="rp-tl-desc">Focus on the <em>homo politicus</em> / <em>homo oeconomicus</em> distinction. Which are students being trained to be?</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">1:15&#8211;1:45</div><div><div class="rp-tl-label">Brown on higher education &#8212; Ch. 6</div><div class="rp-tl-desc">Students are in their subject here. This often generates the most personal responses of the semester. Give it room.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">1:45&#8211;2:00</div><div><div class="rp-tl-label">Break</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">2:00&#8211;3:00</div><div><div class="rp-tl-label">Identity Statement Swap &amp; Respond</div><div class="rp-tl-desc">Exchange drafts with a new partner. Reader&#8217;s task: underline the most alive sentence. Circle anything written for a committee. Write one question.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">3:00&#8211;3:30</div><div><div class="rp-tl-label">Cohort Synthesis &#8212; Close of Movement I</div><div class="rp-tl-desc">What does the cohort&#8217;s collection of statements reveal? Name what vocabulary we now share as we enter Movement II.</div></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-reading">
+    <h2 class="rp-section-title">Reading Guide</h2>
+    <span class="rp-section-intro">Brown, Undoing the Demos &#183; Zone Books 2015</span>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Assigned (Perusall)</div>
+      <ul class="rp-reading-list">
+        <li>Introduction &#8212; pp. 7&#8211;21 (~15 pp.) &#8212; Brown&#8217;s core claim and method</li>
+        <li>Chapter 1 &#8216;Undoing Democracy&#8217; &#8212; pp. 23&#8211;62 (~40 pp.) &#8212; the theory</li>
+        <li>Chapter 6 &#8216;Educating Human Capital&#8217; &#8212; pp. 175&#8211;222 (~47 pp.) &#8212; <em>the application; most directly relevant to your situation</em></li>
+      </ul>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Discussion Anchor Pages</div>
+      <ul class="rp-reading-list">
+        <li><em>Homo politicus</em> / <em>homo oeconomicus</em> &#8212; pp. 83&#8211;99</li>
+        <li>Human capital as self-investment &#8212; pp. 32&#8211;36</li>
+        <li>The entrepreneurialized subject &#8212; pp. 37&#8211;45 and pp. 175&#8211;195</li>
+      </ul>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Pre-Class Writing Prompt (Perusall)</div>
+      <p class="rp-reading-text">Find one moment in Brown where you feel <em>implicated</em> &#8212; where her argument lands on you personally, not just on an abstraction. Write an honest annotation beginning: &#8220;I feel implicated because ___&#8221;</p>
+      <p class="rp-reading-text" style="margin-top:0.5rem;">And: your Scholarly Identity Statement is due before class today.</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Key Conceptual Distinction</div>
+      <p class="rp-reading-text"><strong><em>Homo politicus</em> vs. <em>homo oeconomicus</em></strong> &#8212; The political citizen capable of collective self-governance vs. the economic subject optimizing their human capital investment. Brown&#8217;s argument: neoliberalism remakes subjectivity by replacing the first with the second.</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Suggested (Not Required)</div>
+      <ul class="rp-reading-list">
+        <li>Martha Nussbaum, <em>Not For Profit</em></li>
+        <li>Kathleen Fitzpatrick, <em>Generous Thinking</em></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-questions">
+    <h2 class="rp-section-title">Guiding Questions</h2>
+    <span class="rp-section-intro">Seminar &#183; 0:30&#8211;1:45</span>
+    <div class="rp-questions">
+      <div class="rp-q-item"><div class="rp-q-num">1</div><div class="rp-q-body"><div class="rp-q-text">Brown argues that neoliberalism remakes the subject &#8212; not just economics but identity, values, and ways of relating to the world. Do you recognize that remaking in yourself?</div><span class="rp-q-sub">Where? In how you talk about your research? In how you justify taking this degree? In what you feel you&#8217;re supposed to want from it?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">2</div><div class="rp-q-body"><div class="rp-q-text">What does it mean to pursue a PhD in the humanities under neoliberalism? What are you &#8220;investing in&#8221;? What&#8217;s the expected &#8220;return&#8221;?</div><span class="rp-q-sub">Brown would say you&#8217;ve already internalized the answer. What is it? Do you agree with her analysis?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">3</div><div class="rp-q-body"><div class="rp-q-text">Brown distinguishes between <em>homo politicus</em> (the political citizen) and <em>homo oeconomicus</em> (the economic subject). Which are you being trained to be? Which do you want to be?</div><span class="rp-q-sub">Is it possible to be both at once? Or does Brown&#8217;s argument foreclose that possibility?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">4</div><div class="rp-q-body"><div class="rp-q-text">If the PhD is partly a form of self-investment and partly a form of critical refusal &#8212; how do you hold both of those at once?</div><span class="rp-q-sub">Not as a theoretical puzzle. As a practical question about how you live inside this institution, this semester, doing this work.</span></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-activity">
+    <h2 class="rp-section-title">Activity: Identity Statement Swap &amp; Respond</h2>
+    <span class="rp-section-intro">2:00&#8211;3:00 &#183; 60 minutes total &#183; Milestone 1 Workshop</span>
+    <div class="rp-steps">
+      <div class="rp-step"><div class="rp-step-num">1</div><div class="rp-step-content">
+        <div class="rp-step-title">Exchange drafts <span class="rp-step-time">&#8212; with a partner you haven&#8217;t worked closely with</span></div>
+        <div class="rp-step-detail">Instructor assigns pairs. The goal: a reader who encounters the statement fresh, without already knowing your research story.</div>
+      </div></div>
+      <div class="rp-step"><div class="rp-step-num">2</div><div class="rp-step-content">
+        <div class="rp-step-title">Read and respond <span class="rp-step-time">(10 min)</span></div>
+        <div class="rp-step-detail">Complete three reader tasks in writing: &#9312; Underline the most alive sentence &#8212; the one that sounds like a real person, not a committee. &#9313; Circle anything written for approval rather than from conviction. &#9314; Write one genuine question the statement opens for you.</div>
+        <div class="rp-step-note">&#8594; A 10-minute countdown timer is available in Slide Mode (Slide 6).</div>
+      </div></div>
+      <div class="rp-step"><div class="rp-step-num">3</div><div class="rp-step-content">
+        <div class="rp-step-title">Partner conversation <span class="rp-step-time">(5 min each)</span></div>
+        <div class="rp-step-detail">Share your responses. The writer listens first. Then clarifies if needed. This is not critique &#8212; it&#8217;s reflection back.</div>
+      </div></div>
+      <div class="rp-step"><div class="rp-step-num">4</div><div class="rp-step-content">
+        <div class="rp-step-title">Cohort synthesis <span class="rp-step-time">(20 min)</span></div>
+        <div class="rp-step-detail">Full group: What keeps showing up across the statements? What do we seem most uncertain about? What do we seem most sure of &#8212; and is that sureness earned?</div>
+        <div class="rp-step-note">Instructor: Look for statements that list interests without stakes. &#8220;I study X&#8221; is not a scholarly identity. Push toward &#8220;I study X because ___.&#8221;</div>
+      </div></div>
+    </div>
+    <div class="rp-reading-block" style="margin-top:1rem;">
+      <div class="rp-reading-label">UDL &#8212; Multiple Participation Modes</div>
+      <ul class="rp-reading-list">
+        <li><strong>Written responses (default)</strong> &#8212; complete the three tasks in writing before speaking</li>
+        <li><strong>Verbal only</strong> &#8212; share responses in conversation without writing, if preferred</li>
+        <li><strong>Post to Moodle</strong> &#8212; if in-person sharing feels like a barrier, post written response to Moodle by end of day</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-synthesis">
+    <h2 class="rp-section-title">Cohort Synthesis &#8212; Close of Movement I</h2>
+    <span class="rp-section-intro">Full Group &#183; 3:00&#8211;3:30</span>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-q">Go around the room. Each person says one sentence: not a summary of your statement, not a conclusion &#8212; the one thing you are taking into Movement II that you didn&#8217;t have before.</div>
+    </div>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">Synthesis questions</div><p class="rp-card-text">What keeps showing up across the statements? What do we seem to share? What do we seem most uncertain about? What do we seem most sure of &#8212; and is that sureness earned or inherited?</p></div>
+      <div class="rp-card"><div class="rp-card-label">What Movement I gave us</div><p class="rp-card-text">By end of today each student should be able to name a shared vocabulary (Giroux, Benjamin, Mbembe, Brown &#8212; as tools, not names), a scholarly identity in writing however provisional, and one question they carry into candidacy work.</p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-milestone">
+    <h2 class="rp-section-title">Milestone 1 &#8212; Full Details</h2>
+    <span class="rp-section-intro">Scholarly Identity Statement &#183; 20% of final grade &#183; Due before class, Week 5</span>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">The assignment</div>
+      <p class="rp-reading-text">In approximately 500 words: Who are you as a scholar? What do you care about, what animates your research, and why does it matter? Where did your intellectual questions come from, and what do you want your work to do in the world?</p>
+      <p class="rp-reading-text" style="margin-top:0.6rem;"><strong>This is not a CV summary.</strong> It is a statement of intellectual purpose, written from conviction, not for institutional legibility.</p>
+    </div>
+    <div class="rp-criteria-grid">
+      <div class="rp-crit-card"><div class="rp-crit-label">Voice &amp; conviction</div><p class="rp-crit-text">Reads like you wrote it &#8212; specific, embodied, personal. A stranger could not have written this.</p></div>
+      <div class="rp-crit-card"><div class="rp-crit-label">Stakes &amp; significance</div><p class="rp-crit-text">You articulate clearly why your research matters &#8212; not only to your field but beyond it.</p></div>
+      <div class="rp-crit-card"><div class="rp-crit-label">Intellectual origin</div><p class="rp-crit-text">You trace where your questions came from &#8212; intellectually, experientially, or both.</p></div>
+      <div class="rp-crit-card"><div class="rp-crit-label">Beyond CV summary</div><p class="rp-crit-text">The statement argues and synthesizes &#8212; it does not list credentials or topics.</p></div>
+    </div>
+    <div class="rp-threshold-row"><span class="rp-th-level rp-th-complete">Complete &amp; Substantive</span><span class="rp-th-desc">Genuine intellectual purpose. Articulates why the research matters. Written with conviction and specificity. Voices a real scholar.</span></div>
+    <div class="rp-threshold-row"><span class="rp-th-level rp-th-revision">Nearly There / In Revision</span><span class="rp-th-desc">Engages the prompt but reads as written for a committee rather than from conviction. Stakes unclear. More like a topic list than a purpose statement.</span></div>
+    <div class="rp-threshold-row"><span class="rp-th-level rp-th-missing">Not Yet Complete</span><span class="rp-th-desc">Not submitted, or does not meet minimum expectations for doctoral-level reflection. Please come talk to Kirsti.</span></div>
+    <div class="rp-reading-block" style="margin-top:1rem;">
+      <div class="rp-reading-label">Submission options</div>
+      <ul class="rp-reading-list">
+        <li>Google Drive &#8212; M1 subfolder at <a href="CRDM790_Submissions.html#m1" style="color:#C9943A;">CRDM790_Submissions.html</a></li>
+        <li>Moodle upload (PDF, Word, or plain text)</li>
+        <li>Email to kkcole2@ncsu.edu</li>
+        <li>Hard copy before class begins</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-closing">
+    <h2 class="rp-section-title">Looking Ahead &#8212; Movement II Begins</h2>
+    <div class="rp-closing-grid">
+      <div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Reading for Week 6 (Perusall)</div>
+          <ul>
+            <li>Silvia Federici, <em>Caliban and the Witch</em> (Autonomedia 2004/2014)</li>
+            <li>Introduction &#8212; pp. 7&#8211;20</li>
+            <li>Chapter 2 &#8216;The Accumulation of Labor and the Degradation of Women&#8217; &#8212; pp. 75&#8211;131</li>
+          </ul>
+        </div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Perusall annotation for Week 6</div>
+          <ul><li>Find one place in Federici that speaks to your field specifically. Connect her argument to a dynamic you recognize in the fields you&#8217;re inheriting.</li></ul>
+        </div>
+        <div class="rp-note-banner">&#9888;&#65039; Wellness Day (Feb 16) may cancel Week 6 if course meets Tuesday. Asynchronous version on Moodle &#8212; check in advance.</div>
+      </div>
+      <div>
+        <div class="rp-next-week">
+          <div class="rp-next-week-label">Bring to Class &#8212; Week 6</div>
+          <div class="rp-next-week-title">First-pass exam list</div>
+          <p class="rp-next-week-body">10 texts you are currently imagining on your comprehensive exam list. One sentence per text about why it belongs. Don&#8217;t aim for finished &#8212; aim for honest. This is the raw material for the Week 8 workshop.</p>
+        </div>
+        <div class="rp-milestone-box">
+          <div class="rp-milestone-label">Movement II &#8212; On the Horizon</div>
+          <ul style="list-style:none;font-family:var(--font-body);font-size:0.93rem;color:#5A4A3C;display:flex;flex-direction:column;gap:0.35rem;margin-top:0.3rem;">
+            <li><strong>W6</strong> Federici &#8212; whose labor built your field?</li>
+            <li><strong>W7</strong> Fisher / Derrida &#8212; what haunts your field?</li>
+            <li><strong>W8 ◆</strong> Milestone 2: Draft Exam List due</li>
+            <li><strong>W9</strong> Committee as intellectual community</li>
+            <li><strong>W10 ◆</strong> Milestone 3: Committee Confirmation due</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div></main>
+
+<div class="rp-scroll-fabs" aria-hidden="true">
+  <button class="rp-fab" id="fab-up"  onclick="rpScroll('up')"  aria-label="Scroll up">↑</button>
+  <button class="rp-fab" id="fab-top" onclick="rpScroll('top')" aria-label="Back to top">⌂</button>
+  <button class="rp-fab" id="fab-dn"  onclick="rpScroll('dn')"  aria-label="Scroll down">↓</button>
+</div>
+
 <div id="nav">
-  <div style="display:flex;align-items:center;">
+  <div id="nav-left" style="display:flex;align-items:center;gap:0.4rem;">
+    <a href="index.html" class="nav-week-link" aria-label="Return to course index">← Index</a>
+    <a href="CRDM790_Week04_Who_Gets_to_Live.html" class="nav-week-link" aria-label="Go to Week 4">← Week 4</a>
+    <a href="CRDM790_Week06_Primitive_Accumulation.html" class="nav-week-link" aria-label="Go to Week 6">Week 6 →</a>
+    <span class="nav-vsep" aria-hidden="true"></span>
     <div id="slide-dots"></div>
     <span id="nav-label">WEEK 5 · BROWN · MILESTONE 1</span>
   </div>
-  <div style="display:flex;align-items:center;gap:1.5rem;">
+  <div style="display:flex;align-items:center;gap:0.6rem;">
     <span id="slide-counter">1 / 9</span>
-    <div style="display:flex;gap:0.7rem;">
+    <div style="display:flex;gap:0.5rem;align-items:center;">
       <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
       <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
-      <button class="nav-btn" onclick="toggleHelp()">?</button>
+      <button class="nav-btn" id="help-btn" onclick="toggleHelp()">?</button>
+      <a href="index.html#milestones" class="nav-btn" id="milestones-link" style="display:none;text-decoration:none;" aria-label="Jump to milestones">◆ Milestones</a>
+      <button class="nav-btn nav-btn-read" id="read-toggle-btn" onclick="toggleReadingMode()" aria-label="Switch to reading mode" title="Reading mode (M)">≡ Read</button>
     </div>
   </div>
 </div>
@@ -664,10 +979,62 @@ document.addEventListener('keydown', e => {
     case 'r': case 'R': if(current===6) resetTimer(); break;
     case 'Home': goTo(1); break;
     case 'End': goTo(TOTAL); break;
+    case 'm': case 'M': toggleReadingMode(); break;
     case '?': toggleHelp(); break;
     case 'Escape': closeHelp(); break;
   }
 });
+
+// ── READING MODE ──────────────────────────────────────────────────────────────
+let readingMode = false;
+function toggleReadingMode() {
+  readingMode = !readingMode;
+  const body=document.body,panel=document.getElementById('reading-panel'),
+        deck=document.getElementById('deck'),btn=document.getElementById('read-toggle-btn'),
+        counter=document.getElementById('slide-counter'),prevBtn=document.getElementById('prev-btn'),
+        nextBtn=document.getElementById('next-btn'),helpBtn=document.getElementById('help-btn'),
+        dots=document.getElementById('slide-dots'),label=document.getElementById('nav-label'),
+        mLink=document.getElementById('milestones-link');
+  closeHelp();
+  if(readingMode){
+    body.classList.add('reading-mode');panel.setAttribute('aria-hidden','false');
+    deck.setAttribute('aria-hidden','true');btn.textContent='⊞ Slides';
+    btn.setAttribute('aria-label','Switch back to slide view');btn.classList.add('active-read');
+    counter.style.display='none';prevBtn.style.display='none';nextBtn.style.display='none';
+    helpBtn.style.display='none';dots.style.display='none';
+    label.textContent='WEEK 5 · BROWN · MILESTONE 1 — Reading Mode';label.style.opacity='0.55';
+    mLink.style.display='inline-block';window.scrollTo({top:0,behavior:'smooth'});
+    panel.focus({preventScroll:true});
+  } else {
+    body.classList.remove('reading-mode');panel.setAttribute('aria-hidden','true');
+    deck.setAttribute('aria-hidden','false');btn.textContent='≡ Read';
+    btn.setAttribute('aria-label','Switch to reading mode');btn.classList.remove('active-read');
+    counter.style.display='';prevBtn.style.display='';nextBtn.style.display='';
+    helpBtn.style.display='';dots.style.display='';
+    label.textContent='WEEK 5 · BROWN · MILESTONE 1';label.style.opacity='';mLink.style.display='none';
+  }
+}
+// ── SCROLL UTILS ──────────────────────────────────────────────────────────────
+function rpScroll(dir){
+  if(dir==='top') window.scrollTo({top:0,behavior:'smooth'});
+  else if(dir==='up') window.scrollBy({top:-window.innerHeight*0.72,behavior:'smooth'});
+  else window.scrollBy({top:window.innerHeight*0.72,behavior:'smooth'});
+}
+(function(){
+  const sections=["rp-session-map", "rp-reading", "rp-questions", "rp-activity", "rp-synthesis", "rp-milestone", "rp-closing"];
+  function upd(){
+    if(!readingMode) return;
+    const sy=window.scrollY,mx=document.documentElement.scrollHeight-window.innerHeight;
+    const fu=document.getElementById('fab-up'),ft=document.getElementById('fab-top'),fd=document.getElementById('fab-dn');
+    if(fu&&ft&&fd){ft.classList.toggle('fab-visible',sy>200);fu.classList.toggle('fab-visible',sy>60);fd.classList.toggle('fab-visible',sy<mx-40);}
+    let act=sections[0];
+    for(const id of sections){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=100)act=id;}
+    document.querySelectorAll('.rp-nav-item').forEach(a=>a.classList.toggle('rp-nav-active',a.dataset.section===act));
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+})();
+
 updateNav();
 
 
