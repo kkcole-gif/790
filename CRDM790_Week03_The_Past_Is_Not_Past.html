@@ -152,9 +152,149 @@
   .tl-label { font-family:var(--font-body); font-size:1rem; color:var(--parch); font-weight:500; line-height:1.3; margin-bottom:0.15rem; }
   .tl-desc { font-family:var(--font-body); font-size:0.86rem; font-style:italic; color:rgba(255,255,255,0.45); line-height:1.4; }
 
+
+  /* ══════════════════════════════════════════════════ */
+  /* SKIP NAVIGATION                                    */
+  /* ══════════════════════════════════════════════════ */
+  .skip-nav {
+    position: absolute; top: -100px; left: 1rem; z-index: 9999;
+    background: var(--accent); color: #000;
+    font-family: var(--font-mono); font-size: 0.75rem;
+    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+    padding: 0.5rem 1rem; border-radius: 2px; transition: top 0.2s;
+  }
+  .skip-nav:focus { top: 0.75rem; outline: 2px solid var(--accent2, var(--accent)); }
+
+  /* ══════════════════════════════════════════════════ */
+  /* NAV ENHANCEMENTS                                   */
+  /* ══════════════════════════════════════════════════ */
+  .nav-week-link {
+    font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.1em;
+    color: rgba(245,237,216,0.65); text-decoration: none;
+    border: 1px solid rgba(245,237,216,0.14); padding: 0.28rem 0.65rem;
+    border-radius: 2px; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+  }
+  .nav-week-link:hover { background: rgba(245,237,216,0.07); color: var(--parch); border-color: rgba(245,237,216,0.28); }
+  .nav-vsep { width: 1px; height: 1.1rem; background: rgba(245,237,216,0.12); flex-shrink: 0; margin: 0 0.15rem; }
+  .nav-btn-read { background: rgba(201,168,76,0.14) !important; border-color: rgba(201,168,76,0.38) !important; color: #E8B84B !important; }
+  .nav-btn-read:hover { background: rgba(201,168,76,0.26) !important; border-color: #C9A84C !important; }
+  .nav-btn-read.active-read { background: rgba(201,168,76,0.28) !important; border-color: #C9A84C !important; }
+
+  /* ══════════════════════════════════════════════════ */
+  /* READING MODE                                       */
+  /* ══════════════════════════════════════════════════ */
+  body.reading-mode { overflow: auto !important; background: #F5F0E8 !important; color: #1C1410 !important; }
+  body.reading-mode #starfield, body.reading-mode #progress-bar, body.reading-mode #deck { display: none !important; }
+  #reading-panel { display: none; }
+  body.reading-mode #reading-panel { display: block; }
+
+  .rp-section-nav {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(245,240,232,0.97); border-bottom: 1px solid #D9D0C4;
+    backdrop-filter: blur(6px); display: flex; align-items: center;
+    overflow-x: auto; scrollbar-width: none; padding: 0 1.5rem;
+  }
+  .rp-section-nav::-webkit-scrollbar { display: none; }
+  .rp-nav-item {
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8B7A60; text-decoration: none;
+    padding: 0.65rem 0.9rem; white-space: nowrap; border-bottom: 2px solid transparent;
+    transition: all 0.15s; flex-shrink: 0;
+  }
+  .rp-nav-item:hover { color: #3C3028; border-bottom-color: #C9A84C; }
+  .rp-nav-item.rp-nav-active { color: #3C3028; border-bottom-color: #C9A84C; font-weight: 600; }
+
+  .rp-wrap { max-width: 740px; margin: 0 auto; padding: 3rem 2rem 8rem; }
+  .rp-eyebrow { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: #8B7A60; margin-bottom: 0.6rem; }
+  .rp-title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.1; color: #1C1410; margin-bottom: 0.4rem; }
+  .rp-title em { color: #7B4A20; font-style: italic; }
+  .rp-subtitle { font-size: 1.1rem; font-style: italic; color: #5A4A3C; margin-bottom: 1.5rem; line-height: 1.5; font-family: var(--font-body); }
+  .rp-meta { display: flex; gap: 1.2rem; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.68rem; color: #8B7A60; letter-spacing: 0.06em; padding: 1rem 0; border-top: 1px solid #D9D0C4; border-bottom: 1px solid #D9D0C4; margin-bottom: 2rem; }
+  .rp-opening-quote { font-family: var(--font-body); font-size: 1.05rem; font-style: italic; color: #5A4A3C; border-left: 2px solid #C9A84C; padding: 0.75rem 1.2rem; margin-bottom: 2.5rem; line-height: 1.65; background: #EDE8DC; border-radius: 0 4px 4px 0; }
+  .rp-opening-quote cite { display: block; margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: #9B8A6C; font-style: normal; }
+  .rp-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid #D9D0C4; }
+  .rp-section:last-child { border-bottom: none; }
+  .rp-section-title { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; color: #1C1410; padding-bottom: 0.4rem; border-bottom: 2px solid #C9A84C; display: inline-block; margin-bottom: 0.35rem; }
+  .rp-section-intro { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; color: #9B8A6C; text-transform: uppercase; margin-bottom: 1.2rem; display: block; }
+  .rp-timeline { display: flex; flex-direction: column; }
+  .rp-tl-item { display: grid; grid-template-columns: 6rem 1fr; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid #EDEBE5; }
+  .rp-tl-item:last-child { border-bottom: none; }
+  .rp-tl-time { font-family: var(--font-mono); font-size: 0.7rem; color: #9B8A6C; padding-top: 0.1rem; }
+  .rp-tl-label { font-family: var(--font-body); font-size: 1rem; color: #1C1410; font-weight: 500; margin-bottom: 0.15rem; }
+  .rp-tl-desc { font-family: var(--font-body); font-size: 0.9rem; color: #5A4A3C; font-style: italic; line-height: 1.4; }
+  .rp-reading-block { background: #EDE8DC; border-left: 4px solid #C9A84C; padding: 1.2rem 1.6rem; border-radius: 0 4px 4px 0; margin-bottom: 1.1rem; }
+  .rp-reading-label { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.14em; color: #9B8A6C; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .rp-reading-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .rp-reading-list li { font-family: var(--font-body); font-size: 0.97rem; color: #3C3028; line-height: 1.5; padding-left: 1rem; position: relative; }
+  .rp-reading-list li::before { content: '·'; position: absolute; left: 0; color: #C9A84C; }
+  .rp-reading-text { font-family: var(--font-body); font-size: 0.97rem; color: #3C3028; line-height: 1.55; }
+  .rp-reading-text strong { color: #1C1410; }
+  .rp-note-banner { background: rgba(255,200,100,0.12); border: 1px solid rgba(200,150,50,0.3); border-radius: 4px; padding: 0.8rem 1.1rem; margin-bottom: 1.1rem; font-family: var(--font-body); font-size: 0.93rem; color: #5A4020; font-style: italic; line-height: 1.5; }
+  .rp-concepts-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.9rem; margin-top: 1rem; }
+  .rp-concept-card { background: #EDE8DC; border-radius: 4px; padding: 0.9rem 1.1rem; }
+  .rp-concept-term { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: #7B4A20; margin-bottom: 0.3rem; }
+  .rp-concept-def { font-family: var(--font-body); font-size: 0.9rem; color: #3C3028; line-height: 1.5; }
+  .rp-prompt-block { background: #EDE8DC; border-left: 4px solid #C9A84C; padding: 1.3rem 1.8rem; margin-bottom: 1.3rem; border-radius: 0 4px 4px 0; }
+  .rp-prompt-meta { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.14em; color: #9B8A6C; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .rp-prompt-q { font-family: var(--font-display); font-size: 1.15rem; font-style: italic; color: #1C1410; line-height: 1.6; margin-bottom: 0.65rem; }
+  .rp-prompt-note { font-family: var(--font-body); font-size: 0.9rem; color: #5A4A3C; font-style: italic; }
+  .rp-questions { display: flex; flex-direction: column; gap: 0.9rem; }
+  .rp-q-item { display: flex; gap: 1.2rem; background: #EDE8DC; border-radius: 4px; padding: 1rem 1.4rem; align-items: flex-start; }
+  .rp-q-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: rgba(201,168,76,0.45); line-height: 1; flex-shrink: 0; width: 2rem; }
+  .rp-q-body { flex: 1; }
+  .rp-q-text { font-family: var(--font-body); font-size: 1.05rem; color: #1C1410; line-height: 1.55; }
+  .rp-q-sub { display: block; font-family: var(--font-body); font-style: italic; color: #6A5A4C; font-size: 0.9rem; margin-top: 0.25rem; }
+  .rp-steps { display: flex; flex-direction: column; gap: 0.7rem; }
+  .rp-step { display: flex; gap: 1.2rem; background: #EDE8DC; border-radius: 4px; padding: 1rem 1.4rem; align-items: flex-start; }
+  .rp-step-num { width: 1.9rem; height: 1.9rem; border-radius: 50%; border: 1.5px solid #C9A84C; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.72rem; color: #8B6A30; flex-shrink: 0; margin-top: 0.1rem; }
+  .rp-step-content { flex: 1; }
+  .rp-step-title { font-family: var(--font-body); font-size: 1rem; font-weight: 500; color: #1C1410; margin-bottom: 0.2rem; }
+  .rp-step-time { font-family: var(--font-mono); font-size: 0.68rem; color: #9B8A6C; margin-left: 0.4rem; font-weight: normal; }
+  .rp-step-detail { font-family: var(--font-body); font-size: 0.92rem; font-style: italic; color: #5A4A3C; line-height: 1.4; }
+  .rp-step-note { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.1em; color: #9B8A6C; margin-top: 0.3rem; }
+  .rp-timer-note { background: #EDE8DC; border: 1px solid #C9A84C; border-radius: 4px; padding: 0.7rem 1rem; font-family: var(--font-mono); font-size: 0.7rem; color: #8B6A30; margin-bottom: 1.2rem; }
+  .rp-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  .rp-card { background: #EDE8DC; border-radius: 4px; padding: 1rem 1.2rem; }
+  .rp-card-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; color: #9B8A6C; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .rp-card-text { font-family: var(--font-body); font-size: 0.93rem; color: #3C3028; line-height: 1.5; }
+  .rp-closing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .rp-checklist { background: #EDE8DC; border-radius: 4px; padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; }
+  .rp-checklist-title { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: #9B8A6C; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .rp-checklist ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .rp-checklist ul li { font-family: var(--font-body); font-size: 0.95rem; color: #3C3028; line-height: 1.4; padding-left: 1.5rem; position: relative; }
+  .rp-checklist ul li::before { content: '☐'; position: absolute; left: 0; color: #C9A84C; }
+  .rp-next-week { background: #EDEAF5; border-left: 3px solid #7B6FD8; border-radius: 0 4px 4px 0; padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; }
+  .rp-next-week-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em; color: #7B6FD8; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .rp-next-week-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: #1C1410; margin-bottom: 0.3rem; }
+  .rp-next-week-body { font-family: var(--font-body); font-size: 0.93rem; color: #5A4A3C; font-style: italic; line-height: 1.5; }
+  .rp-milestone-box { background: #FBF0E8; border-left: 3px solid #C9A84C; border-radius: 0 4px 4px 0; padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; }
+  .rp-milestone-due { background: rgba(181,52,42,0.08); border-left: 3px solid #DC503C; border-radius: 0 4px 4px 0; padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; }
+  .rp-milestone-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.13em; color: #9B8A6C; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .rp-milestone-due .rp-milestone-label { color: #DC503C; }
+  .rp-milestone-name { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: #1C1410; margin-bottom: 0.3rem; }
+  .rp-body-text { font-family: var(--font-body); font-size: 0.93rem; color: #5A4A3C; line-height: 1.55; }
+  .rp-writing-seed { background: #EDE8DC; border-left: 3px solid #C9A84C; border-radius: 0 4px 4px 0; padding: 1rem 1.3rem; margin-top: 1rem; }
+  .rp-writing-seed-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: #9B8A6C; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .rp-writing-seed-q { font-family: var(--font-display); font-size: 1rem; font-style: italic; color: #1C1410; line-height: 1.5; }
+
+  /* FABs */
+  .rp-scroll-fabs { position: fixed; bottom: 4.2rem; right: 1.6rem; z-index: 90; display: none; flex-direction: column; gap: 0.4rem; pointer-events: none; }
+  body.reading-mode .rp-scroll-fabs { display: flex; pointer-events: all; }
+  .rp-fab { width: 2.3rem; height: 2.3rem; border-radius: 50%; background: #1C1410; border: 1px solid rgba(201,168,76,0.4); color: #C9A84C; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s, transform 0.2s, background 0.15s; box-shadow: 0 2px 10px rgba(0,0,0,0.22); opacity: 0; pointer-events: none; transform: translateY(6px); }
+  .rp-fab.fab-visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .rp-fab:hover { background: #2E2318; border-color: #C9A84C; }
+  .rp-fab:focus-visible { outline: 2px solid #C9A84C; outline-offset: 2px; }
+
+  @media (max-width: 640px) {
+    .rp-concepts-grid, .rp-cards-grid, .rp-closing-grid { grid-template-columns: 1fr; }
+    .rp-wrap { padding: 1.5rem 1rem 6rem; }
+    .nav-week-link { font-size: 0.6rem; padding: 0.25rem 0.5rem; }
+    .rp-section-nav { display: none; }
+  }
 </style>
 </head>
 <body>
+<a href="#reading-panel" class="skip-nav" id="skip-to-content">Skip to reading view</a>
 <canvas id="starfield"></canvas>
 <div id="progress-bar"></div>
 <div id="help-overlay" class="help-overlay">
@@ -166,6 +306,7 @@
     <div class="shortcut-row"><span>Start / pause timer</span><span><kbd class="key">T</kbd></span></div>
     <div class="shortcut-row"><span>Reset timer</span><span><kbd class="key">R</kbd></span></div>
     <div class="shortcut-row"><span>First / last slide</span><span><kbd class="key">Home</kbd> / <kbd class="key">End</kbd></span></div>
+    <div class="shortcut-row"><span>Toggle reading mode</span><span><kbd class="key">M</kbd></span></div>
     <div class="shortcut-row"><span>Help</span><span><kbd class="key">?</kbd></span></div>
     <div class="shortcut-row"><span>Close</span><span><kbd class="key">Esc</kbd></span></div>
     <div class="help-close" onclick="closeHelp()">Close ✕</div>
@@ -379,7 +520,7 @@
         <div style="display:flex;flex-direction:column;gap:1rem;">
           <div class="thesis-pull" style="margin:0;">
             "There is no document of civilization which is not at the same time a document of barbarism."
-            <cite>— Benjamin, 'Theses on the Philosophy of History,' Thesis VII</cite>
+            <cite>— Benjamin, &#39;Theses on the Philosophy of History,&#39; Thesis VII</cite>
           </div>
           <div class="info-card" style="flex:1;">
             <div class="ic-label">Loop ahead to Week 4</div>
@@ -433,17 +574,196 @@
   </div>
   
 </div>
+<main id="reading-panel" role="region" aria-label="Week 3: The Past Is Not Past — reading view" aria-hidden="true" tabindex="-1">
+<nav class="rp-section-nav" aria-label="Jump to section">
+  <a href="#rp-session-map"  class="rp-nav-item" data-section="rp-session-map">Session Map</a>
+  <a href="#rp-reading"      class="rp-nav-item" data-section="rp-reading">Reading Guide</a>
+  <a href="#rp-questions"    class="rp-nav-item" data-section="rp-questions">Questions</a>
+  <a href="#rp-activity"     class="rp-nav-item" data-section="rp-activity">Gallery Activity</a>
+  <a href="#rp-gallery"      class="rp-nav-item" data-section="rp-gallery">Gallery Walk</a>
+  <a href="#rp-synthesis"    class="rp-nav-item" data-section="rp-synthesis">Synthesis</a>
+  <a href="#rp-closing"      class="rp-nav-item" data-section="rp-closing">Looking Ahead</a>
+</nav>
+<div class="rp-wrap">
+
+  <div class="rp-eyebrow">CRDM 790 · Movement I · Week 3</div>
+  <h1 class="rp-title">Week 3: The Past Is Not <em>Past</em></h1>
+  <p class="rp-subtitle">History, aura, and the objects we carry.</p>
+  <div class="rp-meta">
+    <span>Reading: Benjamin, <em>Illuminations</em> (Perusall)</span>
+    <span>Activity: Wreckage &amp; Promise Gallery</span>
+  </div>
+  <blockquote class="rp-opening-quote">"The past carries with it a secret index by which it is referred to its resurrection."<cite>— Walter Benjamin, Theses on the Philosophy of History, Thesis II</cite></blockquote>
+
+  <section class="rp-section" id="rp-session-map">
+    <h2 class="rp-section-title">Session Map</h2>
+    <span class="rp-section-intro">History, Aura, and the Objects We Carry</span>
+    <div class="rp-timeline">
+      <div class="rp-tl-item"><div class="rp-tl-time">0:00–0:30</div><div><div class="rp-tl-label">Open with Thesis IX — Slow Read</div><div class="rp-tl-desc">Read the Klee / angel passage aloud (p. 257–258). Sit with it. Do not explain — ask students to say what they see.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">0:30–1:15</div><div><div class="rp-tl-label">'The Storyteller' + 'Work of Art' Discussion</div><div class="rp-tl-desc">What has digital reproduction done to aura? Let students bring their fields into contact with Benjamin's claims.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">1:15–1:45</div><div><div class="rp-tl-label">'Theses' — Collaborative Close Reading</div><div class="rp-tl-desc">Work through several theses together. Difficulty is not failure — make the confusion productive.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">1:45–2:00</div><div><div class="rp-tl-label">Break + Setup for Gallery</div><div class="rp-tl-desc">Students place their objects on tables during break.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">2:00–3:00</div><div><div class="rp-tl-label">Wreckage &amp; Promise Gallery</div><div class="rp-tl-desc">Silent gallery walk → small groups → full group synthesis → individual writing seed.</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">3:00–3:30</div><div><div class="rp-tl-label">Synthesis + Week 4 Preview</div><div class="rp-tl-desc">What does this cohort's collection reveal? Transition: next week we ask who is allowed to live at all.</div></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-reading">
+    <h2 class="rp-section-title">Reading Guide</h2>
+    <span class="rp-section-intro">Benjamin, Illuminations · Schocken Books 2007 reprint</span>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Assigned (Perusall)</div>
+      <ul class="rp-reading-list">
+        <li>'The Storyteller: Reflections on the Works of Nikolai Leskov' — pp. 83–109 (~27 pp.)</li>
+        <li>'The Work of Art in the Age of Mechanical Reproduction' — pp. 217–251 (~35 pp.)</li>
+        <li>'Theses on the Philosophy of History' — pp. 253–264 (~12 pp.) — <em>dense despite being short</em></li>
+      </ul>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Discussion Anchor — Open with This</div>
+      <p class="rp-reading-text"><strong>Thesis IX, pp. 257–258</strong> — the Klee / angel of history passage. Read aloud. Do not explain first. Ask: "What do you see?" Also: Opening pages on aura, pp. 220–223.</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Pre-Class Writing Prompt</div>
+      <p class="rp-reading-text">Annotate on Perusall: Mark one moment in the 'Theses' that you find cryptic. Write a <em>genuine question</em> — not rhetorical. And bring one object representing something in your research area that feels unresolved or haunted.</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Suggested (Not Required)</div>
+      <ul class="rp-reading-list">
+        <li>Hannah Arendt, Introduction to <em>Illuminations</em> — pp. 1–55 — essential context</li>
+        <li>Susan Buck-Morss, <em>The Dialectics of Seeing</em> — thorough account of Benjamin's method</li>
+      </ul>
+    </div>
+    <div class="rp-concepts-grid">
+      <div class="rp-concept-card"><div class="rp-concept-term">Aura</div><p class="rp-concept-def">The unique presence of a work in the place it is located — its embeddedness in tradition. Mechanical reproduction destroys this.</p></div>
+      <div class="rp-concept-card"><div class="rp-concept-term">Angel of History</div><p class="rp-concept-def">Turned toward the past, seeing catastrophe upon catastrophe — blown backward into the future by the storm we call progress. (Thesis IX)</p></div>
+      <div class="rp-concept-card"><div class="rp-concept-term">Dialectical Image</div><p class="rp-concept-def">The moment when past and present flash together in a constellation of recognition — historical knowledge as shock, not continuity.</p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-questions">
+    <h2 class="rp-section-title">Guiding Questions</h2>
+    <span class="rp-section-intro">Seminar · 0:30–1:45</span>
+    <div class="rp-questions">
+      <div class="rp-q-item"><div class="rp-q-num">1</div><div class="rp-q-body"><div class="rp-q-text">Benjamin writes that history 'flashes up' in moments of danger — the past is not settled but alive and urgent. What does this claim do to your research questions?</div><span class="rp-q-sub">What past is not past in your area of study? What keeps returning, unfinished?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">2</div><div class="rp-q-body"><div class="rp-q-text">What does Benjamin mean by the 'angel of history'? What is the storm that drives it? How does that image land for you today?</div><span class="rp-q-sub">Not metaphorically — materially. What is the wreckage piling up in your research area right now?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">3</div><div class="rp-q-body"><div class="rp-q-text">'The Work of Art' argues that mechanical reproduction destroys 'aura.' What has digital reproduction done to the texts and images you study?</div><span class="rp-q-sub">Is digital reproduction more or less like mechanical reproduction? Does the concept of aura even hold here — or does it need to be revised?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">4</div><div class="rp-q-body"><div class="rp-q-text">Who is 'the storyteller' in Benjamin's sense? Is that a figure you recognize in your own field — or one that has been lost?</div><span class="rp-q-sub">What happens to knowledge and experience when storytelling is replaced by information?</span></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-activity">
+    <h2 class="rp-section-title">Activity: Wreckage &amp; Promise Gallery</h2>
+    <span class="rp-section-intro">2:00–3:00 · 60 minutes total</span>
+    <div class="rp-steps">
+      <div class="rp-step"><div class="rp-step-num">1</div><div class="rp-step-content">
+        <div class="rp-step-title">Place your objects on the table <span class="rp-step-time">(During break, 1:45–2:00)</span></div>
+        <div class="rp-step-detail">Physical object, photo, printed text, or a description card if the object is digital or auditory.</div>
+        <div class="rp-step-note">Accessibility: photo or description card is fully acceptable if physical form is inaccessible.</div>
+      </div></div>
+      <div class="rp-step"><div class="rp-step-num">2</div><div class="rp-step-content">
+        <div class="rp-step-title">Silent gallery walk <span class="rp-step-time">(5 min)</span></div>
+        <div class="rp-step-detail">Everyone moves through the objects in silence. Look at each one. Notice what draws you, what unsettles you, what you recognize.</div>
+        <div class="rp-step-note">→ A 5-minute countdown timer is available in Slide Mode (Slide 6).</div>
+      </div></div>
+      <div class="rp-step"><div class="rp-step-num">3</div><div class="rp-step-content">
+        <div class="rp-step-title">Small group discussion <span class="rp-step-time">(20 min)</span></div>
+        <div class="rp-step-detail">In groups of 3–4: What wreckage does your object hold? What promise? How does Benjamin's Thesis IX — the angel facing the wreckage of the past — apply to what you brought?</div>
+      </div></div>
+      <div class="rp-step"><div class="rp-step-num">4</div><div class="rp-step-content">
+        <div class="rp-step-title">Full group <span class="rp-step-time">(20 min)</span></div>
+        <div class="rp-step-detail">What patterns emerge across the cohort's objects? What does the collection reveal about where this group's research is pointing?</div>
+      </div></div>
+      <div class="rp-step"><div class="rp-step-num">5</div><div class="rp-step-content">
+        <div class="rp-step-title">Individual writing seed <span class="rp-step-time">(5 min)</span></div>
+        <div class="rp-step-detail">Write one sentence beginning: <em>"The piece of history I am working in the wreckage of is ___."</em></div>
+        <div class="rp-step-note">Keep this. It feeds your Scholarly Identity Statement (due Week 5).</div>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-gallery">
+    <h2 class="rp-section-title">Gallery Walk</h2>
+    <span class="rp-section-intro">Step 2 of Wreckage &amp; Promise Gallery · 5 minutes silent</span>
+    <div class="rp-timer-note">⏱ A 5-minute countdown timer is available in Slide Mode (Slide 6) for in-class use.</div>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">What to look for</div><p class="rp-card-text">Move through every object. Notice what pulls your attention — not what you understand, but what you feel drawn to or unsettled by.</p></div>
+      <div class="rp-card"><div class="rp-card-label">Hold these questions</div><p class="rp-card-text">What wreckage does this object hold? What promise? Where is "the storm we call progress" in what you're looking at?</p></div>
+      <div class="rp-card"><div class="rp-card-label">After the timer</div><p class="rp-card-text">Return to your seat. What stays with you before the small group conversation begins?</p></div>
+      <div class="rp-card"><div class="rp-card-label">Accessibility note</div><p class="rp-card-text">If moving through the gallery is difficult, a photograph of the full table will be available on a device — there by default, no need to ask.</p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-synthesis">
+    <h2 class="rp-section-title">Synthesis Discussion</h2>
+    <span class="rp-section-intro">Full Group · 3:00–3:30</span>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-q">"What does this cohort's collection of objects reveal about where our research is pointing — about the piece of history we are collectively working in the wreckage of?"</div>
+    </div>
+    <blockquote class="rp-opening-quote rp-pull-quote">"There is no document of civilization which is not at the same time a document of barbarism."<cite>— Benjamin, &#39;Theses on the Philosophy of History,&#39; Thesis VII</cite></blockquote>
+    <div class="rp-writing-seed">
+      <div class="rp-writing-seed-label">Writing Seed to Collect</div>
+      <div class="rp-writing-seed-q">"The piece of history I am working in the wreckage of is ___." — Pairs with the Week 1 constellation card. By Week 5, students should have three such seeds for the Scholarly Identity Statement.</div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-closing">
+    <h2 class="rp-section-title">Looking Ahead</h2>
+    <div class="rp-closing-grid">
+      <div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Reading for Week 4 (Perusall)</div>
+          <ul>
+            <li>Achille Mbembe, <em>Necropolitics</em> (Duke UP 2019, trans. Corcoran)</li>
+            <li>Introduction — pp. 1–14</li>
+            <li>Chapter 3 'Necropolitics' — pp. 66–92 — <em>conceptual core</em></li>
+          </ul>
+        </div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Perusall annotation prompt</div>
+          <ul><li>Identify one concept from Mbembe you think could be directly applied to your research area. Write a 3–4 sentence annotation explaining how — be specific about mechanism, not just "this relates to power."</li></ul>
+        </div>
+      </div>
+      <div>
+        <div class="rp-next-week">
+          <div class="rp-next-week-label">Bring to Class — Week 4</div>
+          <div class="rp-next-week-title">One concrete example.</div>
+          <p class="rp-next-week-body">From media, policy, your archive, or your community — something that illustrates necropolitical logic. The room may hold examples that are graphic or personally resonant; be prepared for that.</p>
+        </div>
+        <div class="rp-milestone-box">
+          <div class="rp-milestone-label">◆ Milestone 1 — Still Coming · Week 5 · 20%</div>
+          <div class="rp-milestone-name">Scholarly Identity Statement</div>
+          <p class="rp-body-text">By now you have: a constellation card (W1), an assumption to interrogate (W2), and a piece of history you're working in the wreckage of (W3). These are the raw materials. Start writing from them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div></main>
+
+<div class="rp-scroll-fabs" aria-hidden="true">
+  <button class="rp-fab" id="fab-up"  onclick="rpScroll('up')"  title="Scroll up"   aria-label="Scroll up">↑</button>
+  <button class="rp-fab" id="fab-top" onclick="rpScroll('top')" title="Back to top"  aria-label="Back to top">⌂</button>
+  <button class="rp-fab" id="fab-dn"  onclick="rpScroll('dn')"  title="Scroll down" aria-label="Scroll down">↓</button>
+</div>
+
 <div id="nav">
-  <div style="display:flex;align-items:center;">
+  <div id="nav-left" style="display:flex;align-items:center;gap:0.4rem;">
+    <a href="index.html" class="nav-week-link" aria-label="Return to course index">← Index</a>
+    <a href="CRDM790_Week02_Critical_Pedagogy.html" class="nav-week-link" aria-label="Go to Week 2">← Week 2</a>
+    <a href="CRDM790_Week04_Who_Gets_to_Live.html" class="nav-week-link" aria-label="Go to Week 4">Week 4 →</a>
+    <span class="nav-vsep" aria-hidden="true"></span>
     <div id="slide-dots"></div>
     <span id="nav-label">WEEK 3 · BENJAMIN</span>
   </div>
-  <div style="display:flex;align-items:center;gap:1.5rem;">
+  <div style="display:flex;align-items:center;gap:0.6rem;">
     <span id="slide-counter">1 / 8</span>
-    <div style="display:flex;gap:0.7rem;">
+    <div style="display:flex;gap:0.5rem;align-items:center;">
       <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
       <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
-      <button class="nav-btn" onclick="toggleHelp()">?</button>
+      <button class="nav-btn" id="help-btn" onclick="toggleHelp()">?</button>
+      <a href="index.html#milestones" class="nav-btn" id="milestones-link" style="display:none;text-decoration:none;" aria-label="Jump to milestones">◆ Milestones</a>
+      <button class="nav-btn nav-btn-read" id="read-toggle-btn" onclick="toggleReadingMode()" aria-label="Switch to reading mode" title="Reading mode (M)">≡ Read</button>
     </div>
   </div>
 </div>
@@ -552,7 +872,7 @@ function startTimer() {
   const sb = document.getElementById('timer-start-btn');
   const sl = document.getElementById('timer-status');
   if (sb) sb.textContent = 'Pause';
-  if (sl) sl.textContent = "Wreckage & Promise Gallery in progress — look, don't talk";
+  if (sl) sl.textContent = 'Wreckage & Promise Gallery in progress — look, don't talk';
   timerInterval = setInterval(() => {
     timerSeconds--;
     updateTimerDisplay();
@@ -607,10 +927,85 @@ document.addEventListener('keydown', e => {
     case 'r': case 'R': if(current===6) resetTimer(); break;
     case 'Home': goTo(1); break;
     case 'End': goTo(TOTAL); break;
+    case 'm': case 'M': toggleReadingMode(); break;
     case '?': toggleHelp(); break;
     case 'Escape': closeHelp(); break;
   }
 });
+
+// ── READING MODE ─────────────────────────────────────────────────────────────
+let readingMode = false;
+function toggleReadingMode() {
+  readingMode = !readingMode;
+  const body   = document.body;
+  const panel  = document.getElementById('reading-panel');
+  const deck   = document.getElementById('deck');
+  const btn    = document.getElementById('read-toggle-btn');
+  const counter= document.getElementById('slide-counter');
+  const prevBtn= document.getElementById('prev-btn');
+  const nextBtn= document.getElementById('next-btn');
+  const helpBtn= document.getElementById('help-btn');
+  const dots   = document.getElementById('slide-dots');
+  const label  = document.getElementById('nav-label');
+  const mLink  = document.getElementById('milestones-link');
+  closeHelp();
+  if (readingMode) {
+    body.classList.add('reading-mode');
+    panel.setAttribute('aria-hidden','false');
+    deck.setAttribute('aria-hidden','true');
+    btn.textContent = '⊞ Slides';
+    btn.setAttribute('aria-label','Switch back to slide view');
+    btn.classList.add('active-read');
+    counter.style.display='none'; prevBtn.style.display='none';
+    nextBtn.style.display='none'; helpBtn.style.display='none';
+    dots.style.display='none';
+    label.textContent = 'WEEK 3 · BENJAMIN — Reading Mode';
+    label.style.opacity='0.55';
+    mLink.style.display='inline-block';
+    window.scrollTo({top:0,behavior:'smooth'});
+    panel.focus({preventScroll:true});
+  } else {
+    body.classList.remove('reading-mode');
+    panel.setAttribute('aria-hidden','true');
+    deck.setAttribute('aria-hidden','false');
+    btn.textContent='≡ Read';
+    btn.setAttribute('aria-label','Switch to reading mode');
+    btn.classList.remove('active-read');
+    counter.style.display=''; prevBtn.style.display='';
+    nextBtn.style.display=''; helpBtn.style.display='';
+    dots.style.display='';
+    label.textContent='WEEK 3 · BENJAMIN';
+    label.style.opacity='';
+    mLink.style.display='none';
+  }
+}
+
+// ── SCROLL UTILS ──────────────────────────────────────────────────────────────
+function rpScroll(dir) {
+  const amt = window.innerHeight * 0.72;
+  if (dir==='top') window.scrollTo({top:0,behavior:'smooth'});
+  else if (dir==='up') window.scrollBy({top:-amt,behavior:'smooth'});
+  else window.scrollBy({top:amt,behavior:'smooth'});
+}
+(function(){
+  const sections = ["rp-session-map", "rp-reading", "rp-questions", "rp-activity", "rp-gallery", "rp-synthesis", "rp-closing"];
+  function updateReadingUI() {
+    if (!readingMode) return;
+    const scrollY=window.scrollY, maxScroll=document.documentElement.scrollHeight-window.innerHeight;
+    const fu=document.getElementById('fab-up'),ft=document.getElementById('fab-top'),fd=document.getElementById('fab-dn');
+    if(fu&&ft&&fd){
+      ft.classList.toggle('fab-visible',scrollY>200);
+      fu.classList.toggle('fab-visible',scrollY>60);
+      fd.classList.toggle('fab-visible',scrollY<maxScroll-40);
+    }
+    let activeId=sections[0];
+    for(const id of sections){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=100)activeId=id;}
+    document.querySelectorAll('.rp-nav-item').forEach(a=>{a.classList.toggle('rp-nav-active',a.dataset.section===activeId);});
+  }
+  window.addEventListener('scroll',updateReadingUI,{passive:true});
+  window.addEventListener('resize',updateReadingUI,{passive:true});
+})();
+
 updateNav();
 
 
