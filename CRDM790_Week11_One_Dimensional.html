@@ -138,9 +138,117 @@
   .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(238,240,248,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(238,240,248,0.6); }
   .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(238,240,248,0.08); border: 1px solid rgba(238,240,248,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
   .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+
+  .skip-nav { position:absolute; top:-100px; left:1rem; z-index:9999; background:var(--accent); color:#000; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; padding:0.5rem 1rem; border-radius:2px; transition:top 0.2s; }
+  .skip-nav:focus { top:0.75rem; outline:2px solid var(--accent2,var(--accent)); }
+  .nav-week-link { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:rgba(245,237,216,0.65); text-decoration:none; border:1px solid rgba(245,237,216,0.14); padding:0.28rem 0.65rem; border-radius:2px; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
+  .nav-week-link:hover { background:rgba(245,237,216,0.07); color:var(--parch); border-color:rgba(245,237,216,0.28); }
+  .nav-vsep { width:1px; height:1.1rem; background:rgba(245,237,216,0.12); flex-shrink:0; margin:0 0.15rem; }
+  .nav-btn-read { background:rgba(201,168,76,0.14)!important; border-color:rgba(201,168,76,0.38)!important; color:#E8B84B!important; }
+  .nav-btn-read:hover { background:rgba(201,168,76,0.26)!important; border-color:#C9A84C!important; }
+  .nav-btn-read.active-read { background:rgba(201,168,76,0.28)!important; border-color:#C9A84C!important; }
+  body.reading-mode { overflow:auto!important; background:#F5F0E8!important; color:#1C1410!important; }
+  body.reading-mode #starfield, body.reading-mode #progress-bar, body.reading-mode #deck { display:none!important; }
+  #reading-panel { display:none; }
+  body.reading-mode #reading-panel { display:block; }
+  .rp-section-nav { position:sticky; top:0; z-index:40; background:rgba(245,240,232,0.97); border-bottom:1px solid #D9D0C4; backdrop-filter:blur(6px); display:flex; align-items:center; overflow-x:auto; scrollbar-width:none; padding:0 1.5rem; }
+  .rp-section-nav::-webkit-scrollbar { display:none; }
+  .rp-nav-item { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8B7A60; text-decoration:none; padding:0.65rem 0.9rem; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.15s; flex-shrink:0; }
+  .rp-nav-item:hover { color:#3C3028; border-bottom-color:#C9A84C; }
+  .rp-nav-item.rp-nav-active { color:#3C3028; border-bottom-color:#C9A84C; font-weight:600; }
+  .rp-wrap { max-width:740px; margin:0 auto; padding:3rem 2rem 8rem; }
+  .rp-eyebrow { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:#8B7A60; margin-bottom:0.6rem; }
+  .rp-title { font-family:var(--font-display); font-size:clamp(2rem,5vw,3.2rem); font-weight:700; line-height:1.1; color:#1C1410; margin-bottom:0.4rem; }
+  .rp-title em { color:#7B4A20; font-style:italic; }
+  .rp-subtitle { font-size:1.1rem; font-style:italic; color:#5A4A3C; margin-bottom:1.5rem; line-height:1.5; font-family:var(--font-body); }
+  .rp-meta { display:flex; gap:1.2rem; flex-wrap:wrap; font-family:var(--font-mono); font-size:0.68rem; color:#8B7A60; letter-spacing:0.06em; padding:1rem 0; border-top:1px solid #D9D0C4; border-bottom:1px solid #D9D0C4; margin-bottom:2rem; }
+  .rp-opening-quote { font-family:var(--font-body); font-size:1.05rem; font-style:italic; color:#5A4A3C; border-left:2px solid #C9A84C; padding:0.75rem 1.2rem; margin-bottom:2.5rem; line-height:1.65; background:#EDE8DC; border-radius:0 4px 4px 0; }
+  .rp-opening-quote cite { display:block; margin-top:0.5rem; font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; color:#9B8A6C; font-style:normal; }
+  .rp-section { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid #D9D0C4; }
+  .rp-section:last-child { border-bottom:none; }
+  .rp-section-title { font-family:var(--font-display); font-size:1.35rem; font-weight:600; color:#1C1410; padding-bottom:0.4rem; border-bottom:2px solid #C9A84C; display:inline-block; margin-bottom:0.35rem; }
+  .rp-section-intro { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:1.2rem; display:block; }
+  .rp-timeline { display:flex; flex-direction:column; }
+  .rp-tl-item { display:grid; grid-template-columns:6rem 1fr; gap:1rem; padding:0.7rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-tl-item:last-child { border-bottom:none; }
+  .rp-tl-time { font-family:var(--font-mono); font-size:0.7rem; color:#9B8A6C; padding-top:0.1rem; }
+  .rp-tl-label { font-family:var(--font-body); font-size:1rem; color:#1C1410; font-weight:500; margin-bottom:0.15rem; }
+  .rp-tl-desc { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; line-height:1.4; }
+  .rp-reading-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.2rem 1.6rem; border-radius:0 4px 4px 0; margin-bottom:1.1rem; }
+  .rp-reading-label { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.5rem; }
+  .rp-reading-list { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-reading-list li { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.5; padding-left:1rem; position:relative; }
+  .rp-reading-list li::before { content:"·"; position:absolute; left:0; color:#C9A84C; }
+  .rp-reading-text { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.55; }
+  .rp-reading-text strong { color:#1C1410; }
+  .rp-note-banner { background:rgba(255,200,100,0.12); border:1px solid rgba(200,150,50,0.3); border-radius:4px; padding:0.8rem 1.1rem; margin-bottom:1.1rem; font-family:var(--font-body); font-size:0.93rem; color:#5A4020; font-style:italic; line-height:1.5; }
+  .rp-concepts-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.9rem; margin-top:1rem; }
+  .rp-concept-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-concept-term { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#7B4A20; margin-bottom:0.3rem; }
+  .rp-concept-def { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-prompt-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.3rem 1.8rem; margin-bottom:1.3rem; border-radius:0 4px 4px 0; }
+  .rp-prompt-meta { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-prompt-q { font-family:var(--font-display); font-size:1.15rem; font-style:italic; color:#1C1410; line-height:1.6; margin-bottom:0.65rem; }
+  .rp-prompt-note { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; }
+  .rp-questions { display:flex; flex-direction:column; gap:0.9rem; }
+  .rp-q-item { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-q-num { font-family:var(--font-display); font-size:1.9rem; font-weight:700; color:rgba(201,168,76,0.45); line-height:1; flex-shrink:0; width:2rem; }
+  .rp-q-body { flex:1; }
+  .rp-q-text { font-family:var(--font-body); font-size:1.05rem; color:#1C1410; line-height:1.55; }
+  .rp-q-sub { display:block; font-family:var(--font-body); font-style:italic; color:#6A5A4C; font-size:0.9rem; margin-top:0.25rem; }
+  .rp-steps { display:flex; flex-direction:column; gap:0.7rem; }
+  .rp-step { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-step-num { width:1.9rem; height:1.9rem; border-radius:50%; border:1.5px solid #C9A84C; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.72rem; color:#8B6A30; flex-shrink:0; margin-top:0.1rem; }
+  .rp-step-content { flex:1; }
+  .rp-step-title { font-family:var(--font-body); font-size:1rem; font-weight:500; color:#1C1410; margin-bottom:0.2rem; }
+  .rp-step-time { font-family:var(--font-mono); font-size:0.68rem; color:#9B8A6C; margin-left:0.4rem; }
+  .rp-step-detail { font-family:var(--font-body); font-size:0.92rem; font-style:italic; color:#5A4A3C; line-height:1.4; }
+  .rp-step-note { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:#9B8A6C; margin-top:0.3rem; }
+  .rp-timer-note { background:#EDE8DC; border:1px solid #C9A84C; border-radius:4px; padding:0.7rem 1rem; font-family:var(--font-mono); font-size:0.7rem; color:#8B6A30; margin-bottom:1.2rem; }
+  .rp-cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+  .rp-card { background:#EDE8DC; border-radius:4px; padding:1rem 1.2rem; }
+  .rp-card-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.16em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-card-text { font-family:var(--font-body); font-size:0.93rem; color:#3C3028; line-height:1.5; }
+  .rp-closing-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+  .rp-checklist { background:#EDE8DC; border-radius:4px; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-checklist-title { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-checklist ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-checklist ul li { font-family:var(--font-body); font-size:0.95rem; color:#3C3028; line-height:1.4; padding-left:1.5rem; position:relative; }
+  .rp-checklist ul li::before { content:"☐"; position:absolute; left:0; color:#C9A84C; }
+  .rp-next-week { background:#EDEAF5; border-left:3px solid #7B6FD8; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-next-week-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.14em; color:#7B6FD8; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-next-week-title { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-next-week-body { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; font-style:italic; line-height:1.5; }
+  .rp-milestone-box { background:#FBF0E8; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-due { background:rgba(181,52,42,0.08); border-left:3px solid #DC503C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.13em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-milestone-due .rp-milestone-label { color:#DC503C; }
+  .rp-milestone-name { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-body-text { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; line-height:1.55; }
+  .rp-writing-seed { background:#EDE8DC; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1rem 1.3rem; margin-top:1rem; }
+  .rp-writing-seed-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-writing-seed-q { font-family:var(--font-display); font-size:1rem; font-style:italic; color:#1C1410; line-height:1.5; }
+  .rp-criteria-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1.2rem; }
+  .rp-crit-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-crit-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-crit-text { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-threshold-row { display:grid; grid-template-columns:auto 1fr; gap:0 0.9rem; align-items:baseline; padding:0.55rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-threshold-row:last-child { border-bottom:none; }
+  .rp-th-level { font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
+  .rp-th-complete { color:#3D8B5E; }
+  .rp-th-revision { color:#8B6A30; }
+  .rp-th-missing  { color:#B5352A; }
+  .rp-th-desc { font-family:var(--font-body); font-size:0.92rem; color:#5A4A3C; line-height:1.45; }
+  .rp-scroll-fabs { position:fixed; bottom:4.2rem; right:1.6rem; z-index:90; display:none; flex-direction:column; gap:0.4rem; pointer-events:none; }
+  body.reading-mode .rp-scroll-fabs { display:flex; pointer-events:all; }
+  .rp-fab { width:2.3rem; height:2.3rem; border-radius:50%; background:#1C1410; border:1px solid rgba(201,168,76,0.4); color:#C9A84C; font-size:0.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s,transform 0.2s,background 0.15s; box-shadow:0 2px 10px rgba(0,0,0,0.22); opacity:0; pointer-events:none; transform:translateY(6px); }
+  .rp-fab.fab-visible { opacity:1; pointer-events:all; transform:translateY(0); }
+  .rp-fab:hover { background:#2E2318; border-color:#C9A84C; }
+  @media(max-width:640px){.rp-concepts-grid,.rp-cards-grid,.rp-closing-grid,.rp-criteria-grid{grid-template-columns:1fr;}.rp-wrap{padding:1.5rem 1rem 6rem;}.rp-section-nav{display:none;}}
 </style>
 </head>
 <body>
+<a href="#reading-panel" class="skip-nav" id="skip-to-content">Skip to reading view</a>
 <canvas id="starfield"></canvas>
 <div id="progress-bar"></div>
 <div id="deck">
@@ -498,34 +606,182 @@
 
 </div><!-- /deck -->
 
+<main id="reading-panel" role="region" aria-label="Week 11: One-Dimensional Thinking — reading view" aria-hidden="true" tabindex="-1">
+<nav class="rp-section-nav" aria-label="Jump to section">
+  <a href="#rp-session-map"  class="rp-nav-item" data-section="rp-session-map">Session Map</a>
+  <a href="#rp-reading"      class="rp-nav-item" data-section="rp-reading">Reading Guide</a>
+  <a href="#rp-pre-class"    class="rp-nav-item" data-section="rp-pre-class">Pre-Class Writing</a>
+  <a href="#rp-questions"    class="rp-nav-item" data-section="rp-questions">Questions</a>
+  <a href="#rp-audit"        class="rp-nav-item" data-section="rp-audit">Draft Audit</a>
+  <a href="#rp-synthesis"    class="rp-nav-item" data-section="rp-synthesis">Synthesis</a>
+  <a href="#rp-closing"      class="rp-nav-item" data-section="rp-closing">Looking Ahead</a>
+</nav>
+<div class="rp-wrap">
+  <div class="rp-eyebrow">CRDM 790 &#183; Movement III &#183; Week 11</div>
+  <h1 class="rp-title">One-Dimensional <em>Thinking</em></h1>
+  <p class="rp-subtitle">First week after Spring Break &#8212; welcome back. Where does your field reproduce what is already sayable?</p>
+  <div class="rp-meta">
+    <span>Reading: Marcuse, <em>One-Dimensional Man</em> (Perusall)</span>
+    <span>Activity: One-Dimensional Draft Audit</span>
+  </div>
+
+  <section class="rp-section" id="rp-session-map">
+    <h2 class="rp-section-title">Session Map</h2>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">&#127807; Back from Break</div><p class="rp-card-text">20 minutes: What did you read for pleasure? This is a real question &#8212; it signals that you take seriously what you were asked to do. Transition: from rest into Marcuse&#8217;s argument about why rest is not enough.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#128214; Primary Reading (Perusall)</div><p class="rp-card-text">Marcuse, <em>One-Dimensional Man</em> &#8212; Introduction (pp. xi&#8211;xvii), Ch. 1 &#8220;The New Forms of Control&#8221; (pp. 1&#8211;18), Ch. 3 &#8220;Repressive Desublimation&#8221; (pp. 56&#8211;83).</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#128172; Discussion</div><p class="rp-card-text">Marcuse on false needs, one-dimensional thought, absorption of dissent. Students read first prospectus paragraph aloud &#8212; group applies Marcuse&#8217;s critique. Discussion anchor: true vs. false needs (pp. 4&#8211;8).</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#10022; One-Dimensional Draft Audit</div><p class="rp-card-text">Each person reads prospectus paragraph aloud (2 min). Group offers one &#8220;one-dimensional&#8221; observation. 5 minutes: write a revised first sentence. Volunteers share before and after.</p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-reading">
+    <h2 class="rp-section-title">Reading Guide</h2>
+    <span class="rp-section-intro">Marcuse, One-Dimensional Man &#183; Beacon Press (original 1964; various reprints)</span>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Assigned (Perusall)</div>
+      <ul class="rp-reading-list">
+        <li>Introduction to 1st Edition &#8212; pp. xi&#8211;xvii (~7 pp.)</li>
+        <li>Chapter 1, &#8216;The New Forms of Control&#8217; &#8212; pp. 1&#8211;18</li>
+        <li>Chapter 3, &#8216;Repressive Desublimation&#8217; &#8212; pp. 56&#8211;83</li>
+      </ul>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Perusall annotation prompt</div>
+      <p class="rp-reading-text">Find the passage in Marcuse where you feel the critique most directly. Where does his analysis name something you recognize in your own field&#8217;s disciplinary language?</p>
+    </div>
+    <div class="rp-concepts-grid">
+      <div class="rp-concept-card"><div class="rp-concept-term">One-Dimensional Thought</div><p class="rp-concept-def">Thought that can identify problems only within the terms the system itself provides. Cannot imagine outside the system that produced it.</p></div>
+      <div class="rp-concept-card"><div class="rp-concept-term">Repressive Desublimation</div><p class="rp-concept-def">The absorption of dissent and transgression into the culture it was meant to critique &#8212; radicalism made consumable, critique made safe.</p></div>
+      <div class="rp-concept-card"><div class="rp-concept-term">True vs. False Needs</div><p class="rp-concept-def">False needs are those imposed by particular social interests in repression &#8212; the needs the system teaches us to have. True needs emerge from genuine self-determination. (pp. 4&#8211;8)</p></div>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Further Reading</div>
+      <ul class="rp-reading-list">
+        <li>Robin D.G. Kelley, <em>Freedom Dreams</em> &#8212; the counter-Marcuse: imagination as scholarly and political practice, not optimism but rigorous capacity to envision alternatives</li>
+        <li>Adorno &amp; Horkheimer, <em>Dialectic of Enlightenment</em> &#8212; Frankfurt School context for Marcuse; culture industry essay is the most accessible entry</li>
+        <li>Marcuse, <em>One-Dimensional Man</em> full text &#8212; Ch. 6 on technological rationality is particularly useful for media and platform scholars</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-pre-class">
+    <h2 class="rp-section-title">Pre-Class Writing</h2>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-meta">Paragraph One &#8212; First Prospectus Draft</div>
+      <div class="rp-prompt-q">The opening statement of your project. What is the problem? Why does it matter? Who is it for? Write it as if writing the opening paragraph of your actual prospectus &#8212; present tense, declarative, claiming an argument. Don&#8217;t hedge. Don&#8217;t qualify into vagueness. Say what you think you&#8217;re doing.</div>
+    </div>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-meta">Paragraph Two &#8212; The Marcusean Critique</div>
+      <div class="rp-prompt-q">Apply Marcuse&#8217;s analysis to your own first paragraph. Where does it reproduce the assumptions of your field without questioning them? Where does it fail to imagine alternatives? Where is it one-dimensional?</div>
+      <p class="rp-prompt-note">This is not self-flagellation &#8212; it is the intellectual move that makes the contribution claim possible. You cannot claim to offer something new until you can identify what you are departing from.</p>
+    </div>
+    <div class="rp-writing-seed">
+      <div class="rp-writing-seed-label">The diagnostic question</div>
+      <div class="rp-writing-seed-q">&#8220;Where in my first paragraph am I writing what the field expects me to write &#8212; rather than what I actually think?&#8221;</div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-questions">
+    <h2 class="rp-section-title">Guiding Questions</h2>
+    <div class="rp-questions">
+      <div class="rp-q-item"><div class="rp-q-num">1</div><div class="rp-q-body"><div class="rp-q-text">Marcuse argues that advanced industrial society absorbs and neutralizes dissent &#8212; that we have become incapable of imagining alternatives. Do you believe that? Where do you see it in your field?</div><span class="rp-q-sub">What does &#8220;one-dimensional thought&#8221; look like in the journals you read?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">2</div><div class="rp-q-body"><div class="rp-q-text">What would it mean for your dissertation to be &#8220;one-dimensional&#8221;? What field assumptions would it reproduce without questioning?</div><span class="rp-q-sub">Marcuse: the one-dimensional thinker can identify the problem but cannot imagine outside the system that produced it.</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">3</div><div class="rp-q-body"><div class="rp-q-text">Marcuse&#8217;s critique is partly a critique of academic language itself &#8212; the way technical discourse forecloses political thought. Do you recognize that in your field&#8217;s writing?</div><span class="rp-q-sub">What happens when you translate your research question into plain language? What do you lose &#8212; and what do you suddenly see?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">4</div><div class="rp-q-body"><div class="rp-q-text">Kelley&#8217;s <em>Freedom Dreams</em> offers the counter-move: imagination as scholarly and political practice. What would it mean for your dissertation to be a &#8220;freedom dream&#8221;?</div><span class="rp-q-sub">Not optimism &#8212; rigorous imagination. What future does your work have to believe in to be worth writing?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">5</div><div class="rp-q-body"><div class="rp-q-text">Read your first prospectus paragraph with Marcuse&#8217;s critique in mind. Where is it one-dimensional? Where does it open rather than close?</div><span class="rp-q-sub">This is the diagnostic question for the audit. No defensiveness &#8212; just the observation.</span></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-audit">
+    <h2 class="rp-section-title">One-Dimensional Draft Audit</h2>
+    <span class="rp-section-intro">Hands-on activity &#183; Apply Marcuse&#8217;s critique to your own opening paragraph</span>
+    <div class="rp-steps">
+      <div class="rp-step"><div class="rp-step-num">1</div><div class="rp-step-content"><div class="rp-step-title">Read aloud</div><div class="rp-step-detail">Each person reads their first prospectus paragraph aloud &#8212; approximately 2 minutes. No framing, no apology, no explanation. Just the paragraph as it is.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">2</div><div class="rp-step-content"><div class="rp-step-title">One observation</div><div class="rp-step-detail">After each reading, the group offers one &#8220;one-dimensional&#8221; observation: a place where the project might be reproducing field assumptions rather than challenging them. Not a critique of the person &#8212; a critique of the argument.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">3</div><div class="rp-step-content"><div class="rp-step-title">No fixes yet</div><div class="rp-step-detail">The writer listens without defending. Take notes. The observation is data. The goal is not to solve the problem in the moment but to name it clearly enough that it can be worked on.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">4</div><div class="rp-step-content"><div class="rp-step-title">5 minutes &#8212; revised sentence</div><div class="rp-step-detail">Each person writes a revised first sentence &#8212; one sentence that opens up rather than closes down. It doesn&#8217;t have to be good. It has to try to imagine outside the assumption.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">5</div><div class="rp-step-content"><div class="rp-step-title">Share before and after</div><div class="rp-step-detail">Volunteers share their original sentence and their revised sentence. What changed? What did Marcuse give you permission to do? What opened up when you stopped writing for the field?</div></div></div>
+    </div>
+    <div class="rp-reading-block" style="margin-top:1rem;">
+      <div class="rp-reading-label">The key norm</div>
+      <p class="rp-reading-text">Set this explicitly before you start: the &#8220;one-dimensional&#8221; observation is a gift when it lands. Model genuine engagement with the observation &#8212; not defensive deflection. Go first. Submit your own writing to the audit.</p>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-synthesis">
+    <h2 class="rp-section-title">Synthesis</h2>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">The move Marcuse makes possible</div><p class="rp-card-text">Marcuse does not offer an alternative &#8212; he names the condition that makes alternatives feel impossible. That diagnosis is the gift. You cannot imagine your way out of one-dimensional thought until you can see where you are inside it.</p></div>
+      <div class="rp-card"><div class="rp-card-label">The contribution claim, reframed</div><p class="rp-card-text">Your prospectus&#8217;s contribution is not just &#8220;I fill a gap in the literature.&#8221; The stronger claim: &#8220;The field has been unable to think about X because of Y assumption &#8212; and my project challenges that assumption by doing Z.&#8221; The audit surfaces the Y.</p></div>
+    </div>
+    <div class="rp-writing-seed">
+      <div class="rp-writing-seed-label">Synthesis question</div>
+      <div class="rp-writing-seed-q">&#8220;What did Marcuse give you <em>permission</em> to do? What can you now say that you couldn&#8217;t say before?&#8221;</div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-closing">
+    <h2 class="rp-section-title">Looking Ahead</h2>
+    <div class="rp-closing-grid">
+      <div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Week 12 &#8212; Amitav Ghosh, <em>The Great Derangement</em></div>
+          <ul>
+            <li>On Perusall &#8212; Ghosh asks why literary and humanistic imagination has failed to reckon with climate change</li>
+            <li>Come ready to be implicated</li>
+          </ul>
+        </div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Pre-class writing for Week 12</div>
+          <ul><li>Write a 150-word version of your dissertation project for a smart non-specialist. What can you keep? What falls away? What is actually essential? Bring it &#8212; we will put it through the &#8220;So What? Gauntlet.&#8221;</li></ul>
+        </div>
+      </div>
+      <div>
+        <div class="rp-next-week">
+          <div class="rp-next-week-label">Save your revised first sentence</div>
+          <div class="rp-next-week-title">The sentence you wrote today.</div>
+          <p class="rp-next-week-body">The one that opened up rather than closed down. Keep it. It is the beginning of your prospectus&#8217;s contribution claim.</p>
+        </div>
+        <div class="rp-milestone-box">
+          <div class="rp-milestone-label">&#9670; M4 &#8212; On the Horizon</div>
+          <div class="rp-milestone-name">Dissertation Prospectus</div>
+          <p class="rp-body-text">Workshop draft due night before Week 14. Begin prospectus framing now &#8212; the Marcusean critique of your opening paragraph is the first draft of your contribution claim.</p>
+        </div>
+      </div>
+    </div>
+    <div class="rp-prompt-block" style="text-align:center; margin-top:1rem;">
+      <div class="rp-prompt-q" style="text-align:center;">&#8220;What did Marcuse give you permission to do?&#8221;</div>
+    </div>
+  </section>
+</div></main>
+
+<div class="rp-scroll-fabs" aria-hidden="true">
+  <button class="rp-fab" id="fab-up"  onclick="rpScroll('up')"  aria-label="Scroll up">↑</button>
+  <button class="rp-fab" id="fab-top" onclick="rpScroll('top')" aria-label="Back to top">⌂</button>
+  <button class="rp-fab" id="fab-dn"  onclick="rpScroll('dn')"  aria-label="Scroll down">↓</button>
+</div>
+
 <div id="nav">
-  <div style="display:flex; align-items:center;">
+  <div id="nav-left" style="display:flex;align-items:center;gap:0.4rem;">
+    <a href="index.html" class="nav-week-link" aria-label="Return to course index">← Index</a>
+    <a href="CRDM790_Week10_Individual_Meetings.html" class="nav-week-link" aria-label="Go to Week 10">← Week 10</a>
+    <a href="CRDM790_Week12_Ghosh_Gauntlet.html" class="nav-week-link" aria-label="Go to Week 12">Week 12 →</a>
+    <span class="nav-vsep" aria-hidden="true"></span>
     <div id="slide-dots"></div>
     <span id="nav-label">WEEK 11 · ONE-DIMENSIONAL THINKING</span>
   </div>
-  <div style="display:flex; align-items:center; gap:1.5rem;">
+  <div style="display:flex;align-items:center;gap:0.6rem;">
     <span id="slide-counter">1 / 8</span>
-    <div style="display:flex; gap:0.6rem;">
+    <div style="display:flex;gap:0.5rem;align-items:center;">
       <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
       <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
-      <button class="nav-btn" onclick="toggleHelp()">?</button>
+      <button class="nav-btn" id="help-btn" onclick="toggleHelp()">?</button>
+      <a href="index.html#milestones" class="nav-btn" id="milestones-link" style="display:none;text-decoration:none;" aria-label="Jump to milestones">◆ Milestones</a>
+      <button class="nav-btn nav-btn-read" id="read-toggle-btn" onclick="toggleReadingMode()" aria-label="Switch to reading mode" title="Reading mode (M)">≡ Read</button>
     </div>
   </div>
 </div>
-
-<div class="help-overlay" id="help-overlay">
-  <div class="help-box">
-    <h3>Keyboard Shortcuts</h3>
-    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
-    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
-    <div class="shortcut-row"><span>Reveal question (slide 4)</span><span><span class="key">Enter</span></span></div>
-    <div class="shortcut-row"><span>Audit step (slide 5)</span><span><span class="key">A</span></span></div>
-    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
-    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
-    <div class="help-close" onclick="closeHelp()">Close ✕</div>
-  </div>
-</div>
-
 <script>
 // ── GEOMETRIC FRAGMENT PARTICLES ─────────────────────────────────────────────
 (function() {
@@ -604,12 +860,65 @@ document.addEventListener('keydown',e=>{
     case 'Enter':if(current===4){e.preventDefault();revealNextQ();}break;
     case 'a':case 'A':if(current===5)nextAStep();break;
     case 'Home':goTo(1);break; case 'End':goTo(TOTAL);break;
+    case 'm': case 'M': toggleReadingMode(); break;
     case '?':toggleHelp();break; case 'Escape':closeHelp();break;
   }
 });
 function toggleHelp(){document.getElementById('help-overlay').classList.toggle('visible');}
 function closeHelp(){document.getElementById('help-overlay').classList.remove('visible');}
+
+// ── READING MODE ──────────────────────────────────────────────────────────────
+let readingMode = false;
+function toggleReadingMode() {
+  readingMode = !readingMode;
+  const body=document.body,panel=document.getElementById('reading-panel'),
+        deck=document.getElementById('deck'),btn=document.getElementById('read-toggle-btn'),
+        counter=document.getElementById('slide-counter'),prevBtn=document.getElementById('prev-btn'),
+        nextBtn=document.getElementById('next-btn'),helpBtn=document.getElementById('help-btn'),
+        dots=document.getElementById('slide-dots'),label=document.getElementById('nav-label'),
+        mLink=document.getElementById('milestones-link');
+  closeHelp();
+  if(readingMode){
+    body.classList.add('reading-mode');panel.setAttribute('aria-hidden','false');
+    deck.setAttribute('aria-hidden','true');btn.textContent='⊞ Slides';
+    btn.setAttribute('aria-label','Switch back to slide view');btn.classList.add('active-read');
+    counter.style.display='none';prevBtn.style.display='none';nextBtn.style.display='none';
+    helpBtn.style.display='none';dots.style.display='none';
+    label.textContent='WEEK 11 · ONE-DIMENSIONAL THINKING — Reading Mode';label.style.opacity='0.55';
+    mLink.style.display='inline-block';window.scrollTo({top:0,behavior:'smooth'});
+    panel.focus({preventScroll:true});
+  } else {
+    body.classList.remove('reading-mode');panel.setAttribute('aria-hidden','true');
+    deck.setAttribute('aria-hidden','false');btn.textContent='≡ Read';
+    btn.setAttribute('aria-label','Switch to reading mode');btn.classList.remove('active-read');
+    counter.style.display='';prevBtn.style.display='';nextBtn.style.display='';
+    helpBtn.style.display='';dots.style.display='';
+    label.textContent='WEEK 11 · ONE-DIMENSIONAL THINKING';label.style.opacity='';mLink.style.display='none';
+  }
+}
+function rpScroll(dir){
+  if(dir==='top') window.scrollTo({top:0,behavior:'smooth'});
+  else if(dir==='up') window.scrollBy({top:-window.innerHeight*0.72,behavior:'smooth'});
+  else window.scrollBy({top:window.innerHeight*0.72,behavior:'smooth'});
+}
+(function(){
+  const sections=["rp-session-map", "rp-reading", "rp-pre-class", "rp-questions", "rp-audit", "rp-synthesis", "rp-closing"];
+  function upd(){
+    if(!readingMode) return;
+    const sy=window.scrollY,mx=document.documentElement.scrollHeight-window.innerHeight;
+    const fu=document.getElementById('fab-up'),ft=document.getElementById('fab-top'),fd=document.getElementById('fab-dn');
+    if(fu&&ft&&fd){ft.classList.toggle('fab-visible',sy>200);fu.classList.toggle('fab-visible',sy>60);fd.classList.toggle('fab-visible',sy<mx-40);}
+    let act=sections[0];
+    for(const id of sections){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=100)act=id;}
+    document.querySelectorAll('.rp-nav-item').forEach(a=>a.classList.toggle('rp-nav-active',a.dataset.section===act));
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+})();
+
 updateNav();
+
+
 </script>
 </body>
 </html>
