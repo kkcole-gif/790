@@ -166,10 +166,118 @@
   .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(245,235,208,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(245,235,208,0.6); }
   .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(245,235,208,0.08); border: 1px solid rgba(245,235,208,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
   .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+
+  .skip-nav { position:absolute; top:-100px; left:1rem; z-index:9999; background:var(--accent); color:#000; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; padding:0.5rem 1rem; border-radius:2px; transition:top 0.2s; }
+  .skip-nav:focus { top:0.75rem; outline:2px solid var(--accent2,var(--accent)); }
+  .nav-week-link { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:rgba(245,237,216,0.65); text-decoration:none; border:1px solid rgba(245,237,216,0.14); padding:0.28rem 0.65rem; border-radius:2px; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
+  .nav-week-link:hover { background:rgba(245,237,216,0.07); color:var(--parch); border-color:rgba(245,237,216,0.28); }
+  .nav-vsep { width:1px; height:1.1rem; background:rgba(245,237,216,0.12); flex-shrink:0; margin:0 0.15rem; }
+  .nav-btn-read { background:rgba(201,168,76,0.14)!important; border-color:rgba(201,168,76,0.38)!important; color:#E8B84B!important; }
+  .nav-btn-read:hover { background:rgba(201,168,76,0.26)!important; border-color:#C9A84C!important; }
+  .nav-btn-read.active-read { background:rgba(201,168,76,0.28)!important; border-color:#C9A84C!important; }
+  body.reading-mode { overflow:auto!important; background:#F5F0E8!important; color:#1C1410!important; }
+  body.reading-mode #starfield, body.reading-mode #progress-bar, body.reading-mode #deck { display:none!important; }
+  #reading-panel { display:none; }
+  body.reading-mode #reading-panel { display:block; }
+  .rp-section-nav { position:sticky; top:0; z-index:40; background:rgba(245,240,232,0.97); border-bottom:1px solid #D9D0C4; backdrop-filter:blur(6px); display:flex; align-items:center; overflow-x:auto; scrollbar-width:none; padding:0 1.5rem; }
+  .rp-section-nav::-webkit-scrollbar { display:none; }
+  .rp-nav-item { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8B7A60; text-decoration:none; padding:0.65rem 0.9rem; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.15s; flex-shrink:0; }
+  .rp-nav-item:hover { color:#3C3028; border-bottom-color:#C9A84C; }
+  .rp-nav-item.rp-nav-active { color:#3C3028; border-bottom-color:#C9A84C; font-weight:600; }
+  .rp-wrap { max-width:740px; margin:0 auto; padding:3rem 2rem 8rem; }
+  .rp-eyebrow { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:#8B7A60; margin-bottom:0.6rem; }
+  .rp-title { font-family:var(--font-display); font-size:clamp(2rem,5vw,3.2rem); font-weight:700; line-height:1.1; color:#1C1410; margin-bottom:0.4rem; }
+  .rp-title em { color:#7B4A20; font-style:italic; }
+  .rp-subtitle { font-size:1.1rem; font-style:italic; color:#5A4A3C; margin-bottom:1.5rem; line-height:1.5; font-family:var(--font-body); }
+  .rp-meta { display:flex; gap:1.2rem; flex-wrap:wrap; font-family:var(--font-mono); font-size:0.68rem; color:#8B7A60; letter-spacing:0.06em; padding:1rem 0; border-top:1px solid #D9D0C4; border-bottom:1px solid #D9D0C4; margin-bottom:2rem; }
+  .rp-opening-quote { font-family:var(--font-body); font-size:1.05rem; font-style:italic; color:#5A4A3C; border-left:2px solid #C9A84C; padding:0.75rem 1.2rem; margin-bottom:2.5rem; line-height:1.65; background:#EDE8DC; border-radius:0 4px 4px 0; }
+  .rp-opening-quote cite { display:block; margin-top:0.5rem; font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; color:#9B8A6C; font-style:normal; }
+  .rp-section { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid #D9D0C4; }
+  .rp-section:last-child { border-bottom:none; }
+  .rp-section-title { font-family:var(--font-display); font-size:1.35rem; font-weight:600; color:#1C1410; padding-bottom:0.4rem; border-bottom:2px solid #C9A84C; display:inline-block; margin-bottom:0.35rem; }
+  .rp-section-intro { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:1.2rem; display:block; }
+  .rp-timeline { display:flex; flex-direction:column; }
+  .rp-tl-item { display:grid; grid-template-columns:6rem 1fr; gap:1rem; padding:0.7rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-tl-item:last-child { border-bottom:none; }
+  .rp-tl-time { font-family:var(--font-mono); font-size:0.7rem; color:#9B8A6C; padding-top:0.1rem; }
+  .rp-tl-label { font-family:var(--font-body); font-size:1rem; color:#1C1410; font-weight:500; margin-bottom:0.15rem; }
+  .rp-tl-desc { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; line-height:1.4; }
+  .rp-reading-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.2rem 1.6rem; border-radius:0 4px 4px 0; margin-bottom:1.1rem; }
+  .rp-reading-label { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.5rem; }
+  .rp-reading-list { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-reading-list li { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.5; padding-left:1rem; position:relative; }
+  .rp-reading-list li::before { content:"·"; position:absolute; left:0; color:#C9A84C; }
+  .rp-reading-text { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.55; }
+  .rp-reading-text strong { color:#1C1410; }
+  .rp-note-banner { background:rgba(255,200,100,0.12); border:1px solid rgba(200,150,50,0.3); border-radius:4px; padding:0.8rem 1.1rem; margin-bottom:1.1rem; font-family:var(--font-body); font-size:0.93rem; color:#5A4020; font-style:italic; line-height:1.5; }
+  .rp-concepts-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.9rem; margin-top:1rem; }
+  .rp-concept-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-concept-term { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#7B4A20; margin-bottom:0.3rem; }
+  .rp-concept-def { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-prompt-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.3rem 1.8rem; margin-bottom:1.3rem; border-radius:0 4px 4px 0; }
+  .rp-prompt-meta { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-prompt-q { font-family:var(--font-display); font-size:1.15rem; font-style:italic; color:#1C1410; line-height:1.6; margin-bottom:0.65rem; }
+  .rp-prompt-note { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; }
+  .rp-questions { display:flex; flex-direction:column; gap:0.9rem; }
+  .rp-q-item { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-q-num { font-family:var(--font-display); font-size:1.9rem; font-weight:700; color:rgba(201,168,76,0.45); line-height:1; flex-shrink:0; width:2rem; }
+  .rp-q-body { flex:1; }
+  .rp-q-text { font-family:var(--font-body); font-size:1.05rem; color:#1C1410; line-height:1.55; }
+  .rp-q-sub { display:block; font-family:var(--font-body); font-style:italic; color:#6A5A4C; font-size:0.9rem; margin-top:0.25rem; }
+  .rp-steps { display:flex; flex-direction:column; gap:0.7rem; }
+  .rp-step { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-step-num { width:1.9rem; height:1.9rem; border-radius:50%; border:1.5px solid #C9A84C; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.72rem; color:#8B6A30; flex-shrink:0; margin-top:0.1rem; }
+  .rp-step-content { flex:1; }
+  .rp-step-title { font-family:var(--font-body); font-size:1rem; font-weight:500; color:#1C1410; margin-bottom:0.2rem; }
+  .rp-step-time { font-family:var(--font-mono); font-size:0.68rem; color:#9B8A6C; margin-left:0.4rem; }
+  .rp-step-detail { font-family:var(--font-body); font-size:0.92rem; font-style:italic; color:#5A4A3C; line-height:1.4; }
+  .rp-step-note { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:#9B8A6C; margin-top:0.3rem; }
+  .rp-timer-note { background:#EDE8DC; border:1px solid #C9A84C; border-radius:4px; padding:0.7rem 1rem; font-family:var(--font-mono); font-size:0.7rem; color:#8B6A30; margin-bottom:1.2rem; }
+  .rp-cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+  .rp-card { background:#EDE8DC; border-radius:4px; padding:1rem 1.2rem; }
+  .rp-card-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.16em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-card-text { font-family:var(--font-body); font-size:0.93rem; color:#3C3028; line-height:1.5; }
+  .rp-closing-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+  .rp-checklist { background:#EDE8DC; border-radius:4px; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-checklist-title { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-checklist ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-checklist ul li { font-family:var(--font-body); font-size:0.95rem; color:#3C3028; line-height:1.4; padding-left:1.5rem; position:relative; }
+  .rp-checklist ul li::before { content:"☐"; position:absolute; left:0; color:#C9A84C; }
+  .rp-next-week { background:#EDEAF5; border-left:3px solid #7B6FD8; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-next-week-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.14em; color:#7B6FD8; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-next-week-title { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-next-week-body { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; font-style:italic; line-height:1.5; }
+  .rp-milestone-box { background:#FBF0E8; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-due { background:rgba(181,52,42,0.08); border-left:3px solid #DC503C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.13em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-milestone-due .rp-milestone-label { color:#DC503C; }
+  .rp-milestone-name { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-body-text { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; line-height:1.55; }
+  .rp-writing-seed { background:#EDE8DC; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1rem 1.3rem; margin-top:1rem; }
+  .rp-writing-seed-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-writing-seed-q { font-family:var(--font-display); font-size:1rem; font-style:italic; color:#1C1410; line-height:1.5; }
+  .rp-criteria-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1.2rem; }
+  .rp-crit-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-crit-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-crit-text { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-threshold-row { display:grid; grid-template-columns:auto 1fr; gap:0 0.9rem; align-items:baseline; padding:0.55rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-threshold-row:last-child { border-bottom:none; }
+  .rp-th-level { font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
+  .rp-th-complete { color:#3D8B5E; }
+  .rp-th-revision { color:#8B6A30; }
+  .rp-th-missing  { color:#B5352A; }
+  .rp-th-desc { font-family:var(--font-body); font-size:0.92rem; color:#5A4A3C; line-height:1.45; }
+  .rp-scroll-fabs { position:fixed; bottom:4.2rem; right:1.6rem; z-index:90; display:none; flex-direction:column; gap:0.4rem; pointer-events:none; }
+  body.reading-mode .rp-scroll-fabs { display:flex; pointer-events:all; }
+  .rp-fab { width:2.3rem; height:2.3rem; border-radius:50%; background:#1C1410; border:1px solid rgba(201,168,76,0.4); color:#C9A84C; font-size:0.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s,transform 0.2s,background 0.15s; box-shadow:0 2px 10px rgba(0,0,0,0.22); opacity:0; pointer-events:none; transform:translateY(6px); }
+  .rp-fab.fab-visible { opacity:1; pointer-events:all; transform:translateY(0); }
+  .rp-fab:hover { background:#2E2318; border-color:#C9A84C; }
+  @media(max-width:640px){.rp-concepts-grid,.rp-cards-grid,.rp-closing-grid,.rp-criteria-grid{grid-template-columns:1fr;}.rp-wrap{padding:1.5rem 1rem 6rem;}.rp-section-nav{display:none;}}
 </style>
 </head>
 <body>
 
+<a href="#reading-panel" class="skip-nav" id="skip-to-content">Skip to reading view</a>
 <canvas id="starfield"></canvas>
 <div id="progress-bar"></div>
 
@@ -513,35 +621,184 @@
 </div><!-- /deck -->
 
 <!-- NAV -->
+<main id="reading-panel" role="region" aria-label="Week 9: Committee as Intellectual Community — reading view" aria-hidden="true" tabindex="-1">
+<nav class="rp-section-nav" aria-label="Jump to section">
+  <a href="#rp-session-map"  class="rp-nav-item" data-section="rp-session-map">Session Map</a>
+  <a href="#rp-reading"      class="rp-nav-item" data-section="rp-reading">Suggested Reading</a>
+  <a href="#rp-pre-class"    class="rp-nav-item" data-section="rp-pre-class">Pre-Class Tasks</a>
+  <a href="#rp-questions"    class="rp-nav-item" data-section="rp-questions">Questions</a>
+  <a href="#rp-email"        class="rp-nav-item" data-section="rp-email">Email Workshop</a>
+  <a href="#rp-guest"        class="rp-nav-item" data-section="rp-guest">Guest Speaker</a>
+  <a href="#rp-closing"      class="rp-nav-item" data-section="rp-closing">Looking Ahead</a>
+</nav>
+<div class="rp-wrap">
+  <div class="rp-eyebrow">CRDM 790 &#183; Movement II &#183; Week 9</div>
+  <h1 class="rp-title"><em>Committee</em> as Intellectual Community</h1>
+  <p class="rp-subtitle">Not bureaucracy &#8212; intellectual relationship. Who will challenge your work productively?</p>
+  <div class="rp-meta">
+    <span>Suggested reading: Kelsky, <em>The Professor Is In</em></span>
+    <span>Activity: Committee Email Workshop</span>
+    <span>Guest: recently advanced student or faculty</span>
+  </div>
+
+  <section class="rp-section" id="rp-session-map">
+    <h2 class="rp-section-title">Session Map</h2>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">&#128214; Suggested Reading (No Perusall)</div><p class="rp-card-text">Karen Kelsky, <em>The Professor Is In</em> &#8212; advisor + committee chapters (Library Reserve). No Perusall assignment this week &#8212; use the time to reach out to potential committee members.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#9999;&#65039; Pre-Class Writing</div><p class="rp-card-text">Committee map: draw or write your ideal committee, name positions, write 2&#8211;3 sentences per person. Draft the email you will send your first committee contact. Bring both &#8212; we will workshop the email in class.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#127908; Guest Speaker</div><p class="rp-card-text">A recently advanced student or faculty member speaking candidly about committee dynamics &#8212; how they chose their committee, what worked, and what they would do differently.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#10022; Activity + Check-Ins</div><p class="rp-card-text">Committee Email Workshop &#8212; partner feedback on your draft ask. By end of session: commit to sending one inquiry email within 48 hours. Individual committee status check-ins with instructor.</p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-reading">
+    <h2 class="rp-section-title">Suggested Reading</h2>
+    <span class="rp-section-intro">No Perusall this week &#183; Library Reserve</span>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Kelsky, The Professor Is In (Library Reserve)</div>
+      <p class="rp-reading-text">Read the advisor and committee chapters now; save the job market chapters for later. Frank, sometimes uncomfortable, always useful &#8212; the most clear-eyed account of academic culture, advisor dynamics, and committee formation you will find.</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Further Reading</div>
+      <ul class="rp-reading-list">
+        <li>Meltzer &amp; Sherman (eds.), <em>Mentoring in the Age of Professional Complexities</em> &#8212; useful if you are navigating a mentorship that is not working as it should</li>
+        <li>Cassuto &amp; Weisbuch, <em>The New PhD</em> &#8212; structural critique of doctoral education; context for understanding why the advisor-committee system works as it does</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-pre-class">
+    <h2 class="rp-section-title">Pre-Class Tasks</h2>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-meta">Task One &#8212; Committee Map</div>
+      <div class="rp-prompt-q">Draw or write your ideal committee. Name each position and write 2&#8211;3 sentences about why each person, what they bring, and where you are in the conversation with them.</div>
+    </div>
+    <div class="rp-cards-grid" style="margin-top:1rem;">
+      <div class="rp-card"><div class="rp-card-label">Chair / Primary Advisor &#8212; The Anchor</div><p class="rp-card-text">Your day-to-day intellectual partner. Who reads the way you read? Who challenges you productively? Have you talked with this person already?</p></div>
+      <div class="rp-card"><div class="rp-card-label">Reader(s) &#8212; The Interlocutors</div><p class="rp-card-text">Faculty who bring expertise your chair doesn&#8217;t have. What methodological gaps does your chair have? What fields are you drawing from beyond your home discipline?</p></div>
+      <div class="rp-card"><div class="rp-card-label">Outside Member &#8212; The Bridge</div><p class="rp-card-text">Often from a different department. Is there a field you borrow from that should be represented? On a non-academic path? Does this change who you need?</p></div>
+    </div>
+    <div class="rp-prompt-block" style="margin-top:1rem;">
+      <div class="rp-prompt-meta">Task Two &#8212; Draft Your Committee Ask Email</div>
+      <div class="rp-prompt-q">Draft the email you will send your first committee contact. Bring it to class &#8212; we will workshop it with a partner.</div>
+      <p class="rp-prompt-note">For each person on your map: note who you&#8217;ve already spoken to, and who you haven&#8217;t. That &#8220;haven&#8217;t yet&#8221; list is your Week 9 action items.</p>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-questions">
+    <h2 class="rp-section-title">Guiding Questions</h2>
+    <div class="rp-questions">
+      <div class="rp-q-item"><div class="rp-q-num">1</div><div class="rp-q-body"><div class="rp-q-text">What kind of intellectual support do you need from a committee &#8212; and is that different from what you <em>think you&#8217;re supposed to need?</em></div><span class="rp-q-sub">The committee you build for the job market may not be the same as the committee you need to finish the dissertation.</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">2</div><div class="rp-q-body"><div class="rp-q-text">Who in your field thinks in ways that would <em>genuinely challenge and improve your work</em> &#8212; even if that&#8217;s uncomfortable? A committee that only affirms you is not serving you.</div></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">3</div><div class="rp-q-body"><div class="rp-q-text">What does it mean to ask someone to invest in you? What are the relational dynamics at play &#8212; the power differentials, the implicit obligations, the possibilities for mentorship and disappointment both?</div></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">4</div><div class="rp-q-body"><div class="rp-q-text">What do you owe your committee &#8212; and what can you <em>reasonably expect from them?</em> These expectations are worth making explicit early.</div></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">5</div><div class="rp-q-body"><div class="rp-q-text">If you are considering a non-academic path, does that change who you want on your committee? What expertise would serve a post-ac trajectory that a purely academic committee might lack?</div></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-email">
+    <h2 class="rp-section-title">Committee Email Workshop</h2>
+    <span class="rp-section-intro">Activity &#183; Writing the Ask &#183; Partner feedback on your draft</span>
+    <div class="rp-steps">
+      <div class="rp-step"><div class="rp-step-num">1</div><div class="rp-step-content"><div class="rp-step-title">Subject</div><div class="rp-step-detail">Clear + specific. Include your name, program, and what you&#8217;re asking. &#8220;CRDM PhD &#8212; Request to serve on dissertation committee&#8221; is better than &#8220;Quick question.&#8221;</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">2</div><div class="rp-step-content"><div class="rp-step-title">Opening</div><div class="rp-step-detail">Brief context: who you are, where you are in the program, and that you&#8217;ve been thinking about your committee. <em>Do not over-apologize for reaching out.</em></div></div></div>
+      <div class="rp-step"><div class="rp-step-num">3</div><div class="rp-step-content"><div class="rp-step-title">The Project</div><div class="rp-step-detail">2&#8211;3 sentences on your dissertation project&#8217;s central problem and intervention. Not everything &#8212; just enough for them to see whether it&#8217;s in their wheelhouse.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">4</div><div class="rp-step-content"><div class="rp-step-title">The Why You</div><div class="rp-step-detail">Specific and concrete: why <em>this person?</em> Name a text, a conversation, an area of expertise. Flattery is transparent; genuine specificity is not.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">5</div><div class="rp-step-content"><div class="rp-step-title">The Ask</div><div class="rp-step-detail">Be direct. &#8220;I am wondering if you would be willing to serve as a reader on my dissertation committee.&#8221; Not &#8220;I was wondering if maybe perhaps&#8230;&#8221; Make the ask clear.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">6</div><div class="rp-step-content"><div class="rp-step-title">Closing</div><div class="rp-step-detail">Offer to meet, share your prospectus draft when ready, or discuss further. Thank them. Keep it brief &#8212; you&#8217;ve already said what matters.</div></div></div>
+    </div>
+    <div class="rp-reading-block" style="margin-top:1rem;">
+      <div class="rp-reading-label">Common Pitfalls</div>
+      <ul class="rp-reading-list">
+        <li>Over-apologizing for reaching out</li>
+        <li>Vague subject lines (&#8220;Just a quick question&#8221;)</li>
+        <li>Summarizing your entire dissertation history</li>
+        <li>Failing to explain <em>why this person specifically</em></li>
+        <li>Burying the ask at the very end</li>
+      </ul>
+    </div>
+    <div class="rp-writing-seed">
+      <div class="rp-writing-seed-label">Commitment</div>
+      <div class="rp-writing-seed-q">By end of class: each person commits to sending at least <strong>one</strong> committee inquiry email within the next <strong>48 hours</strong>.</div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-guest">
+    <h2 class="rp-section-title">Guest Speaker &#8212; Candid Conversation</h2>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Questions to bring</div>
+      <ul class="rp-reading-list">
+        <li>What do you wish you had known before choosing your committee?</li>
+        <li>What would you do differently?</li>
+        <li>What should we expect from our chairs &#8212; and what shouldn&#8217;t we expect?</li>
+        <li>How do you navigate a difficult committee dynamic?</li>
+        <li>What made your committee actually work?</li>
+      </ul>
+    </div>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">Listening notes</div><p class="rp-card-text">&#8220;The thing I most needed to hear today was ___. The thing that surprised me was ___.&#8221;</p></div>
+      <div class="rp-card"><div class="rp-card-label">The question behind the question</div><p class="rp-card-text">What are you actually afraid of about asking someone to serve on your committee? Name it. Then notice whether that fear is useful information.</p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-closing">
+    <h2 class="rp-section-title">Looking Ahead</h2>
+    <div class="rp-closing-grid">
+      <div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Week 10 &#8212; Individual Meetings Week</div>
+          <ul>
+            <li>No full group session &#8212; individual check-ins with instructor (20&#8211;30 min each)</li>
+            <li>Sign up for a slot via Moodle</li>
+            <li>Come prepared &#8212; these are working sessions, not status reports</li>
+          </ul>
+        </div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Before your Week 10 meeting</div>
+          <ul>
+            <li>Write 300&#8211;500 words: &#8220;The problem my dissertation addresses is ___, and it matters because ___.&#8221;</li>
+            <li>Do not edit. Do not polish. Bring it to the meeting &#8212; you will read it together</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="rp-milestone-due">
+          <div class="rp-milestone-label">&#9670; Milestone 3 Due &#8212; Week 10</div>
+          <div class="rp-milestone-name">Committee Confirmation</div>
+          <p class="rp-body-text">Email confirmation from your chair is sufficient, or a written plan with named faculty + realistic timeline. If you are running into obstacles, flag them now. Submit via Moodle or email kkcole2@ncsu.edu.</p>
+        </div>
+        <blockquote class="rp-opening-quote" style="margin-bottom:0;">After Spring Break: Movement III begins &#8212; prospectus drafting, imagination, and the question of what comes next.</blockquote>
+      </div>
+    </div>
+  </section>
+</div></main>
+
+<div class="rp-scroll-fabs" aria-hidden="true">
+  <button class="rp-fab" id="fab-up"  onclick="rpScroll('up')"  aria-label="Scroll up">↑</button>
+  <button class="rp-fab" id="fab-top" onclick="rpScroll('top')" aria-label="Back to top">⌂</button>
+  <button class="rp-fab" id="fab-dn"  onclick="rpScroll('dn')"  aria-label="Scroll down">↓</button>
+</div>
+
 <div id="nav">
-  <div style="display:flex; align-items:center;">
+  <div id="nav-left" style="display:flex;align-items:center;gap:0.4rem;">
+    <a href="index.html" class="nav-week-link" aria-label="Return to course index">← Index</a>
+    <a href="CRDM790_Week08_Exam_List_Workshop.html" class="nav-week-link" aria-label="Go to Week 8">← Week 8</a>
+    <a href="CRDM790_Week10_Individual_Meetings.html" class="nav-week-link" aria-label="Go to Week 10">Week 10 →</a>
+    <span class="nav-vsep" aria-hidden="true"></span>
     <div id="slide-dots"></div>
     <span id="nav-label">WEEK 9 · COMMITTEE AS COMMUNITY</span>
   </div>
-  <div style="display:flex; align-items:center; gap:1.5rem;">
+  <div style="display:flex;align-items:center;gap:0.6rem;">
     <span id="slide-counter">1 / 8</span>
-    <div style="display:flex; gap:0.6rem;">
+    <div style="display:flex;gap:0.5rem;align-items:center;">
       <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
       <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
-      <button class="nav-btn" onclick="toggleHelp()">?</button>
+      <button class="nav-btn" id="help-btn" onclick="toggleHelp()">?</button>
+      <a href="index.html#milestones" class="nav-btn" id="milestones-link" style="display:none;text-decoration:none;" aria-label="Jump to milestones">◆ Milestones</a>
+      <button class="nav-btn nav-btn-read" id="read-toggle-btn" onclick="toggleReadingMode()" aria-label="Switch to reading mode" title="Reading mode (M)">≡ Read</button>
     </div>
   </div>
 </div>
-
-<!-- HELP -->
-<div class="help-overlay" id="help-overlay">
-  <div class="help-box">
-    <h3>Keyboard Shortcuts</h3>
-    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
-    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
-    <div class="shortcut-row"><span>Reveal question (slide 4)</span><span><span class="key">Enter</span></span></div>
-    <div class="shortcut-row"><span>Email part (slide 5)</span><span><span class="key">A</span></span></div>
-    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
-    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
-    <div class="help-close" onclick="closeHelp()">Close ✕</div>
-  </div>
-</div>
-
 <script>
 // ── COPPER NETWORK PARTICLE FIELD ────────────────────────────────────────────
 (function() {
@@ -690,6 +947,8 @@ document.addEventListener('keydown', e => {
     case 'a': case 'A': if (current === 5) nextEmailPart(); break;
     case 'Home': goTo(1); break;
     case 'End': goTo(TOTAL); break;
+    case 'm': case 'M': toggleReadingMode(); break;
+    case 'm': case 'M': toggleReadingMode(); break;
     case '?': toggleHelp(); break;
     case 'Escape': closeHelp(); break;
   }
@@ -697,7 +956,59 @@ document.addEventListener('keydown', e => {
 function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
 function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
 
+
+// ── READING MODE ──────────────────────────────────────────────────────────────
+let readingMode = false;
+function toggleReadingMode() {
+  readingMode = !readingMode;
+  const body=document.body,panel=document.getElementById('reading-panel'),
+        deck=document.getElementById('deck'),btn=document.getElementById('read-toggle-btn'),
+        counter=document.getElementById('slide-counter'),prevBtn=document.getElementById('prev-btn'),
+        nextBtn=document.getElementById('next-btn'),helpBtn=document.getElementById('help-btn'),
+        dots=document.getElementById('slide-dots'),label=document.getElementById('nav-label'),
+        mLink=document.getElementById('milestones-link');
+  closeHelp();
+  if(readingMode){
+    body.classList.add('reading-mode');panel.setAttribute('aria-hidden','false');
+    deck.setAttribute('aria-hidden','true');btn.textContent='⊞ Slides';
+    btn.setAttribute('aria-label','Switch back to slide view');btn.classList.add('active-read');
+    counter.style.display='none';prevBtn.style.display='none';nextBtn.style.display='none';
+    helpBtn.style.display='none';dots.style.display='none';
+    label.textContent='WEEK 9 · COMMITTEE AS COMMUNITY — Reading Mode';label.style.opacity='0.55';
+    mLink.style.display='inline-block';window.scrollTo({top:0,behavior:'smooth'});
+    panel.focus({preventScroll:true});
+  } else {
+    body.classList.remove('reading-mode');panel.setAttribute('aria-hidden','true');
+    deck.setAttribute('aria-hidden','false');btn.textContent='≡ Read';
+    btn.setAttribute('aria-label','Switch to reading mode');btn.classList.remove('active-read');
+    counter.style.display='';prevBtn.style.display='';nextBtn.style.display='';
+    helpBtn.style.display='';dots.style.display='';
+    label.textContent='WEEK 9 · COMMITTEE AS COMMUNITY';label.style.opacity='';mLink.style.display='none';
+  }
+}
+function rpScroll(dir){
+  if(dir==='top') window.scrollTo({top:0,behavior:'smooth'});
+  else if(dir==='up') window.scrollBy({top:-window.innerHeight*0.72,behavior:'smooth'});
+  else window.scrollBy({top:window.innerHeight*0.72,behavior:'smooth'});
+}
+(function(){
+  const sections=["rp-session-map", "rp-reading", "rp-pre-class", "rp-questions", "rp-email", "rp-guest", "rp-closing"];
+  function upd(){
+    if(!readingMode) return;
+    const sy=window.scrollY,mx=document.documentElement.scrollHeight-window.innerHeight;
+    const fu=document.getElementById('fab-up'),ft=document.getElementById('fab-top'),fd=document.getElementById('fab-dn');
+    if(fu&&ft&&fd){ft.classList.toggle('fab-visible',sy>200);fu.classList.toggle('fab-visible',sy>60);fd.classList.toggle('fab-visible',sy<mx-40);}
+    let act=sections[0];
+    for(const id of sections){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=100)act=id;}
+    document.querySelectorAll('.rp-nav-item').forEach(a=>a.classList.toggle('rp-nav-active',a.dataset.section===act));
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+})();
+
 updateNav();
+
+
 </script>
 </body>
 </html>
