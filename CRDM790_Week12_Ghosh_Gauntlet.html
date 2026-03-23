@@ -126,9 +126,117 @@
   .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(237,246,245,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(237,246,245,0.6); }
   .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(237,246,245,0.08); border: 1px solid rgba(237,246,245,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
   .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+
+  .skip-nav { position:absolute; top:-100px; left:1rem; z-index:9999; background:var(--accent); color:#000; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; padding:0.5rem 1rem; border-radius:2px; transition:top 0.2s; }
+  .skip-nav:focus { top:0.75rem; outline:2px solid var(--accent2,var(--accent)); }
+  .nav-week-link { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:rgba(245,237,216,0.65); text-decoration:none; border:1px solid rgba(245,237,216,0.14); padding:0.28rem 0.65rem; border-radius:2px; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
+  .nav-week-link:hover { background:rgba(245,237,216,0.07); color:var(--parch); border-color:rgba(245,237,216,0.28); }
+  .nav-vsep { width:1px; height:1.1rem; background:rgba(245,237,216,0.12); flex-shrink:0; margin:0 0.15rem; }
+  .nav-btn-read { background:rgba(201,168,76,0.14)!important; border-color:rgba(201,168,76,0.38)!important; color:#E8B84B!important; }
+  .nav-btn-read:hover { background:rgba(201,168,76,0.26)!important; border-color:#C9A84C!important; }
+  .nav-btn-read.active-read { background:rgba(201,168,76,0.28)!important; border-color:#C9A84C!important; }
+  body.reading-mode { overflow:auto!important; background:#F5F0E8!important; color:#1C1410!important; }
+  body.reading-mode #starfield, body.reading-mode #progress-bar, body.reading-mode #deck { display:none!important; }
+  #reading-panel { display:none; }
+  body.reading-mode #reading-panel { display:block; }
+  .rp-section-nav { position:sticky; top:0; z-index:40; background:rgba(245,240,232,0.97); border-bottom:1px solid #D9D0C4; backdrop-filter:blur(6px); display:flex; align-items:center; overflow-x:auto; scrollbar-width:none; padding:0 1.5rem; }
+  .rp-section-nav::-webkit-scrollbar { display:none; }
+  .rp-nav-item { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8B7A60; text-decoration:none; padding:0.65rem 0.9rem; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.15s; flex-shrink:0; }
+  .rp-nav-item:hover { color:#3C3028; border-bottom-color:#C9A84C; }
+  .rp-nav-item.rp-nav-active { color:#3C3028; border-bottom-color:#C9A84C; font-weight:600; }
+  .rp-wrap { max-width:740px; margin:0 auto; padding:3rem 2rem 8rem; }
+  .rp-eyebrow { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:#8B7A60; margin-bottom:0.6rem; }
+  .rp-title { font-family:var(--font-display); font-size:clamp(2rem,5vw,3.2rem); font-weight:700; line-height:1.1; color:#1C1410; margin-bottom:0.4rem; }
+  .rp-title em { color:#7B4A20; font-style:italic; }
+  .rp-subtitle { font-size:1.1rem; font-style:italic; color:#5A4A3C; margin-bottom:1.5rem; line-height:1.5; font-family:var(--font-body); }
+  .rp-meta { display:flex; gap:1.2rem; flex-wrap:wrap; font-family:var(--font-mono); font-size:0.68rem; color:#8B7A60; letter-spacing:0.06em; padding:1rem 0; border-top:1px solid #D9D0C4; border-bottom:1px solid #D9D0C4; margin-bottom:2rem; }
+  .rp-opening-quote { font-family:var(--font-body); font-size:1.05rem; font-style:italic; color:#5A4A3C; border-left:2px solid #C9A84C; padding:0.75rem 1.2rem; margin-bottom:2.5rem; line-height:1.65; background:#EDE8DC; border-radius:0 4px 4px 0; }
+  .rp-opening-quote cite { display:block; margin-top:0.5rem; font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; color:#9B8A6C; font-style:normal; }
+  .rp-section { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid #D9D0C4; }
+  .rp-section:last-child { border-bottom:none; }
+  .rp-section-title { font-family:var(--font-display); font-size:1.35rem; font-weight:600; color:#1C1410; padding-bottom:0.4rem; border-bottom:2px solid #C9A84C; display:inline-block; margin-bottom:0.35rem; }
+  .rp-section-intro { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:1.2rem; display:block; }
+  .rp-timeline { display:flex; flex-direction:column; }
+  .rp-tl-item { display:grid; grid-template-columns:6rem 1fr; gap:1rem; padding:0.7rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-tl-item:last-child { border-bottom:none; }
+  .rp-tl-time { font-family:var(--font-mono); font-size:0.7rem; color:#9B8A6C; padding-top:0.1rem; }
+  .rp-tl-label { font-family:var(--font-body); font-size:1rem; color:#1C1410; font-weight:500; margin-bottom:0.15rem; }
+  .rp-tl-desc { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; line-height:1.4; }
+  .rp-reading-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.2rem 1.6rem; border-radius:0 4px 4px 0; margin-bottom:1.1rem; }
+  .rp-reading-label { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.5rem; }
+  .rp-reading-list { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-reading-list li { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.5; padding-left:1rem; position:relative; }
+  .rp-reading-list li::before { content:"·"; position:absolute; left:0; color:#C9A84C; }
+  .rp-reading-text { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.55; }
+  .rp-reading-text strong { color:#1C1410; }
+  .rp-note-banner { background:rgba(255,200,100,0.12); border:1px solid rgba(200,150,50,0.3); border-radius:4px; padding:0.8rem 1.1rem; margin-bottom:1.1rem; font-family:var(--font-body); font-size:0.93rem; color:#5A4020; font-style:italic; line-height:1.5; }
+  .rp-concepts-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.9rem; margin-top:1rem; }
+  .rp-concept-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-concept-term { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#7B4A20; margin-bottom:0.3rem; }
+  .rp-concept-def { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-prompt-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.3rem 1.8rem; margin-bottom:1.3rem; border-radius:0 4px 4px 0; }
+  .rp-prompt-meta { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-prompt-q { font-family:var(--font-display); font-size:1.15rem; font-style:italic; color:#1C1410; line-height:1.6; margin-bottom:0.65rem; }
+  .rp-prompt-note { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; }
+  .rp-questions { display:flex; flex-direction:column; gap:0.9rem; }
+  .rp-q-item { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-q-num { font-family:var(--font-display); font-size:1.9rem; font-weight:700; color:rgba(201,168,76,0.45); line-height:1; flex-shrink:0; width:2rem; }
+  .rp-q-body { flex:1; }
+  .rp-q-text { font-family:var(--font-body); font-size:1.05rem; color:#1C1410; line-height:1.55; }
+  .rp-q-sub { display:block; font-family:var(--font-body); font-style:italic; color:#6A5A4C; font-size:0.9rem; margin-top:0.25rem; }
+  .rp-steps { display:flex; flex-direction:column; gap:0.7rem; }
+  .rp-step { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-step-num { width:1.9rem; height:1.9rem; border-radius:50%; border:1.5px solid #C9A84C; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.72rem; color:#8B6A30; flex-shrink:0; margin-top:0.1rem; }
+  .rp-step-content { flex:1; }
+  .rp-step-title { font-family:var(--font-body); font-size:1rem; font-weight:500; color:#1C1410; margin-bottom:0.2rem; }
+  .rp-step-time { font-family:var(--font-mono); font-size:0.68rem; color:#9B8A6C; margin-left:0.4rem; }
+  .rp-step-detail { font-family:var(--font-body); font-size:0.92rem; font-style:italic; color:#5A4A3C; line-height:1.4; }
+  .rp-step-note { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:#9B8A6C; margin-top:0.3rem; }
+  .rp-timer-note { background:#EDE8DC; border:1px solid #C9A84C; border-radius:4px; padding:0.7rem 1rem; font-family:var(--font-mono); font-size:0.7rem; color:#8B6A30; margin-bottom:1.2rem; }
+  .rp-cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+  .rp-card { background:#EDE8DC; border-radius:4px; padding:1rem 1.2rem; }
+  .rp-card-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.16em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-card-text { font-family:var(--font-body); font-size:0.93rem; color:#3C3028; line-height:1.5; }
+  .rp-closing-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+  .rp-checklist { background:#EDE8DC; border-radius:4px; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-checklist-title { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-checklist ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-checklist ul li { font-family:var(--font-body); font-size:0.95rem; color:#3C3028; line-height:1.4; padding-left:1.5rem; position:relative; }
+  .rp-checklist ul li::before { content:"☐"; position:absolute; left:0; color:#C9A84C; }
+  .rp-next-week { background:#EDEAF5; border-left:3px solid #7B6FD8; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-next-week-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.14em; color:#7B6FD8; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-next-week-title { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-next-week-body { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; font-style:italic; line-height:1.5; }
+  .rp-milestone-box { background:#FBF0E8; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-due { background:rgba(181,52,42,0.08); border-left:3px solid #DC503C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.13em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-milestone-due .rp-milestone-label { color:#DC503C; }
+  .rp-milestone-name { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-body-text { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; line-height:1.55; }
+  .rp-writing-seed { background:#EDE8DC; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1rem 1.3rem; margin-top:1rem; }
+  .rp-writing-seed-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-writing-seed-q { font-family:var(--font-display); font-size:1rem; font-style:italic; color:#1C1410; line-height:1.5; }
+  .rp-criteria-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1.2rem; }
+  .rp-crit-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-crit-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-crit-text { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-threshold-row { display:grid; grid-template-columns:auto 1fr; gap:0 0.9rem; align-items:baseline; padding:0.55rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-threshold-row:last-child { border-bottom:none; }
+  .rp-th-level { font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
+  .rp-th-complete { color:#3D8B5E; }
+  .rp-th-revision { color:#8B6A30; }
+  .rp-th-missing  { color:#B5352A; }
+  .rp-th-desc { font-family:var(--font-body); font-size:0.92rem; color:#5A4A3C; line-height:1.45; }
+  .rp-scroll-fabs { position:fixed; bottom:4.2rem; right:1.6rem; z-index:90; display:none; flex-direction:column; gap:0.4rem; pointer-events:none; }
+  body.reading-mode .rp-scroll-fabs { display:flex; pointer-events:all; }
+  .rp-fab { width:2.3rem; height:2.3rem; border-radius:50%; background:#1C1410; border:1px solid rgba(201,168,76,0.4); color:#C9A84C; font-size:0.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s,transform 0.2s,background 0.15s; box-shadow:0 2px 10px rgba(0,0,0,0.22); opacity:0; pointer-events:none; transform:translateY(6px); }
+  .rp-fab.fab-visible { opacity:1; pointer-events:all; transform:translateY(0); }
+  .rp-fab:hover { background:#2E2318; border-color:#C9A84C; }
+  @media(max-width:640px){.rp-concepts-grid,.rp-cards-grid,.rp-closing-grid,.rp-criteria-grid{grid-template-columns:1fr;}.rp-wrap{padding:1.5rem 1rem 6rem;}.rp-section-nav{display:none;}}
 </style>
 </head>
 <body>
+<a href="#reading-panel" class="skip-nav" id="skip-to-content">Skip to reading view</a>
 <canvas id="starfield"></canvas>
 <div id="progress-bar"></div>
 <div id="deck">
@@ -483,34 +591,168 @@
 
 </div><!-- /deck -->
 
+<main id="reading-panel" role="region" aria-label="Week 12 reading view" aria-hidden="true" tabindex="-1">
+<nav class="rp-section-nav">
+  <a href="#rp-session-map" class="rp-nav-item" data-section="rp-session-map">Session Map</a>
+  <a href="#rp-reading"     class="rp-nav-item" data-section="rp-reading">Reading Guide</a>
+  <a href="#rp-pre-class"   class="rp-nav-item" data-section="rp-pre-class">Pre-Class Writing</a>
+  <a href="#rp-questions"   class="rp-nav-item" data-section="rp-questions">Questions</a>
+  <a href="#rp-gauntlet"    class="rp-nav-item" data-section="rp-gauntlet">So What? Gauntlet</a>
+  <a href="#rp-synthesis"   class="rp-nav-item" data-section="rp-synthesis">Synthesis</a>
+  <a href="#rp-closing"     class="rp-nav-item" data-section="rp-closing">Looking Ahead</a>
+</nav>
+<div class="rp-wrap">
+  <div class="rp-eyebrow">CRDM 790 &#183; Movement III &#183; Week 12</div>
+  <h1 class="rp-title">What Can Humanistic <em>Imagination</em> Actually Do?</h1>
+  <p class="rp-subtitle">Ghosh on the failure of form &#8212; and what your dissertation is actually for.</p>
+  <div class="rp-meta">
+    <span>Reading: Ghosh, <em>The Great Derangement</em> (Perusall)</span>
+    <span>Activity: The &#8216;So What?&#8217; Gauntlet</span>
+    <span>Pre-class: 150-word non-specialist description</span>
+  </div>
+
+  <section class="rp-section" id="rp-session-map">
+    <h2 class="rp-section-title">Session Map</h2>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">&#128214; Primary Reading</div><p class="rp-card-text">Amitav Ghosh, <em>The Great Derangement: Climate Change and the Unthinkable</em>. Perusall annotation: find the moment where you feel most implicated as a humanist.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#9999;&#65039; Pre-Class Writing</div><p class="rp-card-text">150-word version of your dissertation for a smart non-specialist &#8212; a journalist, a sibling, a policy researcher outside your field. Bring it. This is the raw material for today&#8217;s activity.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#128172; Discussion</div><p class="rp-card-text">Ghosh on the failure of humanistic imagination and what that reveals. Anchor: the impersonal and scale (pp. 7&#8211;26, 57&#8211;72). What is the unthinkable in your research area?</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#10022; The &#8216;So What?&#8217; Gauntlet</div><p class="rp-card-text">Groups of three. Each person presents their 150-word version. Partners ask &#8212; politely but relentlessly &#8212; &#8220;So what?&#8221; Keep answering until you hit bedrock. Write one sentence. Read it to the room.</p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-reading">
+    <h2 class="rp-section-title">Reading Guide</h2>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Assigned (Perusall)</div>
+      <p class="rp-reading-text">Amitav Ghosh, <em>The Great Derangement: Climate Change and the Unthinkable</em> &#8212; assigned sections. Discussion anchor: pp. 7&#8211;26 and 57&#8211;72 (scale, the impersonal, failure of imaginative form).</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Ghosh&#8217;s Core Argument</div>
+      <p class="rp-reading-text">Literary imagination has failed to reckon with climate change &#8212; not because writers aren&#8217;t concerned, but because the conventions of serious fiction make it nearly impossible to represent the forces involved. This is a failure of <em>form</em>, not just content. What would it take for the imagination to rise to the scale of the crisis?</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Why This Matters for Your Dissertation</div>
+      <p class="rp-reading-text">Ghosh is not just about climate. He is about what the imagination <em>systematically refuses to engage</em> &#8212; the unthinkable that is structurally excluded by the conventions of a form. What is the unthinkable in your field?</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Perusall Annotation Prompt</div>
+      <p class="rp-reading-text">Find the moment in Ghosh where you feel most implicated as a humanist. Not the most interesting passage &#8212; the one where you feel he is asking you to answer for something. What is he asking you to answer for?</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Further Reading</div>
+      <ul class="rp-reading-list">
+        <li>Ursula K. Le Guin, &#8220;The Carrier Bag Theory of Fiction&#8221; &#8212; six pages proposing a different theory of narrative form; counter-move to Ghosh&#8217;s diagnosis</li>
+        <li>Anna Tsing, <em>The Mushroom at the End of the World</em> &#8212; a model of writing at Ghosh&#8217;s scale without abandoning the particular</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-pre-class">
+    <h2 class="rp-section-title">Pre-Class Writing</h2>
+    <div class="rp-prompt-block">
+      <div class="rp-prompt-meta">The Audience Test &#8212; 150 Words</div>
+      <div class="rp-prompt-q">Write a version of your dissertation project for a smart non-specialist &#8212; someone curious and educated, but not in your field. What can you keep from your prospectus paragraph? What has to go? What, when the disciplinary scaffolding falls away, remains?</div>
+    </div>
+    <div class="rp-writing-seed">
+      <div class="rp-writing-seed-label">The diagnostic</div>
+      <div class="rp-writing-seed-q">&#8220;What falls away when I translate this into plain language is ___. That tells me that my prospectus has been doing ___ instead of ___.&#8221;</div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-questions">
+    <h2 class="rp-section-title">Guiding Questions</h2>
+    <div class="rp-questions">
+      <div class="rp-q-item"><div class="rp-q-num">1</div><div class="rp-q-body"><div class="rp-q-text">Ghosh argues that literary imagination has failed to reckon with climate change &#8212; and asks why. What does that failure reveal about what fiction and scholarship can and cannot do?</div><span class="rp-q-sub">Is this a failure of will, form, or something structural to the conventions of serious inquiry?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">2</div><div class="rp-q-body"><div class="rp-q-text">Is your dissertation actually <em>for</em> something? Who is it for? Could a non-specialist care about it?</div><span class="rp-q-sub">Not &#8220;is it interesting to scholars?&#8221; &#8212; that&#8217;s a contribution claim. Does it matter beyond the discipline? That&#8217;s a stakes claim.</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">3</div><div class="rp-q-body"><div class="rp-q-text">Ghosh moves between literary criticism, political analysis, and memoir. What does that generic instability make possible? What does it cost?</div><span class="rp-q-sub">What genre conventions govern your field&#8217;s writing? What do they make it impossible to say?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">4</div><div class="rp-q-body"><div class="rp-q-text">What would it mean for your work to matter outside the discipline &#8212; to a community, a public, a policy conversation? What would have to be true of the argument for that to be possible?</div></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">5</div><div class="rp-q-body"><div class="rp-q-text">The &#8216;unthinkable&#8217; in Ghosh is what the imagination systematically refuses to engage. What is the unthinkable in your research area &#8212; the thing the field circles around but cannot directly address?</div><span class="rp-q-sub">Your dissertation&#8217;s contribution might live exactly here.</span></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-gauntlet">
+    <h2 class="rp-section-title">The &#8216;So What?&#8217; Gauntlet</h2>
+    <span class="rp-section-intro">Activity &#183; Groups of three &#183; Finding the real stakes</span>
+    <div class="rp-steps">
+      <div class="rp-step"><div class="rp-step-num">1</div><div class="rp-step-content"><div class="rp-step-title">Form groups of three</div><div class="rp-step-detail">Groups assigned by instructor &#8212; not self-selected. Decide who goes first.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">2</div><div class="rp-step-content"><div class="rp-step-title">Present the 150-word version</div><div class="rp-step-detail">The first person presents their non-specialist version. 2 minutes. Partners listen without interrupting.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">3</div><div class="rp-step-content"><div class="rp-step-title">Ask: &#8220;So what?&#8221;</div><div class="rp-step-detail">Both partners ask &#8212; politely but relentlessly &#8212; &#8220;So what?&#8221; The presenter must keep answering. Warm, patient, genuinely curious, unwilling to accept the first answer. The breakthrough often comes at the fourth or fifth &#8216;so what.&#8217; Do not stop early.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">4</div><div class="rp-step-content"><div class="rp-step-title">Hit bedrock</div><div class="rp-step-detail">The goal: find the thing that actually matters, to actual people, in the actual world. Not &#8220;why is this interesting to scholars?&#8221; &#8212; but &#8220;why should anyone who isn&#8217;t a scholar care?&#8221; Keep going until you get there.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">5</div><div class="rp-step-content"><div class="rp-step-title">Write and share the real &#8216;so what&#8217;</div><div class="rp-step-detail">Each person writes one sentence &#8212; the real &#8216;so what&#8217; that emerged from the gauntlet &#8212; and reads it to the full room. These sentences go into the prospectus.</div></div></div>
+    </div>
+    <div class="rp-reading-block" style="margin-top:1rem;">
+      <div class="rp-reading-label">Contribution vs. Stakes</div>
+      <p class="rp-reading-text"><strong>Contribution</strong> = why this matters to scholars. <strong>Stakes</strong> = why it matters to the world. Both belong in a prospectus &#8212; but stakes are almost always underdeveloped. The Gauntlet finds the stakes.</p>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-synthesis">
+    <h2 class="rp-section-title">Synthesis</h2>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">What Ghosh gives you</div><p class="rp-card-text">Ghosh&#8217;s argument clears the ground. If you know what imagination cannot do by itself, you know where it needs help: from community, from politics, from different forms. Your prospectus is one form. What can it do?</p></div>
+      <div class="rp-card"><div class="rp-card-label">The &#8216;so what&#8217; in the prospectus</div><p class="rp-card-text">Your real &#8216;so what&#8217; sentence from today belongs in the prospectus &#8212; not buried in a conclusion, but near the beginning, where it can do rhetorical work. The Gauntlet found it. Now use it.</p></div>
+    </div>
+    <div class="rp-writing-seed">
+      <div class="rp-writing-seed-label">Writing seed</div>
+      <div class="rp-writing-seed-q">&#8220;The real &#8216;so what&#8217; of my dissertation &#8212; the thing I found at bedrock &#8212; is ___. What surprised me about finding it there was ___.&#8221;</div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-closing">
+    <h2 class="rp-section-title">Looking Ahead</h2>
+    <div class="rp-closing-grid">
+      <div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Week 13 &#8212; Paths Forward: Alt-Ac and Otherwise</div>
+          <ul>
+            <li>Guest lecturers &#8212; former CRDM students on non-academic paths</li>
+            <li>Come with questions about what&#8217;s genuinely uncertain for you</li>
+          </ul>
+        </div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Pre-class writing for Week 13 &#8212; Three Versions</div>
+          <ul><li>Write three 100-word descriptions of the same project: (1) for a hiring committee in your field, (2) for a foundation grant panel, (3) for a journalist. Bring all three.</li></ul>
+        </div>
+      </div>
+      <div>
+        <div class="rp-milestone-due">
+          <div class="rp-milestone-label">&#9670; Week 14 &#8212; Full Prospectus Draft Due</div>
+          <div class="rp-milestone-name">Milestone 4 (40%) &#8212; Night Before Week 14</div>
+          <p class="rp-body-text">Start now. Your revised sentence from Week 11 + your real &#8216;so what&#8217; from today are the beginning. Use them.</p>
+        </div>
+        <blockquote class="rp-opening-quote" style="margin-bottom:0;">&#8220;What actually matters &#8212; to actual people &#8212; is ___.&#8221;</blockquote>
+      </div>
+    </div>
+  </section>
+</div></main>
+
+<div class="rp-scroll-fabs" aria-hidden="true">
+  <button class="rp-fab" id="fab-up"  onclick="rpScroll('up')"  aria-label="Scroll up">↑</button>
+  <button class="rp-fab" id="fab-top" onclick="rpScroll('top')" aria-label="Back to top">⌂</button>
+  <button class="rp-fab" id="fab-dn"  onclick="rpScroll('dn')"  aria-label="Scroll down">↓</button>
+</div>
+
 <div id="nav">
-  <div style="display:flex; align-items:center;">
+  <div id="nav-left" style="display:flex;align-items:center;gap:0.4rem;">
+    <a href="index.html" class="nav-week-link">← Index</a>
+    <a href="CRDM790_Week11_One_Dimensional.html" class="nav-week-link">← Week 11</a>
+    <a href="CRDM790_Week13_Paths_Forward.html" class="nav-week-link">Week 13 →</a>
+    <span class="nav-vsep" aria-hidden="true"></span>
     <div id="slide-dots"></div>
     <span id="nav-label">WEEK 12 · SO WHAT? GAUNTLET</span>
   </div>
-  <div style="display:flex; align-items:center; gap:1.5rem;">
+  <div style="display:flex;align-items:center;gap:0.6rem;">
     <span id="slide-counter">1 / 8</span>
-    <div style="display:flex; gap:0.6rem;">
+    <div style="display:flex;gap:0.5rem;align-items:center;">
       <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
       <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
-      <button class="nav-btn" onclick="toggleHelp()">?</button>
+      <button class="nav-btn" id="help-btn" onclick="toggleHelp()">?</button>
+      <a href="index.html#milestones" class="nav-btn" id="milestones-link" style="display:none;text-decoration:none;">◆ Milestones</a>
+      <button class="nav-btn nav-btn-read" id="read-toggle-btn" onclick="toggleReadingMode()" title="Reading mode (M)">≡ Read</button>
     </div>
   </div>
 </div>
-
-<div class="help-overlay" id="help-overlay">
-  <div class="help-box">
-    <h3>Keyboard Shortcuts</h3>
-    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
-    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
-    <div class="shortcut-row"><span>Reveal question (slide 4)</span><span><span class="key">Enter</span></span></div>
-    <div class="shortcut-row"><span>Gauntlet step (slide 5)</span><span><span class="key">A</span></span></div>
-    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
-    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
-    <div class="help-close" onclick="closeHelp()">Close ✕</div>
-  </div>
-</div>
-
 <script>
 // ── WAVE CURRENT PARTICLES ───────────────────────────────────────────────────
 (function() {
@@ -577,12 +819,64 @@ document.addEventListener('keydown',e=>{
     case 'Enter':if(current===4){e.preventDefault();revealNextQ();}break;
     case 'a':case 'A':if(current===5)nextGStep();break;
     case 'Home':goTo(1);break;case 'End':goTo(TOTAL);break;
+    case 'm': case 'M': toggleReadingMode(); break;
     case '?':toggleHelp();break;case 'Escape':closeHelp();break;
   }
 });
 function toggleHelp(){document.getElementById('help-overlay').classList.toggle('visible');}
 function closeHelp(){document.getElementById('help-overlay').classList.remove('visible');}
+
+let readingMode=false;
+function toggleReadingMode(){
+  readingMode=!readingMode;
+  const b=document.body,p=document.getElementById('reading-panel'),
+    d=document.getElementById('deck'),btn=document.getElementById('read-toggle-btn'),
+    ct=document.getElementById('slide-counter'),pb=document.getElementById('prev-btn'),
+    nb=document.getElementById('next-btn'),hb=document.getElementById('help-btn'),
+    ds=document.getElementById('slide-dots'),lb=document.getElementById('nav-label'),
+    ml=document.getElementById('milestones-link');
+  closeHelp();
+  if(readingMode){
+    b.classList.add('reading-mode');p.setAttribute('aria-hidden','false');
+    d.setAttribute('aria-hidden','true');btn.textContent='⊞ Slides';
+    btn.classList.add('active-read');
+    ct.style.display='none';pb.style.display='none';nb.style.display='none';
+    hb.style.display='none';ds.style.display='none';
+    lb.textContent='WEEK 12 · SO WHAT? GAUNTLET — Reading Mode';lb.style.opacity='0.55';
+    ml.style.display='inline-block';window.scrollTo({top:0,behavior:'smooth'});
+    p.focus({preventScroll:true});
+  }else{
+    b.classList.remove('reading-mode');p.setAttribute('aria-hidden','true');
+    d.setAttribute('aria-hidden','false');btn.textContent='≡ Read';
+    btn.classList.remove('active-read');
+    ct.style.display='';pb.style.display='';nb.style.display='';
+    hb.style.display='';ds.style.display='';
+    lb.textContent='WEEK 12 · SO WHAT? GAUNTLET';lb.style.opacity='';ml.style.display='none';
+  }
+}
+function rpScroll(dir){
+  if(dir==='top')window.scrollTo({top:0,behavior:'smooth'});
+  else if(dir==='up')window.scrollBy({top:-window.innerHeight*0.72,behavior:'smooth'});
+  else window.scrollBy({top:window.innerHeight*0.72,behavior:'smooth'});
+}
+(function(){
+  const sections=["rp-session-map", "rp-reading", "rp-pre-class", "rp-questions", "rp-gauntlet", "rp-synthesis", "rp-closing"];
+  function upd(){
+    if(!readingMode)return;
+    const sy=window.scrollY,mx=document.documentElement.scrollHeight-window.innerHeight;
+    const fu=document.getElementById('fab-up'),ft=document.getElementById('fab-top'),fd=document.getElementById('fab-dn');
+    if(fu&&ft&&fd){ft.classList.toggle('fab-visible',sy>200);fu.classList.toggle('fab-visible',sy>60);fd.classList.toggle('fab-visible',sy<mx-40);}
+    let act=sections[0];
+    for(const id of sections){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=100)act=id;}
+    document.querySelectorAll('.rp-nav-item').forEach(a=>a.classList.toggle('rp-nav-active',a.dataset.section===act));
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+})();
+
 updateNav();
+
+
 </script>
 </body>
 </html>
