@@ -130,9 +130,117 @@
   .shortcut-row { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(250,240,242,0.06); font-family: var(--font-body); font-size: 0.93rem; color: rgba(250,240,242,0.6); }
   .key { font-family: var(--font-mono); font-size: 0.7rem; background: rgba(250,240,242,0.08); border: 1px solid rgba(250,240,242,0.18); padding: 0.18rem 0.5rem; border-radius: 3px; color: var(--parch); }
   .help-close { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; text-align: right; text-transform: uppercase; }
+
+  .skip-nav { position:absolute; top:-100px; left:1rem; z-index:9999; background:var(--accent); color:#000; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; padding:0.5rem 1rem; border-radius:2px; transition:top 0.2s; }
+  .skip-nav:focus { top:0.75rem; outline:2px solid var(--accent2,var(--accent)); }
+  .nav-week-link { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:rgba(245,237,216,0.65); text-decoration:none; border:1px solid rgba(245,237,216,0.14); padding:0.28rem 0.65rem; border-radius:2px; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
+  .nav-week-link:hover { background:rgba(245,237,216,0.07); color:var(--parch); border-color:rgba(245,237,216,0.28); }
+  .nav-vsep { width:1px; height:1.1rem; background:rgba(245,237,216,0.12); flex-shrink:0; margin:0 0.15rem; }
+  .nav-btn-read { background:rgba(201,168,76,0.14)!important; border-color:rgba(201,168,76,0.38)!important; color:#E8B84B!important; }
+  .nav-btn-read:hover { background:rgba(201,168,76,0.26)!important; border-color:#C9A84C!important; }
+  .nav-btn-read.active-read { background:rgba(201,168,76,0.28)!important; border-color:#C9A84C!important; }
+  body.reading-mode { overflow:auto!important; background:#F5F0E8!important; color:#1C1410!important; }
+  body.reading-mode #starfield, body.reading-mode #progress-bar, body.reading-mode #deck { display:none!important; }
+  #reading-panel { display:none; }
+  body.reading-mode #reading-panel { display:block; }
+  .rp-section-nav { position:sticky; top:0; z-index:40; background:rgba(245,240,232,0.97); border-bottom:1px solid #D9D0C4; backdrop-filter:blur(6px); display:flex; align-items:center; overflow-x:auto; scrollbar-width:none; padding:0 1.5rem; }
+  .rp-section-nav::-webkit-scrollbar { display:none; }
+  .rp-nav-item { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8B7A60; text-decoration:none; padding:0.65rem 0.9rem; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.15s; flex-shrink:0; }
+  .rp-nav-item:hover { color:#3C3028; border-bottom-color:#C9A84C; }
+  .rp-nav-item.rp-nav-active { color:#3C3028; border-bottom-color:#C9A84C; font-weight:600; }
+  .rp-wrap { max-width:740px; margin:0 auto; padding:3rem 2rem 8rem; }
+  .rp-eyebrow { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:#8B7A60; margin-bottom:0.6rem; }
+  .rp-title { font-family:var(--font-display); font-size:clamp(2rem,5vw,3.2rem); font-weight:700; line-height:1.1; color:#1C1410; margin-bottom:0.4rem; }
+  .rp-title em { color:#7B4A20; font-style:italic; }
+  .rp-subtitle { font-size:1.1rem; font-style:italic; color:#5A4A3C; margin-bottom:1.5rem; line-height:1.5; font-family:var(--font-body); }
+  .rp-meta { display:flex; gap:1.2rem; flex-wrap:wrap; font-family:var(--font-mono); font-size:0.68rem; color:#8B7A60; letter-spacing:0.06em; padding:1rem 0; border-top:1px solid #D9D0C4; border-bottom:1px solid #D9D0C4; margin-bottom:2rem; }
+  .rp-opening-quote { font-family:var(--font-body); font-size:1.05rem; font-style:italic; color:#5A4A3C; border-left:2px solid #C9A84C; padding:0.75rem 1.2rem; margin-bottom:2.5rem; line-height:1.65; background:#EDE8DC; border-radius:0 4px 4px 0; }
+  .rp-opening-quote cite { display:block; margin-top:0.5rem; font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.1em; color:#9B8A6C; font-style:normal; }
+  .rp-section { margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid #D9D0C4; }
+  .rp-section:last-child { border-bottom:none; }
+  .rp-section-title { font-family:var(--font-display); font-size:1.35rem; font-weight:600; color:#1C1410; padding-bottom:0.4rem; border-bottom:2px solid #C9A84C; display:inline-block; margin-bottom:0.35rem; }
+  .rp-section-intro { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:1.2rem; display:block; }
+  .rp-timeline { display:flex; flex-direction:column; }
+  .rp-tl-item { display:grid; grid-template-columns:6rem 1fr; gap:1rem; padding:0.7rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-tl-item:last-child { border-bottom:none; }
+  .rp-tl-time { font-family:var(--font-mono); font-size:0.7rem; color:#9B8A6C; padding-top:0.1rem; }
+  .rp-tl-label { font-family:var(--font-body); font-size:1rem; color:#1C1410; font-weight:500; margin-bottom:0.15rem; }
+  .rp-tl-desc { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; line-height:1.4; }
+  .rp-reading-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.2rem 1.6rem; border-radius:0 4px 4px 0; margin-bottom:1.1rem; }
+  .rp-reading-label { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.5rem; }
+  .rp-reading-list { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-reading-list li { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.5; padding-left:1rem; position:relative; }
+  .rp-reading-list li::before { content:"·"; position:absolute; left:0; color:#C9A84C; }
+  .rp-reading-text { font-family:var(--font-body); font-size:0.97rem; color:#3C3028; line-height:1.55; }
+  .rp-reading-text strong { color:#1C1410; }
+  .rp-note-banner { background:rgba(255,200,100,0.12); border:1px solid rgba(200,150,50,0.3); border-radius:4px; padding:0.8rem 1.1rem; margin-bottom:1.1rem; font-family:var(--font-body); font-size:0.93rem; color:#5A4020; font-style:italic; line-height:1.5; }
+  .rp-concepts-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.9rem; margin-top:1rem; }
+  .rp-concept-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-concept-term { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#7B4A20; margin-bottom:0.3rem; }
+  .rp-concept-def { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-prompt-block { background:#EDE8DC; border-left:4px solid #C9A84C; padding:1.3rem 1.8rem; margin-bottom:1.3rem; border-radius:0 4px 4px 0; }
+  .rp-prompt-meta { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.14em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-prompt-q { font-family:var(--font-display); font-size:1.15rem; font-style:italic; color:#1C1410; line-height:1.6; margin-bottom:0.65rem; }
+  .rp-prompt-note { font-family:var(--font-body); font-size:0.9rem; color:#5A4A3C; font-style:italic; }
+  .rp-questions { display:flex; flex-direction:column; gap:0.9rem; }
+  .rp-q-item { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-q-num { font-family:var(--font-display); font-size:1.9rem; font-weight:700; color:rgba(201,168,76,0.45); line-height:1; flex-shrink:0; width:2rem; }
+  .rp-q-body { flex:1; }
+  .rp-q-text { font-family:var(--font-body); font-size:1.05rem; color:#1C1410; line-height:1.55; }
+  .rp-q-sub { display:block; font-family:var(--font-body); font-style:italic; color:#6A5A4C; font-size:0.9rem; margin-top:0.25rem; }
+  .rp-steps { display:flex; flex-direction:column; gap:0.7rem; }
+  .rp-step { display:flex; gap:1.2rem; background:#EDE8DC; border-radius:4px; padding:1rem 1.4rem; align-items:flex-start; }
+  .rp-step-num { width:1.9rem; height:1.9rem; border-radius:50%; border:1.5px solid #C9A84C; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.72rem; color:#8B6A30; flex-shrink:0; margin-top:0.1rem; }
+  .rp-step-content { flex:1; }
+  .rp-step-title { font-family:var(--font-body); font-size:1rem; font-weight:500; color:#1C1410; margin-bottom:0.2rem; }
+  .rp-step-time { font-family:var(--font-mono); font-size:0.68rem; color:#9B8A6C; margin-left:0.4rem; }
+  .rp-step-detail { font-family:var(--font-body); font-size:0.92rem; font-style:italic; color:#5A4A3C; line-height:1.4; }
+  .rp-step-note { font-family:var(--font-mono); font-size:0.64rem; letter-spacing:0.1em; color:#9B8A6C; margin-top:0.3rem; }
+  .rp-timer-note { background:#EDE8DC; border:1px solid #C9A84C; border-radius:4px; padding:0.7rem 1rem; font-family:var(--font-mono); font-size:0.7rem; color:#8B6A30; margin-bottom:1.2rem; }
+  .rp-cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+  .rp-card { background:#EDE8DC; border-radius:4px; padding:1rem 1.2rem; }
+  .rp-card-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.16em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-card-text { font-family:var(--font-body); font-size:0.93rem; color:#3C3028; line-height:1.5; }
+  .rp-closing-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+  .rp-checklist { background:#EDE8DC; border-radius:4px; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-checklist-title { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.6rem; }
+  .rp-checklist ul { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+  .rp-checklist ul li { font-family:var(--font-body); font-size:0.95rem; color:#3C3028; line-height:1.4; padding-left:1.5rem; position:relative; }
+  .rp-checklist ul li::before { content:"☐"; position:absolute; left:0; color:#C9A84C; }
+  .rp-next-week { background:#EDEAF5; border-left:3px solid #7B6FD8; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-next-week-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.14em; color:#7B6FD8; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-next-week-title { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-next-week-body { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; font-style:italic; line-height:1.5; }
+  .rp-milestone-box { background:#FBF0E8; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-due { background:rgba(181,52,42,0.08); border-left:3px solid #DC503C; border-radius:0 4px 4px 0; padding:1.1rem 1.3rem; margin-bottom:0.9rem; }
+  .rp-milestone-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.13em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-milestone-due .rp-milestone-label { color:#DC503C; }
+  .rp-milestone-name { font-family:var(--font-display); font-size:1rem; font-weight:600; color:#1C1410; margin-bottom:0.3rem; }
+  .rp-body-text { font-family:var(--font-body); font-size:0.93rem; color:#5A4A3C; line-height:1.55; }
+  .rp-writing-seed { background:#EDE8DC; border-left:3px solid #C9A84C; border-radius:0 4px 4px 0; padding:1rem 1.3rem; margin-top:1rem; }
+  .rp-writing-seed-label { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.4rem; }
+  .rp-writing-seed-q { font-family:var(--font-display); font-size:1rem; font-style:italic; color:#1C1410; line-height:1.5; }
+  .rp-criteria-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1.2rem; }
+  .rp-crit-card { background:#EDE8DC; border-radius:4px; padding:0.9rem 1.1rem; }
+  .rp-crit-label { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.15em; color:#9B8A6C; text-transform:uppercase; margin-bottom:0.3rem; }
+  .rp-crit-text { font-family:var(--font-body); font-size:0.9rem; color:#3C3028; line-height:1.5; }
+  .rp-threshold-row { display:grid; grid-template-columns:auto 1fr; gap:0 0.9rem; align-items:baseline; padding:0.55rem 0; border-bottom:1px solid #EDEBE5; }
+  .rp-threshold-row:last-child { border-bottom:none; }
+  .rp-th-level { font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
+  .rp-th-complete { color:#3D8B5E; }
+  .rp-th-revision { color:#8B6A30; }
+  .rp-th-missing  { color:#B5352A; }
+  .rp-th-desc { font-family:var(--font-body); font-size:0.92rem; color:#5A4A3C; line-height:1.45; }
+  .rp-scroll-fabs { position:fixed; bottom:4.2rem; right:1.6rem; z-index:90; display:none; flex-direction:column; gap:0.4rem; pointer-events:none; }
+  body.reading-mode .rp-scroll-fabs { display:flex; pointer-events:all; }
+  .rp-fab { width:2.3rem; height:2.3rem; border-radius:50%; background:#1C1410; border:1px solid rgba(201,168,76,0.4); color:#C9A84C; font-size:0.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s,transform 0.2s,background 0.15s; box-shadow:0 2px 10px rgba(0,0,0,0.22); opacity:0; pointer-events:none; transform:translateY(6px); }
+  .rp-fab.fab-visible { opacity:1; pointer-events:all; transform:translateY(0); }
+  .rp-fab:hover { background:#2E2318; border-color:#C9A84C; }
+  @media(max-width:640px){.rp-concepts-grid,.rp-cards-grid,.rp-closing-grid,.rp-criteria-grid{grid-template-columns:1fr;}.rp-wrap{padding:1.5rem 1rem 6rem;}.rp-section-nav{display:none;}}
 </style>
 </head>
 <body>
+<a href="#reading-panel" class="skip-nav" id="skip-to-content">Skip to reading view</a>
 <canvas id="starfield"></canvas>
 <div id="progress-bar"></div>
 <div id="deck">
@@ -487,34 +595,150 @@
 
 </div><!-- /deck -->
 
+<main id="reading-panel" role="region" aria-label="Week 15 reading view" aria-hidden="true" tabindex="-1">
+<nav class="rp-section-nav">
+  <a href="#rp-session-map"  class="rp-nav-item" data-section="rp-session-map">Session Map</a>
+  <a href="#rp-presentations" class="rp-nav-item" data-section="rp-presentations">Presentations</a>
+  <a href="#rp-questions"    class="rp-nav-item" data-section="rp-questions">Presentation Questions</a>
+  <a href="#rp-card-return"  class="rp-nav-item" data-section="rp-card-return">Card Return</a>
+  <a href="#rp-recap"        class="rp-nav-item" data-section="rp-recap">Full Semester Arc</a>
+  <a href="#rp-synthesis"    class="rp-nav-item" data-section="rp-synthesis">Cohort Synthesis</a>
+  <a href="#rp-closing"      class="rp-nav-item" data-section="rp-closing">What Comes Next</a>
+</nav>
+<div class="rp-wrap">
+  <div class="rp-eyebrow">CRDM 790 &#183; Movement III &#183; Week 15 &#183; Final Session</div>
+  <h1 class="rp-title">What We <em>Made</em> and What We&#8217;re Seeing</h1>
+  <p class="rp-subtitle">Prospectus presentations &#183; Week 1 card return &#183; Cohort closing. This is not a defense &#8212; it is a celebration with teeth.</p>
+  <div class="rp-meta">
+    <span>Format: presentations (5&#8211;10 min each) &#183; card return &#183; closing</span>
+    <span>Final prospectus due one week after this session</span>
+  </div>
+
+  <section class="rp-section" id="rp-session-map">
+    <h2 class="rp-section-title">Session Map &#8212; 3.5 Hours</h2>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">&#127908; Prospectus Presentations (0:00&#8211;2:00)</div><p class="rp-card-text">5&#8211;10 min each &#8212; timed strictly. No slides required; notes encouraged. Each: what you&#8217;re doing, why it matters, what you&#8217;re still figuring out. Talk to colleagues about work you care about &#8212; not a committee performance.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#8635; Break (2:00&#8211;2:15)</div><p class="rp-card-text">Pause. Breathe. You just presented your dissertation project to your cohort. That is not nothing.</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#127758; Cohort Synthesis (2:15&#8211;2:45)</div><p class="rp-card-text">What patterns are emerging? Where do the dissertations speak to each other? What does this cohort&#8217;s collective project reveal about where CRDM is going?</p></div>
+      <div class="rp-card"><div class="rp-card-label">&#128199; Week 1 Card Return + Closing (2:45&#8211;3:30)</div><p class="rp-card-text">Cards returned &#8212; 5 min silent writing. Go around the room: one sentence, the one thing you carry out. Instructor closes. Let the silence land.</p></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-presentations">
+    <h2 class="rp-section-title">Presentation Guidelines</h2>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">What to prepare</div>
+      <p class="rp-reading-text">A 5&#8211;10 minute presentation of your prospectus. Notes if you need them &#8212; no slides required. Cover: what you are doing, why it matters, and what you are still figuring out. The third part is not a weakness &#8212; it is intellectual honesty, and it is what makes this a conversation rather than a report.</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">The tone</div>
+      <p class="rp-reading-text">This is not a defense. It is a celebration with teeth &#8212; honest, generative, and collegial. Students who were uncertain about their research questions at the beginning are now defending them with force. The room should feel the weight of that.</p>
+    </div>
+    <div class="rp-reading-block">
+      <div class="rp-reading-label">Final submission reminder</div>
+      <p class="rp-reading-text">Final prospectus due one week after this session. Submit via Moodle or email to kkcole2@ncsu.edu. Threshold grading applies &#8212; see Milestone 4 criteria.</p>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-questions">
+    <h2 class="rp-section-title">Presentation Questions &#8212; Pick 2&#8211;3</h2>
+    <div class="rp-questions">
+      <div class="rp-q-item"><div class="rp-q-num">1</div><div class="rp-q-body"><div class="rp-q-text">What is the problem you are working on, and why does it matter beyond your field?</div><span class="rp-q-sub">Not &#8220;this fills a gap&#8221; &#8212; why should someone outside CRDM care if this dissertation succeeds?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">2</div><div class="rp-q-body"><div class="rp-q-text">Who are your interlocutors &#8212; the scholars you&#8217;re in conversation with, the ones you&#8217;re arguing against?</div><span class="rp-q-sub">A dissertation without an interlocutor is talking into a void. Who are you talking to, and what are you saying they got wrong?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">3</div><div class="rp-q-body"><div class="rp-q-text">What methodological move are you making, and what does it allow you to see that other approaches don&#8217;t?</div><span class="rp-q-sub">Not just &#8220;I use X method&#8221; &#8212; what does this method make visible that was previously invisible?</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">4</div><div class="rp-q-body"><div class="rp-q-text">What are you still figuring out?</div><span class="rp-q-sub">This is not a weakness. This is the live edge of the work &#8212; where the dissertation is still thinking. Show the cohort where the real problem lives.</span></div></div>
+      <div class="rp-q-item"><div class="rp-q-num">5</div><div class="rp-q-body"><div class="rp-q-text">Who is this for &#8212; and what do you hope it does in the world?</div><span class="rp-q-sub">Your &#8216;so what&#8217; sentence from Week 12. Say it out loud, to the room, as a claim rather than a question.</span></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-card-return">
+    <h2 class="rp-section-title">Week 1 Card Return</h2>
+    <div class="rp-steps">
+      <div class="rp-step"><div class="rp-step-num">1</div><div class="rp-step-content"><div class="rp-step-title">Return the cards</div><div class="rp-step-detail">Instructor returns the Week 1 constellation cards &#8212; collected at the very first class. Each person receives the card they wrote. Don&#8217;t read it yet. Hold it.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">2</div><div class="rp-step-content"><div class="rp-step-title">Read silently &#8212; 5 minutes</div><div class="rp-step-detail">Read what you wrote. Who was this person? What did they think they were doing? What were they afraid of? What did they know? What did they have no idea about yet?</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">3</div><div class="rp-step-content"><div class="rp-step-title">Write in response &#8212; 5 minutes</div><div class="rp-step-detail">What is different? What stayed true? What question do you carry forward? Write without editing &#8212; to the person on the card, or to yourself now.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">4</div><div class="rp-step-content"><div class="rp-step-title">Go around the room</div><div class="rp-step-detail">Each person shares one sentence &#8212; not a summary, not a conclusion, not a performance. The one thing you are taking out of this room.</div></div></div>
+      <div class="rp-step"><div class="rp-step-num">5</div><div class="rp-step-content"><div class="rp-step-title">Instructor closes</div><div class="rp-step-detail">Name the transformation explicitly. Let the silence land after the closing. Don&#8217;t rush to end. This is the end &#8212; let it be the end.</div></div></div>
+    </div>
+    <div class="rp-reading-block" style="margin-top:1rem;">
+      <div class="rp-reading-label">Optional: Letter to Next Cohort</div>
+      <p class="rp-reading-text">Write a 300-word letter to next year&#8217;s incoming CRDM cohort about what you wish you had known entering CRDM 790. Optional &#8212; but those who write it often say it clarifies what the semester actually gave them.</p>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-recap">
+    <h2 class="rp-section-title">The Full Semester Arc</h2>
+    <div class="rp-timeline">
+      <div class="rp-tl-item"><div class="rp-tl-time">Wk 1&#8211;5</div><div><div class="rp-tl-label">Movement I &#8212; Who Are We and What Do We Think?</div><div class="rp-tl-desc">Giroux &#183; Benjamin &#183; Mbembe &#183; Brown. Constellation Mapping &#183; Institutional Autopsy &#183; Wreckage Gallery &#183; Concept Translation &#183; Identity Statement Swap. &#9670; M1: Scholarly Identity (20%)</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">Wk 6&#8211;10</div><div><div class="rp-tl-label">Movement II &#8212; What Do I Know and Who Helps Me Know It?</div><div class="rp-tl-desc">Federici &#183; Fisher &#183; Derrida &#183; Haraway &#183; Kelsky. Canon Audit &#183; Rapid Presentations &#183; Exam List Workshop &#183; Email Workshop &#183; Prospectus Seed. &#9670; M2 (25%) &#183; M3 (15%)</div></div></div>
+      <div class="rp-tl-item"><div class="rp-tl-time">Wk 11&#8211;15</div><div><div class="rp-tl-label">Movement III &#8212; What Will I Make and Where Am I Going?</div><div class="rp-tl-desc">Marcuse &#183; Ghosh. Draft Audit &#183; So What? Gauntlet &#183; Three Versions &#183; Prospectus Workshop &#183; Presentations + Card Return. &#9670; M4: Dissertation Prospectus (40%)</div></div></div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-synthesis">
+    <h2 class="rp-section-title">Cohort Synthesis</h2>
+    <div class="rp-cards-grid">
+      <div class="rp-card"><div class="rp-card-label">Patterns across the prospectuses</div><p class="rp-card-text">What methodological moves, theoretical frameworks, or political commitments keep appearing? These reflect shared formation, shared questions, a shared historical moment.</p></div>
+      <div class="rp-card"><div class="rp-card-label">Where the dissertations speak to each other</div><p class="rp-card-text">Even radically different projects are in conversation. What are the conversations the cohort didn&#8217;t plan? What would happen if these dissertations read each other?</p></div>
+    </div>
+    <div class="rp-writing-seed">
+      <div class="rp-writing-seed-label">The closing circle</div>
+      <div class="rp-writing-seed-q">&#8220;One sentence &#8212; not a summary, not a conclusion, not a performance. The one thing you carry out of this room.&#8221;</div>
+    </div>
+  </section>
+
+  <section class="rp-section" id="rp-closing">
+    <h2 class="rp-section-title">What Comes Next</h2>
+    <div class="rp-closing-grid">
+      <div>
+        <div class="rp-milestone-due">
+          <div class="rp-milestone-label">&#9670; Final Prospectus &#8212; Due One Week After Today</div>
+          <div class="rp-milestone-name">Milestone 4 &#8212; 40% of Final Grade</div>
+          <p class="rp-body-text">Submit via Moodle (PDF or Word preferred) or email kkcole2@ncsu.edu. Use the Week 14 workshop feedback. Make the revision you committed to in the closing circle.</p>
+        </div>
+        <div class="rp-checklist">
+          <div class="rp-checklist-title">Keep your Week 1 card</div>
+          <ul><li>Take it home. Keep it near the prospectus. The person on the card had questions you&#8217;re now answering. The transmission is the point.</li></ul>
+        </div>
+      </div>
+      <div>
+        <div class="rp-next-week">
+          <div class="rp-next-week-label">Contact your committee</div>
+          <div class="rp-next-week-title">Not as a formality &#8212; as an intellectual act.</div>
+          <p class="rp-next-week-body">Tell them what you heard at the presentations. Tell them what changed in the prospectus since you last spoke. This is the beginning of the working relationship the degree requires.</p>
+        </div>
+        <blockquote class="rp-opening-quote" style="margin-bottom:0;">&#8220;What is different? What stayed true? What do you carry forward?&#8221;</blockquote>
+      </div>
+    </div>
+  </section>
+</div></main>
+
+<div class="rp-scroll-fabs" aria-hidden="true">
+  <button class="rp-fab" id="fab-up"  onclick="rpScroll('up')"  aria-label="Scroll up">↑</button>
+  <button class="rp-fab" id="fab-top" onclick="rpScroll('top')" aria-label="Back to top">⌂</button>
+  <button class="rp-fab" id="fab-dn"  onclick="rpScroll('dn')"  aria-label="Scroll down">↓</button>
+</div>
+
 <div id="nav">
-  <div style="display:flex; align-items:center;">
+  <div id="nav-left" style="display:flex;align-items:center;gap:0.4rem;">
+    <a href="index.html" class="nav-week-link">← Index</a>
+    <a href="CRDM790_Week14_Prospectus_Workshop.html" class="nav-week-link">← Week 14</a>
+    <a href="index.html" class="nav-week-link">Index →</a>
+    <span class="nav-vsep" aria-hidden="true"></span>
     <div id="slide-dots"></div>
     <span id="nav-label">WEEK 15 · PRESENTATIONS &amp; CARD RETURN</span>
   </div>
-  <div style="display:flex; align-items:center; gap:1.5rem;">
+  <div style="display:flex;align-items:center;gap:0.6rem;">
     <span id="slide-counter">1 / 8</span>
-    <div style="display:flex; gap:0.6rem;">
+    <div style="display:flex;gap:0.5rem;align-items:center;">
       <button class="nav-btn" id="prev-btn" onclick="prevSlide()" disabled>← Prev</button>
       <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
-      <button class="nav-btn" onclick="toggleHelp()">?</button>
+      <button class="nav-btn" id="help-btn" onclick="toggleHelp()">?</button>
+      <a href="index.html#milestones" class="nav-btn" id="milestones-link" style="display:none;text-decoration:none;">◆ Milestones</a>
+      <button class="nav-btn nav-btn-read" id="read-toggle-btn" onclick="toggleReadingMode()" title="Reading mode (M)">≡ Read</button>
     </div>
   </div>
 </div>
-
-<div class="help-overlay" id="help-overlay">
-  <div class="help-box">
-    <h3>Keyboard Shortcuts</h3>
-    <div class="shortcut-row"><span>Next slide</span><span><span class="key">→</span> <span class="key">Space</span></span></div>
-    <div class="shortcut-row"><span>Prev slide</span><span><span class="key">←</span></span></div>
-    <div class="shortcut-row"><span>Reveal question (slide 4)</span><span><span class="key">Enter</span></span></div>
-    <div class="shortcut-row"><span>Card activity step (slide 5)</span><span><span class="key">A</span></span></div>
-    <div class="shortcut-row"><span>First / Last slide</span><span><span class="key">Home</span> <span class="key">End</span></span></div>
-    <div class="shortcut-row"><span>This help</span><span><span class="key">?</span></span></div>
-    <div class="help-close" onclick="closeHelp()">Close ✕</div>
-  </div>
-</div>
-
 <script>
 // ── DISSOLVING PETAL / MOTE PARTICLES ────────────────────────────────────────
 (function() {
@@ -591,12 +815,64 @@ document.addEventListener('keydown',e=>{
     case 'Enter':if(current===4){e.preventDefault();revealNextQ();}break;
     case 'a':case 'A':if(current===5)nextCStep();break;
     case 'Home':goTo(1);break;case 'End':goTo(TOTAL);break;
+    case 'm': case 'M': toggleReadingMode(); break;
     case '?':toggleHelp();break;case 'Escape':closeHelp();break;
   }
 });
 function toggleHelp(){document.getElementById('help-overlay').classList.toggle('visible');}
 function closeHelp(){document.getElementById('help-overlay').classList.remove('visible');}
+
+let readingMode=false;
+function toggleReadingMode(){
+  readingMode=!readingMode;
+  const b=document.body,p=document.getElementById('reading-panel'),
+    d=document.getElementById('deck'),btn=document.getElementById('read-toggle-btn'),
+    ct=document.getElementById('slide-counter'),pb=document.getElementById('prev-btn'),
+    nb=document.getElementById('next-btn'),hb=document.getElementById('help-btn'),
+    ds=document.getElementById('slide-dots'),lb=document.getElementById('nav-label'),
+    ml=document.getElementById('milestones-link');
+  closeHelp();
+  if(readingMode){
+    b.classList.add('reading-mode');p.setAttribute('aria-hidden','false');
+    d.setAttribute('aria-hidden','true');btn.textContent='⊞ Slides';
+    btn.classList.add('active-read');
+    ct.style.display='none';pb.style.display='none';nb.style.display='none';
+    hb.style.display='none';ds.style.display='none';
+    lb.textContent='WEEK 15 · PRESENTATIONS &amp; CARD RETURN — Reading Mode';lb.style.opacity='0.55';
+    ml.style.display='inline-block';window.scrollTo({top:0,behavior:'smooth'});
+    p.focus({preventScroll:true});
+  }else{
+    b.classList.remove('reading-mode');p.setAttribute('aria-hidden','true');
+    d.setAttribute('aria-hidden','false');btn.textContent='≡ Read';
+    btn.classList.remove('active-read');
+    ct.style.display='';pb.style.display='';nb.style.display='';
+    hb.style.display='';ds.style.display='';
+    lb.textContent='WEEK 15 · PRESENTATIONS &amp; CARD RETURN';lb.style.opacity='';ml.style.display='none';
+  }
+}
+function rpScroll(dir){
+  if(dir==='top')window.scrollTo({top:0,behavior:'smooth'});
+  else if(dir==='up')window.scrollBy({top:-window.innerHeight*0.72,behavior:'smooth'});
+  else window.scrollBy({top:window.innerHeight*0.72,behavior:'smooth'});
+}
+(function(){
+  const sections=["rp-session-map", "rp-presentations", "rp-questions", "rp-card-return", "rp-recap", "rp-synthesis", "rp-closing"];
+  function upd(){
+    if(!readingMode)return;
+    const sy=window.scrollY,mx=document.documentElement.scrollHeight-window.innerHeight;
+    const fu=document.getElementById('fab-up'),ft=document.getElementById('fab-top'),fd=document.getElementById('fab-dn');
+    if(fu&&ft&&fd){ft.classList.toggle('fab-visible',sy>200);fu.classList.toggle('fab-visible',sy>60);fd.classList.toggle('fab-visible',sy<mx-40);}
+    let act=sections[0];
+    for(const id of sections){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=100)act=id;}
+    document.querySelectorAll('.rp-nav-item').forEach(a=>a.classList.toggle('rp-nav-active',a.dataset.section===act));
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+})();
+
 updateNav();
+
+
 </script>
 </body>
 </html>
