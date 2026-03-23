@@ -6,1025 +6,697 @@
 <meta name="description" content="CRDM 790 — Issues in Communication, Rhetoric, and Digital Media. Weekly session materials for Spring 2027. NC State University. Instructor: Kirsti K. Cole.">
 <title>CRDM 790 · Session Materials · Spring 2027</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:        #0E0C09;
-  --surface:   #15120D;
-  --surface2:  #1C1810;
-  --border:    rgba(201,168,76,0.15);
-  --border-lt: rgba(255,255,255,0.06);
-  --gold:      #C9A84C;
-  --amber:     #E8B84B;
-  --parch:     #F0E6CC;
-  --muted:     rgba(240,230,204,0.45);
-  --dim:       rgba(240,230,204,0.22);
+  --bg:         #F5F1EA;
+  --bg-alt:     #EDEAE3;
+  --surface:    #FFFFFF;
+  --ink:        #1A1714;
+  --ink-mid:    #3D3830;
+  --ink-light:  #7A7269;
+  --ink-faint:  #B0A898;
+  --rule:       rgba(26,23,20,0.12);
 
-  /* movement colors */
-  --m1:        #7B6FD8;
-  --m1-bg:     rgba(123,111,216,0.08);
-  --m1-border: rgba(123,111,216,0.25);
-  --m2:        #C9943A;
-  --m2-bg:     rgba(201,148,58,0.08);
-  --m2-border: rgba(201,148,58,0.25);
-  --m3:        #4A7C6F;
-  --m3-bg:     rgba(74,124,111,0.08);
-  --m3-border: rgba(74,124,111,0.25);
+  --brick:      #8C3427;
+  --brick-lt:   #B84C3C;
+  --brick-bg:   rgba(140,52,39,0.07);
+  --brick-rule: rgba(140,52,39,0.25);
+
+  --m1:         #6B4F8C;
+  --m1-bg:      rgba(107,79,140,0.07);
+  --m1-rule:    rgba(107,79,140,0.3);
+
+  --m2:         #2D6B56;
+  --m2-bg:      rgba(45,107,86,0.07);
+  --m2-rule:    rgba(45,107,86,0.3);
+
+  --m3:         #8C3427;
+  --m3-bg:      rgba(140,52,39,0.07);
+  --m3-rule:    rgba(140,52,39,0.3);
 
   --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'EB Garamond', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
   --font-mono:    'Inconsolata', monospace;
+
+  --nav-h: 56px;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
-  color: var(--parch);
+  color: var(--ink);
   font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
   min-height: 100vh;
-  position: relative;
   overflow-x: hidden;
 }
 
-/* ── GRAIN TEXTURE OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.032;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 256px 256px;
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
 }
 
-/* ── DECORATIVE VERTICAL RULE ── */
-.page-rule {
-  position: fixed;
-  top: 0; bottom: 0;
-  left: 5rem;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--border) 15%, var(--border) 85%, transparent);
-  z-index: 0;
-  pointer-events: none;
+.nav-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
 }
 
-/* ── MAIN LAYOUT ── */
+.nav-brand {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--ink-mid);
+  text-decoration: none;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+.nav-brand:hover { color: var(--brick); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.83rem;
+  font-weight: 400;
+  color: var(--ink-light);
+  text-decoration: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.nav-links a:hover {
+  color: var(--ink);
+  background: var(--bg-alt);
+}
+
+/* ── PAGE WRAP ── */
 .page-wrap {
-  position: relative;
-  z-index: 1;
-  max-width: 920px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 0 2rem 6rem;
 }
 
 /* ── MASTHEAD ── */
 header {
-  padding: 5rem 0 3rem;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 0;
+  padding: 5rem 0 3.5rem;
+  border-bottom: 1px solid var(--rule);
 }
 
-.masthead-eyebrow {
+.header-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.22em;
+  color: var(--brick);
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1.8rem;
 }
-.eyebrow-rule {
-  width: 2.5rem;
+.header-eyebrow::after {
+  content: '';
+  display: block;
+  flex: 1;
   height: 1px;
-  background: var(--gold);
-  opacity: 0.5;
-  flex-shrink: 0;
-}
-.eyebrow-text {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  color: var(--gold);
-  text-transform: uppercase;
-  opacity: 0.85;
+  background: var(--brick-rule);
+  max-width: 3rem;
 }
 
 .masthead-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: clamp(2.8rem, 6vw, 5rem);
   font-weight: 900;
   line-height: 1.0;
-  color: var(--parch);
-  margin-bottom: 0.4rem;
-  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
 }
 .masthead-title em {
   font-style: italic;
   font-weight: 700;
-  color: var(--amber);
+  color: var(--brick);
 }
 
 .masthead-subtitle {
-  font-family: var(--font-body);
-  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.2rem);
   font-style: italic;
-  color: var(--muted);
+  font-weight: 400;
+  color: var(--ink-light);
   margin-bottom: 2.5rem;
   line-height: 1.5;
 }
 
 .masthead-meta {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1.25rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
 }
+
 .meta-item {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.25rem;
 }
 .meta-label {
   font-family: var(--font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.2em;
-  color: var(--dim);
+  color: var(--ink-faint);
   text-transform: uppercase;
 }
 .meta-value {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  color: rgba(240,230,204,0.75);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--ink-mid);
+  line-height: 1.4;
 }
 .meta-value a {
-  color: var(--gold);
+  color: var(--brick);
   text-decoration: none;
-  opacity: 0.85;
-  transition: opacity 0.2s;
 }
-.meta-value a:hover { opacity: 1; text-decoration: underline; }
+.meta-value a:hover { text-decoration: underline; }
 
 /* ── UDL NOTICE ── */
 .udl-notice {
   margin: 2.5rem 0 0;
   padding: 1rem 1.4rem;
-  background: rgba(201,168,76,0.06);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--gold);
-  border-radius: 0 4px 4px 0;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--brick);
   display: flex;
   gap: 1rem;
   align-items: flex-start;
 }
-.udl-notice .udl-icon {
-  font-size: 0.9rem;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-  opacity: 0.7;
-}
 .udl-notice p {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  color: var(--muted);
+  font-size: 0.88rem;
+  color: var(--ink-mid);
   font-style: italic;
   line-height: 1.55;
 }
 .udl-notice strong {
   font-style: normal;
-  color: rgba(240,230,204,0.7);
+  color: var(--ink);
 }
 
-/* ── HOW TO USE SECTION ── */
+/* ── HOW TO USE ── */
 .how-to-use {
-  margin: 3rem 0 0;
+  margin: 2.5rem 0 0;
   padding: 1.5rem 1.8rem;
   background: var(--surface);
-  border: 1px solid var(--border-lt);
-  border-radius: 4px;
+  border: 1px solid var(--rule);
 }
 .htu-title {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   letter-spacing: 0.2em;
-  color: var(--gold);
+  color: var(--ink-faint);
   text-transform: uppercase;
-  margin-bottom: 0.9rem;
-  opacity: 0.8;
+  margin-bottom: 1rem;
 }
 .htu-steps {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  gap: 1.25rem;
 }
 .htu-step {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.85rem;
   align-items: flex-start;
 }
 .htu-num {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: var(--gold);
-  opacity: 0.25;
+  color: var(--brick);
   line-height: 1;
   flex-shrink: 0;
-  width: 1.8rem;
+  margin-top: 0.05rem;
 }
 .htu-text {
-  font-family: var(--font-body);
-  font-size: 0.93rem;
-  color: var(--muted);
-  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 .htu-text strong {
-  color: rgba(240,230,204,0.75);
+  font-size: 0.85rem;
   font-weight: 500;
-  font-style: normal;
+  color: var(--ink);
+}
+.htu-text span {
+  font-size: 0.8rem;
+  color: var(--ink-light);
+  line-height: 1.4;
 }
 
-/* ── MOVEMENT SECTIONS ── */
+/* ── COURSE SCHEDULE TITLE ── */
+.schedule-intro {
+  padding: 3.5rem 0 0;
+}
+.schedule-heading {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink-light);
+  margin-bottom: 0.4rem;
+}
+.schedule-note {
+  font-size: 0.83rem;
+  color: var(--ink-light);
+  line-height: 1.55;
+  max-width: 560px;
+}
+
+/* ── MOVEMENT SECTION ── */
 .movement-section {
-  margin-top: 4rem;
+  margin-top: 3.5rem;
+  scroll-margin-top: calc(var(--nav-h) + 1.5rem);
 }
 
 .movement-header {
   display: flex;
   align-items: baseline;
-  gap: 1.2rem;
-  padding: 1.5rem 1.8rem;
-  border-radius: 4px 4px 0 0;
-  border: 1px solid;
-  border-bottom: none;
-  position: relative;
-  overflow: hidden;
+  gap: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid;
+  margin-bottom: 1.75rem;
 }
-.movement-header::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 4px; height: 100%;
+.m1-header { border-color: var(--m1); }
+.m2-header { border-color: var(--m2); }
+.m3-header { border-color: var(--m3); }
+
+.movement-num {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1;
+  flex-shrink: 0;
 }
+.m1-header .movement-num { color: var(--m1); }
+.m2-header .movement-num { color: var(--m2); }
+.m3-header .movement-num { color: var(--m3); }
 
-.m1-header { background: var(--m1-bg); border-color: var(--m1-border); }
-.m1-header::before { background: var(--m1); }
-.m2-header { background: var(--m2-bg); border-color: var(--m2-border); }
-.m2-header::before { background: var(--m2); }
-.m3-header { background: var(--m3-bg); border-color: var(--m3-border); }
-.m3-header::before { background: var(--m3); }
-
+.movement-text {}
 .movement-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.22em;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  flex-shrink: 0;
+  color: var(--ink-faint);
+  display: block;
+  margin-bottom: 0.2rem;
 }
-.m1-header .movement-label { color: var(--m1); }
-.m2-header .movement-label { color: var(--m2); }
-.m3-header .movement-label { color: var(--m3); }
-
 .movement-title {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
   font-weight: 700;
-  color: var(--parch);
-}
-.movement-weeks-range {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.15em;
-  color: var(--dim);
-  margin-left: auto;
-  flex-shrink: 0;
+  color: var(--ink);
+  line-height: 1.2;
 }
 
 .movement-subtitle {
-  font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  margin-bottom: 0.75rem;
   font-style: italic;
-  color: var(--muted);
-  padding: 0.5rem 1.8rem 0.9rem 1.8rem;
-  background: var(--surface);
-  border-left: 1px solid;
-  border-right: 1px solid;
+  line-height: 1.5;
 }
-.m1-header ~ .movement-subtitle { border-color: var(--m1-border); }
-.m2-header ~ .movement-subtitle { border-color: var(--m2-border); }
-.m3-header ~ .movement-subtitle { border-color: var(--m3-border); }
 
 /* ── WEEK LIST ── */
 .week-list {
-  border: 1px solid;
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-  overflow: hidden;
-}
-.m1-header ~ .movement-subtitle ~ .week-list { border-color: var(--m1-border); }
-.m2-header ~ .movement-subtitle ~ .week-list { border-color: var(--m2-border); }
-.m3-header ~ .movement-subtitle ~ .week-list { border-color: var(--m3-border); }
-
-.week-row {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr auto;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.1rem 1.8rem;
-  border-top: 1px solid var(--border-lt);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rule);
   background: var(--surface);
-  transition: background 0.2s;
+}
+
+a.week-row,
+div.week-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr auto;
+  align-items: center;
+  gap: 0;
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid var(--rule);
   text-decoration: none;
   color: inherit;
+  transition: background 0.12s;
+  min-height: 60px;
 }
-.week-row:first-child { border-top: none; }
-.week-row.available:hover {
-  background: var(--surface2);
-}
-.week-row.available:hover .week-title {
-  color: var(--parch);
-}
-.week-row.coming-soon {
-  opacity: 0.45;
-  cursor: default;
-  pointer-events: none;
-}
+a.week-row:last-child,
+div.week-row:last-child { border-bottom: none; }
+
+a.week-row.available:hover { background: var(--bg-alt); }
+a.week-row.available:hover .week-title { color: var(--brick); }
 
 .week-num {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  color: var(--dim);
+  font-size: 0.67rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
   text-transform: uppercase;
-  white-space: nowrap;
+  padding-right: 1rem;
+  flex-shrink: 0;
+  border-right: 1px solid var(--rule);
 }
 
-.week-content { min-width: 0; }
+.week-content {
+  padding: 0 1rem;
+}
 .week-title {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: rgba(240,230,204,0.85);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--ink);
   line-height: 1.3;
-  transition: color 0.2s;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-bottom: 0.2rem;
+  transition: color 0.12s;
 }
 .week-desc {
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  font-style: italic;
-  color: var(--dim);
+  font-size: 0.78rem;
+  color: var(--ink-light);
   line-height: 1.4;
-  margin-top: 0.15rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
+.week-desc em { font-style: italic; }
 
 .week-badge {
   display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
   flex-shrink: 0;
+  padding-left: 1rem;
 }
+
 .badge {
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  padding: 0.22rem 0.55rem;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  padding: 3px 7px;
   border-radius: 2px;
   white-space: nowrap;
   text-transform: uppercase;
 }
-.badge-available { background: rgba(74,124,111,0.2); color: #8BC4B5; border: 1px solid rgba(74,124,111,0.3); }
-.badge-milestone { background: rgba(181,52,42,0.18); color: #E8845A; border: 1px solid rgba(181,52,42,0.3); }
-.badge-coming    { background: rgba(255,255,255,0.05); color: rgba(240,230,204,0.3); border: 1px solid rgba(255,255,255,0.08); }
+
+.badge-available {
+  background: #EAF3E8;
+  color: #2A5C22;
+  border: 1px solid rgba(42,92,34,0.2);
+}
+.badge-coming {
+  background: var(--bg-alt);
+  color: var(--ink-faint);
+  border: 1px solid var(--rule);
+}
+.badge-milestone {
+  background: var(--brick-bg);
+  color: var(--brick);
+  border: 1px solid var(--brick-rule);
+}
 
 .week-arrow {
-  font-size: 0.75rem;
-  color: var(--gold);
-  opacity: 0.5;
-  transition: opacity 0.2s, transform 0.2s;
-  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  margin-top: 2px;
 }
-.week-row.available:hover .week-arrow {
-  opacity: 1;
-  transform: translateX(3px);
-}
+a.week-row.available:hover .week-arrow { color: var(--brick); }
 
-/* ── SPRING BREAK ROW ── */
+.week-row.coming-soon .week-title { color: var(--ink-mid); }
+.week-row.coming-soon .week-desc { color: var(--ink-faint); }
+
+/* ── SPRING BREAK ── */
 .break-row {
+  margin: 2.5rem 0;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1.8rem;
-  background: rgba(255,255,255,0.02);
-  border-top: 1px solid var(--border-lt);
-  border-bottom: 1px solid var(--border-lt);
+  gap: 1.5rem;
+}
+.break-row::before,
+.break-row::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+.break-inner {
+  text-align: center;
+  flex-shrink: 0;
 }
 .break-label {
+  display: block;
   font-family: var(--font-mono);
   font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  color: var(--dim);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.2rem;
 }
 .break-dates {
-  font-family: var(--font-body);
-  font-size: 0.88rem;
+  display: block;
+  font-size: 0.8rem;
+  color: var(--ink-faint);
   font-style: italic;
-  color: var(--dim);
+}
+
+/* ── RESOURCES STRIP ── */
+.resources-section {
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--rule);
+  scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+}
+.resources-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 1.25rem;
+}
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+}
+.resource-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1rem 1.25rem;
+  border-right: 1px solid var(--rule);
+  text-decoration: none;
+  transition: background 0.12s;
+}
+.resource-item:last-child { border-right: none; }
+.resource-item:hover { background: var(--bg-alt); }
+.resource-item-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.resource-item-title {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--brick);
+  line-height: 1.3;
+}
+.resource-item-sub {
+  font-size: 0.75rem;
+  color: var(--ink-light);
 }
 
 /* ── FOOTER ── */
 footer {
-  margin-top: 5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 2rem;
-  align-items: start;
-}
-.footer-info {
+  margin-top: 4rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule);
   display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 .footer-course {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: rgba(240,230,204,0.5);
-}
-.footer-meta {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.15em;
-  color: var(--dim);
-  text-transform: uppercase;
-}
-.footer-contact {
-  font-family: var(--font-body);
-  font-size: 0.92rem;
-  color: var(--dim);
-  font-style: italic;
-  text-align: right;
-}
-.footer-contact a {
-  color: var(--gold);
-  text-decoration: none;
-  opacity: 0.75;
-}
-.footer-contact a:hover { opacity: 1; }
-
-/* ── PAGE ENTRY ANIMATION ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-header            { animation: fadeUp 0.6s ease forwards; }
-.how-to-use       { animation: fadeUp 0.6s ease 0.1s both; }
-.movement-section { animation: fadeUp 0.6s ease both; }
-.movement-section:nth-child(1) { animation-delay: 0.2s; }
-.movement-section:nth-child(2) { animation-delay: 0.27s; }
-.movement-section:nth-child(3) { animation-delay: 0.34s; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 640px) {
-  .page-rule { display: none; }
-  .page-wrap { padding: 0 1.2rem 4rem; }
-  header { padding: 3rem 0 2rem; }
-  .masthead-title { font-size: 2.4rem; }
-  .week-row {
-    grid-template-columns: 3.5rem 1fr auto;
-    gap: 0.7rem;
-    padding: 1rem 1.2rem;
-  }
-  .week-title { font-size: 0.97rem; }
-  .week-desc { display: none; }
-  .week-num { font-size: 0.6rem; }
-  .movement-header { flex-wrap: wrap; gap: 0.5rem; padding: 1.2rem 1.3rem; }
-  .movement-weeks-range { margin-left: 0; }
-  .movement-subtitle { padding: 0.4rem 1.3rem 0.7rem; }
-  .footer { grid-template-columns: 1fr; }
-  .footer-contact { text-align: left; }
-  .htu-steps { grid-template-columns: 1fr; }
-  .masthead-meta { grid-template-columns: 1fr 1fr; }
-}
-
-/* ── MILESTONES SECTION ── */
-.milestones-section {
-  margin-top: 3.5rem;
-  animation: fadeUp 0.6s ease 0.08s both;
-}
-.milestones-header {
-  display: flex;
-  align-items: baseline;
-  gap: 1.2rem;
-  padding: 1.3rem 1.8rem;
-  background: rgba(201,168,76,0.06);
-  border: 1px solid rgba(201,168,76,0.2);
-  border-bottom: none;
-  border-radius: 4px 4px 0 0;
-  position: relative;
-  overflow: hidden;
-}
-.milestones-header::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 4px; height: 100%;
-  background: var(--gold);
-}
-.milestones-eyebrow {
+  display: block;
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  flex-shrink: 0;
-}
-.milestones-heading {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--parch);
-}
-.milestones-pct {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
   letter-spacing: 0.15em;
-  color: var(--dim);
-  margin-left: auto;
-  flex-shrink: 0;
-}
-.milestones-subtitle {
-  font-family: var(--font-body);
-  font-size: 0.92rem;
-  font-style: italic;
-  color: var(--muted);
-  padding: 0.5rem 1.8rem 0.9rem;
-  background: var(--surface);
-  border-left: 1px solid rgba(201,168,76,0.2);
-  border-right: 1px solid rgba(201,168,76,0.2);
-}
-.milestones-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-  border: 1px solid rgba(201,168,76,0.2);
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-  overflow: hidden;
-  max-width: 780px;
-}
-.milestone-card {
-  background: var(--surface);
-  padding: 1.5rem 1.8rem 1.6rem;
-  border-right: 1px solid rgba(255,255,255,0.05);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  position: relative;
-  transition: background 0.2s;
-}
-.milestone-card:nth-child(2n) { border-right: none; }
-.milestone-card:nth-child(1),
-.milestone-card:nth-child(2) { border-top: none; }
-.milestone-card:hover { background: var(--surface2); }
-.ms-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.7rem;
-}
-.ms-num-title { flex: 1; min-width: 0; }
-.ms-num {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 0.25rem;
-  opacity: 0.7;
-}
-.ms-title {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--parch);
-  line-height: 1.25;
-}
-.ms-badges {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.3rem;
-  flex-shrink: 0;
-}
-.ms-pct-badge {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  color: var(--amber);
-  background: rgba(232,184,75,0.12);
-  border: 1px solid rgba(232,184,75,0.3);
-  padding: 0.2rem 0.55rem;
-  border-radius: 2px;
-  white-space: nowrap;
-}
-.ms-week-badge {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.1em;
-  color: var(--dim);
-  white-space: nowrap;
-}
-.ms-desc {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: rgba(240,230,204,0.82);
-  line-height: 1.55;
-  margin-bottom: 1rem;
-}
-.ms-details {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-.ms-detail-row {
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-start;
-}
-.ms-detail-label {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
-  flex-shrink: 0;
-  width: 4.5rem;
-  padding-top: 0.1rem;
-}
-.ms-detail-val {
-  font-family: var(--font-body);
-  font-size: 0.92rem;
-  color: rgba(240,230,204,0.85);
-  line-height: 1.5;
-}
-.ms-threshold {
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-  margin-top: 0.9rem;
-}
-.ms-th-chip {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.2rem 0.55rem;
-  border-radius: 2px;
-  white-space: nowrap;
-}
-.ms-th-complete  { background: rgba(74,124,111,0.18); color: #8BC4B5; border: 1px solid rgba(74,124,111,0.3); }
-.ms-th-revision  { background: rgba(201,148,58,0.15); color: #C9943A; border: 1px solid rgba(201,148,58,0.28); }
-.ms-th-incomplete{ background: rgba(181,52,42,0.15);  color: #E8845A; border: 1px solid rgba(181,52,42,0.28); }
-.ms-divider {
-  height: 1px;
-  background: rgba(255,255,255,0.04);
-  margin: 0.9rem 0;
-}
-.ms-submission-label {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  color: var(--dim);
+  color: var(--ink-faint);
   text-transform: uppercase;
   margin-bottom: 0.4rem;
 }
-.ms-submission-options {
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-.ms-sub-chip {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  color: rgba(240,230,204,0.75);
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 2px;
-  padding: 0.18rem 0.5rem;
-}
-/* AI policy inline note */
-.ms-ai-note {
-  margin-top: 0.8rem;
-  font-family: var(--font-body);
+.footer-meta {
   font-size: 0.82rem;
-  font-style: italic;
-  color: var(--dim);
-  border-left: 2px solid rgba(201,168,76,0.2);
-  padding-left: 0.7rem;
-  line-height: 1.45;
+  color: var(--ink-light);
 }
-@media (max-width: 640px) {
-  .milestones-grid { grid-template-columns: 1fr; }
-  .milestone-card:nth-child(1),
-  .milestone-card:nth-child(2) { border-top: none; }
-  .milestone-card:nth-child(2) { border-top: 1px solid rgba(255,255,255,0.05); }
-  .milestone-card:nth-child(n) { border-right: none; }
+.footer-contact {
+  font-size: 0.82rem;
+  color: var(--ink-light);
+  line-height: 1.7;
+  text-align: right;
 }
+.footer-contact a {
+  color: var(--brick);
+  text-decoration: none;
+}
+.footer-contact a:hover { text-decoration: underline; }
 
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .page-wrap { padding: 0 1.2rem 4rem; }
+  .nav-inner { padding: 0 1.2rem; }
+  a.week-row, div.week-row { grid-template-columns: 4rem 1fr; }
+  .week-badge { display: none; }
+  .masthead-meta { grid-template-columns: 1fr 1fr; }
+  .movement-header { gap: 1rem; }
+  .movement-num { font-size: 2rem; }
+  .resources-grid { grid-template-columns: 1fr 1fr; }
+  .resource-item:nth-child(even) { border-right: none; }
+  .resource-item { border-bottom: 1px solid var(--rule); }
+  .footer-contact { text-align: left; }
+}
 </style>
 </head>
 <body>
 
-<div class="page-rule" aria-hidden="true"></div>
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">CRDM 790</a>
+    <ul class="nav-links">
+      <li><a href="#movement-i">Movement I</a></li>
+      <li><a href="#movement-ii">Movement II</a></li>
+      <li><a href="#movement-iii">Movement III</a></li>
+      <li><a href="#resources">Resources</a></li>
+    </ul>
+  </div>
+</nav>
 
 <div class="page-wrap">
 
   <!-- ── MASTHEAD ── -->
   <header>
-    <div class="masthead-eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">NC State University · Spring 2027</span>
-    </div>
+    <div class="header-eyebrow">NC State University · Spring 2027</div>
 
-    <h1 class="masthead-title">CRDM <em>790</em></h1>
-    <p class="masthead-subtitle">Issues in Communication, Rhetoric, and Digital Media</p>
+    <h1 class="masthead-title">
+      Issues in Communication,<br>
+      <em>Rhetoric, and Digital Media</em>
+    </h1>
+    <p class="masthead-subtitle">Session slides, activities, and milestone guides for CRDM 790.</p>
 
     <div class="masthead-meta">
       <div class="meta-item">
+        <span class="meta-label">Course</span>
+        <span class="meta-value">CRDM 790 · 3 Credit Hours</span>
+      </div>
+      <div class="meta-item">
         <span class="meta-label">Instructor</span>
-        <span class="meta-value">Kirsti K. Cole</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Email</span>
-        <span class="meta-value"><a href="mailto:kkcole2@ncsu.edu"><span class="__cf_email__" data-cfemail="274c4c44484b4215674944545209424352">[kkcole2@ncsu.edu]</span></a></span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Office</span>
-        <span class="meta-value">Tompkins Hall 226</span>
+        <span class="meta-value">
+          <a href="mailto:kkcole2@ncsu.edu">Kirsti K. Cole</a><br>
+          Tompkins Hall 226
+        </span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Office Hours</span>
-        <span class="meta-value"><a href="https://calendar.app.google/pgZeqTD9Kd9ZxBPX7" target="_blank" rel="noopener">Schedule here ↗</a></span>
+        <span class="meta-value">
+          <a href="https://calendar.app.google/pgZeqTD9Kd9ZxBPX7">Schedule a meeting →</a>
+        </span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">Moodle</span>
-        <span class="meta-value"><a href="https://moodle-courses.ncsu.edu" target="_blank" rel="noopener">Course page ↗</a></span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Perusall</span>
-        <span class="meta-value"><a href="CRDM790_Perusall.html">Annotation Guide →</a></span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Submissions</span>
-        <span class="meta-value"><a href="CRDM790_Submissions.html">Drive &amp; Milestones →</a></span>
+        <span class="meta-label">Session Format</span>
+        <span class="meta-value">Tuesdays · 6–9:30 pm · In person</span>
       </div>
     </div>
 
-    <div class="udl-notice">
-      <span class="udl-icon">◈</span>
-      <p>This site and all session materials are designed following <strong>Universal Design for Learning (UDL)</strong> principles. Each session provides multiple means of engagement, representation, and expression. If any material presents an access barrier for you, please contact me and we will find an alternative.</p>
+    <div class="udl-notice" style="margin-top:2rem;">
+      <p><strong>Accessibility:</strong> All session materials are available in multiple formats. If any format creates a barrier, email <a href="mailto:kkcole2@ncsu.edu" style="color:var(--brick)">kkcole2@ncsu.edu</a> — an alternative will be provided before the next class session. This site works without JavaScript.</p>
+    </div>
+
+    <div class="how-to-use">
+      <div class="htu-title">How to use this site</div>
+      <div class="htu-steps">
+        <div class="htu-step">
+          <div class="htu-num">1</div>
+          <div class="htu-text">
+            <strong>Before class</strong>
+            <span>Read the assigned text on Perusall. Complete the pre-class writing prompt.</span>
+          </div>
+        </div>
+        <div class="htu-step">
+          <div class="htu-num">2</div>
+          <div class="htu-text">
+            <strong>During class</strong>
+            <span>Open the session slides (click any available week row). Press M to toggle reading mode.</span>
+          </div>
+        </div>
+        <div class="htu-step">
+          <div class="htu-num">3</div>
+          <div class="htu-text">
+            <strong>Milestones</strong>
+            <span>Four graded deliverables across the semester. Submit via Moodle, email, or Google Drive.</span>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- ── HOW TO USE ── -->
-  <div class="how-to-use">
-    <div class="htu-title">How to Use These Materials</div>
-    <div class="htu-steps">
-      <div class="htu-step">
-        <div class="htu-num">1</div>
-        <div class="htu-text"><strong>Click any available week</strong> below to open that session's slides in a new browser tab.</div>
-      </div>
-      <div class="htu-step">
-        <div class="htu-num">2</div>
-        <div class="htu-text">Use <strong>← → arrow keys</strong> or the buttons at the bottom to move between slides.</div>
-      </div>
-      <div class="htu-step">
-        <div class="htu-num">3</div>
-        <div class="htu-text">Press <strong>≡ Read</strong> (or <strong>M</strong>) in any week to switch to a scrollable reading view — better for phones, screen readers, or reviewing after class.</div>
-      </div>
-      <div class="htu-step">
-        <div class="htu-num">4</div>
-        <div class="htu-text">Press <strong>?</strong> at any time to see all keyboard shortcuts, including timer and question-reveal controls.</div>
-      </div>
-      <div class="htu-step">
-        <div class="htu-num">5</div>
-        <div class="htu-text">New weeks are added here as the semester progresses. <strong>Check back each week.</strong></div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ══════════════════════════════════════════ -->
-  <!-- MILESTONES                                 -->
-  <!-- ══════════════════════════════════════════ -->
-  <section class="milestones-section" id="milestones" aria-labelledby="milestones-heading">
-
-    <div class="milestones-header">
-      <span class="milestones-eyebrow">◆ Milestones</span>
-      <h2 class="milestones-heading" id="milestones-heading">Four Milestones · Four Moments of Accountability</h2>
-      <span class="milestones-pct">100% of course grade</span>
-    </div>
-    <p class="milestones-subtitle">All milestones use threshold grading — Complete &amp; Substantive · Nearly There / In Revision · Not Yet Complete. No points. No rubric scores. Honest assessment of intellectual work.</p>
-
-    <div class="milestones-grid">
-
-      <!-- M1 -->
-      <div class="milestone-card">
-        <div class="ms-top">
-          <div class="ms-num-title">
-            <div class="ms-num">Milestone 1 · Movement I</div>
-            <div class="ms-title">Scholarly Identity Statement</div>
-          </div>
-          <div class="ms-badges">
-            <span class="ms-pct-badge">20%</span>
-            <span class="ms-week-badge">Due Week 5</span>
-          </div>
-        </div>
-        <p class="ms-desc">Not a CV summary. A statement of intellectual purpose, written in your own voice — what questions drive you, what animates your research, and why any of it matters. ~500 words.</p>
-        <div class="ms-details">
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">Prompt</span>
-            <span class="ms-detail-val">Who are you as a scholar? What do you care about, and why does it matter?</span>
-          </div>
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">Key test</span>
-            <span class="ms-detail-val">Read it aloud. Does it sound like you wrote it — specific, embodied, personal? Could a stranger have written this?</span>
-          </div>
-        </div>
-        <div class="ms-divider"></div>
-        <div class="ms-threshold">
-          <span class="ms-th-chip ms-th-complete">Complete &amp; Substantive</span>
-          <span class="ms-th-chip ms-th-revision">Nearly There</span>
-          <span class="ms-th-chip ms-th-incomplete">Not Yet Complete</span>
-        </div>
-        <div class="ms-divider"></div>
-        <div class="ms-submission-label">Submission options</div>
-        <div class="ms-submission-options">
-          <span class="ms-sub-chip">Moodle upload</span>
-          <span class="ms-sub-chip">Email</span>
-          <span class="ms-sub-chip">Hard copy</span>
-        </div>
-        <p class="ms-ai-note">AI may be used for brainstorming or light editing. The substance must be yours — your voice, your convictions. A statement written by AI cannot do what this milestone asks.</p>
-      </div>
-
-      <!-- M2 -->
-      <div class="milestone-card">
-        <div class="ms-top">
-          <div class="ms-num-title">
-            <div class="ms-num">Milestone 2 · Movement II</div>
-            <div class="ms-title">Draft Comprehensive Exam List</div>
-          </div>
-          <div class="ms-badges">
-            <span class="ms-pct-badge">25%</span>
-            <span class="ms-week-badge">Due Week 8</span>
-          </div>
-        </div>
-        <p class="ms-desc">A working draft of your comp exam reading list with full citations, plus a rationale paragraph arguing the intellectual logic of your configuration. Not a catalog — an argument about what your project needs.</p>
-        <div class="ms-details">
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">Part 1</span>
-            <span class="ms-detail-val">Draft exam list, organized by your own intellectual logic — theme, method, genealogy, period, or combination. 50–80 texts typical.</span>
-          </div>
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">Part 2</span>
-            <span class="ms-detail-val">Rationale paragraph: why these texts, in this configuration, for this project?</span>
-          </div>
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">Workshop</span>
-            <span class="ms-detail-val">Peer-reviewed in class, Week 8. Revision expected before Week 10.</span>
-          </div>
-        </div>
-        <div class="ms-divider"></div>
-        <div class="ms-threshold">
-          <span class="ms-th-chip ms-th-complete">Complete &amp; Substantive</span>
-          <span class="ms-th-chip ms-th-revision">Nearly There</span>
-          <span class="ms-th-chip ms-th-incomplete">Not Yet Complete</span>
-        </div>
-        <div class="ms-divider"></div>
-        <div class="ms-submission-label">Submission options</div>
-        <div class="ms-submission-options">
-          <span class="ms-sub-chip">Moodle upload</span>
-          <span class="ms-sub-chip">Email</span>
-          <span class="ms-sub-chip">Print copy + Moodle</span>
-        </div>
-      </div>
-
-      <!-- M3 -->
-      <div class="milestone-card">
-        <div class="ms-top">
-          <div class="ms-num-title">
-            <div class="ms-num">Milestone 3 · Movement II</div>
-            <div class="ms-title">Committee Confirmation</div>
-          </div>
-          <div class="ms-badges">
-            <span class="ms-pct-badge">15%</span>
-            <span class="ms-week-badge">Due Week 10</span>
-          </div>
-        </div>
-        <p class="ms-desc">Evidence that committee formation is genuinely underway — not just planned. The people you ask will shape your project and your relationship to the field for years. This makes the process real.</p>
-        <div class="ms-details">
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">Option A</span>
-            <span class="ms-detail-val">Forwarded email from your chair confirming their willingness to serve. Even a brief reply counts.</span>
-          </div>
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">Option B</span>
-            <span class="ms-detail-val">Written plan with named faculty, current status of each conversation, and a realistic timeline.</span>
-          </div>
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">If stuck</span>
-            <span class="ms-detail-val">Flag it in your submission. The Week 10 individual meeting is precisely the time to problem-solve. Silence is the one thing that cannot help you.</span>
-          </div>
-        </div>
-        <div class="ms-divider"></div>
-        <div class="ms-threshold">
-          <span class="ms-th-chip ms-th-complete">Complete &amp; Substantive</span>
-          <span class="ms-th-chip ms-th-revision">Nearly There</span>
-          <span class="ms-th-chip ms-th-incomplete">Not Yet Complete</span>
-        </div>
-        <div class="ms-divider"></div>
-        <div class="ms-submission-label">Submission options</div>
-        <div class="ms-submission-options">
-          <span class="ms-sub-chip">Moodle</span>
-          <span class="ms-sub-chip">Email</span>
-          <span class="ms-sub-chip">Bring to Week 10 meeting</span>
-        </div>
-      </div>
-
-      <!-- M4 -->
-      <div class="milestone-card">
-        <div class="ms-top">
-          <div class="ms-num-title">
-            <div class="ms-num">Milestone 4 · Movement III</div>
-            <div class="ms-title">Dissertation Prospectus</div>
-          </div>
-          <div class="ms-badges">
-            <span class="ms-pct-badge">40%</span>
-            <span class="ms-week-badge">Draft: night before Wk 14 · Final: 1 wk after Wk 15</span>
-          </div>
-        </div>
-        <p class="ms-desc">The most consequential document you'll write before the dissertation itself. An argument that there is a real problem worth investigating, you are positioned to investigate it, and you have a principled method for doing so.</p>
-        <div class="ms-details">
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">The Problem</span>
-            <span class="ms-detail-val">What question are you asking, and why does it matter?</span>
-          </div>
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">The Conversation</span>
-            <span class="ms-detail-val">Who has addressed this before, and what does your project do differently?</span>
-          </div>
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">The Method</span>
-            <span class="ms-detail-val">How will you pursue this question, and why is that the right approach?</span>
-          </div>
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">The Stakes</span>
-            <span class="ms-detail-val">Why does this matter — to scholars, yes, but also beyond the discipline?</span>
-          </div>
-          <div class="ms-detail-row">
-            <span class="ms-detail-label">Alt option</span>
-            <span class="ms-detail-val">Non-academic paths: public-facing research proposal or professional research agenda. Same rigor, different form. Talk to Kirsti before Week 11.</span>
-          </div>
-        </div>
-        <div class="ms-divider"></div>
-        <div class="ms-threshold">
-          <span class="ms-th-chip ms-th-complete">Complete &amp; Substantive</span>
-          <span class="ms-th-chip ms-th-revision">Nearly There</span>
-          <span class="ms-th-chip ms-th-incomplete">Not Yet Complete</span>
-        </div>
-        <div class="ms-divider"></div>
-        <div class="ms-submission-label">Submission options</div>
-        <div class="ms-submission-options">
-          <span class="ms-sub-chip">Moodle upload</span>
-          <span class="ms-sub-chip">Email</span>
-          <span class="ms-sub-chip">Google Drive link</span>
-        </div>
-        <p class="ms-ai-note">AI may be used for brainstorming or editing. Problem framing, scholarly situatedness, methodological argument, and stakes must be yours.</p>
-      </div>
-
-    </div><!-- /milestones-grid -->
+  <!-- ── SCHEDULE ── -->
+  <section class="schedule-intro">
+    <p class="schedule-heading">Course schedule — Spring 2027</p>
+    <p class="schedule-note">If the course meets on Monday, MLK Jr. Day cancels Week 2 — an async alternative will be on Moodle. Spring Break is March 15–19.</p>
   </section>
 
   <!-- ══════════════════════════════════════════ -->
   <!-- MOVEMENT I -->
   <!-- ══════════════════════════════════════════ -->
-  <section class="movement-section" aria-labelledby="m1-title">
+  <section class="movement-section" id="movement-i" aria-labelledby="m1-title">
     <div class="movement-header m1-header">
-      <span class="movement-label">Movement I</span>
-      <h2 class="movement-title" id="m1-title">Who Are We and What Do We Think?</h2>
-      <span class="movement-weeks-range">Weeks 1–5</span>
+      <div class="movement-num">01</div>
+      <div class="movement-text">
+        <span class="movement-label">Movement I · Weeks 1–5</span>
+        <h2 class="movement-title" id="m1-title">Who Are We and What Do We Think?</h2>
+      </div>
     </div>
     <p class="movement-subtitle">Shared critical vocabulary, scholarly identity, and cohort formation. Readings: Giroux · Benjamin · Mbembe · Brown.</p>
+
     <div class="week-list" role="list">
 
-      <a class="week-row available" href="CRDM790_Week01_Arrivals_Interactive.html" target="_blank" rel="noopener" role="listitem" aria-label="Week 1: Arrivals — open session slides">
+      <a class="week-row available" href="CRDM790_Week01_Arrivals_Interactive.html" target="_blank" rel="noopener" role="listitem">
         <span class="week-num">Week 1</span>
         <div class="week-content">
           <div class="week-title">Arrivals</div>
@@ -1036,7 +708,7 @@ header            { animation: fadeUp 0.6s ease forwards; }
         </div>
       </a>
 
-      <a class="week-row available" href="CRDM790_Week02_Critical_Pedagogy.html" target="_blank" rel="noopener" role="listitem" aria-label="Week 2: Critical Pedagogy — open session slides">
+      <a class="week-row available" href="CRDM790_Week02_Critical_Pedagogy.html" target="_blank" rel="noopener" role="listitem">
         <span class="week-num">Week 2</span>
         <div class="week-content">
           <div class="week-title">Critical Pedagogy and the Scholar-Critic</div>
@@ -1048,7 +720,7 @@ header            { animation: fadeUp 0.6s ease forwards; }
         </div>
       </a>
 
-      <a class="week-row available" href="CRDM790_Week03_The_Past_Is_Not_Past.html" target="_blank" rel="noopener" role="listitem" aria-label="Week 3: The Past Is Not Past — open session slides">
+      <a class="week-row available" href="CRDM790_Week03_The_Past_Is_Not_Past.html" target="_blank" rel="noopener" role="listitem">
         <span class="week-num">Week 3</span>
         <div class="week-content">
           <div class="week-title">The Past Is Not Past</div>
@@ -1060,7 +732,7 @@ header            { animation: fadeUp 0.6s ease forwards; }
         </div>
       </a>
 
-      <a class="week-row available" href="CRDM790_Week04_Who_Gets_to_Live.html" target="_blank" rel="noopener" role="listitem" aria-label="Week 4: Who Gets to Live — open session slides">
+      <a class="week-row available" href="CRDM790_Week04_Who_Gets_to_Live.html" target="_blank" rel="noopener" role="listitem">
         <span class="week-num">Week 4</span>
         <div class="week-content">
           <div class="week-title">Who Gets to Live</div>
@@ -1072,7 +744,7 @@ header            { animation: fadeUp 0.6s ease forwards; }
         </div>
       </a>
 
-      <a class="week-row available" href="CRDM790_Week05_University_Under_Neoliberalism.html" target="_blank" rel="noopener" role="listitem" aria-label="Week 5: The University Under Neoliberalism — open session slides">
+      <a class="week-row available" href="CRDM790_Week05_University_Under_Neoliberalism.html" target="_blank" rel="noopener" role="listitem">
         <span class="week-num">Week 5</span>
         <div class="week-content">
           <div class="week-title">The University Under Neoliberalism</div>
@@ -1091,138 +763,207 @@ header            { animation: fadeUp 0.6s ease forwards; }
   <!-- ══════════════════════════════════════════ -->
   <!-- MOVEMENT II -->
   <!-- ══════════════════════════════════════════ -->
-  <section class="movement-section" aria-labelledby="m2-title">
+  <section class="movement-section" id="movement-ii" aria-labelledby="m2-title">
     <div class="movement-header m2-header">
-      <span class="movement-label">Movement II</span>
-      <h2 class="movement-title" id="m2-title">What Do I Know and Who Helps Me Know It?</h2>
-      <span class="movement-weeks-range">Weeks 6–10</span>
+      <div class="movement-num">02</div>
+      <div class="movement-text">
+        <span class="movement-label">Movement II · Weeks 6–10</span>
+        <h2 class="movement-title" id="m2-title">What Do I Know and Who Helps Me Know It?</h2>
+      </div>
     </div>
     <p class="movement-subtitle">Candidacy work begins — exam lists and committees. Readings: Federici · Fisher · Derrida · Haraway.</p>
+
     <div class="week-list" role="list">
 
-      <a class="week-row available" href="CRDM790_Week06_Primitive_Accumulation.html" target="_blank" rel="noopener" aria-label="Week 6: Primitive Accumulation and the Labor of Knowledge — open session slides">
+      <a class="week-row available" href="CRDM790_Week06_Primitive_Accumulation.html" target="_blank" rel="noopener" role="listitem">
         <span class="week-num">Week 6</span>
         <div class="week-content">
           <div class="week-title">Primitive Accumulation and the Labor of Knowledge</div>
           <div class="week-desc">Federici, <em>Caliban and the Witch</em> · Canon Audit</div>
         </div>
-        <div class="week-badge"><span class="badge badge-available">Available</span>
-          <span class="week-arrow">→</span></div></a>
+        <div class="week-badge">
+          <span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span>
+        </div>
+      </a>
 
-      <a class="week-row available" href="CRDM790_Week07_Hauntology.html" target="_blank" rel="noopener" aria-label="Week 7: Hauntology — open session slides">
+      <a class="week-row available" href="CRDM790_Week07_Hauntology.html" target="_blank" rel="noopener" role="listitem">
         <span class="week-num">Week 7</span>
         <div class="week-content">
           <div class="week-title">Hauntology: What Haunts Your Field?</div>
           <div class="week-desc">Fisher, <em>Ghosts of My Life</em> · Derrida, <em>Specters of Marx</em> · Rapid Presentations</div>
         </div>
-        <div class="week-badge"><span class="badge badge-available">Available</span>
-          <span class="week-arrow">→</span></div></a>
+        <div class="week-badge">
+          <span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span>
+        </div>
+      </a>
 
-      <a class="week-row available" href="CRDM790_Week08_Exam_List_Workshop.html" target="_blank" rel="noopener" aria-label="Week 8: Exam List Workshop — open session slides">
+      <div class="week-row coming-soon" role="listitem">
         <span class="week-num">Week 8</span>
         <div class="week-content">
           <div class="week-title">Exam List Workshop</div>
           <div class="week-desc">Haraway, 'Situated Knowledges' · Structured Peer Review</div>
         </div>
-        <div class="week-badge"><span class="badge badge-milestone">◆ Milestone 2 Due</span>
-          <span class="badge badge-available">Available</span>
-          <span class="week-arrow">→</span></div></a>
+        <div class="week-badge">
+          <span class="badge badge-milestone">◆ Milestone 2 Due</span>
+          <span class="badge badge-coming">Coming Soon</span>
+        </div>
+      </div>
 
-      <a class="week-row available" href="CRDM790_Week09_Committee.html" target="_blank" rel="noopener" aria-label="Week 9: Committee as Intellectual Community — open session slides">
+      <div class="week-row coming-soon" role="listitem">
         <span class="week-num">Week 9</span>
         <div class="week-content">
           <div class="week-title">Committee as Intellectual Community</div>
           <div class="week-desc">Kelsky, <em>The Professor Is In</em> · Committee Email Workshop · Guest Speaker</div>
         </div>
-        <div class="week-badge"><span class="badge badge-available">Available</span>
-          <span class="week-arrow">→</span></div></a>
+        <div class="week-badge">
+          <span class="badge badge-coming">Coming Soon</span>
+        </div>
+      </div>
 
-      <a class="week-row available" href="CRDM790_Week10_Individual_Meetings.html" target="_blank" rel="noopener" aria-label="Week 10: Individual Meetings Week — open session slides">
+      <div class="week-row coming-soon" role="listitem">
         <span class="week-num">Week 10</span>
         <div class="week-content">
           <div class="week-title">Individual Meetings Week</div>
           <div class="week-desc">No full group session · Individual check-ins · Prospectus Seed Writing</div>
         </div>
-        <div class="week-badge"><span class="badge badge-milestone">◆ Milestone 3 Due</span>
-          <span class="badge badge-available">Available</span>
-          <span class="week-arrow">→</span></div></a>
+        <div class="week-badge">
+          <span class="badge badge-milestone">◆ Milestone 3 Due</span>
+          <span class="badge badge-coming">Coming Soon</span>
+        </div>
+      </div>
 
     </div>
   </section>
 
   <!-- ── SPRING BREAK ── -->
-  <div class="break-row" role="separator" aria-label="Spring Break">
-    <span class="break-label">Spring Break</span>
-    <span class="break-dates">March 15–19 · Rest. Read something for pleasure. Let the semester breathe.</span>
+  <div class="break-row" role="separator">
+    <div class="break-inner">
+      <span class="break-label">Spring Break</span>
+      <span class="break-dates">March 15–19 · Rest. Read something for pleasure.</span>
+    </div>
   </div>
 
   <!-- ══════════════════════════════════════════ -->
   <!-- MOVEMENT III -->
   <!-- ══════════════════════════════════════════ -->
-  <section class="movement-section" aria-labelledby="m3-title">
+  <section class="movement-section" id="movement-iii" aria-labelledby="m3-title">
     <div class="movement-header m3-header">
-      <span class="movement-label">Movement III</span>
-      <h2 class="movement-title" id="m3-title">What Will I Make and Where Am I Going?</h2>
-      <span class="movement-weeks-range">Weeks 11–15</span>
+      <div class="movement-num">03</div>
+      <div class="movement-text">
+        <span class="movement-label">Movement III · Weeks 11–15</span>
+        <h2 class="movement-title" id="m3-title">What Will I Make and Where Am I Going?</h2>
+      </div>
     </div>
     <p class="movement-subtitle">Rigorous, situated imagination. Prospectus drafting, peer workshopping, and forward vision. Readings: Marcuse · Ghosh.</p>
+
     <div class="week-list" role="list">
 
-      <a class="week-row available" href="CRDM790_Week11_One_Dimensional.html" target="_blank" rel="noopener" aria-label="Week 11: One-Dimensional Thinking — open session slides">
+      <div class="week-row coming-soon" role="listitem">
         <span class="week-num">Week 11</span>
         <div class="week-content">
           <div class="week-title">One-Dimensional Thinking and the Dissertation Imagination</div>
           <div class="week-desc">Marcuse, <em>One-Dimensional Man</em> · Draft Audit</div>
         </div>
-        <div class="week-badge"><span class="badge badge-available">Available</span>
-          <span class="week-arrow">→</span></div></a>
+        <div class="week-badge"><span class="badge badge-coming">Coming Soon</span></div>
+      </div>
 
-      <a class="week-row available" href="CRDM790_Week12_Ghosh_Gauntlet.html" target="_blank" rel="noopener" aria-label="Week 12: What Can Humanistic Imagination Actually Do? — open session slides">
+      <div class="week-row coming-soon" role="listitem">
         <span class="week-num">Week 12</span>
         <div class="week-content">
           <div class="week-title">What Can Humanistic Imagination Actually Do?</div>
           <div class="week-desc">Ghosh, <em>The Great Derangement</em> · The 'So What?' Gauntlet</div>
         </div>
-        <div class="week-badge"><span class="badge badge-available">Available</span>
-          <span class="week-arrow">→</span></div></a>
+        <div class="week-badge"><span class="badge badge-coming">Coming Soon</span></div>
+      </div>
 
-      <a class="week-row available" href="CRDM790_Week13_Paths_Forward.html" target="_blank" rel="noopener" aria-label="Week 13: Paths Forward — open session slides">
+      <div class="week-row coming-soon" role="listitem">
         <span class="week-num">Week 13</span>
         <div class="week-content">
           <div class="week-title">Paths Forward: Alt-Ac and Otherwise</div>
-          <div class="week-desc">Guest Lecturers · Three Versions Side-by-Side</div>
+          <div class="week-desc">Guest Lecturers · Three Versions Side-by-Side · How Knowledge Travels</div>
         </div>
-        <div class="week-badge"><span class="badge badge-available">Available</span>
-          <span class="week-arrow">→</span></div></a>
+        <div class="week-badge"><span class="badge badge-coming">Coming Soon</span></div>
+      </div>
 
-      <a class="week-row available" href="CRDM790_Week14_Prospectus_Workshop.html" target="_blank" rel="noopener" aria-label="Week 14: Prospectus Workshop — open session slides">
+      <div class="week-row coming-soon" role="listitem">
         <span class="week-num">Week 14</span>
         <div class="week-content">
           <div class="week-title">Prospectus Workshop</div>
           <div class="week-desc">Full structured peer workshop · Workshop Response Protocol</div>
         </div>
-        <div class="week-badge"><span class="badge badge-milestone">◆ Milestone 4 Due</span>
-          <span class="badge badge-available">Available</span>
-          <span class="week-arrow">→</span></div></a>
+        <div class="week-badge">
+          <span class="badge badge-milestone">◆ Milestone 4 Due</span>
+          <span class="badge badge-coming">Coming Soon</span>
+        </div>
+      </div>
 
-      <a class="week-row available" href="CRDM790_Week15_Presentations_Card_Return.html" target="_blank" rel="noopener" aria-label="Week 15: Presentations and Card Return — open session slides">
+      <div class="week-row coming-soon" role="listitem">
         <span class="week-num">Week 15</span>
         <div class="week-content">
           <div class="week-title">What We Made and What We're Seeing</div>
           <div class="week-desc">Prospectus Presentations · Week 1 Card Return · Closing Reflection</div>
         </div>
-        <div class="week-badge"><span class="badge badge-available">Available</span>
-          <span class="week-arrow">→</span></div></a>
+        <div class="week-badge"><span class="badge badge-coming">Coming Soon</span></div>
+      </div>
 
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- RESOURCES -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="resources-section" id="resources">
+    <div class="resources-eyebrow">Quick Links</div>
+    <div class="resources-grid">
+      <a class="resource-item" href="https://app.perusall.com" target="_blank" rel="noopener">
+        <span class="resource-item-label">Readings</span>
+        <span class="resource-item-title">Perusall</span>
+        <span class="resource-item-sub">Primary reading platform</span>
+      </a>
+      <a class="resource-item" href="https://moodle-courses.ncsu.edu" target="_blank" rel="noopener">
+        <span class="resource-item-label">Submissions</span>
+        <span class="resource-item-title">Moodle</span>
+        <span class="resource-item-sub">Milestone submission portal</span>
+      </a>
+      <a class="resource-item" href="https://drive.google.com/drive/folders/11b2tBd6zBeLkuu-aV2_smhfBx9rEBcx3" target="_blank" rel="noopener">
+        <span class="resource-item-label">Supplementary</span>
+        <span class="resource-item-title">Google Drive</span>
+        <span class="resource-item-sub">Shared folder &amp; materials</span>
+      </a>
+      <a class="resource-item" href="https://calendar.app.google/pgZeqTD9Kd9ZxBPX7" target="_blank" rel="noopener">
+        <span class="resource-item-label">Advising</span>
+        <span class="resource-item-title">Office Hours</span>
+        <span class="resource-item-sub">Schedule a meeting</span>
+      </a>
+      <a class="resource-item" href="CRDM790_Perusall.html" target="_blank" rel="noopener">
+        <span class="resource-item-label">Guide</span>
+        <span class="resource-item-title">Perusall Annotations</span>
+        <span class="resource-item-sub">How to annotate well</span>
+      </a>
+      <a class="resource-item" href="CRDM790_Submissions.html" target="_blank" rel="noopener">
+        <span class="resource-item-label">Guide</span>
+        <span class="resource-item-title">Milestone Details</span>
+        <span class="resource-item-sub">All four milestones</span>
+      </a>
     </div>
   </section>
 
   <!-- ── FOOTER ── -->
   <footer>
-    <div class="footer-info">
+    <div>
       <span class="footer-course">CRDM 790 · Issues in Communication, Rhetoric, and Digital Media</span>
       <span class="footer-meta">NC State University · Spring 2027 · 3 Credit Hours</span>
     </div>
     <div class="footer-contact">
       Kirsti K. Cole<br>
       Tompkins Hall 226<br>
+      <a href="mailto:kkcole2@ncsu.edu">kkcole2@ncsu.edu</a>
+    </div>
+  </footer>
+
+</div><!-- /page-wrap -->
+
+</body>
+</html>
