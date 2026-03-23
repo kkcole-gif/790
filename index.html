@@ -572,12 +572,13 @@ header            { animation: fadeUp 0.6s ease forwards; }
 }
 .milestones-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 0;
   border: 1px solid rgba(201,168,76,0.2);
   border-top: none;
   border-radius: 0 0 4px 4px;
   overflow: hidden;
+  max-width: 780px;
 }
 .milestone-card {
   background: var(--surface);
@@ -643,7 +644,7 @@ header            { animation: fadeUp 0.6s ease forwards; }
 .ms-desc {
   font-family: var(--font-body);
   font-size: 0.9rem;
-  color: var(--muted);
+  color: rgba(240,230,204,0.82);
   line-height: 1.55;
   margin-bottom: 1rem;
 }
@@ -662,16 +663,16 @@ header            { animation: fadeUp 0.6s ease forwards; }
   font-size: 0.6rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--dim);
+  color: var(--gold);
   flex-shrink: 0;
   width: 4.5rem;
   padding-top: 0.1rem;
 }
 .ms-detail-val {
   font-family: var(--font-body);
-  font-size: 0.88rem;
-  color: rgba(240,230,204,0.6);
-  line-height: 1.4;
+  font-size: 0.92rem;
+  color: rgba(240,230,204,0.85);
+  line-height: 1.5;
 }
 .ms-threshold {
   display: flex;
@@ -712,9 +713,9 @@ header            { animation: fadeUp 0.6s ease forwards; }
 .ms-sub-chip {
   font-family: var(--font-body);
   font-size: 0.8rem;
-  color: rgba(240,230,204,0.45);
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
+  color: rgba(240,230,204,0.75);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
   border-radius: 2px;
   padding: 0.18rem 0.5rem;
 }
@@ -1099,62 +1100,52 @@ header            { animation: fadeUp 0.6s ease forwards; }
     <p class="movement-subtitle">Candidacy work begins — exam lists and committees. Readings: Federici · Fisher · Derrida · Haraway.</p>
     <div class="week-list" role="list">
 
-      <div class="week-row coming-soon" role="listitem" aria-label="Week 6: coming soon">
+      <a class="week-row available" href="CRDM790_Week06_Primitive_Accumulation.html" target="_blank" rel="noopener" aria-label="Week 6: Primitive Accumulation and the Labor of Knowledge — open session slides">
         <span class="week-num">Week 6</span>
         <div class="week-content">
           <div class="week-title">Primitive Accumulation and the Labor of Knowledge</div>
           <div class="week-desc">Federici, <em>Caliban and the Witch</em> · Canon Audit</div>
         </div>
-        <div class="week-badge">
-          <span class="badge badge-coming">Coming Soon</span>
-        </div>
-      </div>
+        <div class="week-badge"><span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span></div></a>
 
-      <div class="week-row coming-soon" role="listitem" aria-label="Week 7: coming soon">
+      <a class="week-row available" href="CRDM790_Week07_Hauntology.html" target="_blank" rel="noopener" aria-label="Week 7: Hauntology — open session slides">
         <span class="week-num">Week 7</span>
         <div class="week-content">
           <div class="week-title">Hauntology: What Haunts Your Field?</div>
           <div class="week-desc">Fisher, <em>Ghosts of My Life</em> · Derrida, <em>Specters of Marx</em> · Rapid Presentations</div>
         </div>
-        <div class="week-badge">
-          <span class="badge badge-coming">Coming Soon</span>
-        </div>
-      </div>
+        <div class="week-badge"><span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span></div></a>
 
-      <div class="week-row coming-soon" role="listitem" aria-label="Week 8: coming soon">
+      <a class="week-row available" href="CRDM790_Week08_Exam_List_Workshop.html" target="_blank" rel="noopener" aria-label="Week 8: Exam List Workshop — open session slides">
         <span class="week-num">Week 8</span>
         <div class="week-content">
           <div class="week-title">Exam List Workshop</div>
           <div class="week-desc">Haraway, 'Situated Knowledges' · Structured Peer Review</div>
         </div>
-        <div class="week-badge">
-          <span class="badge badge-milestone">◆ Milestone 2 Due</span>
-          <span class="badge badge-coming">Coming Soon</span>
-        </div>
-      </div>
+        <div class="week-badge"><span class="badge badge-milestone">◆ Milestone 2 Due</span>
+          <span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span></div></a>
 
-      <div class="week-row coming-soon" role="listitem" aria-label="Week 9: coming soon">
+      <a class="week-row available" href="CRDM790_Week09_Committee.html" target="_blank" rel="noopener" aria-label="Week 9: Committee as Intellectual Community — open session slides">
         <span class="week-num">Week 9</span>
         <div class="week-content">
           <div class="week-title">Committee as Intellectual Community</div>
           <div class="week-desc">Kelsky, <em>The Professor Is In</em> · Committee Email Workshop · Guest Speaker</div>
         </div>
-        <div class="week-badge">
-          <span class="badge badge-coming">Coming Soon</span>
-        </div>
-      </div>
+        <div class="week-badge"><span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span></div></a>
 
-      <div class="week-row coming-soon" role="listitem" aria-label="Week 10: coming soon">
+      <a class="week-row available" href="CRDM790_Week10_Individual_Meetings.html" target="_blank" rel="noopener" aria-label="Week 10: Individual Meetings Week — open session slides">
         <span class="week-num">Week 10</span>
         <div class="week-content">
           <div class="week-title">Individual Meetings Week</div>
           <div class="week-desc">No full group session · Individual check-ins · Prospectus Seed Writing</div>
         </div>
-        <div class="week-badge">
-          <span class="badge badge-milestone">◆ Milestone 3 Due</span>
-          <span class="badge badge-coming">Coming Soon</span>
-        </div>
-      </div>
+        <div class="week-badge"><span class="badge badge-milestone">◆ Milestone 3 Due</span>
+          <span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span></div></a>
 
     </div>
   </section>
@@ -1177,53 +1168,51 @@ header            { animation: fadeUp 0.6s ease forwards; }
     <p class="movement-subtitle">Rigorous, situated imagination. Prospectus drafting, peer workshopping, and forward vision. Readings: Marcuse · Ghosh.</p>
     <div class="week-list" role="list">
 
-      <div class="week-row coming-soon" role="listitem">
+      <a class="week-row available" href="CRDM790_Week11_One_Dimensional.html" target="_blank" rel="noopener" aria-label="Week 11: One-Dimensional Thinking — open session slides">
         <span class="week-num">Week 11</span>
         <div class="week-content">
           <div class="week-title">One-Dimensional Thinking and the Dissertation Imagination</div>
           <div class="week-desc">Marcuse, <em>One-Dimensional Man</em> · Draft Audit</div>
         </div>
-        <div class="week-badge"><span class="badge badge-coming">Coming Soon</span></div>
-      </div>
+        <div class="week-badge"><span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span></div></a>
 
-      <div class="week-row coming-soon" role="listitem">
+      <a class="week-row available" href="CRDM790_Week12_Ghosh_Gauntlet.html" target="_blank" rel="noopener" aria-label="Week 12: What Can Humanistic Imagination Actually Do? — open session slides">
         <span class="week-num">Week 12</span>
         <div class="week-content">
           <div class="week-title">What Can Humanistic Imagination Actually Do?</div>
           <div class="week-desc">Ghosh, <em>The Great Derangement</em> · The 'So What?' Gauntlet</div>
         </div>
-        <div class="week-badge"><span class="badge badge-coming">Coming Soon</span></div>
-      </div>
+        <div class="week-badge"><span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span></div></a>
 
-      <div class="week-row coming-soon" role="listitem">
+      <a class="week-row available" href="CRDM790_Week13_Paths_Forward.html" target="_blank" rel="noopener" aria-label="Week 13: Paths Forward — open session slides">
         <span class="week-num">Week 13</span>
         <div class="week-content">
           <div class="week-title">Paths Forward: Alt-Ac and Otherwise</div>
           <div class="week-desc">Guest Lecturers · Three Versions Side-by-Side</div>
         </div>
-        <div class="week-badge"><span class="badge badge-coming">Coming Soon</span></div>
-      </div>
+        <div class="week-badge"><span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span></div></a>
 
-      <div class="week-row coming-soon" role="listitem">
+      <a class="week-row available" href="CRDM790_Week14_Prospectus_Workshop.html" target="_blank" rel="noopener" aria-label="Week 14: Prospectus Workshop — open session slides">
         <span class="week-num">Week 14</span>
         <div class="week-content">
           <div class="week-title">Prospectus Workshop</div>
           <div class="week-desc">Full structured peer workshop · Workshop Response Protocol</div>
         </div>
-        <div class="week-badge">
-          <span class="badge badge-milestone">◆ Milestone 4 Due</span>
-          <span class="badge badge-coming">Coming Soon</span>
-        </div>
-      </div>
+        <div class="week-badge"><span class="badge badge-milestone">◆ Milestone 4 Due</span>
+          <span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span></div></a>
 
-      <div class="week-row coming-soon" role="listitem">
+      <a class="week-row available" href="CRDM790_Week15_Presentations_Card_Return.html" target="_blank" rel="noopener" aria-label="Week 15: Presentations and Card Return — open session slides">
         <span class="week-num">Week 15</span>
         <div class="week-content">
           <div class="week-title">What We Made and What We're Seeing</div>
           <div class="week-desc">Prospectus Presentations · Week 1 Card Return · Closing Reflection</div>
         </div>
-        <div class="week-badge"><span class="badge badge-coming">Coming Soon</span></div>
-      </div>
+        <div class="week-badge"><span class="badge badge-available">Available</span>
+          <span class="week-arrow">→</span></div></a>
 
     </div>
   </section>
