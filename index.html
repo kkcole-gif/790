@@ -206,8 +206,8 @@ header {
 }
 .meta-value a:hover { text-decoration: underline; }
 
-/* ── UDL NOTICE ── */
-.udl-notice {
+/* ── NOTICES ── */
+.notice {
   margin: 2.5rem 0 0;
   padding: 1rem 1.4rem;
   background: var(--surface);
@@ -217,13 +217,13 @@ header {
   gap: 1rem;
   align-items: flex-start;
 }
-.udl-notice p {
+.notice p {
   font-size: 0.88rem;
   color: var(--ink-mid);
   font-style: italic;
   line-height: 1.55;
 }
-.udl-notice strong {
+.notice strong {
   font-style: normal;
   color: var(--ink);
 }
@@ -439,6 +439,11 @@ a.week-row.available:hover .week-title { color: var(--brick); }
   color: var(--ink-faint);
   border: 1px solid var(--rule);
 }
+.badge-guest {
+  background: rgba(45,107,86,0.08);
+  color: var(--m2);
+  border: 1px solid rgba(45,107,86,0.28);
+}
 .badge-milestone {
   background: var(--brick-bg);
   color: var(--brick);
@@ -638,13 +643,21 @@ footer {
         </span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">Session Format</span>
-        <span class="meta-value">Tuesdays · 6–9:30 pm · In person</span>
+        <span class="meta-label">Session</span>
+        <span class="meta-value">Thursdays · 10:15 am–1:00 pm · In person</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Location</span>
+        <span class="meta-value">TBD — details to follow</span>
       </div>
     </div>
 
-    <div class="udl-notice" style="margin-top:2rem;">
+    <div class="notice" style="margin-top:2rem;">
       <p><strong>Accessibility:</strong> All session materials are available in multiple formats. If any format creates a barrier, email <a href="mailto:kkcole2@ncsu.edu" style="color:var(--brick)">kkcole2@ncsu.edu</a> — an alternative will be provided before the next class session. This site works without JavaScript.</p>
+    </div>
+
+    <div class="notice" style="margin-top:1rem;">
+      <p><strong>Comfort:</strong> This is a long session — nearly three hours. Bring snacks. Take bathroom breaks whenever you need to; you do not need to ask. Step out, stretch, get water. Comfort is part of good thinking, and you are welcome here as a whole person.</p>
     </div>
 
     <div class="how-to-use">
@@ -678,7 +691,7 @@ footer {
   <!-- ── SCHEDULE ── -->
   <section class="schedule-intro">
     <p class="schedule-heading">Course schedule — Spring 2027</p>
-    <p class="schedule-note">If the course meets on Monday, MLK Jr. Day cancels Week 2 — an async alternative will be on Moodle. Spring Break is March 15–19.</p>
+    <p class="schedule-note">Sessions meet Thursdays 10:15 am–1:00 pm. Spring Break is March 15–19. Session materials are posted here as the semester unfolds. Throughout the semester, current students, alumni, and program faculty will join us — in person or via Zoom — for conversation; specific weeks will be confirmed once schedules are set.</p>
   </section>
 
   <!-- ══════════════════════════════════════════ -->
@@ -724,9 +737,10 @@ footer {
         <span class="week-num">Week 3</span>
         <div class="week-content">
           <div class="week-title">The Past Is Not Past</div>
-          <div class="week-desc">Benjamin, <em>Illuminations</em> · Wreckage &amp; Promise Gallery</div>
+          <div class="week-desc">Benjamin, <em>Illuminations</em> · Wreckage &amp; Promise Gallery · Guest: current student (TBD)</div>
         </div>
         <div class="week-badge">
+          <span class="badge badge-guest">Guest Visit</span>
           <span class="badge badge-available">Available</span>
           <span class="week-arrow">→</span>
         </div>
@@ -791,9 +805,10 @@ footer {
         <span class="week-num">Week 7</span>
         <div class="week-content">
           <div class="week-title">Hauntology: What Haunts Your Field?</div>
-          <div class="week-desc">Fisher, <em>Ghosts of My Life</em> · Derrida, <em>Specters of Marx</em> · Rapid Presentations</div>
+          <div class="week-desc">Fisher, <em>Ghosts of My Life</em> · Derrida, <em>Specters of Marx</em> · Rapid Presentations · Guest: program faculty (TBD)</div>
         </div>
         <div class="week-badge">
+          <span class="badge badge-guest">Guest Visit</span>
           <span class="badge badge-available">Available</span>
           <span class="week-arrow">→</span>
         </div>
@@ -873,9 +888,12 @@ footer {
         <span class="week-num">Week 12</span>
         <div class="week-content">
           <div class="week-title">What Can Humanistic Imagination Actually Do?</div>
-          <div class="week-desc">Ghosh, <em>The Great Derangement</em> · The 'So What?' Gauntlet</div>
+          <div class="week-desc">Ghosh, <em>The Great Derangement</em> · The 'So What?' Gauntlet · Guest: alumnus/a (TBD)</div>
         </div>
-        <div class="week-badge"><span class="badge badge-coming">Coming Soon</span></div>
+        <div class="week-badge">
+          <span class="badge badge-guest">Guest Visit</span>
+          <span class="badge badge-coming">Coming Soon</span>
+        </div>
       </div>
 
       <div class="week-row coming-soon" role="listitem">
