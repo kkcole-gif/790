@@ -35,13 +35,11 @@
     color: var(--parch);
   }
 
-  /* ── STAR CANVAS ── */
   #starfield {
     position: fixed; inset: 0; z-index: 0;
     pointer-events: none;
   }
 
-  /* ── SLIDE WRAPPER ── */
   #deck {
     position: relative; z-index: 1;
     width: 100vw; height: 100vh;
@@ -60,7 +58,6 @@
     pointer-events: all;
   }
 
-  /* ── PERSISTENT NAV BAR ── */
   #nav {
     position: fixed; bottom: 0; left: 0; right: 0;
     z-index: 100;
@@ -109,7 +106,6 @@
     letter-spacing: 0.08em;
   }
 
-  /* ── SHARED SLIDE LAYOUT ── */
   .slide-inner {
     flex: 1;
     padding: 3.5rem 5rem 5rem;
@@ -164,14 +160,12 @@
     color: rgba(245,237,216,0.85);
   }
 
-  /* ── GOLD RULE ── */
   .gold-rule {
     width: 4rem; height: 2px;
     background: linear-gradient(90deg, var(--gold), transparent);
     margin-bottom: 2rem;
   }
 
-  /* ── TOP HEADER BAR ── */
   .slide-header {
     padding: 1.2rem 5rem 1rem;
     display: flex; align-items: center; justify-content: space-between;
@@ -192,9 +186,6 @@
     opacity: 0.7;
   }
 
-  /* ──────────────────────────────────────────────── */
-  /* SLIDE 1: TITLE */
-  /* ──────────────────────────────────────────────── */
   #slide-1 { background: var(--night); }
   #slide-1 .slide-inner {
     justify-content: center;
@@ -267,9 +258,6 @@
     border-radius: 2px;
   }
 
-  /* ──────────────────────────────────────────────── */
-  /* SLIDE 2: SESSION MAP */
-  /* ──────────────────────────────────────────────── */
   #slide-2 { background: var(--deep); }
 
   .timeline-wrapper {
@@ -350,9 +338,6 @@
   .tag-writing { background: rgba(74,124,111,0.25); color: #8BC4B5; }
   .tag-break { background: rgba(255,255,255,0.07); color: rgba(245,237,216,0.4); }
 
-  /* ──────────────────────────────────────────────── */
-  /* SLIDE 3: PRE-CLASS WRITING PROMPT */
-  /* ──────────────────────────────────────────────── */
   #slide-3 { background: var(--ink); }
 
   .prompt-card {
@@ -418,9 +403,6 @@
     opacity: 0.7;
   }
 
-  /* ──────────────────────────────────────────────── */
-  /* SLIDE 4: GUIDING QUESTIONS */
-  /* ──────────────────────────────────────────────── */
   #slide-4 { background: var(--deep); }
 
   .questions-grid {
@@ -503,9 +485,6 @@
     border-color: var(--gold);
   }
 
-  /* ──────────────────────────────────────────────── */
-  /* SLIDE 5: CONSTELLATION MAPPING ACTIVITY */
-  /* ──────────────────────────────────────────────── */
   #slide-5 { background: var(--night); }
 
   .activity-top {
@@ -590,9 +569,6 @@
     margin-top: 0.3rem;
   }
 
-  /* ──────────────────────────────────────────────── */
-  /* SLIDE 6: GALLERY WALK (timer featured) */
-  /* ──────────────────────────────────────────────── */
   #slide-6 { background: var(--ink); }
 
   .timer-display {
@@ -670,9 +646,6 @@
     line-height: 1.55;
   }
 
-  /* ──────────────────────────────────────────────── */
-  /* SLIDE 7: DISCUSSION */
-  /* ──────────────────────────────────────────────── */
   #slide-7 { background: var(--deep); }
 
   .discussion-layout {
@@ -726,9 +699,6 @@
     line-height: 1.5;
   }
 
-  /* ──────────────────────────────────────────────── */
-  /* SLIDE 8: CLOSING */
-  /* ──────────────────────────────────────────────── */
   #slide-8 { background: var(--night); }
 
   .closing-grid {
@@ -838,7 +808,6 @@
     line-height: 1.6;
   }
 
-  /* ── HELP OVERLAY ── */
   #help-overlay {
     display: none;
     position: fixed; inset: 0; z-index: 200;
@@ -890,7 +859,6 @@
     text-transform: uppercase;
   }
 
-  /* ── PROGRESS BAR ── */
   #progress-bar {
     position: fixed;
     top: 0; left: 0;
@@ -900,7 +868,6 @@
     z-index: 50;
   }
 
-  /* ── SLIDE ENTER ANIMATION ── */
   @keyframes slideEnter {
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -908,16 +875,12 @@
   .slide.active .slide-inner { animation: slideEnter 0.5s ease forwards; }
   .slide.active .slide-header { animation: slideEnter 0.5s ease 0.05s forwards; opacity: 0; animation-fill-mode: forwards; }
 
-  /* UDL accessibility: large enough for projected display */
   @media (max-height: 650px) {
     .slide-inner { padding: 1.5rem 3rem 4rem; }
     .slide-h1 { font-size: 2rem; }
     .title-main { font-size: 4rem; }
   }
 
-  /* ══════════════════════════════════════════════════ */
-  /* SKIP NAVIGATION                                    */
-  /* ══════════════════════════════════════════════════ */
   .skip-nav {
     position: absolute;
     top: -100px;
@@ -936,9 +899,6 @@
   }
   .skip-nav:focus { top: 0.75rem; outline: 2px solid var(--amber); }
 
-  /* ══════════════════════════════════════════════════ */
-  /* NAV ENHANCEMENTS — Course links + Reading toggle   */
-  /* ══════════════════════════════════════════════════ */
   .nav-week-link {
     font-family: var(--font-mono);
     font-size: 0.64rem;
@@ -978,9 +938,6 @@
     border-color: var(--gold);
   }
 
-  /* ══════════════════════════════════════════════════ */
-  /* READING MODE — Light document view                 */
-  /* ══════════════════════════════════════════════════ */
   body.reading-mode {
     overflow: auto !important;
     background: #F5F0E8 !important;
@@ -1072,7 +1029,6 @@
     margin-bottom: 1.2rem;
     display: block;
   }
-  /* Timeline */
   .rp-timeline { display: flex; flex-direction: column; }
   .rp-tl-item {
     display: grid;
@@ -1102,7 +1058,6 @@
     font-style: italic;
     line-height: 1.4;
   }
-  /* Prompt block */
   .rp-prompt-block {
     background: #EDE8DC;
     border-left: 4px solid #C9A84C;
@@ -1166,7 +1121,6 @@
     font-size: 0.9rem;
     color: #4A3F35;
   }
-  /* Questions */
   .rp-questions { display: flex; flex-direction: column; gap: 0.9rem; }
   .rp-q-item {
     display: flex;
@@ -1195,7 +1149,6 @@
     font-size: 0.9rem;
     margin-top: 0.25rem;
   }
-  /* Steps */
   .rp-steps { display: flex; flex-direction: column; gap: 0.7rem; }
   .rp-step {
     display: flex;
@@ -1222,7 +1175,6 @@
   .rp-step-important { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; color: #E8845A; text-transform: uppercase; margin-left: 0.5rem; font-weight: normal; }
   .rp-step-detail { font-family: var(--font-body); font-size: 0.92rem; font-style: italic; color: #5A4A3C; line-height: 1.4; }
   .rp-step-note { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.1em; color: #9B8A6C; margin-top: 0.3rem; }
-  /* Timer note */
   .rp-timer-note {
     background: #EDE8DC;
     border: 1px solid #C9A84C;
@@ -1233,7 +1185,6 @@
     color: #8B6A30;
     margin-bottom: 1.2rem;
   }
-  /* Gallery & Discussion grids */
   .rp-gallery-grid, .rp-disc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
   .rp-disc-grid { margin-bottom: 1.3rem; }
   .rp-gallery-card, .rp-disc-card {
@@ -1250,7 +1201,6 @@
     margin-bottom: 0.4rem;
   }
   .rp-gallery-text, .rp-disc-text { font-family: var(--font-body); font-size: 0.93rem; color: #3C3028; line-height: 1.5; }
-  /* Closing */
   .rp-closing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
   .rp-checklist { background: #EDE8DC; border-radius: 4px; padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; }
   .rp-checklist-title { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: #9B8A6C; text-transform: uppercase; margin-bottom: 0.6rem; }
@@ -1265,8 +1215,6 @@
   .rp-milestone-name { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: #1C1410; margin-bottom: 0.3rem; }
   .rp-closing-quote { font-family: var(--font-body); font-size: 1.05rem; font-style: italic; color: #5A4A3C; line-height: 1.6; text-align: center; padding: 0 1rem; margin-top: 1rem; opacity: 0.75; }
 
-  /* Responsive */
-  /* ── SCROLL CONTROLS (reading mode only) ── */
   #scroll-controls {
     display: none;
     position: fixed;
@@ -1323,9 +1271,6 @@
     #scroll-controls { right: 0.5rem; bottom: 4rem; }
   }
 
-  /* ══════════════════════════════════════════════════ */
-  /* READING MODE — Sticky section nav strip             */
-  /* ══════════════════════════════════════════════════ */
   .rp-section-nav {
     position: sticky;
     top: 0;
@@ -1356,9 +1301,6 @@
   .rp-nav-item:hover { color: #3C3028; border-bottom-color: #C9A84C; }
   .rp-nav-item.rp-nav-active { color: #3C3028; border-bottom-color: #C9A84C; font-weight: 600; }
 
-  /* ══════════════════════════════════════════════════ */
-  /* READING MODE — Floating scroll buttons (FABs)      */
-  /* ══════════════════════════════════════════════════ */
   .rp-scroll-fabs {
     position: fixed;
     bottom: 4.2rem;
@@ -1399,7 +1341,6 @@
 <canvas id="starfield"></canvas>
 <div id="progress-bar"></div>
 
-<!-- HELP OVERLAY -->
 <div id="help-overlay">
   <div class="help-box">
     <h3>Keyboard Shortcuts</h3>
@@ -1418,9 +1359,7 @@
 
 <div id="deck">
 
-  <!-- ═══════════════════════════════════════════ -->
   <!-- SLIDE 1: TITLE -->
-  <!-- ═══════════════════════════════════════════ -->
   <div class="slide active" id="slide-1">
     <div class="udl-badge">UDL · CRDM 790 · Spring 2027</div>
     <div class="slide-inner">
@@ -1434,7 +1373,8 @@
 
       <div class="title-meta">
         <div class="title-meta-line"><strong>Instructor:</strong> Kirsti K. Cole &nbsp;·&nbsp; kkcole2@ncsu.edu</div>
-        <div class="title-meta-line"><strong>Format:</strong> 3.5 hour face-to-face seminar</div>
+        <div class="title-meta-line"><strong>Format:</strong> Nearly three hours (10:15 am–1:00 pm), face-to-face seminar</div>
+        <div class="title-meta-line"><strong>Note:</strong> Snacks and comfort items welcome &mdash; stretch breaks encouraged throughout</div>
         <div class="title-meta-line"><strong>Today:</strong> No required reading &mdash; come ready to talk</div>
       </div>
 
@@ -1444,9 +1384,7 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════ -->
   <!-- SLIDE 2: SESSION MAP -->
-  <!-- ═══════════════════════════════════════════ -->
   <div class="slide" id="slide-2">
     <div class="slide-header">
       <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
@@ -1454,7 +1392,7 @@
     </div>
     <div class="slide-inner">
       <div class="slide-eyebrow">Today's Journey</div>
-      <div class="slide-h1">3.5 Hours, Together</div>
+      <div class="slide-h1">Two Hours 45 Minutes, Together</div>
       <div class="gold-rule"></div>
 
       <div class="timeline-wrapper">
@@ -1487,7 +1425,7 @@
           <div class="timeline-line-col"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
           <div>
             <div class="timeline-label">Break <span class="timeline-tag tag-break">Rest</span></div>
-            <div class="timeline-desc">Step away. Grab water. Return ready.</div>
+            <div class="timeline-desc">Step away. Grab water or a snack. Return ready.</div>
           </div>
         </div>
         <div class="timeline-item">
@@ -1499,28 +1437,18 @@
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-time">2:30–3:00</div>
-          <div class="timeline-line-col"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+          <div class="timeline-time">2:30–2:45</div>
+          <div class="timeline-line-col"><div class="timeline-dot"></div></div>
           <div>
             <div class="timeline-label">Semester Arc Preview <span class="timeline-tag tag-discussion">Orientation</span></div>
             <div class="timeline-desc">Three movements, four milestones, and why the structure is built this way. We return to your constellation cards at Week 15.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-time">3:00–3:30</div>
-          <div class="timeline-line-col"><div class="timeline-dot"></div></div>
-          <div>
-            <div class="timeline-label">Informal Time &amp; Individual Check-ins</div>
-            <div class="timeline-desc">Set the tone for office-hours culture. Good moment for quiet conversations.</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════ -->
   <!-- SLIDE 3: PRE-CLASS WRITING PROMPT -->
-  <!-- ═══════════════════════════════════════════ -->
   <div class="slide" id="slide-3">
     <div class="slide-header">
       <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
@@ -1559,9 +1487,7 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════ -->
   <!-- SLIDE 4: GUIDING QUESTIONS -->
-  <!-- ═══════════════════════════════════════════ -->
   <div class="slide" id="slide-4">
     <div class="slide-header">
       <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
@@ -1610,9 +1536,7 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════ -->
   <!-- SLIDE 5: CONSTELLATION MAPPING ACTIVITY -->
-  <!-- ═══════════════════════════════════════════ -->
   <div class="slide" id="slide-5">
     <div class="slide-header">
       <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
@@ -1669,9 +1593,7 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════ -->
   <!-- SLIDE 6: GALLERY WALK TIMER -->
-  <!-- ═══════════════════════════════════════════ -->
   <div class="slide" id="slide-6">
     <div class="slide-header">
       <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
@@ -1713,9 +1635,7 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════ -->
   <!-- SLIDE 7: DISCUSSION SYNTHESIS -->
-  <!-- ═══════════════════════════════════════════ -->
   <div class="slide" id="slide-7">
     <div class="slide-header">
       <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
@@ -1756,9 +1676,7 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════ -->
   <!-- SLIDE 8: CLOSING & LOOKING AHEAD -->
-  <!-- ═══════════════════════════════════════════ -->
   <div class="slide" id="slide-8">
     <div class="slide-header">
       <span class="course-tag">CRDM 790 · Week 1 · Arrivals</span>
@@ -1816,19 +1734,14 @@
 
 </div><!-- /deck -->
 
-<!-- SCROLL CONTROLS (visible in reading mode only) -->
 <div id="scroll-controls" aria-hidden="true">
   <button class="scroll-btn" title="Scroll up" onclick="smoothScroll(-320)">↑</button>
   <button class="scroll-btn" title="Scroll down" onclick="smoothScroll(320)">↓</button>
   <button class="scroll-btn-top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">TOP</button>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════════ -->
-<!-- READING PANEL — Accessible document view. Toggle with ≡ Read or M.  -->
-<!-- ══════════════════════════════════════════════════════════════════════ -->
 <main id="reading-panel" aria-label="Week 1: Arrivals — reading view" aria-hidden="true" tabindex="-1">
 
-<!-- Section jump nav — sticky top strip -->
 <nav class="rp-section-nav" aria-label="Jump to section">
   <a href="#rp-session-map"  class="rp-nav-item" data-section="rp-session-map">Session Map</a>
   <a href="#rp-prompt"       class="rp-nav-item" data-section="rp-prompt">Writing Prompt</a>
@@ -1848,15 +1761,16 @@
     <span>Spring 2027</span>
     <span>NC State University</span>
     <span>Instructor: Kirsti K. Cole · kkcole2@ncsu.edu</span>
-    <span>Format: 3.5-hour face-to-face seminar</span>
+    <span>Format: Nearly three hours (10:15 am–1:00 pm), face-to-face seminar</span>
+    <span>Snacks and comfort items welcome — stretch breaks encouraged</span>
     <span>No required reading — come ready to talk</span>
   </div>
   <blockquote class="rp-opening-quote">"We begin not with a syllabus but with a question: what kind of scholar are you becoming?"</blockquote>
 
-  <!-- ── SESSION MAP ──────────────────────────────────── -->
+  <!-- SESSION MAP -->
   <section class="rp-section" id="rp-session-map">
     <h2 class="rp-section-title">Session Map</h2>
-    <span class="rp-section-intro">3.5 Hours, Together</span>
+    <span class="rp-section-intro">Two Hours 45 Minutes, Together</span>
     <div class="rp-timeline">
       <div class="rp-tl-item">
         <div class="rp-tl-time">0:00–0:20</div>
@@ -1872,24 +1786,20 @@
       </div>
       <div class="rp-tl-item">
         <div class="rp-tl-time">1:30–1:45</div>
-        <div><div class="rp-tl-label">Break</div><div class="rp-tl-desc">Step away. Grab water. Return ready.</div></div>
+        <div><div class="rp-tl-label">Break</div><div class="rp-tl-desc">Step away. Grab water or a snack. Return ready.</div></div>
       </div>
       <div class="rp-tl-item">
         <div class="rp-tl-time">1:45–2:30</div>
         <div><div class="rp-tl-label">Open Seminar: Three Questions</div><div class="rp-tl-desc">What brought you? What keeps you up? What do you hope this year makes possible?</div></div>
       </div>
       <div class="rp-tl-item">
-        <div class="rp-tl-time">2:30–3:00</div>
+        <div class="rp-tl-time">2:30–2:45</div>
         <div><div class="rp-tl-label">Semester Arc Preview</div><div class="rp-tl-desc">Three movements, four milestones, and why the structure is built this way. We return to your constellation cards at Week 15.</div></div>
-      </div>
-      <div class="rp-tl-item">
-        <div class="rp-tl-time">3:00–3:30</div>
-        <div><div class="rp-tl-label">Informal Time &amp; Individual Check-ins</div><div class="rp-tl-desc">Set the tone for office-hours culture. Good moment for quiet conversations.</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ── PRE-CLASS WRITING PROMPT ────────────────────── -->
+  <!-- PRE-CLASS WRITING PROMPT -->
   <section class="rp-section" id="rp-prompt">
     <h2 class="rp-section-title">Pre-Class Writing Prompt</h2>
     <span class="rp-section-intro">Intellectual Autobiography · 200–300 words · Informal, not graded</span>
@@ -1913,7 +1823,7 @@
     </div>
   </section>
 
-  <!-- ── GUIDING QUESTIONS ────────────────────────────── -->
+  <!-- GUIDING QUESTIONS -->
   <section class="rp-section" id="rp-questions">
     <h2 class="rp-section-title">Guiding Questions</h2>
     <span class="rp-section-intro">Open Seminar · 1:45–2:30</span>
@@ -1949,7 +1859,7 @@
     </div>
   </section>
 
-  <!-- ── CONSTELLATION MAPPING ACTIVITY ──────────────── -->
+  <!-- CONSTELLATION MAPPING ACTIVITY -->
   <section class="rp-section" id="rp-activity">
     <h2 class="rp-section-title">Activity: Constellation Mapping</h2>
     <span class="rp-section-intro">0:50–1:30 · 40 minutes total</span>
@@ -1993,7 +1903,7 @@
     </div>
   </section>
 
-  <!-- ── GALLERY WALK ─────────────────────────────────── -->
+  <!-- GALLERY WALK -->
   <section class="rp-section" id="rp-gallery">
     <h2 class="rp-section-title">Gallery Walk</h2>
     <span class="rp-section-intro">Step 3 of Constellation Mapping · 5 minutes</span>
@@ -2018,7 +1928,7 @@
     </div>
   </section>
 
-  <!-- ── DISCUSSION ───────────────────────────────────── -->
+  <!-- DISCUSSION -->
   <section class="rp-section" id="rp-discussion">
     <h2 class="rp-section-title">Discussion: What Does This Constellation Reveal?</h2>
     <span class="rp-section-intro">Full group · ~20 minutes</span>
@@ -2047,7 +1957,7 @@
     </div>
   </section>
 
-  <!-- ── BEFORE YOU LEAVE ─────────────────────────────── -->
+  <!-- BEFORE YOU LEAVE -->
   <section class="rp-section" id="rp-closing">
     <h2 class="rp-section-title">Before You Leave</h2>
     <div class="rp-closing-grid">
@@ -2089,7 +1999,6 @@
 </div><!-- /rp-wrap -->
 </main>
 
-<!-- Floating scroll buttons — reading mode only -->
 <div class="rp-scroll-fabs" aria-hidden="true">
   <button class="rp-fab" id="fab-up"  onclick="rpScroll('up')"  title="Scroll up"   aria-label="Scroll up">↑</button>
   <button class="rp-fab" id="fab-top" onclick="rpScroll('top')" title="Back to top"  aria-label="Back to top">⌂</button>
@@ -2099,7 +2008,6 @@
 <!-- NAVIGATION BAR -->
 <div id="nav">
   <div id="nav-left">
-    <!-- Course navigation — always visible -->
     <a href="index.html" class="nav-week-link" aria-label="Return to course index">← Index</a>
     <a href="CRDM790_Week02_Critical_Pedagogy.html" class="nav-week-link" id="next-week-link" aria-label="Go to Week 2: Critical Pedagogy">Week 2 →</a>
     <span class="nav-vsep" aria-hidden="true"></span>
@@ -2119,7 +2027,6 @@
 </div>
 
 <script>
-// ── STAR FIELD ──────────────────────────────────────────────────────────────
 (function() {
   const canvas = document.getElementById('starfield');
   const ctx = canvas.getContext('2d');
@@ -2142,7 +2049,6 @@
         phase: Math.random() * Math.PI * 2,
       });
     }
-    // constellation lines (Week 1 theme)
     stars.lines = [];
     for (let i = 0; i < 12; i++) {
       const a = Math.floor(Math.random() * stars.length);
@@ -2157,7 +2063,6 @@
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     frame++;
-    // constellation lines
     ctx.strokeStyle = 'rgba(201,168,76,0.07)';
     ctx.lineWidth = 0.5;
     stars.lines && stars.lines.forEach(([a,b]) => {
@@ -2166,7 +2071,6 @@
       ctx.lineTo(stars[b].x, stars[b].y);
       ctx.stroke();
     });
-    // stars
     stars.forEach(s => {
       const pulse = Math.sin(frame * s.speed + s.phase);
       const alpha = s.a * (0.7 + 0.3 * pulse);
@@ -2182,7 +2086,6 @@
   resize(); initStars(); draw();
 })();
 
-// ── SLIDE NAVIGATION ────────────────────────────────────────────────────────
 const TOTAL = 8;
 let current = 1;
 let visited = new Set([1]);
@@ -2194,7 +2097,6 @@ function goTo(n) {
   visited.add(n);
   document.getElementById('slide-' + n).classList.add('active');
   updateNav();
-  // reset any slide-specific state if needed
 }
 
 function nextSlide() { goTo(current + 1); }
@@ -2206,7 +2108,6 @@ function updateNav() {
   document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
   document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
 
-  // dots
   const dotCont = document.getElementById('slide-dots');
   dotCont.innerHTML = '';
   for (let i = 1; i <= TOTAL; i++) {
@@ -2223,7 +2124,6 @@ const slideNames = [
   'Constellation Mapping', 'Gallery Walk Timer', 'Discussion', 'Looking Ahead'
 ];
 
-// ── QUESTION REVEAL (Slide 4) ────────────────────────────────────────────────
 let questionsRevealed = 0;
 function revealNextQuestion() {
   const cards = document.querySelectorAll('.question-card');
@@ -2239,7 +2139,6 @@ function revealNextQuestion() {
   }
 }
 
-// ── STEP TRACKER (Slide 5) ────────────────────────────────────────────────────
 let currentStep = 0;
 function advanceStep(i) {
   const rows = document.querySelectorAll('.step-row');
@@ -2251,17 +2150,12 @@ function advanceStep(i) {
   currentStep = i;
 }
 
-// ── TIMER (Slide 6) ────────────────────────────────────────────────────────────
-let timerSeconds = 300; // 5 minutes
+let timerSeconds = 300;
 let timerRunning = false;
 let timerInterval = null;
 
 function toggleTimer() {
-  if (timerRunning) {
-    pauseTimer();
-  } else {
-    startTimer();
-  }
+  if (timerRunning) { pauseTimer(); } else { startTimer(); }
 }
 
 function startTimer() {
@@ -2277,7 +2171,6 @@ function startTimer() {
       document.getElementById('timer-display').textContent = "Done!";
       document.getElementById('timer-status').textContent = 'Return to your seats';
       document.getElementById('timer-start-btn').textContent = 'Start Timer';
-      // ring the bell
       try {
         const ctx2 = new (window.AudioContext || window.webkitAudioContext)();
         const osc = ctx2.createOscillator();
@@ -2313,14 +2206,9 @@ function updateTimerDisplay() {
   const s = timerSeconds % 60;
   const el = document.getElementById('timer-display');
   el.textContent = m + ':' + String(s).padStart(2, '0');
-  if (timerSeconds <= 60) {
-    el.classList.add('urgent');
-  } else {
-    el.classList.remove('urgent');
-  }
+  if (timerSeconds <= 60) { el.classList.add('urgent'); } else { el.classList.remove('urgent'); }
 }
 
-// ── KEYBOARD SHORTCUTS ───────────────────────────────────────────────────────
 document.addEventListener('keydown', e => {
   if (document.getElementById('help-overlay').classList.contains('visible')) {
     if (e.key === 'Escape') closeHelp();
@@ -2346,19 +2234,10 @@ document.addEventListener('keydown', e => {
   }
 });
 
-function toggleHelp() {
-  document.getElementById('help-overlay').classList.toggle('visible');
-}
-function closeHelp() {
-  document.getElementById('help-overlay').classList.remove('visible');
-}
+function toggleHelp() { document.getElementById('help-overlay').classList.toggle('visible'); }
+function closeHelp() { document.getElementById('help-overlay').classList.remove('visible'); }
+function smoothScroll(delta) { window.scrollBy({ top: delta, behavior: 'smooth' }); }
 
-// ── SCROLL HELPER ────────────────────────────────────────────────────────────
-function smoothScroll(delta) {
-  window.scrollBy({ top: delta, behavior: 'smooth' });
-}
-
-// ── READING MODE ─────────────────────────────────────────────────────────────
 let readingMode = false;
 
 function toggleReadingMode() {
@@ -2412,16 +2291,11 @@ function toggleReadingMode() {
   }
 }
 
-// ── READING MODE SCROLL UTILS ──────────────────────────────────────────────
 function rpScroll(dir) {
   const amt = window.innerHeight * 0.72;
-  if (dir === 'top') {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  } else if (dir === 'up') {
-    window.scrollBy({ top: -amt, behavior: 'smooth' });
-  } else {
-    window.scrollBy({ top: amt, behavior: 'smooth' });
-  }
+  if (dir === 'top') { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  else if (dir === 'up') { window.scrollBy({ top: -amt, behavior: 'smooth' }); }
+  else { window.scrollBy({ top: amt, behavior: 'smooth' }); }
 }
 
 (function() {
@@ -2451,7 +2325,6 @@ function rpScroll(dir) {
   window.addEventListener('resize', updateReadingUI, { passive: true });
 })();
 
-// init
 updateNav();
 </script>
 </body>
