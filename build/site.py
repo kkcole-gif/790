@@ -4,6 +4,7 @@ Run from the repository root:  python3 build/site.py
 Week content lives in build/weeks.py. Shared chrome lives here.
 """
 import datetime as dt
+import re
 import html
 import pathlib
 import sys
@@ -230,7 +231,24 @@ def build_pages():
     return n
 
 
+def build_redirects():
+    """Old slide and support files redirect to their replacements."""
+    targets = {"CRDM790_Perusall.html": "guides/perusall.html",
+               "CRDM790_Submissions.html": "index.html#milestones"}
+    for f in ROOT.glob("CRDM790_Week*.html"):
+        n = int(re.search(r"Week(\d+)", f.name).group(1))
+        targets[f.name] = f"weeks/week-{n:02d}.html"
+    for name, dest in targets.items():
+        (ROOT / name).write_text(f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Moved · CRDM 790</title>
+<meta http-equiv="refresh" content="0; url={dest}"><link rel="canonical" href="{dest}"></head>
+<body><p>This page has moved to <a href="{dest}">its new address</a>.</p></body></html>
+""")
+    return len(targets)
+
+
 if __name__ == "__main__":
+    print("redirected", build_redirects(), "old pages")
     print("built", build_pages(), "support pages")
     (ROOT / "weeks").mkdir(exist_ok=True)
     build_index()
