@@ -26,7 +26,7 @@ CONTENT = {
     ],
     "in_class_intro": "<p>I went from my undergraduate degree into a PhD and then into a tenure-track position, a path few now follow. Our guests know this terrain better than I do. We ask them for candor over polish.</p>",
     "activities": [
-        {"title": "How knowledge travels",
+        {"handout": "handouts/how-knowledge-travels.html", "title": "How knowledge travels",
          "intro": "Which venues matter, what each genre does, and what an abstract is for are usually learned through mentorship and chance. This activity makes the knowledge explicit.",
          "steps": [
              "Venue mapping, as a full group: name two or three journals where your work would fit, one conference where it would be welcome, and one public venue for a non-specialist version.",

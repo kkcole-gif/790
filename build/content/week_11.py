@@ -29,7 +29,7 @@ CONTENT = {
     ],
     "in_class_intro": "<p>The methods activity rests on three distinctions. A <strong>method</strong> is what you do: close reading, interviews, archival research, corpus analysis. A <strong>methodology</strong> is the framework which justifies the method, given what it assumes about knowing: rhetorical criticism, critical ethnography, feminist standpoint theory. An <strong>epistemology</strong> is the underlying claim about what counts as knowledge. “I will use discourse analysis” names a method. “Because language constitutes social reality, discourse analysis suits this question better than content analysis” makes a methodological argument.</p>",
     "activities": [
-        {"title": "Method, methodology, epistemology",
+        {"handout": "handouts/method-methodology-epistemology.html", "title": "Method, methodology, epistemology",
          "intro": "Your committee will ask why your question requires your method. This activity has you make the argument first, against a partner who looks for its gaps.",
          "steps": [
              "Five minutes: fill out a methodology card with your question, method, methodology, the argument linking them, one ruled-out alternative, and your greatest uncertainty.",

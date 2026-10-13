@@ -195,3 +195,20 @@ main { padding-bottom: 1rem; }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; }
 }
+
+/* Rubric and reference tables */
+.rubric { width: 100%; border-collapse: collapse; margin: 0.8rem 0 1.4rem; font-size: 0.95rem; }
+.rubric caption { text-align: left; font-weight: 700; margin-bottom: 0.4rem; }
+.rubric th, .rubric td { text-align: left; vertical-align: top; padding: 0.6rem 0.7rem; border: 1px solid var(--rule); }
+.rubric thead th { background: var(--surface); }
+.rubric tbody th { width: 22%; }
+@media (max-width: 40rem) {
+  .rubric, .rubric tbody, .rubric tr, .rubric th, .rubric td { display: block; width: 100%; }
+  .rubric thead { position: absolute; left: -9999px; }
+  .rubric tr { margin-bottom: 0.8rem; }
+  .rubric td::before { content: attr(data-label); display: block; font-weight: 700; }
+}
+.example { border-left: 4px solid var(--m1-rule); padding: 0.2rem 0 0.2rem 1rem; margin: 0.8rem 0; }
+.example.thin { border-color: var(--rule); }
+.example p { margin: 0.3rem 0; }
+.doc-list { padding-left: 1.3rem; }

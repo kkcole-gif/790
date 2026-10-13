@@ -43,6 +43,7 @@ def page(title, body, depth=0, description=""):
     up = "../" * depth
     nav = [("Schedule", f"{up}index.html#schedule"),
            ("Milestones", f"{up}index.html#milestones"),
+           ("Perusall guide", f"{up}guides/perusall.html"),
            ("Canvas", COURSE["canvas"]),
            ("Office hours", COURSE["office_hours"])]
     nav_html = "".join(f'<li><a href="{h}">{html.escape(t)}</a></li>' for t, h in nav)
@@ -120,7 +121,7 @@ def build_index():
             due = m["due_text"](week_date, fmt_date)
         else:
             due = f"Week {m['due_week']} ({fmt_date(week_date(m['due_week']), short=True)}), {m['due_note']}"
-        ms.append(f"<li><strong>{html.escape(m['title'])}</strong>, due {due}. "
+        ms.append(f"<li><strong><a href=\"{m['href']}\">{html.escape(m['title'])}</a></strong>, due {due}. "
                   f"{m['weight']} of the final grade. {m['gist']}</li>")
 
     body = f"""
@@ -171,7 +172,9 @@ def build_week(w):
 <dl class="facts">{''.join(f'<dt>{k}</dt><dd>{v}</dd>' for k, v in c['facts'])}</dl>
 <h2 id="before">{c.get('before_heading', 'Before class')}</h2>"""]
     if c.get("milestone"):
-        out.append(f'<div class="panel milestone"><h3>Milestone due: {c["milestone"][0]}</h3><p>{c["milestone"][1]}</p></div>')
+        mhref = next((m["href"] for m in MILESTONES if m["title"] in c["milestone"][0] or c["milestone"][0].startswith("Prospectus") and m["title"] == "Dissertation Prospectus"), None)
+        link = f'<p><a href="../{mhref}">Full guide to the {html.escape(c["milestone"][0])} milestone</a></p>' if mhref else ""
+        out.append(f'<div class="panel milestone"><h3>Milestone due: {c["milestone"][0]}</h3><p>{c["milestone"][1]}</p>{link}</div>')
     if c.get("read"):
         out.append(f"<h3>Read</h3><ul>{li(c['read'])}</ul>")
     if c.get("bring"):
@@ -188,6 +191,7 @@ def build_week(w):
 <h3>{html.escape(act['title'])}</h3>
 <p>{act['intro']}</p>
 <ol class="steps">{li(act['steps'])}</ol>
+{f'<p><a href="../{act["handout"]}">Open the full handout</a></p>' if act.get("handout") else ""}
 </div>""")
     if c.get("after"):
         out.append(f"<h2 id=\"after\">{c.get('after_heading', 'After class')}</h2><ul>{li(c['after'])}</ul>")
@@ -210,7 +214,24 @@ def build_week(w):
     (ROOT / "weeks" / f"week-{w['n']:02d}.html").write_text(out)
 
 
+def build_pages():
+    """Wrap each fragment in build/pages. First line of a fragment is <!-- title | description -->."""
+    src = ROOT / "build" / "pages"
+    n = 0
+    for frag in sorted(src.rglob("*.html")):
+        rel = frag.relative_to(src)
+        text = frag.read_text()
+        head, body = text.split("\n", 1)
+        title, desc = [x.strip() for x in head.strip()[4:-3].split("|", 1)]
+        out = ROOT / rel
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(page(f"{title} · CRDM 790", body, len(rel.parts) - 1, desc))
+        n += 1
+    return n
+
+
 if __name__ == "__main__":
+    print("built", build_pages(), "support pages")
     (ROOT / "weeks").mkdir(exist_ok=True)
     build_index()
     for w in WEEKS:
