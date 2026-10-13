@@ -253,3 +253,9 @@ ul.after li { margin-top: 0.5rem; }
   .schedule td { overflow-wrap: anywhere; }
 }
 .aside { font-size: 0.95rem; font-style: italic; }
+
+/* Plates on the marginalia guide */
+.plate { margin: 1.6rem 0; max-width: 40rem; }
+.plate img { display: block; max-width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); }
+.plate figcaption { font-size: 0.92rem; margin-top: 0.5rem; }
+.plate .credit { display: block; font-size: 0.85rem; opacity: 0.85; margin-top: 0.25rem; }
