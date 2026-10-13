@@ -275,7 +275,9 @@ def build_redirects():
     """Old slide and support files redirect to their replacements."""
     targets = {"CRDM790_Perusall.html": "guides/marginalia.html",
                "guides/perusall.html": "marginalia.html",
-               "CRDM790_Submissions.html": "index.html#milestones"}
+               "CRDM790_Submissions.html": "index.html#milestones",
+               "milestones/m2-draft-exam-list.html": "m3-draft-exam-list.html",
+               "milestones/m3-committee-confirmation.html": "m2-committee-confirmation.html"}
     for f in ROOT.glob("CRDM790_Week*.html"):
         n = int(re.search(r"Week(\d+)", f.name).group(1))
         targets[f.name] = f"weeks/week-{n:02d}.html"

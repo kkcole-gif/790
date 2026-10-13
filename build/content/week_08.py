@@ -1,13 +1,13 @@
 CONTENT = {
-    "welcome": 'Your draft list is due, and it is the reading for the day. Peer review works best on a real draft, so submit what you have, gaps and all.',
+    "welcome": 'Your committee confirmation is due, and your working list is the reading for the day. Peer review works best on a real draft, so bring what you have, gaps and all. The list itself is due March 24.',
     "lede": "Your draft list is the reading this week. A good list makes an argument about a field and your place in it, and a reader from outside your project should be able to see the argument.",
     "facts": [
         ("Read", "Your partner’s draft list and rationale, in class"),
         ("Bring", "Your Draft Exam List and rationale, in print or on a laptop"),
-        ("Due", "Milestone 2, Draft Exam List, before class"),
+        ("Due", "Milestone 2, Committee Confirmation, before class"),
     ],
-    "milestone": ("Draft Exam List",
-        "A working draft of your comprehensive exam list with a one-paragraph rationale. The rationale states the argument of the list: why these texts, in this configuration, for this project. It also names the fields your dissertation will answer to and the position from which you enter each one. A disciplinary list locates a position within one field. An interdisciplinary list maps where several fields meet your problem and states which field claims the project first. The list need not be final, but it must be real. 25% of the final grade. Submit through Canvas, by email, or in hard copy."),
+    "milestone": ("Committee Confirmation",
+        "Either an email from your chair confirming their willingness to serve, or a written plan naming faculty for each position, the status of each conversation, and a realistic timeline. Faculty replies in February run slow, so a credible plan meets the threshold. If you have hit obstacles, such as a faculty member who has not replied or uncertainty about whom to ask, say so in the submission. 15% of the final grade. Submit through Canvas or by email."),
     "bring_heading": "Bring",
     "bring": [
         "Your draft list and rationale, ready to trade with a partner.",

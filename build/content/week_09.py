@@ -42,7 +42,7 @@ CONTENT = {
     ],
     "after": [
         "Book your individual meeting for the March 11 to 24 window.",
-        "Confirm your chair, or draft the plan Milestone 3 asks for.",
+        "Revise your list for Milestone 3, due March 24, with the addition and cut from today.",
     ],
     "further": [
         "Patricia Hill Collins, <cite>Black Feminist Thought</cite>, on standpoint epistemology and the matrix of domination.",

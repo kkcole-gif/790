@@ -40,8 +40,8 @@ CONTENT = {
          ]},
     ],
     "after": [
-        "Turn the first-pass list into a draft exam list with a rationale, due before Week 8.",
-        "Keep any replies from committee contacts. They inform the list.",
+        "Turn the first-pass list into a working draft with a rationale for Week 8 peer review. The graded list is due March 24.",
+        "Milestone 2, Committee Confirmation, is due before Week 8: your chair’s confirmation, or a plan with names and dates.",
     ],
     "further": [
         "Mark Fisher, <cite>Ghosts of My Life</cite>, the richest extended application of hauntology to contemporary culture. Read it after Coverley.",
