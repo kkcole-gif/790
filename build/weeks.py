@@ -40,7 +40,7 @@ WEEKS = [
     {"n": 1, "movement": 1, "title": "Arrivals",
      "summary": "Introductions, intellectual autobiographies, constellation mapping."},
     {"n": 2, "movement": 1, "title": "Critical Pedagogy and the Scholar-Critic",
-     "summary": "Giroux, On Critical Pedagogy. Institutional autopsy."},
+     "summary": "Giroux on critical pedagogy, 1979 and 2004. Institutional autopsy."},
     {"n": 3, "movement": 1, "title": "The Past Is Not Past", "guest": True,
      "summary": "Benjamin, Illuminations. Wreckage and promise gallery. A current doctoral student joins us."},
     {"n": 4, "movement": 1, "title": "Who Gets to Live",
