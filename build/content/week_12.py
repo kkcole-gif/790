@@ -8,7 +8,7 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Amitav Ghosh, <cite>The Great Derangement: Climate Change and the Unthinkable</cite> (University of Chicago Press, 2016). Part 1, “Stories,” pages 3 to 84. In the week’s Canvas Files folder.",
+        "Amitav Ghosh, <cite>The Great Derangement: Climate Change and the Unthinkable</cite> (University of Chicago Press, 2016). <a href=\"https://drive.google.com/file/d/1h8f7__ayA1_IAZurr36nNn65qKOv7kFm/view\">Part 1, “Stories,”</a> pages 3 to 84. PDF in the course Readings folder. Open it signed in with your NC State account.",
         "Part 1 carries the central argument. Parts 2 and 3, on history and politics, extend it for anyone who wants more.",
     ],
     "bring": [
@@ -45,7 +45,7 @@ CONTENT = {
         "Choose a piece of scholarly communication you admire to bring next week.",
     ],
     "further": [
-        "Ursula K. Le Guin, “The Carrier Bag Theory of Fiction,” short and generative.",
+        "Ursula K. Le Guin, <a href=\"https://drive.google.com/file/d/1QvLwtnymMRcnF3fVXA21pYKwx5rpHqo0/view\">“The Carrier Bag Theory of Fiction,”</a> short and generative. In the Readings folder.",
         "Anna Tsing, <cite>The Mushroom at the End of the World</cite>, humanistic inquiry attentive to entanglement, precarity, and possibility.",
     ],
 }

@@ -59,7 +59,7 @@ WEEKS = [
             ("Due", "No milestone this week"),
         ],
         "read": [
-            "Silvia Federici, <cite>Caliban and the Witch: Women, the Body, and Primitive Accumulation</cite> (Autonomedia, 2004). Introduction, pages 11 to 19, and Chapter 2, “The Accumulation of Labor and the Degradation of Women: Constructing ‘Difference’ in the ‘Transition to Capitalism,’” pages 61 to 132. In the week’s Canvas Files folder.",
+            "Silvia Federici, <cite>Caliban and the Witch: Women, the Body, and Primitive Accumulation</cite> (Autonomedia, 2004). Introduction, pages 11 to 19, and Chapter 2, “The Accumulation of Labor and the Degradation of Women: Constructing ‘Difference’ in the ‘Transition to Capitalism,’” pages 61 to 132. <a href=\"https://drive.google.com/file/d/1Tn2NimQtiJQYXCDDqGhjm571BMyPEBt-/view\">Open the PDF</a> in the course Readings folder, signed in with your NC State account.",
             "Read slowly. The argument is dense, and the sections from “Women: The New Commons and the Substitute for the Lost Land” through “The Patriarchy of the Wage,” on the enclosure of women’s bodies and reproductive labor, reward a second pass.",
         ],
         "bring": [

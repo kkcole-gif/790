@@ -8,13 +8,13 @@ CONTENT = {
     ],
     "read": [
         "Mark Fisher, <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/10.1525/fq.2012.66.1.16\">“What Is Hauntology?”</a> <cite>Film Quarterly</cite> 66, no. 1 (2012): 16–24. On JSTOR through NC State Libraries, with no limit on readers.",
-        "Mark Fisher, “The Slow Cancellation of the Future,” the opening essay of <cite>Ghosts of My Life: Writings on Depression, Hauntology and Lost Futures</cite> (Zero Books, 2014). In the week’s Canvas Files folder.",
+        "Mark Fisher, <a href=\"https://drive.google.com/file/d/1ZP5XEyTil5QRzzecIar3DHfBLbZuBrgU/view\">“The Slow Cancellation of the Future,”</a> the opening essay of <cite>Ghosts of My Life: Writings on Depression, Hauntology and Lost Futures</cite> (Zero Books, 2014). PDF in the course Readings folder, opened with your NC State account. Read the opening essay, which ends where “Ghosts of My Life: Goldie, Japan, Tricky” begins.",
         "Read the article first. It sets out the terms, from Derrida’s specter to the music Fisher hears as haunted. The essay then turns the concept on the present, and on Fisher himself.",
     ],
     "bring": [
         "A haunting reflection, about one page and informal. Name one haunting in your field: something it keeps circling without resolving. What is it, and why does it return? Post it to Canvas or bring it to class.",
         "Your marked copy, with a note beside the concept in Fisher most generative for your research, and a tentative application to your own work.",
-        "A first-pass exam list of ten texts you currently expect on your list. Tag each text with the field it belongs to, and add one sentence on why it belongs.",
+        "A first-pass exam list of ten texts you currently expect on your list. Tag each text with the field it belongs to, and add one sentence on why it belongs. Browse <a href=\"https://drive.google.com/drive/folders/1arRvn-FOWzpH4awp56QDd9cmVTUBCqdu\">exam lists from past CRDM students</a> for models of scope and organization.",
     ],
     "questions": [
         "Fisher distinguishes the no longer from the not yet: what has ceased to be but persists, and what has not yet happened but already shapes the present. Which describes the haunting in your field?",
@@ -46,7 +46,7 @@ CONTENT = {
     ],
     "further": [
         "Merlin Coverley, <cite>Hauntology: Ghosts of Futures Past</cite> (Oldcastle Books, 2020), a genealogy of the concept from Marx and Dickens to Fisher.",
-        "Jacques Derrida, <cite>Specters of Marx</cite>, where the concept begins.",
+        "Jacques Derrida, <a href=\"https://drive.google.com/file/d/1EYNGGBmPIS64XmrzzkJ1q3VGrVAOz3pm/view\"><cite>Specters of Marx</cite></a>, where the concept begins. In the Readings folder.",
         "Saidiya Hartman, <cite>Wayward Lives, Beautiful Experiments</cite>, a model of writing with the archive’s silences.",
         "Eve Kosofsky Sedgwick, “Paranoid Reading and Reparative Reading.” Is hauntology paranoid or reparative, and which do you tend toward?",
     ],

@@ -36,12 +36,12 @@ CONTENT = {
          "steps": [
              "Work from your Week 8 draft, revised after peer review.",
              "For each text, note the author’s apparent position, as far as you know it. Mark texts centering Global South, feminist, queer, or disabled perspectives.",
-             "As a group, describe the demographic and disciplinary shape of the lists this cohort has drafted.",
+             "As a group, describe the demographic and disciplinary shape of the lists this cohort has drafted. Then run the same audit on two <a href=\"https://drive.google.com/drive/folders/1arRvn-FOWzpH4awp56QDd9cmVTUBCqdu\">past CRDM exam lists</a>: what has the program canon looked like?",
              "Name one text absent from your list which belongs there, and one text you will cut. Both changes go into the list you bring to your individual meeting.",
          ]},
     ],
     "after": [
-        "Book your individual meeting for the March 11 to 24 window.",
+        "Book your individual meeting for the March 11 to 24 window. Office hours are limited those weeks, so find an open time on <a href=\"https://calendar.google.com/calendar/u/0/r?cid=kkcole2@ncsu.edu\">my calendar</a> and send me an invitation.",
         "Revise your list for Milestone 3, due March 24, with the addition and cut from today.",
     ],
     "further": [

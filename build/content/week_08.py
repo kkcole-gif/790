@@ -11,6 +11,7 @@ CONTENT = {
     "bring_heading": "Bring",
     "bring": [
         "Your draft list and rationale, ready to trade with a partner.",
+        "One list from the <a href=\"https://drive.google.com/drive/folders/1arRvn-FOWzpH4awp56QDd9cmVTUBCqdu\">folder of past CRDM exam lists</a> whose organization you admire or would argue with.",
         "Any responses from prospective committee members.",
     ],
     "questions_heading": "Questions for peer review",
@@ -35,7 +36,7 @@ CONTENT = {
              "Exchange lists and rationale paragraphs.",
              "Respond in writing for fifteen minutes: the organizing logic I see, a gap I notice, a text I would add and why, and the most interesting tension on the list.",
              "Discuss the responses, ten minutes per list.",
-             "Join the full group to compare what the lists reveal about the cohort.",
+             "Join the full group to compare what the lists reveal about the cohort, and set them beside the <a href=\"https://drive.google.com/drive/folders/1arRvn-FOWzpH4awp56QDd9cmVTUBCqdu\">past CRDM exam lists</a>.",
          ]},
     ],
     "after": [

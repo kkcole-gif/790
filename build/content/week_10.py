@@ -22,7 +22,7 @@ CONTENT = {
         "What are you most afraid your prospectus will reveal about your project?",
     ],
     "in_class_heading": "The meeting",
-    "in_class_intro": "<p>Book a slot through Canvas. Meetings open with your committee contacts, move to the list, and end with your seed writing. Zoom works if you are away.</p>",
+    "in_class_intro": "<p>Office hours are limited March 11 to 24. Open <a href=\"https://calendar.google.com/calendar/u/0/r?cid=kkcole2@ncsu.edu\">my calendar</a> with your NC State account, or search for Kirsti Cole in Google Calendar, then send me an invitation for an open 30-minute slot. Meetings open with your committee contacts, move to the list, and end with your seed writing. Zoom works if you are away.</p>",
     "after_heading": "After your meeting",
     "after": [
         "Revise one sentence from your seed writing, the one now truer or clearer, and keep it. It might open your prospectus.",

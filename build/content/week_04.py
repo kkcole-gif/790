@@ -44,7 +44,7 @@ CONTENT = {
         "Read Brown for Week 5.",
     ],
     "further": [
-        "Frantz Fanon, <cite>The Wretched of the Earth</cite>, with Sartre’s introduction and Bhabha’s preface, foundational for postcolonial and critical race frameworks.",
+        "Frantz Fanon, <a href=\"https://drive.google.com/file/d/1-poC-11D_ZAuD5ZMA7-IJmoUrfcExeLa/view\"><cite>The Wretched of the Earth</cite></a>, with Sartre’s preface, foundational for postcolonial and critical race frameworks. The 1963 Grove translation is in the Readings folder.",
         "Christina Sharpe, <cite>In the Wake</cite>, which extends Mbembe into Black Studies.",
     ],
 }
