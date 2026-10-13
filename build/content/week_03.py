@@ -1,0 +1,53 @@
+CONTENT = {
+    "lede": "Benjamin insists the past is never settled. This week reads three of his essays against the objects you bring from your own research, and a current doctoral student joins us to talk about this stage of the program.",
+    "facts": [
+        ("Read", "Benjamin, <cite>Illuminations</cite>, three essays (about 74 pages)"),
+        ("Bring", "One object from your research area, and one genuine question about the “Theses”"),
+        ("Guest", "A current CRDM doctoral student"),
+        ("Due", "No milestone this week"),
+    ],
+    "read": [
+        "Walter Benjamin, <cite>Illuminations</cite>, ed. Hannah Arendt, trans. Harry Zohn (Schocken, 2007). On Perusall:",
+        "“The Storyteller,” pages 83 to 109.",
+        "“The Work of Art in the Age of Mechanical Reproduction,” pages 217 to 251.",
+        "“Theses on the Philosophy of History,” pages 253 to 264. Short and dense. Give the “Theses” more time than their length suggests.",
+    ],
+    "bring": [
+        "One object (a photograph, a text, an image, a sound clip) representing something unresolved in your research area. You need not explain it fully. Be ready to say why it matters.",
+        "A Perusall annotation marking one moment in the “Theses” you find cryptic, with a genuine question about it.",
+    ],
+    "questions": [
+        "Benjamin writes of history flashing up in a moment of danger. What does his claim do to your research questions?",
+        "What is the angel of history, and what storm drives it? How does the image land for you now?",
+        "Benjamin argues mechanical reproduction destroys aura. What has digital reproduction done to the texts and images you study?",
+        "Who is the storyteller, in Benjamin’s sense, in your own field?",
+        "What piece of history in your research area is not past?",
+    ],
+    "schedule": [
+        ("10:15–10:35", "Thesis IX, read aloud. We sit with it before anyone explains it."),
+        ("10:35–11:10", "“The Storyteller” and “The Work of Art.” What has digital reproduction done to aura?"),
+        ("11:10–11:35", "Working through the “Theses” together."),
+        ("11:35–11:50", "Break, and setting out objects for the gallery."),
+        ("11:50–12:35", "Wreckage and promise gallery."),
+        ("12:35–1:00", "Synthesis: what are we all working in the wreckage of?"),
+    ],
+    "in_class_intro": "<p>A current doctoral student joins us during the session to talk about this stage of the program and what it asks of students.</p>",
+    "activities": [
+        {"title": "Wreckage and promise gallery",
+         "intro": "Benjamin’s angel faces the wreckage of the past while a storm drives it forward. The gallery reads your objects the same way.",
+         "steps": [
+             "Place your object, or a description of it, on the table. Five minutes of silent looking.",
+             "In small groups, ask of each object: what wreckage does it hold, and what promise? How does Thesis IX apply?",
+             "As a full group, name the patterns across the cohort’s objects.",
+             "Write one sentence: “The piece of history I am working in the wreckage of is ___.” Keep it for your Scholarly Identity Statement.",
+         ]},
+    ],
+    "after": [
+        "Read Mbembe for Week 4, and find an example of necropolitical logic to bring.",
+        "Keep your wreckage sentence for the Identity Statement due in Week 5.",
+    ],
+    "further": [
+        "Hannah Arendt, “Walter Benjamin: 1892–1940,” her introduction to <cite>Illuminations</cite>, pages 1 to 55. Essential context.",
+        "Susan Buck-Morss, <cite>The Dialectics of Seeing</cite>, the most thorough account of Benjamin’s method.",
+    ],
+}

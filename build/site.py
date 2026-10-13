@@ -143,7 +143,7 @@ def build_index():
 </div>
 
 <h2 id="schedule">Schedule</h2>
-<p>Each week page lists what to read and bring, how the session runs, and what follows. Pages appear here as the semester approaches. Current students, alumni, and program faculty join us across the term.</p>
+<p>Each week page lists what to read and bring, how the session runs, and what follows. Current students, alumni, and program faculty join us across the term.</p>
 {''.join(rows)}
 
 <h2 id="milestones">Milestones</h2>
