@@ -40,6 +40,17 @@ def week_href(n, from_weeks_dir=False):
     return f"{prefix}week-{n:02d}.html"
 
 
+def _new_tabs(doc):
+    """Every link opens in a new tab, except email links and jumps within a page."""
+    def fix(m):
+        tag = m.group(0)
+        href = m.group(1)
+        if "target=" in tag or href.startswith(("#", "mailto:")):
+            return tag
+        return tag[:-1] + ' target="_blank" rel="noopener">'
+    return re.sub(r'<a\s[^>]*href="([^"]*)"[^>]*>', fix, doc)
+
+
 def page(title, body, depth=0, description=""):
     up = "../" * depth
     nav = [("Schedule", f"{up}index.html#schedule"),
@@ -48,7 +59,7 @@ def page(title, body, depth=0, description=""):
            ("Canvas", COURSE["canvas"]),
            ("Office hours", COURSE["office_hours"])]
     nav_html = "".join(f'<li><a href="{h}">{html.escape(t)}</a></li>' for t, h in nav)
-    return f"""<!doctype html>
+    return _new_tabs(f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -85,7 +96,7 @@ def page(title, body, depth=0, description=""):
 </script>
 </body>
 </html>
-"""
+""")
 
 
 def li(items):
