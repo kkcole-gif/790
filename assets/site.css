@@ -252,3 +252,4 @@ ul.after li { margin-top: 0.5rem; }
   .schedule th { white-space: normal; }
   .schedule td { overflow-wrap: anywhere; }
 }
+.aside { font-size: 0.95rem; font-style: italic; }

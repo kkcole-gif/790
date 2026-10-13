@@ -50,7 +50,7 @@ WEEKS = [
     {"n": 6, "movement": 2, "title": "The Labor of Knowledge and the Labor of Committees", "guest": True, "built": True,
      "summary": "Federici, Caliban and the Witch. A recently advanced student joins us. Committee email workshop.",
      "content": {
-        "welcome": "The practical work of candidacy begins this week. We read Federici on whose labor builds a field, then turn her question on ourselves with a recently advanced student and a workshop for your first committee email. Bring a draft, however rough.",
+        "welcome": "The practical work of candidacy begins this week. We read Federici on whose labor builds a field, then turn her question on ourselves with a recently advanced student and a workshop for your first committee email. Bring a draft, rough or not.",
         "lede": "Federici asks whose labor built the fields you inherit. The second half of the session turns her question toward your own degree: whose labor will it require, and on what terms do you ask for it?",
         "facts": [
             ("Read", "Federici, <cite>Caliban and the Witch</cite>, Introduction and Chapter 2 (about 71 pages)"),
@@ -59,11 +59,11 @@ WEEKS = [
             ("Due", "No milestone this week"),
         ],
         "read": [
-            "Silvia Federici, <cite>Caliban and the Witch: Women, the Body, and Primitive Accumulation</cite> (Autonomedia, 2004). Introduction, pages 7 to 20, and Chapter 2, “The Accumulation of Labor and the Degradation of Women,” pages 75 to 131. On Perusall.",
+            "Silvia Federici, <cite>Caliban and the Witch: Women, the Body, and Primitive Accumulation</cite> (Autonomedia, 2004). Introduction, pages 7 to 20, and Chapter 2, “The Accumulation of Labor and the Degradation of Women,” pages 75 to 131. In the week’s Canvas Files folder.",
             "Read slowly. The argument is dense, and pages 91 to 109, on the enclosure of women’s bodies and reproductive labor, reward a second pass.",
         ],
         "bring": [
-            "A Perusall annotation on one passage in Federici bearing on your own field, connecting her argument to a dynamic you recognize.",
+            "Your marked copy, with a note beside one passage in Federici bearing on your own field, connecting her argument to a dynamic you recognize.",
             "A committee map. Name each position (chair, readers, outside member), write two or three sentences on why each person, and note whom you have already spoken with.",
             "A draft of the email you will send your first committee contact. We workshop it in class.",
         ],

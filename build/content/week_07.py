@@ -7,12 +7,12 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Merlin Coverley, <cite>Hauntology: Ghosts of Futures Past</cite> (Reaktion Books, 2023), Parts 1 and 3. Page ranges on Perusall.",
+        "Merlin Coverley, <cite>Hauntology: Ghosts of Futures Past</cite> (Reaktion Books, 2023), Parts 1 and 3. Page ranges in the week’s Canvas Files folder.",
         "Part 1 gives the history and theory, from Derrida’s specter to Fisher’s lost futures. Part 3 shows the method at work across cultural forms, and it matters most for anyone working across research domains.",
     ],
     "bring": [
         "A haunting reflection, about one page and informal. Name one haunting in your field: something it keeps circling without resolving. What is it, and why does it return? Post it to Canvas or bring it to class.",
-        "A Perusall annotation on the thinker or concept in Coverley most generative for your research, with a tentative application to your own work.",
+        "Your marked copy, with a note beside the thinker or concept in Coverley most generative for your research, and a tentative application to your own work.",
         "A first-pass exam list of ten texts you currently imagine on your list. Tag each text with the field it belongs to, and add one sentence on why it belongs.",
     ],
     "questions": [

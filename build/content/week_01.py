@@ -7,9 +7,10 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "No required reading. If you want an early start, Henry Giroux, “Critical Pedagogy and the Postmodern/Modern Divide,” in <cite>On Critical Pedagogy</cite>, 2nd ed. (Bloomsbury, 2020), is on Perusall. Annotation is optional.",
+        "No required reading. If you want an early start, Henry Giroux, “Critical Pedagogy and the Postmodern/Modern Divide,” in <cite>On Critical Pedagogy</cite>, 2nd ed. (Bloomsbury, 2020), is in the Week 1 Canvas Files folder.",
     ],
     "bring": [
+        "If you have one, a book you have marked up. We open our conversation about marginalia with it.",
         "An intellectual autobiography, 200 to 300 words and informal. Where did you start, what changed you, and where are you now? You will share it, and no one reads your writing aloud without your consent.",
     ],
     "questions_heading": "Questions to arrive with",
@@ -20,7 +21,7 @@ CONTENT = {
         "What does becoming a scholar mean to you at this moment?",
     ],
     "schedule": [
-        ("10:15–10:30", "Course overview: this site, Canvas, Perusall, and the milestone schedule."),
+        ("10:15–10:30", "Course overview: this site, Canvas, our marginalia practice, and the milestone schedule."),
         ("10:30–10:55", "Intellectual autobiographies, shared in the room. I read mine too."),
         ("10:55–11:25", "Constellation mapping."),
         ("11:25–11:40", "Break"),
@@ -39,7 +40,8 @@ CONTENT = {
          ]},
     ],
     "after": [
-        "Read Giroux for Week 2 on Perusall.",
+        "Read Giroux for Week 2, pen in hand. The <a href=\"../guides/marginalia.html\">marginalia guide</a> explains the practice.",
+        "Sign up for a reading lead slot in Canvas.",
         "Book an office hours conversation if you want to talk through your plans for the year.",
     ],
     "further": [

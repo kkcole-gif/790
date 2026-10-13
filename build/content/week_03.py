@@ -8,14 +8,14 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Walter Benjamin, <cite>Illuminations</cite>, ed. Hannah Arendt, trans. Harry Zohn (Schocken, 2007). On Perusall:",
+        "Walter Benjamin, <cite>Illuminations</cite>, ed. Hannah Arendt, trans. Harry Zohn (Schocken, 2007). In the week’s Canvas Files folder:",
         "“The Storyteller,” pages 83 to 109.",
         "“The Work of Art in the Age of Mechanical Reproduction,” pages 217 to 251.",
         "“Theses on the Philosophy of History,” pages 253 to 264. Short and dense. Give the “Theses” more time than their length suggests.",
     ],
     "bring": [
         "One object (a photograph, a text, an image, a sound clip) representing something unresolved in your research area. You need not explain it fully. Be ready to say why it matters.",
-        "A Perusall annotation marking one moment in the “Theses” you find cryptic, with a genuine question about it.",
+        "Your marked copy, with one moment in the “Theses” you find cryptic flagged and a genuine question written beside it.",
     ],
     "questions": [
         "Benjamin writes of history flashing up in a moment of danger. What does his claim do to your research questions?",

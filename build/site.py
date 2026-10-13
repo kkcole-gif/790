@@ -44,7 +44,7 @@ def page(title, body, depth=0, description=""):
     up = "../" * depth
     nav = [("Schedule", f"{up}index.html#schedule"),
            ("Milestones", f"{up}index.html#milestones"),
-           ("Perusall guide", f"{up}guides/perusall.html"),
+           ("Marginalia guide", f"{up}guides/marginalia.html"),
            ("Canvas", COURSE["canvas"]),
            ("Office hours", COURSE["office_hours"])]
     nav_html = "".join(f'<li><a href="{h}">{html.escape(t)}</a></li>' for t, h in nav)
@@ -146,7 +146,7 @@ def build_index():
 <h2 id="where">Where things live</h2>
 <div class="panel">
   <p><strong>This site</strong> holds each week's session page, the activity handouts, and the milestone guides. Every page opens without a login and prints cleanly.</p>
-  <p><strong><a href="{COURSE['canvas']}">Canvas</a></strong> holds announcements, the Perusall readings, milestone submissions, and grades.</p>
+  <p><strong><a href="{COURSE['canvas']}">Canvas</a></strong> holds announcements, the readings, the reading lead notes, milestone submissions, and grades.</p>
 </div>
 
 <h2 id="schedule">Schedule</h2>
@@ -215,7 +215,8 @@ def build_week(w):
         link = f'<p><a href="../{mhref}">Full guide to the {html.escape(c["milestone"][0])} milestone</a></p>' if mhref else ""
         out.append(f'<div class="panel milestone"><h3>{icon("flag")}Milestone due: {c["milestone"][0]}</h3><p>{c["milestone"][1]}</p>{link}</div>')
     if c.get("read"):
-        out.append(f"<h3>{icon('book')}Read</h3><ul>{li(c['read'])}</ul>")
+        out.append(f"<h3>{icon('book')}Read</h3><ul>{li(c['read'])}</ul>"
+                   '<p class="aside">Read with a pen. The <a href="../guides/marginalia.html">marginalia guide</a> describes the practice.</p>')
     if c.get("bring"):
         out.append(f"<h3>{icon('pen')}{c.get('bring_heading', 'Write and bring')}</h3><ul>{li(c['bring'])}</ul>")
     if c.get("questions"):
@@ -271,7 +272,8 @@ def build_pages():
 
 def build_redirects():
     """Old slide and support files redirect to their replacements."""
-    targets = {"CRDM790_Perusall.html": "guides/perusall.html",
+    targets = {"CRDM790_Perusall.html": "guides/marginalia.html",
+               "guides/perusall.html": "marginalia.html",
                "CRDM790_Submissions.html": "index.html#milestones"}
     for f in ROOT.glob("CRDM790_Week*.html"):
         n = int(re.search(r"Week(\d+)", f.name).group(1))

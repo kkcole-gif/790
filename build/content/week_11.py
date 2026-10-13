@@ -7,7 +7,7 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Herbert Marcuse, <cite>One-Dimensional Man</cite> (Beacon Press, 1991). Introduction to the first edition, pages xi to xvii. Chapter 1, “The New Forms of Control,” pages 1 to 18. Chapter 3, “The Conquest of the Unhappy Consciousness,” pages 56 to 83. On Perusall.",
+        "Herbert Marcuse, <cite>One-Dimensional Man</cite> (Beacon Press, 1991). Introduction to the first edition, pages xi to xvii. Chapter 1, “The New Forms of Control,” pages 1 to 18. Chapter 3, “The Conquest of the Unhappy Consciousness,” pages 56 to 83. In the week’s Canvas Files folder.",
         "Pages 4 to 8, on false and true needs, anchor the discussion.",
     ],
     "bring": [

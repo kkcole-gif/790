@@ -3,15 +3,15 @@ CONTENT = {
     "lede": "Mbembe extends Foucault’s biopolitics to ask who is allowed to live and who is made to die, by design. This week tests his concepts against examples you bring.",
     "facts": [
         ("Read", "Mbembe, <cite>Necropolitics</cite>, Introduction and Chapter 3 (about 41 pages)"),
-        ("Bring", "A Perusall annotation and one example of necropolitical logic"),
+        ("Bring", "Your marked copy and one example of necropolitical logic"),
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Achille Mbembe, <cite>Necropolitics</cite>, trans. Steve Corcoran (Duke University Press, 2019). Introduction, pages 1 to 14, and Chapter 3, “Necropolitics,” pages 66 to 92. On Perusall, and available online through the library.",
+        "Achille Mbembe, <cite>Necropolitics</cite>, trans. Steve Corcoran (Duke University Press, 2019). Introduction, pages 1 to 14, and Chapter 3, “Necropolitics,” pages 66 to 92. In the week’s Canvas Files folder, and online through the library.",
         "The reading is short and dense. Give it two sittings.",
     ],
     "bring": [
-        "A Perusall annotation, three or four sentences, applying one of Mbembe’s concepts to your research area.",
+        "Your marked copy, with three or four sentences in the margin applying one of Mbembe’s concepts to your research area.",
         "One example, from media, policy, your archive, or your community, which you think shows necropolitical logic at work. Be ready to put it on the table.",
     ],
     "questions": [

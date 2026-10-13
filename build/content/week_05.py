@@ -3,18 +3,18 @@ CONTENT = {
     "lede": "Brown argues neoliberalism remakes the subject, the citizen, the student, and the scholar. This week reads her account of the university alongside your first milestone, a statement of who you are as a scholar.",
     "facts": [
         ("Read", "Brown, <cite>Undoing the Demos</cite>, Chapters 1 and 6 (about 87 pages)"),
-        ("Bring", "Your Scholarly Identity Statement and one Perusall annotation"),
+        ("Bring", "Your Scholarly Identity Statement and your marked copy of Brown"),
         ("Due", "Milestone 1, Scholarly Identity Statement, before class"),
     ],
     "milestone": ("Scholarly Identity Statement",
         "About 500 words. Who are you as a scholar? What do you care about, what animates your research, and why does it matter? Where did your questions come from, and what do you want your work to do in the world? Write from conviction, for a reader who is not a hiring committee. A summary of your CV or a list of topics does not meet the threshold. 20% of the final grade. Submit through Canvas, by email, or in hard copy."),
     "read": [
-        "Wendy Brown, <cite>Undoing the Demos: Neoliberalism’s Stealth Revolution</cite> (Zone Books, 2015). Chapter 1, “Undoing Democracy,” pages 23 to 62, and Chapter 6, “Educating Human Capital,” pages 175 to 222. On Perusall, and available online through the library.",
+        "Wendy Brown, <cite>Undoing the Demos: Neoliberalism’s Stealth Revolution</cite> (Zone Books, 2015). Chapter 1, “Undoing Democracy,” pages 23 to 62, and Chapter 6, “Educating Human Capital,” pages 175 to 222. In the week’s Canvas Files folder, and online through the library.",
         "Optional: the Introduction, pages 7 to 21, for Brown’s core claim and method.",
     ],
     "bring": [
         "Your Scholarly Identity Statement, in a form you are willing to trade with a partner.",
-        "A Perusall annotation on one moment where Brown’s argument lands on you, beyond the abstraction.",
+        "Your marked copy, with a note beside one moment where Brown’s argument lands on you, beyond the abstraction.",
     ],
     "questions": [
         "Brown argues neoliberalism remakes identity, values, and ways of relating to the world. Do you recognize the remaking in yourself?",
