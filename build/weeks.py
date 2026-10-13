@@ -8,7 +8,7 @@ COURSE = {
     "meeting_week": 10,
     "meeting_window": "Individual meetings, March 11 to 24",
     "meeting_window_short": "Mar 11\u201324",
-    "room": "To be announced",
+    "room": "Winston Hall 20",
     "email": "kkcole2@ncsu.edu",
     "canvas": "https://ncsu.instructure.com/courses/798",
     "office_hours": "https://calendar.app.google/pgZeqTD9Kd9ZxBPX7",
