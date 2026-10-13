@@ -7,7 +7,7 @@ CONTENT = {
         ("Due", "Milestone 4 workshop draft, the night before class"),
     ],
     "milestone": ("Prospectus workshop draft",
-        "A complete draft of your dissertation prospectus or its nonacademic equivalent, a public-facing research proposal or professional research agenda. Upload it to Canvas or share it through Google Drive by 11:59 pm the night before class, and bring printed copies for your group if you prefer print. The final version, due one week after Week 15, carries 40% of the final grade."),
+        "A complete draft of your dissertation prospectus or its nonacademic equivalent, a public-facing research proposal or professional research agenda. Upload it to Canvas or share it through Google Drive by 11:59 pm the night before class, and bring printed copies for your group if you prefer print. The final version, due by 11:00 am on April 29, carries 40% of the final grade."),
     "bring_heading": "Write and bring",
     "bring": [
         "Your complete draft.",

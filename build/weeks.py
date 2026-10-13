@@ -32,7 +32,7 @@ MILESTONES = [
      "due_text": lambda wd, fd: "by March 24, the close of the Week 10 meeting window",
      "gist": "Your chair's confirmation, or a plan naming faculty and a timeline."},
     {"title": "Dissertation Prospectus", "href": "milestones/m4-prospectus.html", "weight": "40%",
-     "due_text": lambda wd, fd: f"in two stages: a workshop draft before Week 14 ({fd(wd(14), True)}), and the final version one week after Week 15 ({fd(wd(15) + __import__('datetime').timedelta(weeks=1), True)})",
+     "due_text": lambda wd, fd: f"in two stages: a workshop draft before Week 14 ({fd(wd(14), True)}), and the final version by 11:00 am on {fd(wd(15) + __import__('datetime').timedelta(weeks=1), True)}, the close of our scheduled exam slot",
      "gist": "A problem, its place in the scholarship, a method, and stakes beyond the field. Nonacademic equivalents are welcome."},
 ]
 

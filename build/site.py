@@ -73,7 +73,7 @@ def page(title, body, depth=0, description=""):
 </main>
 <footer class="site-footer">
   <div class="wrap">
-    <p>CRDM 790, Issues in Communication, Rhetoric, and Digital Media. NC State University, Spring 2027.</p>
+    <p>CRDM 790, Issues in Communication, Rhetoric, and Digital Media. Listed by the registrar as CRD 790-001, Professional Paths in CRDM (class number 1605). NC State University, Spring 2027.</p>
     <p>Kirsti K. Cole, Tompkins Hall 226, <a href="mailto:{COURSE['email']}">{COURSE['email']}</a>.</p>
     <p>If any format on this site creates a barrier, email me and I will send an alternative before the next session.</p>
   </div>
@@ -131,12 +131,13 @@ def build_index():
                   f"{m['weight']} of the final grade. {m['gist']}</li>")
 
     body = f"""
-<p class="eyebrow">NC State University &middot; Spring 2027</p>
+<p class="eyebrow">NC State University &middot; Spring 2027 &middot; CRD 790-001, Professional Paths in CRDM</p>
 <h1>Issues in Communication, Rhetoric, and Digital Media</h1>
 <p class="lede">CRDM 790 sits between coursework and candidacy. Over fifteen weeks, each of you builds a committee, drafts an exam list, and writes a prospectus, while the cohort reads a shared body of theory together.</p>
 
 <dl class="facts">
-  <dt>Meets</dt><dd>Thursdays, 10:15 am to 1:00 pm, in person</dd>
+  <dt>Meets</dt><dd>Thursdays, 10:15 am to 1:00 pm, in person, January 14 to April 22</dd>
+  <dt>Final</dt><dd>Prospectus due by 11:00 am, April 29, our scheduled exam slot</dd>
   <dt>Room</dt><dd>{COURSE['room']}</dd>
   <dt>Instructor</dt><dd>Kirsti K. Cole (she/her), <a href="mailto:{COURSE['email']}">{COURSE['email']}</a></dd>
   <dt>Office</dt><dd>Tompkins Hall 226</dd>

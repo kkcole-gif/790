@@ -4,7 +4,7 @@ CONTENT = {
     "facts": [
         ("Read", "No required reading"),
         ("Bring", "Notes for a five to ten minute presentation"),
-        ("Due", "Final prospectus one week after class"),
+        ("Due", "Final prospectus by 11:00 am, April 29, our exam slot"),
     ],
     "bring_heading": "Prepare",
     "bring": [
@@ -36,7 +36,7 @@ CONTENT = {
     ],
     "after_heading": "After the session",
     "after": [
-        "Submit your final prospectus one week after class, through Canvas or by email.",
+        "Submit your final prospectus by 11:00 am on April 29, the close of our scheduled exam slot, through Canvas or by email.",
         "Optional: reread your Week 5 Identity Statement and write a 200-word addendum. What would you add, revise, or complicate now?",
     ],
 }
