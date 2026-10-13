@@ -7,7 +7,7 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "No required reading. If you want an early start, Henry Giroux, “Critical Pedagogy and the Postmodern/Modern Divide: Towards a Pedagogy of Democratization,” <cite>Teacher Education Quarterly</cite> 31, no. 1 (2004): 31–47, is in the Week 1 Canvas Files folder. It is an earlier version of the Chapter 3 you read for Week 2.",
+        "No required reading. If you want an early start, the two Giroux essays for Week 2 are linked on the <a href=\"week-02.html\">Week 2 page</a>.",
     ],
     "bring": [
         "If you have one, a book you have marked up. We open our conversation about marginalia with it.",

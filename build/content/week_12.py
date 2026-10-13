@@ -1,15 +1,15 @@
 CONTENT = {
     "welcome": 'Ghosh asks what imagination is for. We press each other on stakes until we find them, and a CRDM graduate joins us to talk about where a dissertation goes after the degree.',
-    "lede": "Ghosh asks why literary and political imagination have failed to reckon with climate change. This week asks what your dissertation is for, and a CRDM graduate joins us to talk about where a dissertation goes after the degree.",
+    "lede": "Ghosh asks why literary imagination has failed to reckon with climate change. This week asks what your dissertation is for, and a CRDM graduate joins us to talk about where a dissertation goes after the degree.",
     "facts": [
-        ("Read", "Ghosh, <cite>The Great Derangement</cite>, Part 1 and selections from Part 3"),
+        ("Read", "Ghosh, <cite>The Great Derangement</cite>, Part 1 (about 82 pages)"),
         ("Bring", "A 150-word version of your project for a non-specialist"),
         ("Guest", "A CRDM graduate"),
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Amitav Ghosh, <cite>The Great Derangement: Climate Change and the Unthinkable</cite> (University of Chicago Press, 2016). Part 1, “Stories,” pages 3 to 84, and Part 3, “Politics,” pages 121 to 163. In the week’s Canvas Files folder.",
-        "Part 1 carries the central argument. Read it first if time runs short.",
+        "Amitav Ghosh, <cite>The Great Derangement: Climate Change and the Unthinkable</cite> (University of Chicago Press, 2016). Part 1, “Stories,” pages 3 to 84. In the week’s Canvas Files folder.",
+        "Part 1 carries the central argument. Parts 2 and 3, on history and politics, extend it for anyone who wants more.",
     ],
     "bring": [
         "An audience test: a 150-word version of your project for a curious, educated reader outside your field. What do you keep? What falls away?",

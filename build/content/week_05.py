@@ -2,15 +2,17 @@ CONTENT = {
     "welcome": 'Your first milestone is due, and Brown gives us a sharp way to ask why we are here at all. Write the identity statement for yourself first. We read them together in class.',
     "lede": "Brown argues neoliberalism remakes the subject, the citizen, the student, and the scholar. This week reads her account of the university alongside your first milestone, a statement of who you are as a scholar.",
     "facts": [
-        ("Read", "Brown, <cite>Undoing the Demos</cite>, Chapters 1 and 6 (about 58 pages)"),
+        ("Read", "Brown, two essays from 2003 and 2011 (about 45 pages)"),
         ("Bring", "Your Scholarly Identity Statement and your marked copy of Brown"),
         ("Due", "Milestone 1, Scholarly Identity Statement, before class"),
     ],
     "milestone": ("Scholarly Identity Statement",
         "About 500 words. Who are you as a scholar? What do you care about, what animates your research, and why does it matter? Where did your questions come from, and what do you want your work to do in the world? Write from conviction, for a reader who is not a hiring committee. A summary of your CV or a list of topics does not meet the threshold. 20% of the final grade. Submit through Canvas, by email, or in hard copy."),
     "read": [
-        "Wendy Brown, <cite>Undoing the Demos: Neoliberalism’s Stealth Revolution</cite> (Zone Books, 2015). Chapter 1, “Undoing Democracy: Neoliberalism’s Remaking of State and Subject,” pages 15 to 46, and Chapter 6, “Educating Human Capital,” pages 175 to 200. In the week’s Canvas Files folder. The library also holds <a href=\"https://discover.lib.ncsu.edu/nde/fulldisplay?docid=alma991009424159709636&amp;vid=01UNCSL_NCSU:NCSU\">the ebook</a>, limited to three readers at a time, so use the Canvas copy first.",
-        "Optional: the Preface, pages 9 to 14, for Brown’s core claim and method.",
+        "Wendy Brown, <a href=\"https://prox.lib.ncsu.edu/login?url=https://muse.jhu.edu/article/48659\">“Neo-liberalism and the End of Liberal Democracy,”</a> <cite>Theory &amp; Event</cite> 7, no. 1 (2003).",
+        "Wendy Brown, <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/10.1525/rep.2011.116.1.19\">“The End of Educated Democracy,”</a> <cite>Representations</cite> 116, no. 1 (2011): 19–41.",
+        "Both open through NC State Libraries, the first on Project MUSE and the second on JSTOR, with no limit on readers. Sign in with your Unity ID.",
+        "The 2003 essay states the argument Brown expands in <cite>Undoing the Demos</cite> (Zone Books, 2015). The 2011 essay turns it on the public university. Read the first for the theory of neoliberal rationality and the second for what it does to the humanities.",
     ],
     "bring": [
         "Your Scholarly Identity Statement, in a form you are willing to trade with a partner.",
@@ -19,14 +21,14 @@ CONTENT = {
     "questions": [
         "Brown argues neoliberalism remakes identity, values, and ways of relating to the world. Do you recognize the remaking in yourself?",
         "What does it mean to pursue a PhD in the humanities under neoliberalism? What are you investing in, and what return do others expect?",
-        "Brown distinguishes homo politicus from homo oeconomicus. Which are you being trained to be? Which do you want to be?",
+        "Brown argues neoliberal rationality recasts the citizen as an economic actor. Which are you being trained to be? Which do you want to be?",
         "What is the university for? Has Brown changed your answer?",
         "If the PhD is part self-investment and part critical refusal, how do you hold both at once?",
     ],
     "schedule": [
         ("10:15–10:35", "Opening question: what is the university for? We answer before reading Brown back to ourselves."),
-        ("10:35–11:10", "Brown on neoliberalism as political rationality, and the citizen and the economic subject."),
-        ("11:10–11:35", "Brown on higher education."),
+        ("10:35–11:10", "Brown’s 2003 essay: neoliberalism as political rationality, and the citizen and the economic subject."),
+        ("11:10–11:35", "Brown’s 2011 essay: the public university and educated democracy."),
         ("11:35–11:50", "Break"),
         ("11:50–12:35", "Identity statement exchange."),
         ("12:35–1:00", "Closing Movement I: what vocabulary do we now share?"),

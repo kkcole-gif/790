@@ -18,7 +18,7 @@ MOVEMENTS = [
     {"id": 1, "numeral": "I", "weeks": "1 to 5", "title": "Who Are We and What Do We Think?",
      "blurb": "A shared critical vocabulary, and a first account of who each of you is as a scholar. Readings from Giroux, Benjamin, Mbembe, and Brown."},
     {"id": 2, "numeral": "II", "weeks": "6 to 10", "title": "What Do I Know and Who Helps Me Know It?",
-     "blurb": "Committees, exam lists, and the labor behind both. Readings from Federici, Coverley, and Haraway."},
+     "blurb": "Committees, exam lists, and the labor behind both. Readings from Federici, Fisher, and Haraway."},
     {"id": 3, "numeral": "III", "weeks": "11 to 15", "title": "What Will I Make and Where Am I Going?",
      "blurb": "The prospectus, and the question of what the work is for. Readings from Marcuse and Ghosh."},
 ]
@@ -46,7 +46,7 @@ WEEKS = [
     {"n": 4, "movement": 1, "title": "Who Gets to Live",
      "summary": "Mbembe, Necropolitics. Concept translation workshop."},
     {"n": 5, "movement": 1, "title": "The University Under Neoliberalism", "due": "Identity Statement",
-     "summary": "Brown, Undoing the Demos. Identity statement exchange."},
+     "summary": "Brown on neoliberalism and the university. Identity statement exchange."},
     {"n": 6, "movement": 2, "title": "The Labor of Knowledge and the Labor of Committees", "guest": True, "built": True,
      "summary": "Federici, Caliban and the Witch. A recently advanced student joins us. Committee email workshop.",
      "content": {
@@ -106,7 +106,7 @@ WEEKS = [
         ],
      }},
     {"n": 7, "movement": 2, "title": "Hauntology: What Haunts Your Field?",
-     "summary": "Coverley, Hauntology. Rapid presentations. First-pass exam list, tagged by field."},
+     "summary": "Fisher on hauntology. Rapid presentations. First-pass exam list, tagged by field."},
     {"n": 8, "movement": 2, "title": "Exam List Workshop", "due": "Committee Confirmation",
      "summary": "Structured peer review of working draft lists."},
     {"n": 9, "movement": 2, "title": "Situated Knowledges: Revising the List", "guest": True,
