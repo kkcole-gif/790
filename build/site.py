@@ -154,7 +154,7 @@ def build_index():
 {''.join(rows)}
 
 <h2 id="milestones">Milestones</h2>
-<p>The course uses threshold grading. Each milestone is assessed as complete and substantive, nearly there, or not yet complete. Submit through Canvas, by email, or in hard copy.</p>
+<p>The course uses threshold grading. Each milestone is assessed as complete and substantive (full points), nearly there (80 percent), or not yet complete (no points). A nearly-there milestone revised to the complete threshold earns its full points. Submit through Canvas, by email, or in hard copy.</p>
 <ul>{''.join(ms)}</ul>
 
 <h2 id="access">Access and comfort</h2>
