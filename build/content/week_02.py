@@ -2,13 +2,13 @@ CONTENT = {
     "welcome": 'We begin the reading with Giroux because he asks the question this seminar keeps circling: what does it mean to think critically from inside an institution? Annotate honestly, including where you disagree.',
     "lede": "Giroux argues education is never neutral. This week asks what it means to be a critic inside an institution which grades, funds, and credentials you.",
     "facts": [
-        ("Read", "Giroux, <cite>On Critical Pedagogy</cite>, Chapter 1 (about 46 pages)"),
+        ("Read", "Giroux, <cite>On Critical Pedagogy</cite>, Chapters 1 and 3 (about 54 pages)"),
         ("Bring", "Your marked copy and one example from your own education"),
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Henry Giroux, <cite>On Critical Pedagogy</cite>, 2nd ed. (Bloomsbury, 2020). Chapter 1, “Critical Pedagogy and the Postmodern/Modern Divide,” pages 17 to 63. In the week’s Canvas Files folder, and online through the library.",
-        "Optional: Chapter 2, “Cultural Studies, Critical Pedagogy, and the Politics of Higher Education,” pages 65 to 113.",
+        "Henry Giroux, <cite>On Critical Pedagogy</cite>, 2nd ed. (Bloomsbury, 2020). Chapter 1, “Schooling and the Culture of Positivism: Notes on the Death of History,” pages 19 to 52, and Chapter 3, “The Promise of Critical Pedagogy in the Age of Globalization: Towards a Pedagogy of Democratization,” pages 79 to 98. In the week’s Canvas Files folder, and online through the library in Bloomsbury Collections.",
+        "Chapter 1 first appeared in 1979 and Chapter 3 in 2004. Read them as two moments in one career, and note what Giroux keeps and what he drops across twenty-five years.",
     ],
     "bring": [
         "Your marked copy, with two passages flagged for class: one you agree with and one you push back on, each with two or three sentences in the margin.",
