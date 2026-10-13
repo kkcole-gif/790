@@ -7,7 +7,7 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Henry Giroux, <cite>On Critical Pedagogy</cite>, 2nd ed. (Bloomsbury, 2020). Chapter 1, <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.bloomsburycollections.com/monograph-detail?docid=b-9781350145016&amp;tocid=b-9781350145016-chapter1&amp;pdfid=9781350145016.ch-001.pdf\">“Schooling and the Culture of Positivism: Notes on the Death of History,”</a> pages 19 to 52, and Chapter 3, <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.bloomsburycollections.com/monograph-detail?docid=b-9781350145016&amp;tocid=b-9781350145016-chapter3&amp;pdfid=9781350145016.ch-003.pdf\">“The Promise of Critical Pedagogy in the Age of Globalization: Towards a Pedagogy of Democratization,”</a> pages 79 to 98. Both open through NC State Libraries in Bloomsbury Collections. Sign in with your Unity ID, then read online or download the chapter as a PDF.",
+        "Henry Giroux, <cite>On Critical Pedagogy</cite>, 2nd ed. (Bloomsbury, 2020). Chapter 1, “Schooling and the Culture of Positivism: Notes on the Death of History,” pages 19 to 52, and Chapter 3, “The Promise of Critical Pedagogy in the Age of Globalization: Towards a Pedagogy of Democratization,” pages 79 to 98. Both are in the week’s Canvas Files folder. The library also holds <a href=\"https://discover.lib.ncsu.edu/nde/fulldisplay?docid=alma991009034599709636&amp;vid=01UNCSL_NCSU:NCSU\">the ebook through EBSCO</a>, limited to one reader at a time, so use the Canvas copy first.",
         "Chapter 1 first appeared in 1979 and Chapter 3 in 2004. Read them as two moments in one career, and note what Giroux keeps and what he drops across twenty-five years.",
     ],
     "bring": [
