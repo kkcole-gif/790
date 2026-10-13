@@ -19,10 +19,15 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600"
 def week_date(n):
     """Thursday of week n, skipping spring break."""
     first = dt.date.fromisoformat(COURSE["first_thursday"])
-    d = first + dt.timedelta(weeks=n - 1)
-    if n > COURSE["break_after_week"]:
-        d += dt.timedelta(weeks=1)
-    return d
+    if n == COURSE["meeting_week"]:
+        return first + dt.timedelta(weeks=n - 2)
+    return first + dt.timedelta(weeks=n - 1)
+
+
+def week_when(n, short=True):
+    if n == COURSE["meeting_week"]:
+        return COURSE["meeting_window_short" if short else "meeting_window"]
+    return fmt_date(week_date(n), short=short)
 
 
 def fmt_date(d, short=False):
@@ -92,7 +97,7 @@ def build_index():
             if w.get("guest"):
                 meta.append('<span class="chip m{0}">Guest</span>'.format(m["id"]))
             meta.append(html.escape(w["summary"]))
-            when = f'<span class="week-when"><b>Week {w["n"]}</b>{fmt_date(d, short=True)}</span>'
+            when = f'<span class="week-when"><b>Week {w["n"]}</b>{week_when(w["n"])}</span>'
             inner = (f'{when}<span class="week-title">{html.escape(w["title"])}</span>'
                      f'<span class="week-meta">{" ".join(meta)}</span>')
             if w.get("built"):
@@ -156,42 +161,39 @@ def build_index():
 
 def build_week(w):
     m = next(m for m in MOVEMENTS if m["id"] == w["movement"])
-    d = week_date(w["n"])
     c = w["content"]
-    sched = "".join(f'<tr><th scope="row">{t}</th><td>{a}</td></tr>' for t, a in c["schedule"])
-    parts = [f"""
+    out = [f"""
 <div class="week-head m{m['id']}">
-  <p class="eyebrow">Movement {m['numeral']} &middot; Week {w['n']} &middot; {fmt_date(d)}</p>
+  <p class="eyebrow">Movement {m['numeral']} &middot; Week {w['n']} &middot; {week_when(w['n'], short=False)}</p>
   <h1>{html.escape(w['title'])}</h1>
 </div>
 <p class="lede">{c['lede']}</p>
 <dl class="facts">{''.join(f'<dt>{k}</dt><dd>{v}</dd>' for k, v in c['facts'])}</dl>
-
-<h2 id="before">Before class</h2>
-<h3>Read</h3>
-<ul>{li(c['read'])}</ul>
-<h3>Write and bring</h3>
-<ul>{li(c['bring'])}</ul>
-<h3>Questions to carry into the reading</h3>
-<ul>{li(c['questions'])}</ul>
-
-<h2 id="in-class">In class</h2>
-<table class="schedule"><caption class="eyebrow" style="text-align:left;margin:0 0 .3rem">Session plan</caption>
-<thead><tr><th scope="col">Time</th><th scope="col">Activity</th></tr></thead><tbody>{sched}</tbody></table>
-"""]
-    for act in c["activities"]:
-        parts.append(f"""<div class="panel">
+<h2 id="before">{c.get('before_heading', 'Before class')}</h2>"""]
+    if c.get("milestone"):
+        out.append(f'<div class="panel milestone"><h3>Milestone due: {c["milestone"][0]}</h3><p>{c["milestone"][1]}</p></div>')
+    if c.get("read"):
+        out.append(f"<h3>Read</h3><ul>{li(c['read'])}</ul>")
+    if c.get("bring"):
+        out.append(f"<h3>{c.get('bring_heading', 'Write and bring')}</h3><ul>{li(c['bring'])}</ul>")
+    if c.get("questions"):
+        out.append(f"<h3>{c.get('questions_heading', 'Questions to carry into the reading')}</h3><ul>{li(c['questions'])}</ul>")
+    out.append(f"<h2 id=\"in-class\">{c.get('in_class_heading', 'In class')}</h2>{c.get('in_class_intro', '')}")
+    if c.get("schedule"):
+        sched = "".join(f'<tr><th scope="row">{t}</th><td>{a}</td></tr>' for t, a in c["schedule"])
+        out.append('<table class="schedule"><caption class="eyebrow" style="text-align:left;margin:0 0 .3rem">Session plan</caption>'
+                   f'<thead><tr><th scope="col">Time</th><th scope="col">Activity</th></tr></thead><tbody>{sched}</tbody></table>')
+    for act in c.get("activities", []):
+        out.append(f"""<div class="panel">
 <h3>{html.escape(act['title'])}</h3>
 <p>{act['intro']}</p>
 <ol class="steps">{li(act['steps'])}</ol>
 </div>""")
-    parts.append(f"""
-<h2 id="after">After class</h2>
-<ul>{li(c['after'])}</ul>
-
-<h2 id="further">Further reading</h2>
-<ul>{li(c['further'])}</ul>
-""")
+    if c.get("after"):
+        out.append(f"<h2 id=\"after\">{c.get('after_heading', 'After class')}</h2><ul>{li(c['after'])}</ul>")
+    if c.get("further"):
+        out.append(f"<h2 id=\"further\">Further reading</h2><ul>{li(c['further'])}</ul>")
+    parts = ["\n".join(out)]
     prev_w = next((x for x in WEEKS if x["n"] == w["n"] - 1), None)
     next_w = next((x for x in WEEKS if x["n"] == w["n"] + 1), None)
     pager = []

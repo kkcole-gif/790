@@ -2,8 +2,12 @@
 
 COURSE = {
     # Confirm against the registrar's calendar. Week dates derive from this value.
-    "first_thursday": "2027-01-07",
+    "first_thursday": "2027-01-14",
     "break_after_week": 10,
+    # Week 10 has no group session. Individual meetings run across this window.
+    "meeting_week": 10,
+    "meeting_window": "Individual meetings, March 11 to 24",
+    "meeting_window_short": "Mar 11\u201324",
     "room": "To be announced",
     "email": "kkcole2@ncsu.edu",
     "canvas": "https://ncsu.instructure.com/courses/798",
@@ -24,7 +28,8 @@ MILESTONES = [
      "gist": "About 500 words on who you are as a scholar and what your research is for."},
     {"title": "Draft Exam List", "due_week": 8, "due_note": "before class", "weight": "25%",
      "gist": "A working list with a rationale naming the fields it answers to and your position in each."},
-    {"title": "Committee Confirmation", "due_week": 10, "due_note": "during the week", "weight": "15%",
+    {"title": "Committee Confirmation", "weight": "15%",
+     "due_text": lambda wd, fd: "by March 24, the close of the Week 10 meeting window",
      "gist": "Your chair's confirmation, or a plan naming faculty and a timeline."},
     {"title": "Dissertation Prospectus", "weight": "40%",
      "due_text": lambda wd, fd: f"in two stages: a workshop draft before Week 14 ({fd(wd(14), True)}), and the final version one week after Week 15 ({fd(wd(15) + __import__('datetime').timedelta(weeks=1), True)})",
@@ -118,3 +123,14 @@ WEEKS = [
     {"n": 15, "movement": 3, "title": "What We Made and What We’re Seeing",
      "summary": "Prospectus presentations. The Week 1 cards return."},
 ]
+
+
+# Full week content lives in build/content/week_NN.py as CONTENT = {...}.
+import importlib as _il
+for _w in WEEKS:
+    try:
+        _mod = _il.import_module(f"content.week_{_w['n']:02d}")
+    except ModuleNotFoundError:
+        continue
+    _w["content"] = _mod.CONTENT
+    _w["built"] = True

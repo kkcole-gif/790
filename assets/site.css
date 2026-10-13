@@ -184,7 +184,7 @@ main { padding-bottom: 1rem; }
 .milestone { border-left: 6px solid var(--mountain-red); }
 
 .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; padding-top: 1rem; border-top: 1px solid var(--rule); }
-.pager a { max-width: 45%; }
+.pager a, .pager span { max-width: 45%; }
 @media (max-width: 30rem) { .pager a { max-width: 100%; } }
 
 @media print {
