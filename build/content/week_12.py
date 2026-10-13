@@ -4,7 +4,7 @@ CONTENT = {
     "facts": [
         ("Read", "Ghosh, <cite>The Great Derangement</cite>, Part 1 (about 82 pages)"),
         ("Bring", "A 150-word version of your project for a non-specialist"),
-        ("Guest", "A CRDM graduate"),
+        ("Guest", "A CRDM graduate, 11:05 to 11:45"),
         ("Due", "No milestone this week"),
     ],
     "read": [
@@ -23,13 +23,13 @@ CONTENT = {
     ],
     "schedule": [
         ("10:15–10:30", "Opening questions: is your dissertation for something, and for whom?"),
-        ("10:30–11:10", "Ghosh on scale, the unthinkable, and the failure of imagination."),
-        ("11:10–11:35", "Audience tests read aloud. A first round of “so what?”"),
-        ("11:35–11:50", "Break"),
-        ("11:50–12:35", "The “so what” gauntlet."),
-        ("12:35–1:00", "The real stakes, read aloud as a set."),
+        ("10:30–11:05", "Ghosh on scale, the unthinkable, and the failure of imagination."),
+        ("11:05–11:45", "Conversation with a CRDM graduate on where the dissertation went after the degree."),
+        ("11:45–12:00", "Break"),
+        ("12:00–12:40", "Audience tests read aloud, then the “so what” gauntlet."),
+        ("12:40–1:00", "The real stakes, read aloud as a set."),
     ],
-    "in_class_intro": "<p>A CRDM graduate joins us during the session to talk about what the dissertation made possible: where the work went, whom it reached, and how humanistic research travels beyond the academy.</p>",
+    "in_class_intro": "<p>A CRDM graduate joins us from 11:05 to 11:45 to talk about what the dissertation made possible: where the work went, whom it reached, and how humanistic research travels beyond the academy.</p>",
     "activities": [
         {"title": "The “so what” gauntlet",
          "intro": "Stakes often sit buried under disciplinary language. The gauntlet digs until it finds them.",

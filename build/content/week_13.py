@@ -4,7 +4,7 @@ CONTENT = {
     "facts": [
         ("Read", "No required reading"),
         ("Bring", "Three 100-word versions of your project, and one piece of scholarly writing you admire"),
-        ("Guests", "CRDM graduates working outside the academy"),
+        ("Guests", "CRDM graduates working outside the academy, 10:30 to 11:25"),
         ("Due", "No milestone this week"),
     ],
     "bring": [

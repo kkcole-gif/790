@@ -55,7 +55,7 @@ WEEKS = [
         "facts": [
             ("Read", "Federici, <cite>Caliban and the Witch</cite>, Introduction and Chapter 2 (about 80 pages)"),
             ("Bring", "A committee map and a draft email to your first committee contact"),
-            ("Guest", "A recently advanced CRDM student"),
+            ("Guest", "A recently advanced CRDM student, 11:45 to 12:30"),
             ("Due", "No milestone this week"),
         ],
         "read": [

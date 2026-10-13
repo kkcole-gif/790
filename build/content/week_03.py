@@ -4,7 +4,7 @@ CONTENT = {
     "facts": [
         ("Read", "Benjamin, <cite>Illuminations</cite>, three essays (about 74 pages)"),
         ("Bring", "One object from your research area, and one genuine question about the “Theses”"),
-        ("Guest", "A current CRDM doctoral student"),
+        ("Guest", "A current CRDM doctoral student, 12:20 to 1:00"),
         ("Due", "No milestone this week"),
     ],
     "read": [
@@ -29,10 +29,10 @@ CONTENT = {
         ("10:35–11:10", "“The Storyteller” and “The Work of Art.” What has digital reproduction done to aura?"),
         ("11:10–11:35", "Working through the “Theses” together."),
         ("11:35–11:50", "Break, and setting out objects for the gallery."),
-        ("11:50–12:35", "Wreckage and promise gallery."),
-        ("12:35–1:00", "Synthesis: what are we all working in the wreckage of?"),
+        ("11:50–12:20", "Wreckage and promise gallery."),
+        ("12:20–1:00", "Conversation with a current CRDM doctoral student on this stage of the program, closing on the synthesis question: what are we all working in the wreckage of?"),
     ],
-    "in_class_intro": "<p>A current doctoral student joins us during the session to talk about this stage of the program and what it asks of students.</p>",
+    "in_class_intro": "<p>A current doctoral student joins us from 12:20 to 1:00 to talk about this stage of the program and what it asks of students.</p>",
     "activities": [
         {"title": "Wreckage and promise gallery",
          "intro": "Benjamin’s angel faces the wreckage of the past while a storm drives it forward. The gallery reads your objects the same way.",

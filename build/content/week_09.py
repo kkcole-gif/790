@@ -4,7 +4,7 @@ CONTENT = {
     "facts": [
         ("Read", "Haraway, “Situated Knowledges” (about 25 pages)"),
         ("Bring", "Your revised draft list, a standpoint paragraph, and any committee responses"),
-        ("Guest", "A program faculty member who chairs committees"),
+        ("Guest", "A program faculty member who chairs committees, 10:50 to 11:40"),
         ("Due", "No milestone this week"),
     ],
     "read": [
