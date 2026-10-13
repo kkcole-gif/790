@@ -8,7 +8,7 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Amitav Ghosh, <cite>The Great Derangement: Climate Change and the Unthinkable</cite> (University of Chicago Press, 2016). Part 1, “Stories,” pages 1 to 84, and Part 3, “Politics,” pages 121 to 163. In the week’s Canvas Files folder.",
+        "Amitav Ghosh, <cite>The Great Derangement: Climate Change and the Unthinkable</cite> (University of Chicago Press, 2016). Part 1, “Stories,” pages 3 to 84, and Part 3, “Politics,” pages 121 to 163. In the week’s Canvas Files folder.",
         "Part 1 carries the central argument. Read it first if time runs short.",
     ],
     "bring": [

@@ -2,13 +2,13 @@ CONTENT = {
     "welcome": 'Welcome back from break. Marcuse opens our last movement by asking whether we still imagine alternatives, and the second half of the session turns to the question your committee will ask first: why this method?',
     "lede": "Marcuse argues advanced industrial society absorbs and neutralizes dissent. Movement III opens by turning his critique on your first prospectus paragraph, then asks you to argue for your method on epistemological grounds.",
     "facts": [
-        ("Read", "Marcuse, <cite>One-Dimensional Man</cite>, Introduction and Chapters 1 and 3 (about 53 pages)"),
+        ("Read", "Marcuse, <cite>One-Dimensional Man</cite>, Introduction and Chapters 1 and 3 (about 56 pages)"),
         ("Bring", "A prospectus paragraph and its critique, plus your research question and three candidate methods"),
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Herbert Marcuse, <cite>One-Dimensional Man</cite> (Beacon Press, 1991). Introduction to the first edition, pages xi to xvii. Chapter 1, “The New Forms of Control,” pages 1 to 18. Chapter 3, “The Conquest of the Unhappy Consciousness,” pages 56 to 83. In the week’s Canvas Files folder.",
-        "Pages 4 to 8, on false and true needs, anchor the discussion.",
+        "Herbert Marcuse, <cite>One-Dimensional Man</cite>, 2nd ed., introduction by Douglas Kellner (Routledge Classics, 2002). Introduction to the first edition, “The Paralysis of Criticism: Society without Opposition,” pages xxxix to xlviii. Chapter 1, “The New Forms of Control,” pages 3 to 20. Chapter 3, “The Conquest of the Unhappy Consciousness: Repressive Desublimation,” pages 59 to 86. In the week’s Canvas Files folder.",
+        "Pages 7 to 9, on false and true needs, anchor the discussion.",
     ],
     "bring": [
         "Your first prospectus paragraph: the problem, why it matters, and who it is for.",
