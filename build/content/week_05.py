@@ -2,14 +2,14 @@ CONTENT = {
     "welcome": 'Your first milestone is due, and Brown gives us a sharp way to ask why we are here at all. Write the identity statement for yourself first. We read them together in class.',
     "lede": "Brown argues neoliberalism remakes the subject, the citizen, the student, and the scholar. This week reads her account of the university alongside your first milestone, a statement of who you are as a scholar.",
     "facts": [
-        ("Read", "Brown, <cite>Undoing the Demos</cite>, Chapters 1 and 6 (about 87 pages)"),
+        ("Read", "Brown, <cite>Undoing the Demos</cite>, Chapters 1 and 6 (about 58 pages)"),
         ("Bring", "Your Scholarly Identity Statement and your marked copy of Brown"),
         ("Due", "Milestone 1, Scholarly Identity Statement, before class"),
     ],
     "milestone": ("Scholarly Identity Statement",
         "About 500 words. Who are you as a scholar? What do you care about, what animates your research, and why does it matter? Where did your questions come from, and what do you want your work to do in the world? Write from conviction, for a reader who is not a hiring committee. A summary of your CV or a list of topics does not meet the threshold. 20% of the final grade. Submit through Canvas, by email, or in hard copy."),
     "read": [
-        "Wendy Brown, <cite>Undoing the Demos: Neoliberalism’s Stealth Revolution</cite> (Zone Books, 2015). Chapter 1, “Undoing Democracy: Neoliberalism’s Remaking of State and Subject,” pages 15 to 46, and Chapter 6, “Educating Human Capital,” pages 175 to 200. In the week’s Canvas Files folder, and online through the library.",
+        "Wendy Brown, <cite>Undoing the Demos: Neoliberalism’s Stealth Revolution</cite> (Zone Books, 2015). Chapter 1, “Undoing Democracy: Neoliberalism’s Remaking of State and Subject,” pages 15 to 46, and Chapter 6, “Educating Human Capital,” pages 175 to 200. In the week’s Canvas Files folder. The library also holds <a href=\"https://discover.lib.ncsu.edu/nde/fulldisplay?docid=alma991009424159709636&amp;vid=01UNCSL_NCSU:NCSU\">the ebook</a>, limited to three readers at a time, so use the Canvas copy first.",
         "Optional: the Preface, pages 9 to 14, for Brown’s core claim and method.",
     ],
     "bring": [

@@ -8,7 +8,7 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Donna Haraway, “Situated Knowledges: The Science Question in Feminism and the Privilege of Partial Perspective,” <cite>Feminist Studies</cite> 14, no. 3 (1988): 575–599. In the week’s Canvas Files folder, or on Library Reserve.",
+        "Donna Haraway, “Situated Knowledges: The Science Question in Feminism and the Privilege of Partial Perspective,” <cite>Feminist Studies</cite> 14, no. 3 (1988): 575–599. <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/3178066\">Read it on JSTOR through NC State Libraries</a>.",
     ],
     "bring": [
         "Your draft list, revised after peer review.",

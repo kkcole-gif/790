@@ -2,12 +2,12 @@ CONTENT = {
     "welcome": 'Mbembe is short and demanding, so give him two sittings. The examples you bring will carry much of the conversation, so choose one you care about.',
     "lede": "Mbembe extends Foucault’s biopolitics to ask who is allowed to live and who is made to die, by design. This week tests his concepts against examples you bring.",
     "facts": [
-        ("Read", "Mbembe, <cite>Necropolitics</cite>, Introduction and Chapter 3 (about 41 pages)"),
+        ("Read", "Mbembe, <cite>Necropolitics</cite>, Introduction and Chapter 3 (about 35 pages)"),
         ("Bring", "Your marked copy and one example of necropolitical logic"),
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Achille Mbembe, <cite>Necropolitics</cite>, trans. Steve Corcoran (Duke University Press, 2019). Introduction, pages 1 to 14, and Chapter 3, “Necropolitics,” pages 66 to 92. In the week’s Canvas Files folder, and online through the library.",
+        "Achille Mbembe, <cite>Necropolitics</cite>, trans. Steve Corcoran (Duke University Press, 2019). <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/j.ctv1131298.4\">Introduction, “The Ordeal of the World,”</a> pages 1 to 8, and <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/j.ctv1131298.7\">Chapter 3, “Necropolitics,”</a> pages 66 to 92. Both open through NC State Libraries on JSTOR, with no limit on readers. Sign in with your Unity ID and download the chapter PDF.",
         "The reading is short and dense. Give it two sittings.",
     ],
     "bring": [
