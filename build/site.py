@@ -238,7 +238,7 @@ def build_week(w):
         link = f'<p><a href="../{mhref}">Full guide to the {html.escape(c["milestone"][0])} milestone</a></p>' if mhref else ""
         out.append(f'<div class="panel milestone"><h3>{icon("flag")}Milestone due: {c["milestone"][0]}</h3><p>{c["milestone"][1]}</p>{link}</div>')
     if c.get("read"):
-        out.append(f"<h3>{icon('book')}Read</h3><ul>{li(c['read'])}</ul>"
+        out.append(f"<h3>{icon('book')}Read</h3><ul class='readings'>{li(c['read'])}</ul>"
                    '<p class="aside">Read with a pen. The <a href="../guides/marginalia.html">marginalia guide</a> describes the practice.</p>')
     if c.get("bring"):
         out.append(f"<h3>{icon('pen')}{c.get('bring_heading', 'Write and bring')}</h3><ul>{li(c['bring'])}</ul>")

@@ -8,7 +8,7 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Walter Benjamin, <a href=\"https://drive.google.com/file/d/1Pvl0th51q0gDe-7pfTGpipVL1VpWEfeT/view\"><cite>Illuminations</cite></a>, ed. Hannah Arendt, trans. Harry Zohn (Schocken, 2007). PDF in the course Readings folder. Open it signed in with your NC State account. Read three essays:",
+        "Walter Benjamin, <a href=\"https://drive.google.com/file/d/1Pvl0th51q0gDe-7pfTGpipVL1VpWEfeT/view\"><cite>Illuminations</cite></a>, ed. Hannah Arendt, trans. Harry Zohn (Schocken, 2007). Read three essays:",
         "“The Storyteller,” pages 83 to 109.",
         "“The Work of Art in the Age of Mechanical Reproduction,” pages 217 to 251.",
         "“Theses on the Philosophy of History,” pages 253 to 264. Short and dense. Give the “Theses” more time than their length suggests.",

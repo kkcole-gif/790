@@ -7,7 +7,7 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Herbert Marcuse, <a href=\"https://drive.google.com/file/d/1BQZidySsjM-xfXg79L9Dg6Xkx6liVyJu/view\"><cite>One-Dimensional Man</cite></a>, 2nd ed., introduction by Douglas Kellner (Routledge Classics, 2002). Introduction to the first edition, “The Paralysis of Criticism: Society without Opposition,” pages xxxix to xlviii. Chapter 1, “The New Forms of Control,” pages 3 to 20. Chapter 3, “The Conquest of the Unhappy Consciousness: Repressive Desublimation,” pages 59 to 86. PDF in the course Readings folder. Open it signed in with your NC State account.",
+        "Herbert Marcuse, <a href=\"https://drive.google.com/file/d/1BQZidySsjM-xfXg79L9Dg6Xkx6liVyJu/view\"><cite>One-Dimensional Man</cite></a>, 2nd ed., introduction by Douglas Kellner (Routledge Classics, 2002). Introduction to the first edition, “The Paralysis of Criticism: Society without Opposition,” pages xxxix to xlviii. Chapter 1, “The New Forms of Control,” pages 3 to 20. Chapter 3, “The Conquest of the Unhappy Consciousness: Repressive Desublimation,” pages 59 to 86.",
         "Pages 7 to 9, on false and true needs, anchor the discussion.",
     ],
     "bring": [

@@ -259,3 +259,8 @@ ul.after li { margin-top: 0.5rem; }
 .plate img { display: block; max-width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); }
 .plate figcaption { font-size: 0.92rem; margin-top: 0.5rem; }
 .plate .credit { display: block; font-size: 0.85rem; opacity: 0.85; margin-top: 0.25rem; }
+
+/* Reading links: label each so it reads as a link to the text */
+.readings a[href*="drive.google.com"], .readings a[href*="prox.lib.ncsu.edu"] { font-weight: 600; text-underline-offset: 3px; }
+.readings a[href*="drive.google.com"]::after { content: " (PDF, NC State sign-in)"; font-weight: 400; font-size: 0.85em; }
+.readings a[href*="prox.lib.ncsu.edu"]::after { content: " (library, NC State sign-in)"; font-weight: 400; font-size: 0.85em; }
