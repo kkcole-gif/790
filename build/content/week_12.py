@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Ghosh asks what imagination is for. We press each other on stakes until we find them, and a CRDM graduate joins us to talk about where a dissertation goes after the degree.',
     "lede": "Ghosh asks why literary and political imagination have failed to reckon with climate change. This week asks what your dissertation is for, and a CRDM graduate joins us to talk about where a dissertation goes after the degree.",
     "facts": [
         ("Read", "Ghosh, <cite>The Great Derangement</cite>, Part 1 and selections from Part 3"),

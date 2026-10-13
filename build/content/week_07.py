@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Coverley asks what keeps returning in a field without resolution. Bring the haunting you notice in yours, and a first list of ten texts. Neither needs polish.',
     "lede": "Coverley traces hauntology from Derrida through Fisher into music, literature, and landscape. This week asks what keeps returning in your field, unresolved, and whether naming it gives you a project.",
     "facts": [
         ("Read", "Coverley, <cite>Hauntology: Ghosts of Futures Past</cite>, Parts 1 and 3"),

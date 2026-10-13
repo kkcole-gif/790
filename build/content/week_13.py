@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Our guests this week work beyond the academy. Come curious, and bring three versions of your project, written for three different readers.',
     "lede": "Graduates working beyond the academy join us to talk about what the PhD prepares you for. This week asks how to describe your expertise to different readers, and how to design a prospectus which serves more than one future.",
     "facts": [
         ("Read", "No required reading"),

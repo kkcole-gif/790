@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'A working day. Bring your full draft and a director’s note, and read your colleagues’ drafts as generously and specifically as you hope they read yours.',
     "lede": "A full working session on complete drafts. The workshop is generative: its purpose is to make each prospectus better, and nobody is grading where a draft stands today.",
     "facts": [
         ("Read", "Your group’s drafts, in advance if they arrive in time"),

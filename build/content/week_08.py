@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Your draft list is due, and it is the reading for the day. Peer review works best on a real draft, so submit what you have, gaps and all.',
     "lede": "Your draft list is the reading this week. A good list makes an argument about a field and your place in it, and a reader from outside your project should be able to see the argument.",
     "facts": [
         ("Read", "Your partner’s draft list and rationale, in class"),

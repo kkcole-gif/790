@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Benjamin is hard, and he repays the effort. Read the “Theses” slowly, bring an object from your research, and come ready to meet a current doctoral student who stood where you stand now.',
     "lede": "Benjamin insists the past is never settled. This week reads three of his essays against the objects you bring from your own research, and a current doctoral student joins us to talk about this stage of the program.",
     "facts": [
         ("Read", "Benjamin, <cite>Illuminations</cite>, three essays (about 74 pages)"),

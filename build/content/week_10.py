@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'No group session this week. You and I meet one on one instead. Bring your list, your seed writing, and anything about your committee you want to talk through.',
     "lede": "No group session this week. Each of you meets with me for twenty to thirty minutes on your list, your committee, and the problem your dissertation addresses.",
     "facts": [
         ("When", "By appointment, March 11 to 24, skipping spring break"),

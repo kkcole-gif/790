@@ -50,6 +50,7 @@ WEEKS = [
     {"n": 6, "movement": 2, "title": "The Labor of Knowledge and the Labor of Committees", "guest": True, "built": True,
      "summary": "Federici, Caliban and the Witch. A recently advanced student joins us. Committee email workshop.",
      "content": {
+        "welcome": "The practical work of candidacy begins this week. We read Federici on whose labor builds a field, then turn her question on ourselves with a recently advanced student and a workshop for your first committee email. Bring a draft, however rough.",
         "lede": "Federici asks whose labor built the fields you inherit. The second half of the session turns her question toward your own degree: whose labor will it require, and on what terms do you ask for it?",
         "facts": [
             ("Read", "Federici, <cite>Caliban and the Witch</cite>, Introduction and Chapter 2 (about 71 pages)"),

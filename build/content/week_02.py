@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'We begin the reading with Giroux because he asks the question this seminar keeps circling: what does it mean to think critically from inside an institution? Annotate honestly, including where you disagree.',
     "lede": "Giroux argues education is never neutral. This week asks what it means to be a critic inside an institution which grades, funds, and credentials you.",
     "facts": [
         ("Read", "Giroux, <cite>On Critical Pedagogy</cite>, Chapter 1 (about 46 pages)"),

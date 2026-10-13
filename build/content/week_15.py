@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Our last session. You present your work to colleagues, and the cards from our first day come back. Come proud of what you have made, and honest about what you are still working out.',
     "lede": "Each of you presents your project to colleagues: what you are doing, why it matters, and what you are still working out. The session is a celebration with teeth, honest and collegial, and it ends where the semester began.",
     "facts": [
         ("Read", "No required reading"),

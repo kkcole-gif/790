@@ -112,5 +112,10 @@
     <p>If any format on this site creates a barrier, email me and I will send an alternative before the next session.</p>
   </div>
 </footer>
+<script>
+  window.addEventListener("beforeprint", function () {
+    document.querySelectorAll("details").forEach(function (d) { d.setAttribute("open", ""); });
+  });
+</script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Mbembe is short and demanding, so give him two sittings. The examples you bring will carry much of the conversation, so choose one you care about.',
     "lede": "Mbembe extends Foucault’s biopolitics to ask who is allowed to live and who is made to die, by design. This week tests his concepts against examples you bring.",
     "facts": [
         ("Read", "Mbembe, <cite>Necropolitics</cite>, Introduction and Chapter 3 (about 41 pages)"),

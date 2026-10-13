@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Welcome back from break. Marcuse opens our last movement by asking whether we still imagine alternatives, and the second half of the session turns to the question your committee will ask first: why this method?',
     "lede": "Marcuse argues advanced industrial society absorbs and neutralizes dissent. Movement III opens by turning his critique on your first prospectus paragraph, then asks you to argue for your method on epistemological grounds.",
     "facts": [
         ("Read", "Marcuse, <cite>One-Dimensional Man</cite>, Introduction and Chapters 1 and 3 (about 53 pages)"),

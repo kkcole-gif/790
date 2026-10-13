@@ -78,6 +78,11 @@ def page(title, body, depth=0, description=""):
     <p>If any format on this site creates a barrier, email me and I will send an alternative before the next session.</p>
   </div>
 </footer>
+<script>
+  window.addEventListener("beforeprint", function () {{
+    document.querySelectorAll("details").forEach(function (d) {{ d.setAttribute("open", ""); }});
+  }});
+</script>
 </body>
 </html>
 """
@@ -161,43 +166,76 @@ def build_index():
     (ROOT / "index.html").write_text(out)
 
 
+ICONS = {
+    "book": '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/>',
+    "pen": '<path d="M15 4l5 5L9 20H4v-5z"/><path d="M13 6l5 5"/>',
+    "flag": '<path d="M5 22V3"/><path d="M5 4h12l-2.5 4L17 12H5"/>',
+    "people": '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.2a5 5 0 0 1 6 4.8"/>',
+    "calendar": '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+    "clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    "question": '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><circle cx="12" cy="17.5" r=".6"/>',
+    "arrow": '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    "shelf": '<path d="M5 3v18M10 3v18M15 5l4 15"/>',
+    "spark": '<path d="M12 3v6M12 15v6M3 12h6M15 12h6"/>',
+}
+FACT_ICON = {"Read": "book", "Bring": "pen", "Prepare": "pen", "Due": "flag", "Guest": "people",
+             "Guests": "people", "When": "calendar"}
+
+
+def icon(name):
+    return (f'<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" '
+            f'stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">{ICONS[name]}</svg>')
+
+
+def fold(title, inner, ic, open_=False, hid=""):
+    return (f'<details class="fold"{" open" if open_ else ""}><summary><h3{hid}>{icon(ic)}{title}</h3></summary>'
+            f'<div class="fold-body">{inner}</div></details>')
+
+
 def build_week(w):
     m = next(m for m in MOVEMENTS if m["id"] == w["movement"])
     c = w["content"]
+    tiles = "".join(
+        f'<div class="tile"><dt>{icon(FACT_ICON.get(k, "spark"))}{k}</dt><dd>{v}</dd></div>' for k, v in c["facts"])
+    welcome = (f'<div class="welcome"><p>{c["welcome"]}</p><p class="sig">Kirsti</p></div>'
+               if c.get("welcome") else "")
     out = [f"""
-<div class="week-head m{m['id']}">
+<header class="week-hero m{m['id']}">
   <p class="eyebrow">Movement {m['numeral']} &middot; Week {w['n']} &middot; {week_when(w['n'], short=False)}</p>
   <h1>{html.escape(w['title'])}</h1>
-</div>
-<p class="lede">{c['lede']}</p>
-<dl class="facts">{''.join(f'<dt>{k}</dt><dd>{v}</dd>' for k, v in c['facts'])}</dl>
-<h2 id="before">{c.get('before_heading', 'Before class')}</h2>"""]
+  {welcome}
+</header>
+<section aria-label="This week at a glance" class="glance"><dl>{tiles}</dl></section>
+<p class="lede">{c['lede']}</p>"""]
+
+    out.append(f"<h2 id=\"before\">{c.get('before_heading', 'Before we meet')}</h2>")
     if c.get("milestone"):
-        mhref = next((m["href"] for m in MILESTONES if m["title"] in c["milestone"][0] or c["milestone"][0].startswith("Prospectus") and m["title"] == "Dissertation Prospectus"), None)
+        mhref = next((m2["href"] for m2 in MILESTONES if m2["title"] in c["milestone"][0]
+                      or (c["milestone"][0].startswith("Prospectus") and m2["title"] == "Dissertation Prospectus")), None)
         link = f'<p><a href="../{mhref}">Full guide to the {html.escape(c["milestone"][0])} milestone</a></p>' if mhref else ""
-        out.append(f'<div class="panel milestone"><h3>Milestone due: {c["milestone"][0]}</h3><p>{c["milestone"][1]}</p>{link}</div>')
+        out.append(f'<div class="panel milestone"><h3>{icon("flag")}Milestone due: {c["milestone"][0]}</h3><p>{c["milestone"][1]}</p>{link}</div>')
     if c.get("read"):
-        out.append(f"<h3>Read</h3><ul>{li(c['read'])}</ul>")
+        out.append(f"<h3>{icon('book')}Read</h3><ul>{li(c['read'])}</ul>")
     if c.get("bring"):
-        out.append(f"<h3>{c.get('bring_heading', 'Write and bring')}</h3><ul>{li(c['bring'])}</ul>")
+        out.append(f"<h3>{icon('pen')}{c.get('bring_heading', 'Write and bring')}</h3><ul>{li(c['bring'])}</ul>")
     if c.get("questions"):
-        out.append(f"<h3>{c.get('questions_heading', 'Questions to carry into the reading')}</h3><ul>{li(c['questions'])}</ul>")
-    out.append(f"<h2 id=\"in-class\">{c.get('in_class_heading', 'In class')}</h2>{c.get('in_class_intro', '')}")
+        out.append(fold(c.get('questions_heading', 'Questions to carry into the reading'),
+                        f"<ul>{li(c['questions'])}</ul>", "question"))
+
+    out.append(f"<h2 id=\"in-class\">{c.get('in_class_heading', 'When we meet')}</h2>{c.get('in_class_intro', '')}")
     if c.get("schedule"):
         sched = "".join(f'<tr><th scope="row">{t}</th><td>{a}</td></tr>' for t, a in c["schedule"])
-        out.append('<table class="schedule"><caption class="eyebrow" style="text-align:left;margin:0 0 .3rem">Session plan</caption>'
-                   f'<thead><tr><th scope="col">Time</th><th scope="col">Activity</th></tr></thead><tbody>{sched}</tbody></table>')
+        out.append(fold("Session plan",
+                        f'<table class="schedule"><thead><tr><th scope="col">Time</th><th scope="col">Activity</th></tr></thead><tbody>{sched}</tbody></table>',
+                        "clock", open_=True))
     for act in c.get("activities", []):
-        out.append(f"""<div class="panel">
-<h3>{html.escape(act['title'])}</h3>
-<p>{act['intro']}</p>
-<ol class="steps">{li(act['steps'])}</ol>
-{f'<p><a href="../{act["handout"]}">Open the full handout</a></p>' if act.get("handout") else ""}
-</div>""")
+        handout = f'<p><a href="../{act["handout"]}">Open the full handout</a></p>' if act.get("handout") else ""
+        out.append(fold(html.escape(act["title"]),
+                        f"<p>{act['intro']}</p><ol class=\"steps\">{li(act['steps'])}</ol>{handout}", "spark"))
     if c.get("after"):
-        out.append(f"<h2 id=\"after\">{c.get('after_heading', 'After class')}</h2><ul>{li(c['after'])}</ul>")
+        out.append(f"<h2 id=\"after\">{c.get('after_heading', 'After we meet')}</h2><ul class=\"after\">{li(c['after'])}</ul>")
     if c.get("further"):
-        out.append(f"<h2 id=\"further\">Further reading</h2><ul>{li(c['further'])}</ul>")
+        out.append(fold("Further reading, if this week opened something up", f"<ul>{li(c['further'])}</ul>", "shelf"))
     parts = ["\n".join(out)]
     prev_w = next((x for x in WEEKS if x["n"] == w["n"] - 1), None)
     next_w = next((x for x in WEEKS if x["n"] == w["n"] + 1), None)

@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Haraway helps us ask where we stand when we claim to know something. A faculty member who chairs committees joins us, and we audit our lists together. Bring whatever your committee contacts have said.',
     "lede": "Haraway argues against the view from nowhere. This week applies her argument to your list, alongside a faculty member who reads lists from the committee’s side of the table.",
     "facts": [
         ("Read", "Haraway, “Situated Knowledges” (about 25 pages)"),

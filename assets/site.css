@@ -212,3 +212,43 @@ main { padding-bottom: 1rem; }
 .example.thin { border-color: var(--rule); }
 .example p { margin: 0.3rem 0; }
 .doc-list { padding-left: 1.3rem; }
+
+/* Friendlier week pages */
+.icon { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-right: 0.45em; flex: none; }
+.week-hero { border-radius: 10px; padding: 1.6rem 1.4rem 1.4rem; margin-top: 1.6rem; color: var(--umber); }
+.week-hero.m1 { background: var(--mist); }
+.week-hero.m2 { background: var(--parchment); }
+.week-hero.m3 { background: var(--scarf-gold); }
+.week-hero .eyebrow { margin-top: 0; }
+.week-hero h1 { margin-bottom: 0.6rem; }
+.welcome { background: var(--cream); border-radius: 8px; padding: 0.9rem 1.1rem; margin-top: 1rem; max-width: 46rem; }
+.welcome p { margin: 0; color: var(--umber); }
+.welcome .sig { margin-top: 0.5rem; font-family: var(--serif); font-style: italic; }
+.glance dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.8rem; margin: 1.2rem 0 1.4rem; }
+.tile { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 0.8rem 1rem; }
+.tile dt { font-weight: 700; display: flex; align-items: center; margin-bottom: 0.25rem; }
+.tile dd { margin: 0; }
+main h2 { margin-top: 2.8rem; }
+h3 { display: flex; align-items: center; }
+details.fold { border-top: 1px solid var(--rule); margin: 0; }
+details.fold:last-of-type { border-bottom: 1px solid var(--rule); }
+details.fold + :not(details) { margin-top: 1.4rem; }
+details.fold summary { cursor: pointer; list-style: none; padding: 0.7rem 0; display: flex; align-items: center; }
+details.fold summary::-webkit-details-marker { display: none; }
+details.fold summary h3 { margin: 0; font-size: 1.08rem; flex: 1; }
+details.fold summary::after { content: "+"; font-size: 1.4rem; line-height: 1; padding: 0 0.3rem; }
+details.fold[open] summary::after { content: "\2212"; }
+.fold-body { padding: 0 0 1rem 1.6rem; }
+.fold-body > :first-child { margin-top: 0; }
+ul.after li { margin-top: 0.5rem; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .week-hero { background: var(--night-plum); color: var(--cream); }
+  :root:not([data-theme="light"]) .welcome { background: var(--night-ink); }
+  :root:not([data-theme="light"]) .welcome p { color: var(--cream); }
+}
+@media print { .week-hero { background: none !important; padding: 0; } details.fold summary::after { content: ""; } }
+@media (max-width: 30rem) {
+  .fold-body { padding-left: 0; }
+  .schedule th { white-space: normal; }
+  .schedule td { overflow-wrap: anywhere; }
+}

@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Welcome to CRDM 790. This first session is for meeting each other as thinkers, so there is nothing to read, and the only preparation is a short piece of writing about where you come from. Bring yourself and your questions.',
     "lede": "The first session introduces the cohort to itself. Each of you arrives with an intellectual history, and the work of the semester begins by putting those histories in the room.",
     "facts": [
         ("Read", "No required reading"),

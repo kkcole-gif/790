@@ -1,4 +1,5 @@
 CONTENT = {
+    "welcome": 'Your first milestone is due, and Brown gives us a sharp way to ask why we are here at all. Write the identity statement for yourself first. We read them together in class.',
     "lede": "Brown argues neoliberalism remakes the subject, the citizen, the student, and the scholar. This week reads her account of the university alongside your first milestone, a statement of who you are as a scholar.",
     "facts": [
         ("Read", "Brown, <cite>Undoing the Demos</cite>, Chapters 1 and 6 (about 87 pages)"),
