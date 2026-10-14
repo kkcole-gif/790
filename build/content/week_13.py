@@ -24,8 +24,8 @@ CONTENT = {
         ("10:15–10:30", "Your three versions, shared in small groups. What stays constant across them?"),
         ("10:30–11:25", "Conversation with our guests."),
         ("11:25–11:40", "Break"),
-        ("11:40–12:25", "Three versions side by side, and how knowledge travels."),
-        ("12:25–1:00", "Writing and go-around: one thing you now want your prospectus to do."),
+        ("11:40–12:25", "How knowledge travels: venue and funding maps, then two abstracts."),
+        ("12:25–1:00", "Three versions side by side, then a go-around: one thing you now want your prospectus to do."),
     ],
     "in_class_intro": "<p>I went from my undergraduate degree into a PhD and then into a tenure-track position, a path few now follow. Our guests know this terrain better than I do. We ask them to speak with candor.</p>",
     "activities": [

@@ -2,7 +2,7 @@ CONTENT = {
     "welcome": 'A working day. Bring your full draft and a director’s note, and read your colleagues’ drafts as generously and specifically as you hope they read yours.',
     "lede": "A full working session on complete drafts. The workshop is generative: its purpose is to make each prospectus better, and nobody is grading where a draft stands today.",
     "facts": [
-        ("Read", "Your group’s drafts, in advance if they arrive in time"),
+        ("Read", "Your group’s drafts and director’s notes, before class"),
         ("Bring", "Your full prospectus draft and a director’s note"),
         ("Due", "Milestone 4 workshop draft, the night before class"),
     ],
@@ -30,12 +30,11 @@ CONTENT = {
     ],
     "activities": [
         {"title": "Prospectus workshop",
-         "intro": "Groups are assigned. Each draft receives the same structure, timed strictly.",
+         "intro": "Groups of three or four are assigned. Read your group’s drafts before class. Each draft then receives the same 25 minutes, timed strictly.",
          "steps": [
-             "Silent reading of the draft and its director’s note, if the group has not read it in advance.",
-             "Written responses using the protocol.",
-             "Discussion, with the writer listening before speaking.",
-             "The writer responds: what did you hear, what surprised you, and what will you take away?",
+             "Five minutes: the writer frames the draft from the director’s note.",
+             "Ten minutes: each reader writes a response using the protocol.",
+             "Ten minutes: discussion, with the writer listening first, closing with the writer’s response: what did you hear, what surprised you, and what will you take away?",
          ]},
     ],
     "after": [
