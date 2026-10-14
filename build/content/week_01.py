@@ -41,7 +41,7 @@ CONTENT = {
     ],
     "after": [
         "Read Giroux for Week 2, pen in hand. The <a href=\"../guides/marginalia.html\">marginalia guide</a> explains the practice.",
-        "Sign up for a reading lead slot in Canvas.",
+        "Sign up for a reading lead week on the <a href=\"https://ncsu.instructure.com/courses/798/pages/reading-lead-sign-up\">Canvas sign-up page</a> by Sunday, January 17.",
         "Book an office hours conversation if you want to talk through your plans for the year.",
     ],
     "further": [
