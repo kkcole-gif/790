@@ -59,7 +59,7 @@ WEEKS = [
             ("Due", "No milestone this week"),
         ],
         "read": [
-            "Silvia Federici, <cite>Caliban and the Witch: Women, the Body, and Primitive Accumulation</cite> (Autonomedia, 2004). <a href=\"https://drive.google.com/file/d/1Tn2NimQtiJQYXCDDqGhjm571BMyPEBt-/view\">Introduction, pages 11 to 19, and the sections of Chapter 2 from “Women: The New Commons and the Substitute for the Lost Land” through “The Patriarchy of the Wage.”</a>",
+            "Silvia Federici, <cite>Caliban and the Witch: Women, the Body, and Primitive Accumulation</cite> (Autonomedia, 2004). <a href=\"https://drive.google.com/file/d/1K4yg0XU28FMxzA20O9pBwDpXvW2oNCQK/view\">Introduction, pages 11 to 19, and the sections of Chapter 2 from “The Devaluation of Women’s Labor” through “The Patriarchy of the Wage,” pages 92 to 100.</a>",
             "Dolores Delgado Bernal and Octavio Villalpando, <a href=\"https://prox.lib.ncsu.edu/login?url=https://doi.org/10.1080/713845282\">“An Apartheid of Knowledge in Academia: The Struggle Over the ‘Legitimate’ Knowledge of Faculty of Color,”</a> <cite>Equity &amp; Excellence in Education</cite> 35, no. 2 (2002): 169–180.",
             "Federici asks whose labor built a field. Delgado Bernal and Villalpando ask whose knowledge the academy counts as legitimate. Read them together before you write to a prospective committee member.",
         ],

@@ -8,7 +8,7 @@ CONTENT = {
     ],
     "read": [
         "Achille Mbembe, <cite>Necropolitics</cite>, trans. Steve Corcoran (Duke University Press, 2019). <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/j.ctv1131298.7\">Chapter 3, “Necropolitics,”</a> pages 66 to 92. Optional: <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/j.ctv1131298.4\">the Introduction, “The Ordeal of the World,”</a> pages 1 to 8. Both open through NC State Libraries on JSTOR, with no limit on readers. Sign in with your Unity ID and download the chapter PDF.",
-        "Ruha Benjamin, <a href=\"https://drive.google.com/file/d/1wlt0PW-NMkusZwNFUzh_HynZul-eRkzc/view\"><cite>Race After Technology: Abolitionist Tools for the New Jim Code</cite>, Introduction, “The New Jim Code”</a> (Polity, 2019).",
+        "Ruha Benjamin, <a href=\"https://drive.google.com/file/d/1yQSf4IdHOP1Eawf_rIBl8hD3UKvJMSrr/view\"><cite>Race After Technology: Abolitionist Tools for the New Jim Code</cite>, Introduction, “The New Jim Code”</a> (Polity, 2019).",
         "Read Mbembe’s chapter first, in two sittings. Then read Benjamin for how a design choice becomes a decision about whose life counts.",
     ],
     "bring": [

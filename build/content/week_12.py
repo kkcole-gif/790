@@ -8,7 +8,7 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Amitav Ghosh, <cite>The Great Derangement: Climate Change and the Unthinkable</cite> (University of Chicago Press, 2016). <a href=\"https://drive.google.com/file/d/1h8f7__ayA1_IAZurr36nNn65qKOv7kFm/view\">Part 1, “Stories,”</a> pages 3 to 84.",
+        "Amitav Ghosh, <cite>The Great Derangement: Climate Change and the Unthinkable</cite> (University of Chicago Press, 2016). <a href=\"https://drive.google.com/file/d/19GHGDoN1USfNmcEJYgmd60kTk6NB3ZUK/view\">Part 1, “Stories,”</a> pages 3 to 84.",
         "Part 1 carries the central argument. Parts 2 and 3, on history and politics, extend it for anyone who wants more.",
     ],
     "bring": [

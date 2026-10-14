@@ -8,7 +8,7 @@ CONTENT = {
     ],
     "read": [
         "Mark Fisher, <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/10.1525/fq.2012.66.1.16\">“What Is Hauntology?”</a> <cite>Film Quarterly</cite> 66, no. 1 (2012): 16–24. On JSTOR through NC State Libraries, with no limit on readers.",
-        "Mark Fisher, <a href=\"https://drive.google.com/file/d/1ZP5XEyTil5QRzzecIar3DHfBLbZuBrgU/view\">“The Slow Cancellation of the Future,”</a> the opening essay of <cite>Ghosts of My Life: Writings on Depression, Hauntology and Lost Futures</cite> (Zero Books, 2014). Read the opening essay, which ends where “Ghosts of My Life: Goldie, Japan, Tricky” begins.",
+        "Mark Fisher, <a href=\"https://drive.google.com/file/d/1um21YNf8SmarRnhe5sY9A1zPYAswxjPG/view\">“The Slow Cancellation of the Future,”</a> the opening essay of <cite>Ghosts of My Life: Writings on Depression, Hauntology and Lost Futures</cite> (Zero Books, 2014). Read the opening essay, which ends where “Ghosts of My Life: Goldie, Japan, Tricky” begins.",
         "Read the article first. It sets out the terms, from Derrida’s specter to the music Fisher hears as haunted. The essay then turns the concept on the present, and on Fisher himself.",
     ],
     "bring": [

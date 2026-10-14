@@ -8,7 +8,7 @@ CONTENT = {
         ("Due", "No milestone this week"),
     ],
     "read": [
-        "Walter Benjamin, <a href=\"https://drive.google.com/file/d/1Pvl0th51q0gDe-7pfTGpipVL1VpWEfeT/view\"><cite>Illuminations</cite></a>, ed. Hannah Arendt, trans. Harry Zohn (Schocken, 2007). Read three essays:",
+        "Walter Benjamin, <a href=\"https://drive.google.com/file/d/1Wjz55IlGuayVA5OHD40JQ572pmRG4CYI/view\"><cite>Illuminations</cite></a>, ed. Hannah Arendt, trans. Harry Zohn (Schocken, 2007). Read three essays:",
         "“The Storyteller,” pages 83 to 109.",
         "“The Work of Art in the Age of Mechanical Reproduction,” pages 217 to 251.",
         "“Theses on the Philosophy of History,” pages 253 to 264. Short and dense. Give the “Theses” more time than their length suggests.",
@@ -48,7 +48,7 @@ CONTENT = {
         "Keep your wreckage sentence for the Identity Statement due in Week 5.",
     ],
     "further": [
-        "Hannah Arendt, “Walter Benjamin: 1892–1940,” her introduction to <cite>Illuminations</cite>, pages 1 to 55, in the same PDF. Essential context.",
+        "Hannah Arendt, <a href=\"https://drive.google.com/file/d/1_TR2CFD6Ekbt1_Abtfu0zOHsX0J4MPqf/view\">“Walter Benjamin: 1892–1940,”</a> her introduction to <cite>Illuminations</cite>, pages 1 to 55. Essential context.",
         "Susan Buck-Morss, <a href=\"https://drive.google.com/file/d/1I4slUw89Q7Fzl2rzksw8HwzJtoi4LabI/view\"><cite>The Dialectics of Seeing</cite></a>, the most thorough account of Benjamin’s method. In the Readings folder.",
     ],
 }
