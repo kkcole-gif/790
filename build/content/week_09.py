@@ -35,7 +35,7 @@ CONTENT = {
     ],
     "activities": [
         {"title": "Canon audit of the draft list",
-         "intro": "The audit works on your own draft. Auditing an imagined canon describes a field. Auditing your own list asks you to decide what to change.",
+         "intro": "The audit works on your own draft. Auditing a canon in the abstract describes a field. Auditing your own list asks you to decide what to change.",
          "steps": [
              "Work from your Week 8 draft, revised after peer review.",
              "For each text, note the author’s apparent position, as far as you know it. Mark texts centering Global South, feminist, queer, or disabled perspectives.",

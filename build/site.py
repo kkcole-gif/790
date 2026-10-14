@@ -47,6 +47,8 @@ def _new_tabs(doc):
         href = m.group(1)
         if "target=" in tag or href.startswith(("#", "mailto:")):
             return tag
+        if "rel=" in tag:
+            return tag[:-1] + ' target="_blank">'
         return tag[:-1] + ' target="_blank" rel="noopener">'
     return re.sub(r'<a\s[^>]*href="([^"]*)"[^>]*>', fix, doc)
 
@@ -111,9 +113,9 @@ def build_index():
             d = week_date(w["n"])
             meta = []
             if w.get("due"):
-                meta.append(f'<span class="chip due">Due: {html.escape(w["due"])}</span>')
+                meta.append(f'<span class="chip due">Due: {html.escape(w["due"])}<span class="sr-only">.</span></span>')
             if w.get("guest"):
-                meta.append('<span class="chip m{0}">Guest</span>'.format(m["id"]))
+                meta.append('<span class="chip m{0}">Guest<span class="sr-only">.</span></span>'.format(m["id"]))
             meta.append(html.escape(w["summary"]))
             when = f'<span class="week-when"><b>Week {w["n"]}</b>{week_when(w["n"])}</span>'
             inner = (f'{when}<span class="week-title">{html.escape(w["title"])}</span>'

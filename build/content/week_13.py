@@ -12,6 +12,7 @@ CONTENT = {
         "One piece of scholarly communication from your field you admire: an article, a chapter, or a public essay. Know its genre, its venue, and what its opening paragraph does.",
         "A one-page venue and funding map. Name three journals where your work would land, two conferences where it would be welcome, one public or industry venue, and two sources of support for your dissertation year, such as a Graduate School or college fellowship, an external dissertation fellowship, or a professional organization grant in your field. Give each a sentence on why it fits, and note one deadline. The <a href=\"../handouts/how-knowledge-travels.html\">handout</a> lists places to start.",
     ],
+    "questions_heading": "Questions to carry into the session",
     "questions": [
         "What has the PhD given you beyond your content area: which skills, frameworks, and habits of thought?",
         "How do you describe your expertise to someone in a hiring context outside your field?",
@@ -26,7 +27,7 @@ CONTENT = {
         ("11:40–12:25", "Three versions side by side, and how knowledge travels."),
         ("12:25–1:00", "Writing and go-around: one thing you now want your prospectus to do."),
     ],
-    "in_class_intro": "<p>I went from my undergraduate degree into a PhD and then into a tenure-track position, a path few now follow. Our guests know this terrain better than I do. We ask them for candor over polish.</p>",
+    "in_class_intro": "<p>I went from my undergraduate degree into a PhD and then into a tenure-track position, a path few now follow. Our guests know this terrain better than I do. We ask them to speak with candor.</p>",
     "activities": [
         {"handout": "handouts/how-knowledge-travels.html", "title": "How knowledge travels",
          "intro": "Which venues matter, what each genre does, and what an abstract is for are usually learned through mentorship and chance. This activity makes the knowledge explicit.",
@@ -40,7 +41,7 @@ CONTENT = {
     ],
     "after": [
         "Finish your full prospectus draft, due before Week 14, with a one-paragraph director’s note.",
-        "If your post-degree goals are primarily nonacademic and you have not yet talked with me about an alternative prospectus, do so this week.",
+        "If you chose the nonacademic prospectus option, confirm its form with me this week.",
     ],
     "further": [
         "Karen Kelsky, <cite>The Professor Is In</cite>, the chapters on careers beyond the academy.",

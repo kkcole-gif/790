@@ -7,7 +7,7 @@ CONTENT = {
         ("Due", "Milestone 1, Scholarly Identity Statement, before class"),
     ],
     "milestone": ("Scholarly Identity Statement",
-        "About 500 words. Who are you as a scholar? What do you care about, what animates your research, and why does it matter? Where did your questions come from, and what do you want your work to do in the world? Write from conviction, for a reader who is not a hiring committee. A summary of your CV or a list of topics does not meet the threshold. 20% of the final grade. Submit through Canvas, by email, or in hard copy."),
+        "About 500 words. Who are you as a scholar? What do you care about, what animates your research, and why does it matter? Where did your questions come from, and what do you want your work to do in the world? Write from conviction, for a reader who wants to know what you care about. A summary of your CV or a list of topics does not meet the threshold. 20% of the final grade. Submit through Canvas, by email, or in hard copy."),
     "read": [
         "Wendy Brown, <a href=\"https://prox.lib.ncsu.edu/login?url=https://muse.jhu.edu/article/48659\">“Neo-liberalism and the End of Liberal Democracy,”</a> <cite>Theory &amp; Event</cite> 7, no. 1 (2003).",
         "Wendy Brown, <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/10.1525/rep.2011.116.1.19\">“The End of Educated Democracy,”</a> <cite>Representations</cite> 116, no. 1 (2011): 19–41.",

@@ -104,7 +104,7 @@ WEEKS = [
         "further": [
             "Saidiya Hartman, “Venus in Two Acts,” on the archive, its silences, and humanistic imagination. It pairs with next week.",
             "María Lugones, “Heterosexualism and the Colonial/Modern Gender System,” a decolonial feminist extension of Federici.",
-            "Karen Kelsky, <cite>The Professor Is In</cite>, the chapters on choosing advisors and committee dynamics. Library Reserve.",
+            "Karen Kelsky, <cite>The Professor Is In</cite>, the chapters on choosing advisors and committee dynamics. Through NC State Libraries.",
         ],
      }},
     {"n": 7, "movement": 2, "title": "Hauntology: What Haunts Your Field?",

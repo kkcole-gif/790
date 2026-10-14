@@ -34,7 +34,7 @@ CONTENT = {
          "intro": "Pairs are assigned. Each reader responds in writing before any discussion begins.",
          "steps": [
              "Exchange lists and rationale paragraphs.",
-             "Respond in writing for fifteen minutes: the organizing logic I see, a gap I notice, a text I would add and why, and the most interesting tension on the list.",
+             "Respond in writing for fifteen minutes: the organizing logic I see, a gap I notice, a text I would add and why, the most interesting tension on the list, and one question for the author about the choices behind it.",
              "Discuss the responses, ten minutes per list.",
              "Join the full group to compare what the lists reveal about the cohort, and set them beside the <a href=\"https://drive.google.com/drive/folders/1arRvn-FOWzpH4awp56QDd9cmVTUBCqdu\">past CRDM exam lists</a>.",
          ]},

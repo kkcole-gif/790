@@ -45,7 +45,7 @@ CONTENT = {
         "Milestone 2, Committee Confirmation, is due before Week 8: your chair’s confirmation, or a plan with names and dates.",
     ],
     "further": [
-        "Merlin Coverley, <cite>Hauntology: Ghosts of Futures Past</cite> (Oldcastle Books, 2020), a genealogy of the concept from Marx and Dickens to Fisher.",
+        "Merlin Coverley, <cite>Hauntology: Ghosts of Futures Past</cite> (Oldcastle Books, 2020), a genealogy of the concept from Marx and Derrida to Fisher.",
         "Jacques Derrida, <a href=\"https://drive.google.com/file/d/1EYNGGBmPIS64XmrzzkJ1q3VGrVAOz3pm/view\"><cite>Specters of Marx</cite></a>, where the concept begins. In the Readings folder.",
         "Saidiya Hartman, <cite>Wayward Lives, Beautiful Experiments</cite>, a model of writing with the archive’s silences.",
         "Eve Kosofsky Sedgwick, “Paranoid Reading and Reparative Reading.” Is hauntology paranoid or reparative, and which do you tend toward?",
