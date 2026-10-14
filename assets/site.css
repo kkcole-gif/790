@@ -264,3 +264,4 @@ ul.after li { margin-top: 0.5rem; }
 .readings a[href*="drive.google.com"], .readings a[href*="prox.lib.ncsu.edu"] { font-weight: 600; text-underline-offset: 3px; }
 .readings a[href*="drive.google.com"]::after { content: " (PDF, NC State sign-in)"; font-weight: 400; font-size: 0.85em; }
 .readings a[href*="prox.lib.ncsu.edu"]::after { content: " (library, NC State sign-in)"; font-weight: 400; font-size: 0.85em; }
+.example-label { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.02em; color: var(--muted, inherit); margin-bottom: 0.1rem; }
