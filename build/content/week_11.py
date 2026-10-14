@@ -11,6 +11,7 @@ CONTENT = {
         "Pages 7 to 9, on false and true needs, anchor the discussion.",
     ],
     "bring": [
+        "Your marked copy of one of the <a href=\"../handouts/prospectus-models.html\">three model prospectus sketches</a>. Mark where each of the five elements begins, and write the first question a committee member would ask.",
         "Your first prospectus paragraph: the problem, why it matters, and who it is for.",
         "A second paragraph offering the Marcusean critique of the first. Where does it reproduce the field’s assumptions? Where does it fail to imagine alternatives?",
         "Your working research question, stated as a question, with three methods which might answer it and one sentence on what each would let you see.",

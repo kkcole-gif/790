@@ -64,7 +64,7 @@ WEEKS = [
         ],
         "bring": [
             "Your marked copy, with a note beside one passage in Federici bearing on your own field, connecting her argument to a dynamic you recognize.",
-            "A committee map. Name each position (chair, readers, outside member), write two or three sentences on why each person, and note whom you have already spoken with.",
+            "A committee map. CRDM committees have four members: a chair from the CRDM core faculty and three more, with at least one from Communication and one from English. Name each person, write two or three sentences on why each belongs, and note whom you have already spoken with. If your Plan of Work already lists a committee, bring it and mark what has changed.",
             "A draft of the email you will send your first committee contact. We workshop it in class.",
         ],
         "questions": [

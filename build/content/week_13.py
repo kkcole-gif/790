@@ -10,6 +10,7 @@ CONTENT = {
     "bring": [
         "Three versions of the same project description, 100 words each: for a hiring committee in your field, for a foundation or nonprofit grant panel, and for a journalist writing about your research area.",
         "One piece of scholarly communication from your field you admire: an article, a chapter, or a public essay. Know its genre, its venue, and what its opening paragraph does.",
+        "A one-page venue and funding map. Name three journals where your work would land, two conferences where it would be welcome, one public or industry venue, and two sources of support for your dissertation year, such as a Graduate School or college fellowship, an external dissertation fellowship, or a professional organization grant in your field. Give each a sentence on why it fits, and note one deadline. The <a href=\"../handouts/how-knowledge-travels.html\">handout</a> lists places to start.",
     ],
     "questions": [
         "What has the PhD given you beyond your content area: which skills, frameworks, and habits of thought?",
@@ -30,7 +31,7 @@ CONTENT = {
         {"handout": "handouts/how-knowledge-travels.html", "title": "How knowledge travels",
          "intro": "Which venues matter, what each genre does, and what an abstract is for are usually learned through mentorship and chance. This activity makes the knowledge explicit.",
          "steps": [
-             "Venue mapping, as a full group: name two or three journals where your work would fit, one conference where it would be welcome, and one public venue for a non-specialist version.",
+             "Venue and funding maps, as a full group: each of you shares one journal, one conference, and one funding source from your map. We build a shared list the cohort keeps.",
              "Discuss who built the prestige hierarchy in your subfield, and which venues welcome interdisciplinary CRDM work.",
              "Draft two abstracts: a 250-word conference abstract (problem, scholarship, method, argument, stakes) and a 100-word public pitch opening with the human problem.",
              "Trade both with a partner. What changes between the versions? Which gives the more honest account of why the work matters?",

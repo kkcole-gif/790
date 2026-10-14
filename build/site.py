@@ -191,6 +191,9 @@ def build_index():
 <p>The course uses threshold grading. Each milestone is assessed as complete and substantive (full points), nearly there (80 percent), or not yet complete (no points). A nearly-there milestone revised to the complete threshold earns its full points. Submit through Canvas, by email, or in hard copy.</p>
 <ul>{''.join(ms)}</ul>
 
+<h2 id="support">Support through exams</h2>
+<p>The months after this course are the most solitary of the degree, so the course builds two structures to carry past it. In Week 10, you draw a support constellation, a companion to your Week 1 map, naming the people, places, and practices which sustain your work, and you pair with a writing partner. From Week 11 through April 22, the writing commons meets for an optional hour after class on Thursdays, and partners trade one page a week. Both continue for as long as you and your partner find them useful.</p>
+
 <h2 id="access">Access and comfort</h2>
 <p>Every session page and handout comes in more than one format. If a format creates a barrier for you, email me, and you will have an alternative before the next session. If you hold an accommodation letter, share it with me in the first two weeks.</p>
 <p>Sessions run close to three hours. Bring food. Leave the room whenever you need to, without asking. You are welcome here as a whole person.</p>
