@@ -16,11 +16,11 @@ COURSE = {
 
 MOVEMENTS = [
     {"id": 1, "numeral": "I", "weeks": "1 to 5", "title": "Who Are We and What Do We Think?",
-     "blurb": "A shared critical vocabulary, and a first account of who each of you is as a scholar. Readings from Giroux, Benjamin, Mbembe, and Brown."},
+     "blurb": "A shared critical vocabulary, and a first account of who each of you is as a scholar. Readings from Giroux, Walter Benjamin, Mbembe, Ruha Benjamin, and Brown."},
     {"id": 2, "numeral": "II", "weeks": "6 to 10", "title": "What Do I Know and Who Helps Me Know It?",
-     "blurb": "Committees, exam lists, and the labor behind both. Readings from Federici, Fisher, and Haraway."},
+     "blurb": "Committees, exam lists, and the labor behind both. Readings from Federici, Delgado Bernal and Villalpando, Fisher, Haraway, and Chakravartty and colleagues."},
     {"id": 3, "numeral": "III", "weeks": "11 to 15", "title": "What Will I Make and Where Am I Going?",
-     "blurb": "The prospectus, and the question of what the work is for. Readings from Marcuse and Ghosh."},
+     "blurb": "The prospectus, and the question of what the work is for. Readings from Smagorinsky and Ghosh, and three model prospectuses."},
 ]
 
 MILESTONES = [
@@ -44,7 +44,7 @@ WEEKS = [
     {"n": 3, "movement": 1, "title": "The Past Is Not Past", "guest": True,
      "summary": "Benjamin, Illuminations. Wreckage and promise gallery. A current doctoral student joins us."},
     {"n": 4, "movement": 1, "title": "Who Gets to Live",
-     "summary": "Mbembe, Necropolitics. Concept translation workshop."},
+     "summary": "Mbembe and Ruha Benjamin. Concept translation workshop."},
     {"n": 5, "movement": 1, "title": "The University Under Neoliberalism", "due": "Identity Statement",
      "summary": "Brown on neoliberalism and the university. Identity statement exchange."},
     {"n": 6, "movement": 2, "title": "The Labor of Knowledge and the Labor of Committees", "guest": True, "built": True,
@@ -53,14 +53,15 @@ WEEKS = [
         "welcome": "The practical work of candidacy begins this week. We read Federici on whose labor builds a field, then turn her question on ourselves with a recently advanced student and a workshop for your first committee email. Bring a draft, rough or not.",
         "lede": "Federici asks whose labor built the fields you inherit. The second half of the session turns her question toward your own degree: whose labor will it require, and on what terms do you ask for it?",
         "facts": [
-            ("Read", "Federici, <cite>Caliban and the Witch</cite>, Introduction and Chapter 2 (about 80 pages)"),
+            ("Read", "Federici, <cite>Caliban and the Witch</cite>, Introduction and two sections of Chapter 2, and Delgado Bernal and Villalpando, “An Apartheid of Knowledge in Academia”"),
             ("Bring", "A committee map and a draft email to your first committee contact"),
             ("Guest", "A recently advanced CRDM student, 11:45 to 12:30"),
             ("Due", "No milestone this week"),
         ],
         "read": [
-            "Silvia Federici, <cite>Caliban and the Witch: Women, the Body, and Primitive Accumulation</cite> (Autonomedia, 2004). Introduction, pages 11 to 19, and Chapter 2, “The Accumulation of Labor and the Degradation of Women: Constructing ‘Difference’ in the ‘Transition to Capitalism,’” pages 61 to 132. <a href=\"https://drive.google.com/file/d/1Tn2NimQtiJQYXCDDqGhjm571BMyPEBt-/view\">Open the reading</a>.",
-            "Read slowly. The argument is dense, and the sections from “Women: The New Commons and the Substitute for the Lost Land” through “The Patriarchy of the Wage,” on the enclosure of women’s bodies and reproductive labor, reward a second pass.",
+            "Silvia Federici, <cite>Caliban and the Witch: Women, the Body, and Primitive Accumulation</cite> (Autonomedia, 2004). <a href=\"https://drive.google.com/file/d/1Tn2NimQtiJQYXCDDqGhjm571BMyPEBt-/view\">Introduction, pages 11 to 19, and the sections of Chapter 2 from “Women: The New Commons and the Substitute for the Lost Land” through “The Patriarchy of the Wage.”</a>",
+            "Dolores Delgado Bernal and Octavio Villalpando, <a href=\"https://prox.lib.ncsu.edu/login?url=https://doi.org/10.1080/713845282\">“An Apartheid of Knowledge in Academia: The Struggle Over the ‘Legitimate’ Knowledge of Faculty of Color,”</a> <cite>Equity &amp; Excellence in Education</cite> 35, no. 2 (2002): 169–180.",
+            "Federici asks whose labor built a field. Delgado Bernal and Villalpando ask whose knowledge the academy counts as legitimate. Read them together before you write to a prospective committee member.",
         ],
         "bring": [
             "Your marked copy, with a note beside one passage in Federici bearing on your own field, connecting her argument to a dynamic you recognize.",
@@ -71,6 +72,7 @@ WEEKS = [
             "Federici reads the witch hunts as a political campaign to discipline women’s bodies at the dawn of capitalism. What does her argument require you to revise about early modernity?",
             "Primitive accumulation usually refers to land and labor. Federici extends the concept to bodies and knowledge. Where does the extension appear in the fields you inherit?",
             "Whose labor built your field? Whose names appear in its canon, and whose do not?",
+            "Delgado Bernal and Villalpando describe an apartheid of knowledge. Whose knowledge will your committee recognize as legitimate, and whose will you need to argue for?",
             "What has your field enclosed or suppressed? Which knowledges has it made to look like non-knowledge?",
             "How does Federici’s materialism sit with the discursive frameworks of Mbembe and Brown?",
             "Committee service is labor, much of it uncounted. What do you owe the faculty you ask to serve, and what do you expect from them in return?",
@@ -110,11 +112,11 @@ WEEKS = [
     {"n": 8, "movement": 2, "title": "Exam List Workshop", "due": "Committee Confirmation",
      "summary": "Structured peer review of working draft lists."},
     {"n": 9, "movement": 2, "title": "Situated Knowledges: Revising the List", "guest": True,
-     "summary": "Haraway, “Situated Knowledges.” A program faculty member joins us. Canon audit of the draft lists."},
+     "summary": "Haraway and “#CommunicationSoWhite.” A program faculty member joins us. Canon audit of the draft lists."},
     {"n": 10, "movement": 2, "title": "Individual Meetings", "due": "Draft Exam List",
      "summary": "No group session. Individual meetings and prospectus seed writing."},
-    {"n": 11, "movement": 3, "title": "One-Dimensional Thinking and the Dissertation Imagination",
-     "summary": "Marcuse, One-Dimensional Man. Method, methodology, epistemology."},
+    {"n": 11, "movement": 3, "title": "Method and the Dissertation Imagination",
+     "summary": "Smagorinsky on the method section. Model prospectus sketches. Method, methodology, epistemology."},
     {"n": 12, "movement": 3, "title": "What Can Humanistic Imagination Actually Do?", "guest": True,
      "summary": "Ghosh, The Great Derangement. The “so what” gauntlet. A CRDM graduate joins us."},
     {"n": 13, "movement": 3, "title": "Paths Forward: Alt-Ac and Otherwise", "guest": True,

@@ -1,14 +1,15 @@
 CONTENT = {
-    "welcome": 'Mbembe is short and demanding, so give him two sittings. The examples you bring will carry much of the conversation, so choose one you care about.',
+    "welcome": 'Mbembe is short and demanding, so give him two sittings. Ruha Benjamin then carries his questions into the technologies many of you study. The examples you bring will carry much of the conversation, so choose one you care about.',
     "lede": "Mbembe extends Foucault’s biopolitics to ask who is allowed to live and who is made to die, by design. This week tests his concepts against examples you bring.",
     "facts": [
-        ("Read", "Mbembe, <cite>Necropolitics</cite>, Introduction and Chapter 3 (about 35 pages)"),
+        ("Read", "Mbembe, <cite>Necropolitics</cite>, Introduction and Chapter 3, and Ruha Benjamin, <cite>Race After Technology</cite>, Introduction (about 80 pages)"),
         ("Bring", "Your marked copy and one example of necropolitical logic"),
         ("Due", "No milestone this week"),
     ],
     "read": [
         "Achille Mbembe, <cite>Necropolitics</cite>, trans. Steve Corcoran (Duke University Press, 2019). <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/j.ctv1131298.4\">Introduction, “The Ordeal of the World,”</a> pages 1 to 8, and <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/j.ctv1131298.7\">Chapter 3, “Necropolitics,”</a> pages 66 to 92. Both open through NC State Libraries on JSTOR, with no limit on readers. Sign in with your Unity ID and download the chapter PDF.",
-        "The reading is short and dense. Give it two sittings.",
+        "Ruha Benjamin, <a href=\"https://drive.google.com/file/d/1wlt0PW-NMkusZwNFUzh_HynZul-eRkzc/view\"><cite>Race After Technology: Abolitionist Tools for the New Jim Code</cite>, Introduction, “The New Jim Code”</a> (Polity, 2019).",
+        "Read Mbembe first, in two sittings. Then read Benjamin for how a design choice becomes a decision about whose life counts.",
     ],
     "bring": [
         "Your marked copy, with three or four sentences in the margin applying one of Mbembe’s concepts to your research area.",
@@ -19,7 +20,8 @@ CONTENT = {
         "For Mbembe, necropolitics describes actual bodies in actual places. Where do you see its logic in what you study?",
         "What would change in your project if you foregrounded the bodies it touches?",
         "Mbembe writes from a specific history and geography. How does his position shape the argument, and how does yours shape your reading?",
-        "How does Mbembe sit alongside, or complicate, Giroux and Benjamin?",
+        "Ruha Benjamin names a New Jim Code: technologies which encode inequity while appearing neutral. Where does her account meet Mbembe’s, and where does it part from it?",
+        "How do Mbembe and Ruha Benjamin sit alongside, or complicate, Giroux and Walter Benjamin?",
     ],
     "schedule": [
         ("10:15–10:30", "Where does Mbembe say Foucault stops short? (pages 66 to 68)"),

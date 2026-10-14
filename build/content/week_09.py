@@ -2,13 +2,15 @@ CONTENT = {
     "welcome": 'Haraway helps us ask where we stand when we claim to know something. A faculty member who chairs committees joins us, and we audit our lists together. Bring whatever your committee contacts have said.',
     "lede": "Haraway argues against the view from nowhere. This week applies her argument to your list, alongside a faculty member who reads lists from the committee’s side of the table.",
     "facts": [
-        ("Read", "Haraway, “Situated Knowledges” (about 25 pages)"),
+        ("Read", "Haraway, “Situated Knowledges,” and Chakravartty et al., “#CommunicationSoWhite” (about 38 pages)"),
         ("Bring", "Your revised draft list, a standpoint paragraph, and any committee responses"),
         ("Guest", "A program faculty member who chairs committees, 10:50 to 11:40"),
         ("Due", "No milestone this week"),
     ],
     "read": [
         "Donna Haraway, “Situated Knowledges: The Science Question in Feminism and the Privilege of Partial Perspective,” <cite>Feminist Studies</cite> 14, no. 3 (1988): 575–599. <a href=\"https://prox.lib.ncsu.edu/login?url=https://www.jstor.org/stable/3178066\">Read it on JSTOR through NC State Libraries</a>.",
+        "Paula Chakravartty, Rachel Kuo, Victoria Grubbs, and Charlton McIlwain, <a href=\"https://doi.org/10.1093/joc/jqy003\">“#CommunicationSoWhite,”</a> <cite>Journal of Communication</cite> 68, no. 2 (2018): 254–266. Free to read.",
+        "Read Haraway for the argument and Chakravartty and colleagues for the evidence: a citation study of whose work communication journals publish and cite. The canon audit uses both.",
     ],
     "bring": [
         "Your draft list, revised after peer review.",
@@ -17,6 +19,7 @@ CONTENT = {
     ],
     "questions": [
         "Haraway argues against the view from nowhere. From where does your list claim to know, and does its structure show it?",
+        "Chakravartty and colleagues show whose work the field cites. Run their question on your own list: whose work does it cite, and whose does it leave out?",
         "Which fields will read your dissertation first? Which will read it skeptically?",
         "If your project is interdisciplinary, which field claims it first, and what does the claim cost the others?",
         "If your project sits within one discipline, which position in the field does your list take, and which does it leave out?",
