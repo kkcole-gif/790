@@ -146,7 +146,7 @@ def build_index():
     body = f"""
 <p class="eyebrow">NC State University &middot; Spring 2027 &middot; CRD 790-001, Professional Paths in CRDM</p>
 <h1>Issues in Communication, Rhetoric, and Digital Media</h1>
-<p class="lede">CRDM 790 sits between coursework and candidacy. Over fifteen weeks, each of you builds a committee, drafts an exam list, and writes a prospectus, while the cohort reads a shared body of theory together.</p>
+<p class="lede">CRDM 790 sits between coursework and candidacy. Over fifteen weeks, each of you assembles a committee, builds an exam list, and drafts a prospectus, while the cohort reads a shared body of theory.</p>
 
 <dl class="facts">
   <dt>Meets</dt><dd>Thursdays, 10:15 am to 1:00 pm, in person, January 14 to April 22</dd>
@@ -159,9 +159,8 @@ def build_index():
 </dl>
 
 <h2 id="about">About the course</h2>
-<p>CRDM 790 is the last course you take as a coursework student in the Ph.D. program in Communication, Rhetoric, and Digital Media. It helps you synthesize the required courses and electives of earlier semesters and pursue your own lines of inquiry. The program brings together rhetorical and communication theory, visual, oral, written, and digital media, and the critical analysis of networked societies. Its range invites work across and within fields, and the seminar draws on this range to generate dissertation ideas, collaboration, and original thought.</p>
-<p>The course does three things at once. It gives the cohort a shared critical vocabulary, a set of texts we read, argue about, and carry into individual projects. It scaffolds the practical work of candidacy: your committee, your comprehensive exam list, and your prospectus. And it asks what kind of scholar you are becoming, what you want your work to do, and what comes after the degree, in whatever form it takes.</p>
-<p>The term moves in three movements. Movement I (Weeks 1 to 5) builds a shared vocabulary and a first account of your scholarly identity. Movement II (Weeks 6 to 10) turns to committees, exam lists, and the labor behind both. Movement III (Weeks 11 to 15) turns to the prospectus and the question of what the work is for.</p>
+<p>CRDM 790 is the last course you take as a coursework student in the Ph.D. program in Communication, Rhetoric, and Digital Media. The program joins rhetorical and communication theory, the study of visual, oral, written, and digital media, and the critical analysis of networked societies. The seminar asks you to draw this range together, from the required courses and electives of earlier semesters, into a line of inquiry you will carry into the dissertation.</p>
+<p>The course does three things at once. It gives the cohort a shared critical vocabulary, a set of texts we read, argue about, and carry into individual projects. It scaffolds the practical work of candidacy: your committee, your comprehensive exam list, and your prospectus. It also asks what kind of scholar you are becoming, what you want your work to do, and what comes after the degree, in whatever form it takes. The three movements of the <a href="#schedule">schedule</a> follow this order.</p>
 
 <h3 id="goals">Course goals</h3>
 <p>By the end of the term, you will be able to:</p>
@@ -170,19 +169,18 @@ def build_index():
   <li>Read foundational texts in critical theory, political philosophy, and humanistic inquiry, and put them to work across CRDM specializations.</li>
   <li>Assemble a dissertation committee suited to your project, and begin the relational work of doctoral mentorship.</li>
   <li>Construct a comprehensive exam list which reflects your specialization, your committee’s expertise, and a defensible rationale.</li>
-  <li>Draft a dissertation prospectus, or an equivalent research proposal, which states a clear problem, situates it in existing scholarship, and proposes a method.</li>
-  <li>Argue for the fit between research question, method, and epistemology, and explain why your method suits your problem.</li>
-  <li>Distinguish the genres of academic and public knowledge, identify venues for your work, and plan how your research will circulate.</li>
+  <li>Draft a dissertation prospectus, or an equivalent research proposal, which states a problem, places it in existing scholarship, proposes a method, and outlines the chapters.</li>
+  <li>Argue for the fit among your research question, method, and epistemology.</li>
+  <li>Map the genres of academic and public knowledge, identify venues for your work, and plan how your research will circulate.</li>
   <li>Practice the generosity which sustains a scholarly community: workshopping, building on, and challenging one another’s work.</li>
 </ol>
-<p><a href="https://docs.google.com/document/d/1uDYfJPdy18-_P-CljEAjahen_0RSQbFCcVc46EoMXhg/edit?usp=sharing">Read the full syllabus</a>, with policies, the reading commons, and the nonacademic prospectus option. It opens with your NC State account.</p>
 
 <h2 id="where">Where things live</h2>
 <div class="panel">
   <p><strong>This site</strong> holds each week's session page, the activity handouts, and the milestone guides. Every page opens without a login and prints cleanly.</p>
   <p><strong><a href="{COURSE['canvas']}">Canvas</a></strong> holds announcements, links to each week’s readings, the reading lead notes, milestone submissions, and grades.</p>
   <p><strong>Readings</strong> are linked from each week page and each Canvas module. Articles open through NC State Libraries. Book PDFs sit in the <a href="https://drive.google.com/drive/folders/1_oq5FLJ_15TWbXKqlqwSArV14u2UHAQe">course Readings folder</a>. Both ask you to sign in with your NC State account.</p>
-  <p><strong>The <a href="https://docs.google.com/document/d/1uDYfJPdy18-_P-CljEAjahen_0RSQbFCcVc46EoMXhg/edit?usp=sharing">syllabus</a></strong> holds course policies and the full reading commons.</p>
+  <p><strong>The <a href="https://docs.google.com/document/d/1uDYfJPdy18-_P-CljEAjahen_0RSQbFCcVc46EoMXhg/edit?usp=sharing">syllabus</a></strong> holds course policies, the reading commons, and the nonacademic prospectus option.</p>
 </div>
 
 <h2 id="schedule">Schedule</h2>
@@ -190,11 +188,11 @@ def build_index():
 {''.join(rows)}
 
 <h2 id="milestones">Milestones</h2>
-<p>The course uses threshold grading. Each milestone is assessed as complete and substantive (full points), nearly there (80 percent), or not yet complete (no points). A nearly-there milestone revised to the complete threshold earns its full points. Submit through Canvas, by email, or in hard copy.</p>
+<p>The course uses threshold grading. Each milestone is assessed as complete and substantive (full points), nearly there (80 percent), or not yet complete (no points). A nearly-there milestone revised to the complete threshold earns its full points. Submit through Canvas, by email, in hard copy, or as a Google Drive link.</p>
 <ul>{''.join(ms)}</ul>
 
 <h2 id="support">Support through exams</h2>
-<p>The months after this course are the most solitary of the degree, so the course builds two structures to carry past it. In Week 10, you draw a support constellation, a companion to your Week 1 map, naming the people, places, and practices which sustain your work, and you pair with a writing partner. From Week 11 through April 22, the writing commons meets for an optional hour after class on Thursdays, and partners trade one page a week. Both continue for as long as you and your partner find them useful.</p>
+<p>Exam preparation is the most solitary stretch of the degree. The course builds two structures to last beyond April. In Week 10, you draw a support constellation, a companion to your Week 1 map, which names the people, places, and practices sustaining your work, and you pair with a writing partner. From Week 11 through April 22, the writing commons meets for an optional hour after class on Thursdays, and partners trade one page a week. Both continue as long as you and your partner find them useful.</p>
 
 <h2 id="access">Access and comfort</h2>
 <p>Every session page and handout comes in more than one format. If a format creates a barrier for you, email me, and you will have an alternative before the next session. If you hold an accommodation letter, share it with me in the first two weeks.</p>
