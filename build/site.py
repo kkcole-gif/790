@@ -168,7 +168,7 @@ def build_index():
   <li>Articulate a scholarly identity: who you are as a researcher, which questions you pursue, and why they matter.</li>
   <li>Read foundational texts in critical theory, political philosophy, and humanistic inquiry, and put them to work across CRDM specializations.</li>
   <li>Assemble a dissertation committee suited to your project, and begin the relational work of doctoral mentorship.</li>
-  <li>Construct a comprehensive exam list which reflects your specialization, your committee’s expertise, and a defensible rationale.</li>
+  <li>Construct a comprehensive exam list which argues for the fields your project answers to, reflects your committee’s expertise, and rests on a defensible rationale.</li>
   <li>Draft a dissertation prospectus, or an equivalent research proposal, which states a problem, places it in existing scholarship, proposes a method, and outlines the chapters.</li>
   <li>Argue for the fit among your research question, method, and epistemology.</li>
   <li>Map the genres of academic and public knowledge, identify venues for your work, and plan how your research will circulate.</li>
